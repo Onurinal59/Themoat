@@ -747,7 +747,7 @@ export const MODULES_DATA: LearningModule[] = [
       prevTitle: "6. Adım: Yıkıcı İnovasyon ve Oyun Teorisi",
       takeawayFromPrev: "Fiyat savaşları dinamiklerini ve alttan gelen yıkıcı inovasyon tuzaklarını kavradık.",
       transitionQuestion: "Peki bir şirketin kâr motoru içten nasıl çalışır? Kâr marjıyla mı yoksa varlık devir hızıyla mı kazanıyor?",
-      nextTitle: "8. Adım: Tersine DCF, Markalar ve Sürdürülebilir Değer Kontrol Listesi",
+      nextTitle: "8. Adım: Tersine DCF, Markalar ve Sustainable Value Creation Checklist",
       whyNext: "Şirketin tüm iç ve dış anatomisini çözdük! Şimdi büyük finale ulaşıyoruz: Piyasanın hisse fiyatına gizlediği hendek süresini (CAP) tersine mühendislikle çözeceğiz.",
       previewQuestion: "Hisse fiyatının kaç yıllık kusursuz bir kâr süresi ima ettiğini nasıl hesaplarız?",
     },
@@ -856,12 +856,12 @@ export const MODULES_DATA: LearningModule[] = [
   {
     id: 8,
     slug: "oyun-teorisi-markalar-ve-kontrol-listesi",
-    title: "8. Adım: Tersine DCF, Markalar ve Sürdürülebilir Değer Kontrol Listesi",
+    title: "8. Adım: Tersine DCF, Markalar ve Sustainable Value Creation Checklist",
     subtitle: "Büyük Final: Piyasa Beklentisini Çöz, Tiffany Testi ve Değer Yaratımı Denetimi",
     estimatedMinutes: 20,
     iconName: "CheckSquare",
     description:
-      "Tüm parçaları birleştiriyoruz: Tersine DCF ile piyasanın kaç yıllık hendek (CAP) fiyatladığını çözme, Marka bir hendek midir? (Tiffany pırlanta testi) ve rapordan uyarlanan Sürdürülebilir Değer Yaratımı Kontrol Listesi.",
+      "Tüm parçaları birleştiriyoruz: Tersine DCF ile piyasanın kaç yıllık hendek (CAP) fiyatladığını çözme, Marka bir hendek midir? (Tiffany pırlanta testi) ve rapordan uyarlanan Sustainable Value Creation Checklist.",
     zeroKnowledgeSummary:
       "Geleceği tahmin etmek yerine, mevcut hisse fiyatının kaç yıllık olağanüstü performans ima ettiğini Tersine DCF ile çözebilirsiniz. Bu beklentinin kesin bir gerçek değil, modele dayalı bir yorum olduğunu bilerek, öğrendiklerinizi sistematik bir kontrol listesiyle denetleyebilirsiniz.",
     sourceAndAssumption: {
@@ -869,7 +869,7 @@ export const MODULES_DATA: LearningModule[] = [
       scopeNote: "Tersine DCF ve Kontrol Listesi, şirketin piyasa beklentilerini ve rekabet avantajını sistematik denetlemek için rapordan uyarlanmış analitik çerçevelerdir.",
       assumptions: [
         "Tersine DCF çıktısı piyasa beklentisinin analitik bir yorumudur, kesin tahmin değildir.",
-        "Kontrol listesi rapordaki 75 maddelik orijinal anketten 22 odak soruya uyarlanmıştır."
+        "Kontrol listesi rapordaki 75 maddelik orijinal anketten odak çalışma sorularına uyarlanmıştır."
       ]
     },
     moduleBridge: {
@@ -943,10 +943,10 @@ export const MODULES_DATA: LearningModule[] = [
       },
       {
         id: "m8-s3",
-        title: "3. Sürdürülebilir Değer Yaratımı Kontrol Listesi (Rapordan Uyarlanmış Çalışma Listesi)",
-        summary: "Bir şirketi analiz ederken rapordaki metodolojiden uyarlanan 22 odak soruyla sistematik denetim.",
+        title: "3. Sustainable Value Creation Checklist",
+        summary: "Bir şirketi analiz ederken rapordaki metodolojiden uyarlanan odak sorularla sistematik denetim.",
         content: [
-          "Mauboussin ve Callahan'ın 'Checklist for Measuring Sustainable Value Creation' (ss. 67–69) bölümü toplam 75 soru ve alt sorudan oluşur. Bu akademide, öğrencilerin pratik yapabilmesi için bu sorular 5 ana kategoride 22 odak çalışma maddesine uyarlanmıştır:",
+          "Mauboussin ve Callahan'ın 'Checklist for Measuring Sustainable Value Creation' (ss. 67–69) bölümü toplam 75 soru ve alt sorudan oluşur. Bu akademide, öğrencilerin pratik yapabilmesi için bu sorular 5 ana kategoride odak çalışma maddelerine uyarlanmıştır:",
           "1. Sektör Yapısı ve Kâr Havuzu (Tedarikçi/Müşteri pazarlık gücü)",
           "2. Giriş Engelleri ve Ölçek Avantajları (MES, Wright Yasası, Ağ Etkisi)",
           "3. Tüketici Avantajları ve Geçiş Maliyetleri (WTP tavanı, Lock-in)",

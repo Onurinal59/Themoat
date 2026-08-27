@@ -749,7 +749,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       prevTitle: "Step 6: Disruptive Innovation and Game Theory",
       takeawayFromPrev: "We learned game theory price discipline and disruptive innovation mechanics.",
       transitionQuestion: "How does a company's internal engine produce its ROIC? Is it driven by Margin or Capital Turnover?",
-      nextTitle: "Step 8: Reverse DCF, Brands and Sustainable Value Checklist",
+      nextTitle: "Step 8: Reverse DCF, Brands and Sustainable Value Creation Checklist",
       whyNext: "Having completed internal and external analysis, we reach the grand finale: reverse-engineering the Competitive Advantage Period (CAP) embedded in stock prices.",
       previewQuestion: "How many years of exceptional moat returns has the market already priced into the stock?"
     },
@@ -871,7 +871,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       scopeNote: "Reverse DCF and the Checklist are analytical frameworks adapted from the report for educational assessment of competitive durability.",
       assumptions: [
         "Implied CAP is an analytical interpretation of market price, not a guaranteed future outcome.",
-        "The checklist adapts the original 75 questions into 22 focused operational items."
+        "The checklist adapts the original 75 questions into focused operational items."
       ]
     },
     moduleBridge: {
@@ -945,10 +945,10 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "m8-s3",
-        title: "3. Sustainable Value Creation Checklist (Adapted Working Checklist)",
-        summary: "A systematic 22-item audit across 5 categories adapted from the report's methodology.",
+        title: "3. Sustainable Value Creation Checklist",
+        summary: "A systematic audit across 5 categories adapted from the report's methodology.",
         content: [
-          "Mauboussin & Callahan's 'Checklist for Measuring Sustainable Value Creation' (pp. 67–69) comprises 75 questions and sub-items. For practical educational analysis, this framework is adapted into 22 focused working criteria across 5 dimensions:",
+          "Mauboussin & Callahan's 'Checklist for Measuring Sustainable Value Creation' (pp. 67–69) comprises 75 questions and sub-items. For practical educational analysis, this framework is adapted into focused working criteria across 5 dimensions:",
           "1. Industry Structure & Profit Pool (Buyer/Supplier bargaining power)",
           "2. Entry Barriers & Scale Advantages (MES, Wright's Law, Network Effects)",
           "3. Customer Advantages & Switching Costs (WTP ceiling, Lock-in)",

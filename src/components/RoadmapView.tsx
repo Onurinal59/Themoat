@@ -17,7 +17,7 @@ import {
   Milestone,
   ShieldCheck,
   Zap,
-  Lock,
+  Eye,
   PlayCircle,
   Award
 } from "lucide-react";
@@ -293,7 +293,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
           {modules.map((module, idx) => {
             const isCompleted = userState.completedModules.includes(module.id);
             const isNext = idx === nextUpIndex;
-            const isLocked = !isCompleted && !isNext;
+            const isPreview = !isCompleted && !isNext;
             const quizScore = userState.quizScores[module.id];
             
             const phaseInfo = getPhaseInfo(idx);
@@ -326,11 +326,12 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                         ? 'border-indigo-500 scale-100' 
                         : isNext 
                             ? 'border-indigo-500 scale-125 ring-4 ring-indigo-500/20 shadow-[0_0_15px_rgba(99,102,241,0.6)] animate-pulse' 
-                            : 'border-slate-300 dark:border-slate-700 scale-75'
+                            : 'border-slate-300 dark:border-slate-700 scale-90'
                     }`}
                   >
                     {isCompleted && <div className="w-2 h-2 rounded-full bg-indigo-500"></div>}
                     {isNext && <div className="w-2.5 h-2.5 rounded-full bg-indigo-500"></div>}
+                    {isPreview && <div className="w-1.5 h-1.5 rounded-full bg-slate-400 dark:bg-slate-500"></div>}
                   </div>
 
                   {/* Module Card */}
@@ -339,14 +340,14 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-20px" }}
                     transition={{ duration: 0.25, delay: (idx % 3) * 0.05 }}
-                    whileHover={!isLocked ? { scale: 1.008 } : {}}
-                    onClick={() => !isLocked && onSelectModule(module)}
-                    className={`relative p-5 sm:p-6 rounded-2xl border transition-all duration-200 group ${
-                      isLocked
-                        ? "bg-slate-50/70 dark:bg-slate-900/50 border-slate-200/80 dark:border-slate-800/80 cursor-not-allowed"
-                        : isNext
-                        ? "bg-white dark:bg-slate-900 border-indigo-400 dark:border-indigo-500 shadow-md shadow-indigo-500/10 ring-2 ring-indigo-500/20 cursor-pointer overflow-hidden"
-                        : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-md cursor-pointer overflow-hidden"
+                    whileHover={{ scale: 1.008 }}
+                    onClick={() => onSelectModule(module)}
+                    className={`relative p-5 sm:p-6 rounded-2xl border transition-all duration-200 group cursor-pointer overflow-hidden ${
+                      isNext
+                        ? "bg-white dark:bg-slate-900 border-indigo-400 dark:border-indigo-500 shadow-md shadow-indigo-500/10 ring-2 ring-indigo-500/20"
+                        : isPreview
+                        ? "bg-slate-50/80 dark:bg-slate-900/60 border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-md"
+                        : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 shadow-xs hover:border-slate-300 dark:hover:border-slate-700 hover:shadow-md"
                     }`}
                   >
                     <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-between items-start sm:items-center">
@@ -356,8 +357,8 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                             className={`px-2.5 py-0.5 rounded-md text-xs font-black uppercase tracking-wider border ${
                               isNext
                                 ? "bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-700"
-                                : isLocked
-                                ? "bg-slate-100 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
+                                : isPreview
+                                ? "bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700"
                                 : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700"
                             }`}
                           >
@@ -369,66 +370,64 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                           <span className="flex items-center gap-1 text-xs font-medium text-slate-600 dark:text-slate-400">
                             <Clock className="w-3 h-3 text-slate-400" /> {module.estimatedMinutes} {isEnglish ? "Min" : "Dk"}
                           </span>
-                          {quizScore !== undefined && (
+                          {isCompleted ? (
                             <span className="px-2 py-0.5 rounded text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
                               <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
-                              {isEnglish ? `Score: ${quizScore}%` : `Skor: %${quizScore}`}
+                              {isEnglish ? `Completed${quizScore !== undefined ? ` • ${quizScore}%` : ""}` : `Tamamlandı${quizScore !== undefined ? ` • %${quizScore}` : ""}`}
+                            </span>
+                          ) : isNext ? (
+                            <span className="px-2 py-0.5 rounded text-xs font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 flex items-center gap-1">
+                              <Sparkles className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
+                              {isEnglish ? "Continue learning" : "Öğrenmeye devam et"}
+                            </span>
+                          ) : (
+                            <span className="px-2 py-0.5 rounded text-xs font-bold bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800 flex items-center gap-1">
+                              <Eye className="w-3 h-3 text-sky-600 dark:text-sky-400" />
+                              {isEnglish ? "Preview available" : "Önizleme açık"}
                             </span>
                           )}
                         </div>
 
                         <h3
-                          className={`text-base sm:text-lg font-bold transition-colors leading-snug ${
-                            isLocked
-                              ? "text-slate-600 dark:text-slate-400"
-                              : "text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
-                          }`}
+                          className="text-base sm:text-lg font-bold transition-colors leading-snug text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
                         >
                           {module.title}
                         </h3>
 
                         <p
-                          className={`text-xs sm:text-sm leading-relaxed ${
-                            isLocked
-                              ? "text-slate-500 dark:text-slate-400"
-                              : "text-slate-600 dark:text-slate-300"
-                          }`}
+                          className="text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300"
                         >
                           {module.description}
                         </p>
 
                         {/* Takeaway Teaser */}
-                        {!isLocked && (
-                          <div className="p-2.5 sm:p-3 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/60 dark:border-amber-900/40 text-xs text-amber-900 dark:text-amber-200 font-medium flex items-start gap-2 mt-1">
-                            <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
-                            <span className="leading-relaxed">{module.zeroKnowledgeSummary}</span>
-                          </div>
-                        )}
+                        <div className="p-2.5 sm:p-3 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/60 dark:border-amber-900/40 text-xs text-amber-900 dark:text-amber-200 font-medium flex items-start gap-2 mt-1">
+                          <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                          <span className="leading-relaxed">{module.zeroKnowledgeSummary}</span>
+                        </div>
                       </div>
 
                       {/* CTA / Status */}
                       <div className="shrink-0 pt-1 sm:pt-0 w-full sm:w-auto">
-                        {isLocked ? (
-                          <div className="flex items-center justify-center gap-2 text-slate-500 dark:text-slate-400 text-xs font-semibold px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/60 min-h-[44px] w-full sm:w-auto border border-slate-200/60 dark:border-slate-700/60">
-                            <Lock className="w-3.5 h-3.5" />
-                            <span>{isEnglish ? "Locked" : "Kilitli"}</span>
-                          </div>
-                        ) : (
-                          <button
-                            className={`w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all min-h-[44px] cursor-pointer shadow-xs active:scale-98 ${
-                              isNext
-                                ? "bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-600/25 shadow-md"
-                                : "bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
-                            }`}
-                          >
-                            <span>
-                              {isCompleted
-                                ? isEnglish ? "Review Masterclass" : "Dersi Tekrarla"
-                                : isEnglish ? "Start Masterclass" : "Dersi Başlat"}
-                            </span>
-                            <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
-                          </button>
-                        )}
+                        <button
+                          className={`w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all min-h-[44px] cursor-pointer shadow-xs active:scale-98 ${
+                            isNext
+                              ? "bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-600/25 shadow-md"
+                              : isCompleted
+                              ? "bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
+                              : "bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700"
+                          }`}
+                        >
+                          {isPreview && <Eye className="w-4 h-4 shrink-0 text-slate-500 dark:text-slate-400" />}
+                          <span>
+                            {isCompleted
+                              ? isEnglish ? "Review Masterclass" : "Dersi Tekrarla"
+                              : isNext
+                              ? isEnglish ? (idx === 0 ? "Start Masterclass" : "Continue Masterclass") : (idx === 0 ? "Dersi Başlat" : "Derse Devam Et")
+                              : isEnglish ? "Preview Masterclass" : "Dersi Önizle"}
+                          </span>
+                          <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
+                        </button>
                       </div>
                     </div>
                   </motion.div>

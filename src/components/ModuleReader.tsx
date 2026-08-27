@@ -44,6 +44,8 @@ import {
   Milestone,
   FileText,
   ExternalLink,
+  Eye,
+  Info,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -217,6 +219,13 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
   const prevModule = currentIndex > 0 ? allModules[currentIndex - 1] : null;
   const nextModule = currentIndex < allModules.length - 1 ? allModules[currentIndex + 1] : null;
 
+  const isCurrentModuleCompleted = userState.completedModules.includes(module.id);
+  const isPrerequisiteMet = prevModule ? userState.completedModules.includes(prevModule.id) : true;
+  const isPreviewMode = !isCurrentModuleCompleted && !isPrerequisiteMet;
+
+  const isCurrentQuizPassed = isQuizSubmitted && quizScore !== null && quizScore >= 66;
+  const isNextModuleNormalLearning = isCurrentModuleCompleted || isCurrentQuizPassed;
+
   const handleOptionSelect = (questionId: string, optionIndex: number) => {
     if (isQuizSubmitted) return;
     setSelectedAnswers((prev) => ({
@@ -226,6 +235,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
   };
 
   const handleSubmitQuiz = () => {
+    if (isPreviewMode) return;
     if (module.quiz.length === 0) return;
 
     let correctCount = 0;
@@ -238,7 +248,11 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
     const score = Math.round((correctCount / module.quiz.length) * 100);
     setQuizScore(score);
     setIsQuizSubmitted(true);
-    onCompleteModule(module.id, score);
+
+    // Only mark module complete and unlock next step if passed (>= 66%)
+    if (score >= 66 || module.quiz.length === 0) {
+      onCompleteModule(module.id, score);
+    }
 
     // Trigger confetti if high score
     if (score >= 66) {
@@ -352,6 +366,40 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
           </motion.button>
         </div>
       </div>
+
+      {/* Preview Mode Banner */}
+      {isPreviewMode && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-4 sm:p-5 rounded-2xl bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 text-amber-950 dark:text-amber-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs"
+        >
+          <div className="flex items-start sm:items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-700 dark:text-amber-300 flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
+              <Eye className="w-4.5 h-4.5" />
+            </div>
+            <div className="text-xs sm:text-sm leading-relaxed">
+              <span className="font-extrabold text-amber-900 dark:text-amber-200">
+                {isEnglish ? "Preview mode — " : "Önizleme modu — "}
+              </span>
+              <span className="text-amber-800 dark:text-amber-300">
+                {isEnglish
+                  ? `You can explore this lesson. To record progress and complete the module, first pass the Step 0${prevModule ? prevModule.id : module.id - 1} quiz.`
+                  : `Bu dersi inceleyebilirsin. İlerlemeyi kaydetmek ve modülü tamamlamak için önce Step 0${prevModule ? prevModule.id : module.id - 1} quizini geç.`}
+              </span>
+            </div>
+          </div>
+
+          {prevModule && (
+            <button
+              onClick={() => onSelectModule(prevModule)}
+              className="shrink-0 self-end sm:self-auto px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer min-h-[36px] active:scale-98"
+            >
+              {isEnglish ? `Go to Step 0${prevModule.id}` : `Step 0${prevModule.id}’e Git`}
+            </button>
+          )}
+        </motion.div>
+      )}
 
       {/* Module Header Card */}
       <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
@@ -954,7 +1002,14 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
         {/* Quiz Submit Bar */}
         <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           <div className="text-xs text-slate-500 dark:text-slate-400">
-            {isQuizSubmitted ? (
+            {isPreviewMode ? (
+              <span className="text-amber-700 dark:text-amber-300 font-semibold flex items-center gap-1.5">
+                <Info className="w-4 h-4 shrink-0" />
+                {isEnglish
+                  ? "To save this quiz score, complete the previous module first."
+                  : "Bu quiz’i kaydetmek için önce önceki modülü tamamla."}
+              </span>
+            ) : isQuizSubmitted ? (
               <span className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
                 <Trophy className="w-4 h-4 text-amber-500 shrink-0" />
                 {isEnglish
@@ -966,7 +1021,17 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             )}
           </div>
 
-          {!isQuizSubmitted ? (
+          {isPreviewMode ? (
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+              <button
+                disabled
+                aria-disabled="true"
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-sm font-bold opacity-75 cursor-not-allowed min-h-[44px] select-none"
+              >
+                {isEnglish ? "Complete Test & Save Score" : "Testi Tamamla & Puanı Kaydet"}
+              </button>
+            </div>
+          ) : !isQuizSubmitted ? (
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
@@ -976,8 +1041,8 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             >
               {isEnglish ? "Complete Test & Save Score" : "Testi Tamamla & Puanı Kaydet"}
             </motion.button>
-          ) : (
-            nextModule && (
+          ) : isNextModuleNormalLearning ? (
+            nextModule ? (
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
@@ -987,13 +1052,33 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 <span>{isEnglish ? `Continue to Next Step (Step 0${nextModule.id})` : `Sonraki Adıma Geç (Adım 0${nextModule.id})`}</span>
                 <ArrowRight className="w-4 h-4 shrink-0" />
               </motion.button>
+            ) : (
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={onBackToRoadmap}
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
+              >
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>{isEnglish ? "Academy Completed! View Roadmap" : "Akademi Tamamlandı! Müfredatı Gör"}</span>
+              </motion.button>
             )
+          ) : (
+            <motion.button
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={handleResetQuiz}
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
+            >
+              <RotateCcw className="w-4 h-4 shrink-0" />
+              <span>{isEnglish ? "Retake Quiz to Unlock Next Step" : "Kilidi Açmak İçin Testi Tekrar Çöz"}</span>
+            </motion.button>
           )}
         </div>
       </div>
 
       {/* Bottom Prev / Next Navigation Bar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-slate-200/80 dark:border-slate-800/80">
         {prevModule ? (
           <motion.button
             whileHover={{ scale: 1.02, x: -2 }}
@@ -1013,9 +1098,22 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             whileHover={{ scale: 1.02, x: 2 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onSelectModule(nextModule)}
-            className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition-colors cursor-pointer min-h-[44px]"
+            className={`flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-sm font-bold shadow-xs transition-colors cursor-pointer min-h-[44px] ${
+              isNextModuleNormalLearning
+                ? "bg-indigo-600 hover:bg-indigo-700 text-white shadow-indigo-600/25 shadow-md"
+                : "bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700"
+            }`}
           >
-            <span>{isEnglish ? `Next Step (0${nextModule.id})` : `Sonraki Adım (0${nextModule.id})`}</span>
+            {!isNextModuleNormalLearning && <Eye className="w-4 h-4 shrink-0 text-slate-500 dark:text-slate-400" />}
+            <span>
+              {isNextModuleNormalLearning
+                ? isEnglish
+                  ? `Continue to Next Step (Step 0${nextModule.id})`
+                  : `Sonraki Adıma Geç (Adım 0${nextModule.id})`
+                : isEnglish
+                ? `Preview Step 0${nextModule.id}`
+                : `Step 0${nextModule.id} Önizle`}
+            </span>
             <ArrowRight className="w-4 h-4 shrink-0" />
           </motion.button>
         )}

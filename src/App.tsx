@@ -74,9 +74,10 @@ export default function App() {
   const activeModule = activeModuleId ? currentModules.find(m => m.id === activeModuleId) || null : null;
   const currentModuleIndex = activeModule ? currentModules.findIndex(m => m.id === activeModule.id) : -1;
   const hasNextModule = currentModuleIndex !== -1 && currentModuleIndex < currentModules.length - 1;
+  const isCurrentModuleCompleted = activeModule ? userState.completedModules.includes(activeModule.id) : false;
 
   const handleNextModuleFromBottomNav = () => {
-    if (hasNextModule) {
+    if (hasNextModule && activeModule) {
       handleSelectModule(currentModules[currentModuleIndex + 1]);
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -466,6 +467,7 @@ export default function App() {
         }}
         onNextModule={handleNextModuleFromBottomNav}
         hasNextModule={hasNextModule}
+        isNextModuleUnlocked={isCurrentModuleCompleted}
       />
     </div>
   );

@@ -78,7 +78,7 @@ export const MoatChecklistSim: React.FC = () => {
   const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   const categories = [
-    { id: "all", label: isEnglish ? "All 22 Items" : "Tüm Maddeler (22)" },
+    { id: "all", label: isEnglish ? "All Items" : "Tüm Maddeler" },
     ...Array.from(new Set(checklistItems.map((item) => item.category))).map((cat) => ({
       id: cat,
       label: cat,
@@ -144,16 +144,16 @@ export const MoatChecklistSim: React.FC = () => {
               {isEnglish ? "Module 1-8 Comprehensive Diagnostic" : "Modül 1-8 Kapsamlı Hendek Testi"}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {isEnglish ? "Sustainable Value Creation Checklist (Adapted from Mauboussin & Callahan 2024)" : "Sürdürülebilir Değer Yaratımı Kontrol Listesi (Mauboussin & Callahan 2024 Raporundan Uyarlanmıştır)"}
+              {isEnglish ? "Sustainable Value Creation Checklist (Adapted from Mauboussin & Callahan 2024)" : "Sürdürülebilir Değer Yaratma Kontrol Listesi (Mauboussin & Callahan 2024 Raporundan Uyarlanmıştır)"}
             </span>
           </div>
           <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {isEnglish ? "Sustainable Value Creation Checklist (22 Focused Items)" : "Sürdürülebilir Değer Yaratımı Kontrol Listesi (22 Odak Madde)"}
+            {isEnglish ? "Sustainable Value Creation Checklist" : "Sürdürülebilir Değer Yaratma Kontrol Listesi"}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
             {isEnglish
-              ? "Audit any target company against 22 working criteria across 5 structural dimensions. (Adapted from Mauboussin & Callahan 2024, pp. 67–69)."
-              : "Herhangi bir şirketi 5 stratejik boyutta 22 odak kritere göre denetleyin. (Mauboussin & Callahan 2024 raporu ss. 67–69'daki 75 sorudan uyarlanmıştır)."}
+              ? "Audit any target company against core criteria across 5 structural dimensions. (Adapted from Mauboussin & Callahan 2024, pp. 67–69)."
+              : "Herhangi bir şirketi 5 stratejik boyuttaki kriterlere göre denetleyin. (Mauboussin & Callahan 2024 raporu ss. 67–69'daki sorulardan uyarlanmıştır)."}
           </p>
         </div>
 
