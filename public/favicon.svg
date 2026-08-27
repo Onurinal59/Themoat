@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="40%" stop-color="#f59e0b" />
+      <stop offset="100%" stop-color="#d97706" />
+    </linearGradient>
+    <linearGradient id="moatWater" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+  </defs>
+
+  <!-- High contrast dark/indigo squircle container -->
+  <rect width="32" height="32" rx="7" fill="url(#bgGrad)" />
+  <rect x="0.75" y="0.75" width="30.5" height="30.5" rx="6.25" stroke="#818cf8" stroke-width="1.5" stroke-opacity="0.4" fill="none" />
+
+  <!-- Castle Fortification / Moat Castle (Crisp Geometry for 16px/32px tabs) -->
+  <path d="M 7 11 L 7 21 C 7 24.5 16 27.5 16 27.5 C 16 27.5 25 24.5 25 21 L 25 11 L 22 11 L 22 14 L 19 14 L 19 11 L 16 11 L 16 14 L 13 14 L 13 11 L 10 11 L 10 14 L 7 14 Z" 
+        fill="url(#goldGrad)" />
+
+  <!-- Shield Core (White & Indigo Contrast) -->
+  <path d="M 16 13 L 21 20 L 11 20 Z" fill="#ffffff" />
+  <path d="M 16 15.5 L 19 19.5 L 13 19.5 Z" fill="#1e1b4b" />
+
+  <!-- Moat Water Wave at Base -->
+  <path d="M 6 25 Q 11 23 16 25 T 26 25" stroke="url(#moatWater)" stroke-width="2" stroke-linecap="round" fill="none" />
+</svg>

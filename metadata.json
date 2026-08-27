@@ -1,0 +1,6 @@
+{
+  "name": "Ekonomik Hendek Akademisi",
+  "description": "Michael Mauboussin'in Morgan Stanley 'Measuring the Moat' metodolojisini öğreten, 8 aşamalı müfredat, 8 kurumsal formül atölyesi, 11 interaktif simülatör, 10-K/KAP bilanço röntgeni ve şirket hendek düellosu sunan platform.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

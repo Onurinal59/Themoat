@@ -1,0 +1,323 @@
+import React, { useState } from "react";
+import {
+  Shield,
+  Target,
+  Award,
+  RotateCcw,
+  HelpCircle,
+  CheckCircle2,
+  Trophy,
+  Swords,
+  Layers,
+  BarChart3,
+} from "lucide-react";
+import {
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  CartesianGrid,
+  Cell,
+  Legend,
+} from "recharts";
+import { useLanguage } from "../../context/LanguageContext";
+import { CustomChartTooltip } from "../ChartTooltip";
+
+export const ColonelBlottoSim: React.FC = () => {
+  const { isEnglish } = useLanguage();
+  const [b1, setB1] = useState<number>(35);
+  const [b2, setB2] = useState<number>(35);
+  const [b3, setB3] = useState<number>(30);
+
+  // Opponent default allocation (Exhibit 37: 30, 30, 40)
+  const oppB1 = 30;
+  const oppB2 = 30;
+  const oppB3 = 40;
+
+  const totalSoldiers = b1 + b2 + b3;
+  const isValid = totalSoldiers === 100;
+
+  // Battle outcomes
+  const win1 = b1 > oppB1;
+  const tie1 = b1 === oppB1;
+  const win2 = b2 > oppB2;
+  const tie2 = b2 === oppB2;
+  const win3 = b3 > oppB3;
+  const tie3 = b3 === oppB3;
+
+  const playerWins = (win1 ? 1 : 0) + (win2 ? 1 : 0) + (win3 ? 1 : 0);
+  const oppWins = (!win1 && !tie1 ? 1 : 0) + (!win2 && !tie2 ? 1 : 0) + (!win3 && !tie3 ? 1 : 0);
+
+  const overallWinner =
+    playerWins > oppWins
+      ? isEnglish
+        ? "🏆 Strategic Victory! (2+ Fronts Won)"
+        : "🏆 Stratejik Zafer! (2+ Cephe Kazanıldı)"
+      : oppWins > playerWins
+      ? isEnglish
+        ? "⚠️ Incumbent Retains Dominance"
+        : "⚠️ Pazar Lideri Hakimiyetini Korudu"
+      : isEnglish
+      ? "🤝 Stalemate (Tie)"
+      : "🤝 Berabere Kaldınız";
+
+  const handlePreset = (alloc: [number, number, number]) => {
+    setB1(alloc[0]);
+    setB2(alloc[1]);
+    setB3(alloc[2]);
+  };
+
+  // Recharts Data
+  const chartData = [
+    {
+      name: isEnglish ? "Front 1 (Core)" : "1. Cephe (Ana Pazar)",
+      player: b1,
+      incumbent: oppB1,
+    },
+    {
+      name: isEnglish ? "Front 2 (Growth)" : "2. Cephe (Büyüme)",
+      player: b2,
+      incumbent: oppB2,
+    },
+    {
+      name: isEnglish ? "Front 3 (Niche)" : "3. Cephe (Niş/Ar-Ge)",
+      player: b3,
+      incumbent: oppB3,
+    },
+  ];
+
+  return (
+    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-7 space-y-6 text-slate-800 dark:text-slate-100 shadow-xs" id="blotto-sim">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+        <div>
+          <div className="flex flex-wrap items-center gap-2 mb-1">
+            <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50">
+              {isEnglish ? "Module 6+ Strategy Terminal" : "Modül 6+ İleri Strateji Terminali"}
+            </span>
+            <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+              {isEnglish ? "Colonel Blotto Asymmetric Budget Allocation" : "Albay Blotto Asimetrik Bütçe Dağıtımı"}
+            </span>
+          </div>
+          <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
+            {isEnglish ? "Colonel Blotto Strategic Resource Allocation" : "Albay Blotto Stratejik Kaynak Dağıtım Simülasyonu"}
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
+            {isEnglish
+              ? "Allocate your 100-unit corporate budget across 3 competitive fronts. Winning at least 2 fronts wins the overall market war."
+              : "Toplam 100 birimlik şirket bütçenizi 3 farklı pazar/ürün cephesine dağıtın. En az 2 cephede lider rakibi geçen savaşı kazanır!"}
+          </p>
+        </div>
+
+        <button
+          onClick={() => handlePreset([35, 35, 30])}
+          className="self-start md:self-auto flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors cursor-pointer"
+        >
+          <RotateCcw className="w-3.5 h-3.5" /> {isEnglish ? "Reset" : "Sıfırla"}
+        </button>
+      </div>
+
+      {/* Preset Strategies */}
+      <div>
+        <label className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-2">
+          {isEnglish ? "Preset Allocation Gambits:" : "Stratejik Hamle Şablonları:"}
+        </label>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          {[
+            { nameTr: "Odaklanmış Saldırı (35-35-30)", nameEn: "Focused Attack (35-35-30)", alloc: [35, 35, 30] as [number, number, number] },
+            { nameTr: "Eşit Dağılım (33-33-34)", nameEn: "Equal Spread (33-33-34)", alloc: [33, 33, 34] as [number, number, number] },
+            { nameTr: "Niş Yıldırım (10-45-45)", nameEn: "Niche Blitz (10-45-45)", alloc: [10, 45, 45] as [number, number, number] },
+            { nameTr: "Ana Pazar Kalesi (55-25-20)", nameEn: "Core Fortress (55-25-20)", alloc: [55, 25, 20] as [number, number, number] },
+          ].map((g, idx) => (
+            <button
+              key={idx}
+              onClick={() => handlePreset(g.alloc)}
+              className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 text-left text-xs transition-all cursor-pointer hover:border-indigo-300"
+            >
+              <span className="font-bold text-slate-900 dark:text-slate-100 block">
+                {isEnglish ? g.nameEn : g.nameTr}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* 2-Column Terminal Architecture (grid lg:grid-cols-12) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Left Column: 3 Battlefield Sliders (5 cols) */}
+        <div className="lg:col-span-5 space-y-4 bg-slate-50 dark:bg-slate-800/40 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+              <Swords className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+              {isEnglish ? "Deploy 100 Budget Units:" : "100 Birim Bütçe Dağıtımı:"}
+            </h3>
+            <span
+              className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
+                isValid
+                  ? "bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300"
+                  : "bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300"
+              }`}
+            >
+              {totalSoldiers} / 100
+            </span>
+          </div>
+
+          {/* Front 1 Slider */}
+          <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-1.5 shadow-2xs">
+            <div className="flex justify-between items-center text-xs">
+              <span className="font-bold text-slate-700 dark:text-slate-300">
+                {isEnglish ? `Front 1: Core Market (Rival: ${oppB1})` : `1. Cephe: Ana Pazar (Rakip: ${oppB1})`}
+              </span>
+              <span className="font-mono font-black text-sm text-indigo-600 dark:text-indigo-400">
+                {b1} {isEnglish ? "Units" : "Birim"} ({win1 ? (isEnglish ? "✅ Won" : "✅ Galip") : tie1 ? (isEnglish ? "🤝 Tied" : "🤝 Berabere") : (isEnglish ? "❌ Lost" : "❌ Mağlup")})
+              </span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={b1}
+              onChange={(e) => setB1(Number(e.target.value))}
+              className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
+            />
+          </div>
+
+          {/* Front 2 Slider */}
+          <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-1.5 shadow-2xs">
+            <div className="flex justify-between items-center text-xs">
+              <span className="font-bold text-slate-700 dark:text-slate-300">
+                {isEnglish ? `Front 2: Growth Segment (Rival: ${oppB2})` : `2. Cephe: Büyüme Segmenti (Rakip: ${oppB2})`}
+              </span>
+              <span className="font-mono font-black text-sm text-indigo-600 dark:text-indigo-400">
+                {b2} {isEnglish ? "Units" : "Birim"} ({win2 ? (isEnglish ? "✅ Won" : "✅ Galip") : tie2 ? (isEnglish ? "🤝 Tied" : "🤝 Berabere") : (isEnglish ? "❌ Lost" : "❌ Mağlup")})
+              </span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={b2}
+              onChange={(e) => setB2(Number(e.target.value))}
+              className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
+            />
+          </div>
+
+          {/* Front 3 Slider */}
+          <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-1.5 shadow-2xs">
+            <div className="flex justify-between items-center text-xs">
+              <span className="font-bold text-slate-700 dark:text-slate-300">
+                {isEnglish ? `Front 3: Niche / R&D (Rival: ${oppB3})` : `3. Cephe: Niş / Ar-Ge (Rakip: ${oppB3})`}
+              </span>
+              <span className="font-mono font-black text-sm text-indigo-600 dark:text-indigo-400">
+                {b3} {isEnglish ? "Units" : "Birim"} ({win3 ? (isEnglish ? "✅ Won" : "✅ Galip") : tie3 ? (isEnglish ? "🤝 Tied" : "🤝 Berabere") : (isEnglish ? "❌ Lost" : "❌ Mağlup")})
+              </span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={100}
+              value={b3}
+              onChange={(e) => setB3(Number(e.target.value))}
+              className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
+            />
+          </div>
+
+          {/* Action-Oriented Pedagogical Directive */}
+          <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-900 dark:text-amber-200">
+            <strong className="block font-bold text-amber-800 dark:text-amber-300 mb-1">
+              💡 {isEnglish ? "Action-Oriented Blotto Experiment:" : "Eyleme Dönük Blotto Teşhisi:"}
+            </strong>
+            {isEnglish
+              ? "Notice that the Incumbent allocates (30, 30, 40). If you deploy (35, 35, 30), you willingly concede Front 3 to capture Fronts 1 & 2, winning the war 2-1 with zero budget expansion!"
+              : "Rakibin (30, 30, 40) bütçe ayırdığını fark edin. Siz (35, 35, 30) dağıtarak 3. cepheden feragat edip 1. ve 2. cepheyi kesin galibiyetle alabilir ve 2-1 ile savaşı bütçe büyütmeden kazanabilirsiniz!"}
+          </div>
+        </div>
+
+        {/* Right Column: Recharts Chart & Battle Diagnostic Card (7 cols) */}
+        <div className="lg:col-span-7 space-y-4">
+          {/* Recharts Area */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-800 space-y-3">
+            <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-700/60 pb-2">
+              <div className="flex items-center gap-1.5">
+                <BarChart3 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                  {isEnglish ? "Battlefield Deployment Comparison" : "Cephe Bazında Bütçe Karşılaştırması"}
+                </span>
+              </div>
+              <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">
+                {isEnglish ? "Score: " : "Skor: "}{playerWins} - {oppWins}
+              </span>
+            </div>
+
+            <div className="h-56 sm:h-60 w-full pt-1">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData} margin={{ top: 10, right: 15, left: -20, bottom: 5 }}>
+                  <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
+                  <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#94A3B8" }} />
+                  <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} />
+                  <Tooltip
+                    content={
+                      <CustomChartTooltip
+                        valueFormatter={(val, name) => [
+                          `${val} ${isEnglish ? "Units" : "Birim"}`,
+                          name === "player"
+                            ? isEnglish
+                              ? "Your Strategy"
+                              : "Sizin Hamleniz"
+                            : isEnglish
+                            ? "Incumbent Rival"
+                            : "Pazar Lideri",
+                        ]}
+                      />
+                    }
+                  />
+                  <Legend
+                    wrapperStyle={{ fontSize: "11px", paddingTop: "6px" }}
+                    formatter={(val) => (val === "player" ? (isEnglish ? "Your Strategy" : "Sizin Hamleniz") : (isEnglish ? "Incumbent Rival" : "Pazar Lideri"))}
+                  />
+                  <Bar dataKey="player" fill="#6366F1" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="incumbent" fill="#94A3B8" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          {/* Dynamic Diagnosis Battle Card */}
+          <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
+                  {isEnglish ? "Market War Outcome" : "Savaş Sonucu"}
+                </span>
+                <h4 className="text-base sm:text-lg font-black text-slate-900 dark:text-slate-100">
+                  {overallWinner}
+                </h4>
+              </div>
+              <span
+                className={`px-2.5 py-1 rounded-full text-xs font-bold ${
+                  playerWins >= 2
+                    ? "bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-300"
+                    : "bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-300"
+                }`}
+              >
+                {playerWins} / 3 {isEnglish ? "Fronts" : "Cephe"}
+              </span>
+            </div>
+
+            <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+              {playerWins >= 2
+                ? isEnglish
+                  ? "Asymmetric Efficiency: By conceding non-essential segments and concentrating resources on decisive fronts, you defeated the stronger incumbent with equal budget."
+                  : "Asimetrik Verimlilik: Önemsiz cepheleri feda edip kaynakları kritik noktalara yoğunlaştırarak, eşit bütçeyle daha köklü pazar liderini alt ettiniz."
+                : isEnglish
+                ? "Sub-optimal Resource Spread: Diluting your budget across all fronts allowed the incumbent to overpower you on the majority of battlefields."
+                : "Bütçe Seyrelmesi: Kaynaklarınızı her yere eşit yaymaya çalışmak pazar liderinin ölçek üstünlüğüyle sizi 2 veya daha fazla cephede ezmesine neden oldu."}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
