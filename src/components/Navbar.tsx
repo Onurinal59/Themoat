@@ -17,9 +17,10 @@ import {
   ChevronDown,
   Calculator,
   Layers,
-  ArrowUpRight,
+  SlidersHorizontal,
   Globe,
-  CheckCircle2,
+  ArrowRight,
+  MessageSquare,
 } from "lucide-react";
 import { UserLearningState } from "../types";
 import { useLanguage } from "../context/LanguageContext";
@@ -92,28 +93,41 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   const { language, setLanguage, isEnglish, t } = useLanguage();
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
-  const [isResourcesOpen, setIsResourcesOpen] = useState(false);
+  const [isUtilitiesOpen, setIsUtilitiesOpen] = useState(false);
   const [isToolsOpen, setIsToolsOpen] = useState(false);
 
-  const resourcesRef = useRef<HTMLDivElement>(null);
+  const utilitiesRef = useRef<HTMLDivElement>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
 
-  // Close dropdowns on outside click
+  // Close dropdowns on outside click or Escape key
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Node;
-      if (resourcesRef.current && !resourcesRef.current.contains(target)) {
-        setIsResourcesOpen(false);
+      if (utilitiesRef.current && !utilitiesRef.current.contains(target)) {
+        setIsUtilitiesOpen(false);
       }
       if (toolsRef.current && !toolsRef.current.contains(target)) {
         setIsToolsOpen(false);
       }
     };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsUtilitiesOpen(false);
+        setIsToolsOpen(false);
+        setIsMobileDrawerOpen(false);
+      }
+    };
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
-  // Primary Navigation Items (Visible on Desktop / Laptop)
+  // Primary 4 Essential Navigation Tasks (Always visible on desktop)
   const PRIMARY_NAV_ITEMS: {
     id: NavTab;
     label: string;
@@ -121,22 +135,22 @@ export const Navbar: React.FC<NavbarProps> = ({
   }[] = [
     {
       id: "roadmap",
-      label: t("nav.academy", "Akademi"),
+      label: t("nav.academy", isEnglish ? "Academy" : "Akademi"),
       icon: Compass,
     },
     {
       id: "formulas",
-      label: t("nav.formulas", "Formüller"),
+      label: t("nav.formulas", isEnglish ? "Formulas" : "Formüller"),
       icon: Calculator,
     },
     {
       id: "simulators",
-      label: t("nav.lab", "Laboratuvar"),
+      label: t("nav.lab", isEnglish ? "Laboratory" : "Laboratuvar"),
       icon: FlaskConical,
     },
   ];
 
-  // Secondary Tools Sub-menu
+  // Secondary Tools Sub-menu under "Tools & Duel"
   const TOOLS_ITEMS: {
     id: NavTab;
     label: string;
@@ -146,7 +160,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   }[] = [
     {
       id: "company-audit",
-      label: isEnglish ? "Company Balance Sheet Audit" : "Şirket Röntgeni & Bilanço",
+      label: isEnglish ? "Company Diagnostic Audit" : "Şirket Röntgeni & Bilanço",
       desc: isEnglish ? "5-step Mauboussin financial diagnostic" : "5 adımlı Mauboussin bilanço & hendek teşhis masası",
       badge: isEnglish ? "5-Step" : "5 Adım",
       icon: Building2,
@@ -173,66 +187,73 @@ export const Navbar: React.FC<NavbarProps> = ({
   const handleTabClick = (tabId: NavTab) => {
     setActiveTab(tabId);
     setIsMobileDrawerOpen(false);
-    setIsResourcesOpen(false);
+    setIsUtilitiesOpen(false);
     setIsToolsOpen(false);
   };
 
   return (
     <>
-      {/* Apple-style Translucent Sticky Navigation Header */}
-      <header className="sticky top-0 z-40 bg-white/70 dark:bg-slate-950/70 backdrop-blur-2xl border-b border-slate-200/50 dark:border-slate-800/70 transition-colors duration-500 ease-in-out shadow-sm dark:shadow-none">
-        <div className="max-w-7xl mx-auto w-full px-2 sm:px-4 lg:px-6">
-          <div className="flex items-center justify-between min-h-14 sm:h-16 gap-1 sm:gap-2 lg:gap-3 w-full flex-wrap sm:flex-nowrap py-1 sm:py-0">
+      {/* Calm & Focused Sticky Navigation Header */}
+      <header
+        id="main-app-header"
+        className="sticky top-0 z-40 bg-white/85 dark:bg-slate-950/85 backdrop-blur-xl border-b border-slate-200/70 dark:border-slate-800/80 transition-colors duration-300 shadow-xs"
+      >
+        <div className="max-w-7xl mx-auto w-full px-3 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16 gap-3 w-full">
             
-            {/* Left: Brand Identity (flex-1 justify-start) */}
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex-1 flex justify-start items-center gap-1.5 sm:gap-2 cursor-pointer select-none shrink-0"
+            {/* Left: Brand Identity */}
+            <div
+              id="nav-brand-logo"
+              className="flex items-center gap-2.5 cursor-pointer select-none shrink-0"
               onClick={() => handleTabClick("roadmap")}
             >
-              <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-sm shadow-indigo-500/20 ring-1 ring-white/20 shrink-0">
-                <Compass className="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5" />
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-sm shadow-indigo-500/20 ring-1 ring-white/20 shrink-0">
+                <Compass className="w-5 h-5" />
               </div>
-              <div className="flex flex-col min-w-0">
-                <div className="flex items-center gap-1 sm:gap-1.5">
-                  <span className="font-extrabold text-xs sm:text-sm md:text-base tracking-tight text-slate-900 dark:text-slate-100 font-display whitespace-nowrap">
+              <div className="flex flex-col">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-extrabold text-sm sm:text-base tracking-tight text-slate-900 dark:text-slate-100 font-display">
                     {isEnglish ? "Economic Moat" : "Ekonomik Hendek"}
                   </span>
-                  <span className="hidden xl:inline-flex px-1.5 py-0.2 text-[9px] font-black uppercase tracking-wider rounded-md bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/70">
+                  <span className="hidden sm:inline-flex px-1.5 py-0.2 text-[9px] font-black uppercase tracking-wider rounded bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/70">
                     Mauboussin
                   </span>
                 </div>
-                <span className="text-[10px] text-slate-400 dark:text-slate-500 hidden sm:block -mt-0.5 font-medium truncate max-w-[140px] xl:max-w-none">
+                <span className="text-[11px] text-slate-500 dark:text-slate-400 hidden md:block -mt-0.5 font-medium">
                   Measuring the Moat & ROIC
                 </span>
               </div>
-            </motion.div>
+            </div>
 
-            {/* Center: Apple-inspired Compact Segmented Navigation Bar (flex-none justify-center) */}
-            <nav className="hidden lg:flex flex-none items-center justify-center bg-slate-100/90 dark:bg-slate-900/90 p-1 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-2xs backdrop-blur-md shrink-0 transition-colors duration-500 ease-in-out">
+            {/* Center: Clean 4-Task Main Nav (Desktop) */}
+            <nav
+              id="desktop-primary-nav"
+              aria-label="Primary Navigation"
+              className="hidden lg:flex items-center bg-slate-100/90 dark:bg-slate-900/90 p-1 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-2xs backdrop-blur-md"
+            >
               {PRIMARY_NAV_ITEMS.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
                 return (
                   <button
                     key={item.id}
+                    id={`nav-link-${item.id}`}
                     onClick={() => handleTabClick(item.id)}
-                    className={`relative flex items-center gap-1.5 px-2.5 xl:px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer select-none whitespace-nowrap z-10 ${
+                    className={`relative min-h-[44px] flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer select-none whitespace-nowrap z-10 ${
                       isActive
-                        ? "text-indigo-950 dark:text-white font-bold"
+                        ? "text-indigo-950 dark:text-white"
                         : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
                     }`}
                   >
                     {isActive && (
                       <motion.div
-                        layoutId="activeNavIndicator"
+                        layoutId="activeNavPill"
                         className="absolute inset-0 bg-white dark:bg-slate-800 rounded-xl shadow-xs border border-slate-200/90 dark:border-slate-700/80 -z-10"
-                        transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
                       />
                     )}
                     <Icon
-                      className={`w-3.5 h-3.5 ${
+                      className={`w-4 h-4 ${
                         isActive
                           ? "text-indigo-600 dark:text-indigo-400"
                           : "text-slate-400 dark:text-slate-500"
@@ -243,25 +264,27 @@ export const Navbar: React.FC<NavbarProps> = ({
                 );
               })}
 
-              {/* Tools & Advanced Dropdown (Grouped to prevent horizontal overflow on all resolutions) */}
+              {/* 4th Essential Task: Tools & Duel Dropdown */}
               <div className="relative" ref={toolsRef}>
                 <button
+                  id="nav-dropdown-tools-toggle"
                   onClick={() => setIsToolsOpen(!isToolsOpen)}
-                  className={`relative flex items-center gap-1.5 px-2.5 xl:px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer select-none whitespace-nowrap z-10 ${
+                  aria-expanded={isToolsOpen}
+                  className={`relative min-h-[44px] flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer select-none whitespace-nowrap z-10 ${
                     isToolsActive
-                      ? "text-indigo-950 dark:text-white font-bold"
+                      ? "text-indigo-950 dark:text-white"
                       : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
                   }`}
                 >
                   {isToolsActive && (
                     <motion.div
-                      layoutId="activeNavIndicator"
+                      layoutId="activeNavPill"
                       className="absolute inset-0 bg-white dark:bg-slate-800 rounded-xl shadow-xs border border-slate-200/90 dark:border-slate-700/80 -z-10"
-                      transition={{ type: "spring", stiffness: 450, damping: 35 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
                     />
                   )}
                   <Layers
-                    className={`w-3.5 h-3.5 ${
+                    className={`w-4 h-4 ${
                       isToolsActive
                         ? "text-indigo-600 dark:text-indigo-400"
                         : "text-slate-400 dark:text-slate-500"
@@ -273,7 +296,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       : isEnglish ? "Tools & Duel" : "Uygulama & Düello"}
                   </span>
                   <ChevronDown
-                    className={`w-3 h-3 transition-transform duration-200 ${
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
                       isToolsOpen ? "rotate-180 text-indigo-600 dark:text-indigo-400" : "text-slate-400"
                     }`}
                   />
@@ -283,11 +306,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <AnimatePresence>
                   {isToolsOpen && (
                     <motion.div
+                      id="nav-dropdown-tools-menu"
                       initial={{ opacity: 0, y: 8, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                      transition={{ duration: 0.15, ease: "easeOut" }}
-                      className="absolute left-0 mt-2 w-76 p-2 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-800 shadow-xl z-50 space-y-1"
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                      className="absolute left-0 mt-2 w-80 p-2 rounded-2xl bg-white/98 dark:bg-slate-900/98 backdrop-blur-xl border border-slate-200 dark:border-slate-800 shadow-xl z-50 space-y-1"
                     >
                       <div className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
                         {isEnglish ? "Interactive Analysis & Practice" : "İleri Düzey Analiz & Pratik"}
@@ -298,8 +322,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                         return (
                           <button
                             key={tool.id}
+                            id={`tool-menu-item-${tool.id}`}
                             onClick={() => handleTabClick(tool.id)}
-                            className={`w-full flex items-start gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer group ${
+                            className={`w-full flex items-start gap-3 p-2.5 rounded-xl text-left transition-all cursor-pointer group min-h-[44px] ${
                               isSelected
                                 ? "bg-indigo-50 dark:bg-indigo-950/70 border border-indigo-200/80 dark:border-indigo-800/80"
                                 : "hover:bg-slate-100 dark:hover:bg-slate-800 border border-transparent"
@@ -316,7 +341,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between gap-1">
-                                <span className={`text-xs font-bold block truncate ${isSelected ? "text-indigo-900 dark:text-indigo-200" : "text-slate-900 dark:text-slate-100"}`}>
+                                <span
+                                  className={`text-xs font-bold block truncate ${
+                                    isSelected
+                                      ? "text-indigo-900 dark:text-indigo-200"
+                                      : "text-slate-900 dark:text-slate-100"
+                                  }`}
+                                >
                                   {tool.label}
                                 </span>
                                 {tool.badge && (
@@ -338,119 +369,196 @@ export const Navbar: React.FC<NavbarProps> = ({
               </div>
             </nav>
 
-            {/* Right Action Hub: Unified & Non-Overflowing (flex-1 justify-end) */}
-            <div className="flex-1 flex justify-end items-center gap-1 sm:gap-1.5 shrink-0">
+            {/* Right: Streak + Single Unified "Utilities / More" Hub */}
+            <div className="flex items-center gap-2 shrink-0">
               
               {/* Daily Learning Streak Capsule */}
-              <motion.div
-                whileHover={{ scale: 1.04 }}
-                className="flex items-center gap-1 px-1.5 sm:px-2 py-1 sm:py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-300 text-[11px] sm:text-xs font-black shadow-2xs select-none"
+              <div
+                id="user-learning-streak-badge"
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-300 text-xs font-black shadow-2xs select-none min-h-[38px]"
                 title={isEnglish ? `${userState.currentStreak} day learning streak` : `${userState.currentStreak} günlük aktif öğrenme serisi`}
               >
-                <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500 shrink-0 animate-pulse" />
+                <Flame className="w-4 h-4 text-amber-500 fill-amber-500 shrink-0 animate-pulse" />
                 <span>{userState.currentStreak}</span>
-                <span className="hidden xl:inline font-medium text-[10px] opacity-80">{isEnglish ? "d" : "gün"}</span>
-              </motion.div>
-
-              {/* Flag-Only Language Switcher (No TR/EN text, only crisp country flags) */}
-              <div className="flex items-center p-0.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 shadow-2xs gap-0.5 select-none">
-                <button
-                  type="button"
-                  onClick={() => setLanguage("tr")}
-                  className={`p-1 sm:p-1.5 rounded-lg transition-all duration-150 cursor-pointer flex items-center justify-center ${
-                    !isEnglish
-                      ? "bg-white dark:bg-slate-800 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10"
-                      : "opacity-45 hover:opacity-100 hover:bg-slate-200/50 dark:hover:bg-slate-800/50"
-                  }`}
-                  title="Türkçe"
-                  aria-label="Türkçe"
-                >
-                  <TurkishFlag className="w-4 h-2.5 sm:w-5 sm:h-3.5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLanguage("en")}
-                  className={`p-1 sm:p-1.5 rounded-lg transition-all duration-150 cursor-pointer flex items-center justify-center ${
-                    isEnglish
-                      ? "bg-white dark:bg-slate-800 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10"
-                      : "opacity-45 hover:opacity-100 hover:bg-slate-200/50 dark:hover:bg-slate-800/50"
-                  }`}
-                  title="English"
-                  aria-label="English"
-                >
-                  <BritishFlag className="w-4 h-2.5 sm:w-5 sm:h-3.5" />
-                </button>
+                <span className="hidden sm:inline font-medium text-[10px] opacity-80">
+                  {isEnglish ? "days" : "gün"}
+                </span>
               </div>
 
-              {/* Grouped Resources & Reference Dropdown */}
-              <div className="relative hidden md:block" ref={resourcesRef}>
+              {/* Unified "Utilities / More" Dropdown (Consolidates Language, Theme, Resources & AI Coach) */}
+              <div className="relative" ref={utilitiesRef}>
                 <button
-                  onClick={() => setIsResourcesOpen(!isResourcesOpen)}
-                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-xs font-semibold border transition-all cursor-pointer whitespace-nowrap ${
-                    isResourcesOpen
-                      ? "bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-800 shadow-2xs"
-                      : "bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-slate-800"
+                  id="btn-utilities-menu-toggle"
+                  onClick={() => setIsUtilitiesOpen(!isUtilitiesOpen)}
+                  aria-expanded={isUtilitiesOpen}
+                  aria-label={isEnglish ? "Options & Utilities Menu" : "Seçenekler ve Araçlar Menüsü"}
+                  className={`min-h-[44px] min-w-[44px] flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer whitespace-nowrap select-none ${
+                    isUtilitiesOpen
+                      ? "bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-800 shadow-2xs ring-2 ring-indigo-500/20"
+                      : "bg-slate-100/90 hover:bg-slate-200/80 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
                   }`}
                 >
-                  <BookOpen className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-                  <span className="hidden xl:inline">{isEnglish ? "Resources" : "Kaynaklar"}</span>
+                  <SlidersHorizontal className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                  <span className="hidden md:inline font-bold">
+                    {isEnglish ? "Utilities" : "Seçenekler"}
+                  </span>
                   <ChevronDown
-                    className={`w-3 h-3 transition-transform duration-200 ${
-                      isResourcesOpen ? "rotate-180 text-indigo-600 dark:text-indigo-400" : "text-slate-400"
+                    className={`w-3.5 h-3.5 transition-transform duration-200 ${
+                      isUtilitiesOpen ? "rotate-180 text-indigo-600 dark:text-indigo-400" : "text-slate-400"
                     }`}
                   />
                 </button>
 
-                {/* Dropdown Menu Panel */}
+                {/* Utilities Menu Popover */}
                 <AnimatePresence>
-                  {isResourcesOpen && (
+                  {isUtilitiesOpen && (
                     <motion.div
+                      id="utilities-menu-popover"
                       initial={{ opacity: 0, y: 8, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                      transition={{ duration: 0.15, ease: "easeOut" }}
-                      className="absolute right-0 mt-2 w-72 p-2 rounded-2xl bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-slate-200 dark:border-slate-800 shadow-xl z-50 space-y-1"
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                      className="absolute right-0 mt-2 w-72 sm:w-80 p-2.5 rounded-2xl bg-white/98 dark:bg-slate-900/98 backdrop-blur-2xl border border-slate-200 dark:border-slate-800 shadow-xl z-50 space-y-2.5"
                     >
-                      {/* Terimler Sözlüğü Item */}
+                      {/* Top Prominent Action: Socratic AI Coach */}
+                      <button
+                        id="menu-item-ai-coach"
+                        onClick={() => {
+                          setIsUtilitiesOpen(false);
+                          onOpenAICoach();
+                        }}
+                        className="w-full flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white transition-all shadow-md shadow-indigo-600/20 cursor-pointer min-h-[44px] group"
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center shrink-0">
+                            <Sparkles className="w-4 h-4 text-amber-300" />
+                          </div>
+                          <div className="text-left">
+                            <div className="text-xs font-black">
+                              {isEnglish ? "Socratic AI Coach" : "Sokratik AI Koçu"}
+                            </div>
+                            <div className="text-[10px] text-indigo-100 font-medium">
+                              {isEnglish ? "Ask questions & deepen intuition" : "Kavramları Sokratik yöntemle tartış"}
+                            </div>
+                          </div>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-white/80 group-hover:translate-x-1 transition-transform shrink-0" />
+                      </button>
+
+                      {/* Divider */}
+                      <div className="h-px bg-slate-100 dark:bg-slate-800 my-1" />
+
+                      {/* Language Selection Row */}
+                      <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 space-y-1.5">
+                        <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                          <span className="flex items-center gap-1">
+                            <Globe className="w-3 h-3 text-indigo-500" />
+                            {isEnglish ? "Language / Dil" : "Dil Seçimi / Language"}
+                          </span>
+                        </div>
+                        <div className="grid grid-cols-2 gap-1.5">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setLanguage("tr");
+                              setIsUtilitiesOpen(false);
+                            }}
+                            className={`flex items-center justify-center gap-2 py-2 px-2.5 rounded-lg text-xs font-bold transition-all min-h-[38px] cursor-pointer ${
+                              language === "tr"
+                                ? "bg-white dark:bg-slate-700 text-indigo-900 dark:text-white shadow-xs border border-indigo-200 dark:border-indigo-600"
+                                : "hover:bg-slate-200/60 dark:hover:bg-slate-700/50 text-slate-600 dark:text-slate-400"
+                            }`}
+                          >
+                            <TurkishFlag className="w-4 h-3 shrink-0" />
+                            <span>Türkçe</span>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setLanguage("en");
+                              setIsUtilitiesOpen(false);
+                            }}
+                            className={`flex items-center justify-center gap-2 py-2 px-2.5 rounded-lg text-xs font-bold transition-all min-h-[38px] cursor-pointer ${
+                              language === "en"
+                                ? "bg-white dark:bg-slate-700 text-indigo-900 dark:text-white shadow-xs border border-indigo-200 dark:border-indigo-600"
+                                : "hover:bg-slate-200/60 dark:hover:bg-slate-700/50 text-slate-600 dark:text-slate-400"
+                            }`}
+                          >
+                            <BritishFlag className="w-4 h-3 shrink-0" />
+                            <span>English</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Theme Toggle Button */}
+                      <button
+                        onClick={(e) => {
+                          onToggleDarkMode(e);
+                        }}
+                        className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer min-h-[44px]"
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300">
+                            {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
+                          </div>
+                          <div className="text-left">
+                            <span className="text-xs font-bold block">
+                              {isDarkMode ? (isEnglish ? "Light Theme" : "Aydınlık Tema") : (isEnglish ? "Dark Theme" : "Karanlık Tema")}
+                            </span>
+                            <span className="text-[10px] text-slate-500 dark:text-slate-400">
+                              {isDarkMode ? (isEnglish ? "Switch to warm daylight" : "Açık renk paletine geç") : (isEnglish ? "Switch to navy dark canvas" : "Koyu lacivert paletine geç")}
+                            </span>
+                          </div>
+                        </div>
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                          {isDarkMode ? (isEnglish ? "Dark" : "Koyu") : (isEnglish ? "Light" : "Açık")}
+                        </span>
+                      </button>
+
+                      {/* Glossary Item */}
                       <button
                         onClick={() => {
-                          setIsResourcesOpen(false);
+                          setIsUtilitiesOpen(false);
                           onOpenGlossary();
                         }}
-                        className="w-full flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-left transition-colors group cursor-pointer"
+                        className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer min-h-[44px]"
                       >
-                        <div className="w-8 h-8 rounded-lg bg-indigo-100 dark:bg-indigo-900/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                          <BookOpen className="w-4 h-4" />
-                        </div>
-                        <div>
-                          <span className="text-xs font-bold text-slate-900 dark:text-slate-100 block">
-                            {isEnglish ? "Finance & Strategy Glossary" : "Finans & Strateji Sözlüğü"}
-                          </span>
-                          <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight mt-0.5">
-                            {isEnglish ? "Essential moat and valuation definitions" : "Kritik hendek ve değerleme kavramlarının açıklamaları"}
-                          </p>
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-7 h-7 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                            <BookOpen className="w-4 h-4" />
+                          </div>
+                          <div className="text-left">
+                            <span className="text-xs font-bold block">
+                              {isEnglish ? "Finance & Strategy Glossary" : "Finans & Strateji Sözlüğü"}
+                            </span>
+                            <span className="text-[10px] text-slate-500 dark:text-slate-400">
+                              {isEnglish ? "Search terms & formulas" : "Terimler, kısaltmalar ve tanımlar"}
+                            </span>
+                          </div>
                         </div>
                       </button>
 
-                      {/* Yolculuk Rehberi Item */}
+                      {/* Learning Tour Guide */}
                       {onOpenGuide && (
                         <button
                           onClick={() => {
-                            setIsResourcesOpen(false);
+                            setIsUtilitiesOpen(false);
                             onOpenGuide();
                           }}
-                          className="w-full flex items-start gap-3 p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-left transition-colors group cursor-pointer"
+                          className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer min-h-[44px]"
                         >
-                          <div className="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-900/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                            <HelpCircle className="w-4 h-4" />
-                          </div>
-                          <div>
-                            <span className="text-xs font-bold text-slate-900 dark:text-slate-100 block">
-                              {isEnglish ? "Learning Guide" : "Öğrenme Rehberi"}
-                            </span>
-                            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-tight mt-0.5">
-                              {isEnglish ? "Platform's 7-stop mastery methodology" : "Platformun 7 duraklı ustalık metodolojisi"}
-                            </p>
+                          <div className="flex items-center gap-2.5">
+                            <div className="w-7 h-7 rounded-lg bg-amber-50 dark:bg-amber-950/60 flex items-center justify-center text-amber-600 dark:text-amber-400">
+                              <HelpCircle className="w-4 h-4" />
+                            </div>
+                            <div className="text-left">
+                              <span className="text-xs font-bold block">
+                                {isEnglish ? "Learning Guide & Methodology" : "Öğrenme Rehberi & Metodoloji"}
+                              </span>
+                              <span className="text-[10px] text-slate-500 dark:text-slate-400">
+                                {isEnglish ? "Platform's 7-stop mastery tour" : "Platformun 7 duraklı ustalık turu"}
+                              </span>
+                            </div>
                           </div>
                         </button>
                       )}
@@ -459,187 +567,95 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </AnimatePresence>
               </div>
 
-              {/* Dark / Light Theme Toggle */}
+              {/* Mobile Drawer Hamburger Button */}
               <button
-                onClick={onToggleDarkMode}
-                className="p-1.5 sm:p-2 rounded-xl bg-slate-100/80 hover:bg-slate-200/80 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 text-xs font-semibold transition-colors cursor-pointer shrink-0"
-                aria-label={isDarkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-                title={isDarkMode ? (isEnglish ? "Switch to Light Mode" : "Aydınlık Moda Geç") : (isEnglish ? "Switch to Dark Mode" : "Karanlık Moda Geç")}
-              >
-                {isDarkMode ? (
-                  <Sun className="w-3.5 h-3.5 text-amber-400" />
-                ) : (
-                  <Moon className="w-3.5 h-3.5 text-slate-600" />
-                )}
-              </button>
-
-              {/* Socratic AI Coach Button */}
-              <button
-                onClick={onOpenAICoach}
-                className="flex items-center gap-1.5 p-1.5 sm:px-3 sm:py-1.5 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white text-xs font-bold shadow-sm shadow-indigo-500/25 transition-all cursor-pointer ring-1 ring-white/20 whitespace-nowrap shrink-0"
-                title={isEnglish ? "Ask Socratic AI Coach" : "Sokratik AI Koçuna Soru Sor"}
-                aria-label={isEnglish ? "Ask Socratic AI Coach" : "Sokratik AI Koçuna Soru Sor"}
-              >
-                <Sparkles className="w-3.5 h-3.5 text-indigo-200 shrink-0" />
-                <span className="hidden sm:inline">{isEnglish ? "AI Coach" : "AI Koçu"}</span>
-              </button>
-
-              {/* Mobile Menu Drawer Toggle (Visible on < lg) */}
-              <button
+                id="btn-mobile-menu-toggle"
                 onClick={() => setIsMobileDrawerOpen(!isMobileDrawerOpen)}
                 aria-label="Toggle Mobile Menu"
-                className="lg:hidden p-1.5 sm:p-2 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 text-xs font-semibold transition-colors cursor-pointer shrink-0"
-                
+                className="lg:hidden min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 cursor-pointer shrink-0"
               >
                 {isMobileDrawerOpen ? (
-                  <X className="w-4 h-4" />
+                  <X className="w-5 h-5" />
                 ) : (
-                  <Menu className="w-4 h-4" />
+                  <Menu className="w-5 h-5" />
                 )}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Mobile Full Drawer Navigation */}
+        {/* Mobile Navigation Drawer */}
         <AnimatePresence>
           {isMobileDrawerOpen && (
             <motion.div
+              id="mobile-navigation-drawer"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.2, ease: "easeInOut" }}
-              className="lg:hidden border-t border-slate-200/80 dark:border-slate-800 bg-white/98 dark:bg-slate-950/98 backdrop-blur-xl px-4 py-4 space-y-4 shadow-2xl overflow-y-auto max-h-[85vh]"
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl px-4 py-4 space-y-4"
             >
-              {/* Mobile Language Switcher (Only Flag Icons) */}
-              <div className="flex items-center justify-between p-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800">
-                <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                  <Globe className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                  {isEnglish ? "Language" : "Dil Seçimi"}
-                </span>
-                <div className="flex items-center gap-1 p-1 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 shadow-2xs">
-                  <button
-                    type="button"
-                    onClick={() => setLanguage("tr")}
-                    className={`p-1.5 rounded-lg transition-all cursor-pointer flex items-center justify-center ${
-                      !isEnglish
-                        ? "bg-slate-100 dark:bg-slate-900 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10"
-                        : "opacity-45 hover:opacity-100"
-                    }`}
-                    title="Türkçe"
-                    aria-label="Türkçe"
-                  >
-                    <TurkishFlag className="w-6 h-4" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setLanguage("en")}
-                    className={`p-1.5 rounded-lg transition-all cursor-pointer flex items-center justify-center ${
-                      isEnglish
-                        ? "bg-slate-100 dark:bg-slate-900 shadow-sm ring-1 ring-slate-900/5 dark:ring-white/10"
-                        : "opacity-45 hover:opacity-100"
-                    }`}
-                    title="English"
-                    aria-label="English"
-                  >
-                    <BritishFlag className="w-6 h-4" />
-                  </button>
+              {/* Primary Nav Links */}
+              <div className="space-y-1">
+                <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2">
+                  {isEnglish ? "Main Navigation" : "Ana Görevler"}
                 </div>
-              </div>
-
-              {/* Group 1: Core Learning Modules */}
-              <div className="space-y-1.5">
-                <div className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 px-1">
-                  {isEnglish ? "Core Curriculum" : "Ana Eğitim & Teori"}
-                </div>
-                <div className="grid grid-cols-1 gap-2">
-                  {PRIMARY_NAV_ITEMS.map((item) => {
-                    const Icon = item.icon;
-                    const isActive = activeTab === item.id;
-                    return (
-                      <button
-                        key={item.id}
-                        onClick={() => handleTabClick(item.id)}
-                        className={`flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all min-h-[46px] cursor-pointer ${
-                          isActive
-                            ? "bg-indigo-600 text-white shadow-xs"
-                            : "bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <Icon className={`w-4.5 h-4.5 ${isActive ? "text-white" : "text-indigo-600 dark:text-indigo-400"}`} />
-                          <span>{item.label}</span>
-                        </div>
-                        <ArrowUpRight className={`w-4 h-4 ${isActive ? "text-white/80" : "text-slate-400"}`} />
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Group 2: Advanced Interactive Tools */}
-              <div className="space-y-1.5">
-                <div className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 px-1">
-                  {isEnglish ? "Interactive Analysis & Duel" : "Uygulama, Teşhis & Düello"}
-                </div>
-                <div className="grid grid-cols-1 gap-2">
-                  {TOOLS_ITEMS.map((item) => {
-                    const Icon = item.icon;
-                    const isActive = activeTab === item.id;
-                    return (
-                      <button
-                        key={item.id}
-                        onClick={() => handleTabClick(item.id)}
-                        className={`flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all min-h-[46px] cursor-pointer ${
-                          isActive
-                            ? "bg-indigo-600 text-white shadow-xs"
-                            : "bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3">
-                          <Icon className={`w-4.5 h-4.5 ${isActive ? "text-white" : "text-indigo-600 dark:text-indigo-400"}`} />
-                          <span>{item.label}</span>
-                        </div>
-                        <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-md bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-                          {item.badge}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Group 3: Reference & Resources */}
-              <div className="pt-2 border-t border-slate-200/60 dark:border-slate-800 space-y-1.5">
-                <div className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 px-1">
-                  {isEnglish ? "Reference & Tools" : "Yardımcı & Başvuru Araçları"}
-                </div>
-                <div className="grid grid-cols-1 gap-2">
-                  <button
-                    onClick={() => {
-                      setIsMobileDrawerOpen(false);
-                      onOpenGlossary();
-                    }}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 text-sm font-semibold border border-slate-200/60 dark:border-slate-800 min-h-[46px] cursor-pointer"
-                  >
-                    <BookOpen className="w-4.5 h-4.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
-                    <span>{isEnglish ? "Finance & Strategy Glossary" : "Finans & Strateji Terimleri Sözlüğü"}</span>
-                  </button>
-
-                  {onOpenGuide && (
+                {PRIMARY_NAV_ITEMS.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = activeTab === item.id;
+                  return (
                     <button
-                      onClick={() => {
-                        setIsMobileDrawerOpen(false);
-                        onOpenGuide();
-                      }}
-                      className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 text-sm font-semibold border border-slate-200/60 dark:border-slate-800 min-h-[46px] cursor-pointer"
+                      key={item.id}
+                      onClick={() => handleTabClick(item.id)}
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all min-h-[44px] ${
+                        isActive
+                          ? "bg-indigo-600 text-white shadow-xs"
+                          : "hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300"
+                      }`}
                     >
-                      <HelpCircle className="w-4.5 h-4.5 text-amber-500 shrink-0" />
-                      <span>{isEnglish ? "Learning Journey Guide" : "Öğrenme Yolculuğu Rehberi"}</span>
+                      <Icon className="w-4 h-4" />
+                      <span>{item.label}</span>
                     </button>
-                  )}
-                </div>
+                  );
+                })}
               </div>
+
+              {/* Tools Section */}
+              <div className="space-y-1">
+                <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2">
+                  {isEnglish ? "Tools & Duel" : "Uygulama & Düello"}
+                </div>
+                {TOOLS_ITEMS.map((tool) => {
+                  const ToolIcon = tool.icon;
+                  const isActive = activeTab === tool.id;
+                  return (
+                    <button
+                      key={tool.id}
+                      onClick={() => handleTabClick(tool.id)}
+                      className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all min-h-[44px] ${
+                        isActive
+                          ? "bg-indigo-600 text-white shadow-xs"
+                          : "hover:bg-slate-100 dark:hover:bg-slate-900 text-slate-700 dark:text-slate-300"
+                      }`}
+                    >
+                      <ToolIcon className="w-4 h-4" />
+                      <span>{tool.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Socratic AI Coach Mobile Button */}
+              <button
+                onClick={() => {
+                  setIsMobileDrawerOpen(false);
+                  onOpenAICoach();
+                }}
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 text-white text-sm font-extrabold shadow-md min-h-[46px]"
+              >
+                <Sparkles className="w-4 h-4 text-amber-300" />
+                <span>{isEnglish ? "Ask Socratic AI Coach" : "Sokratik AI Koçuna Soru Sor"}</span>
+              </button>
             </motion.div>
           )}
         </AnimatePresence>

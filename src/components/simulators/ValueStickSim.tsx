@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   Sparkles,
   RotateCcw,
@@ -9,6 +10,8 @@ import {
   ArrowUpRight,
   Shield,
   HelpCircle,
+  ChevronDown,
+  Calculator,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -84,6 +87,7 @@ export const ValueStickSim: React.FC = () => {
   const [price, setPrice] = useState<number>(1099);
   const [cost, setCost] = useState<number>(520);
   const [wts, setWts] = useState<number>(400);
+  const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   // Economic calculations (Felix Oberholzer-Gee Value Stick)
   const totalValueCreated = Math.max(0, wtp - wts);
@@ -423,6 +427,89 @@ export const ValueStickSim: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Progressive Disclosure: "See the calculation & deep dive" Collapsible Panel */}
+      <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button
+          id="btn-toggle-valuestick-sim-details"
+          onClick={() => setShowCalculationDetails(!showCalculationDetails)}
+          className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer min-h-[44px]"
+        >
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+            <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>
+              {isEnglish
+                ? "See the calculation & deep dive (Formulas, Surplus Proof & Strategy Guide)"
+                : "Hesabı & Derinlemesine Analizi Gör (Formül Dökümü, Refah Dağılımı & Strateji)"}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
+            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                showCalculationDetails ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {showCalculationDetails && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="overflow-hidden space-y-4 pt-4"
+            >
+              {/* Formula and Interpretation Card */}
+              <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
+                <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
+                  <div className="font-bold">
+                    Total Value Created = WTP (${wtp}) - WTS (${wts}) = ${totalValueCreated}
+                  </div>
+                  <div className="text-slate-600 dark:text-slate-300">
+                    1. Customer Delight (WTP - Price) = ${wtp} - ${price} = ${customerDelight} (%{customerShare.toFixed(1)})
+                  </div>
+                  <div className="text-slate-600 dark:text-slate-300">
+                    2. Firm Profit (Price - Cost) = ${price} - ${cost} = ${firmProfit} (%{firmShare.toFixed(1)})
+                  </div>
+                  <div className="text-slate-600 dark:text-slate-300">
+                    3. Supplier Surplus (Cost - WTS) = ${cost} - ${wts} = ${supplierSurplus} (%{supplierShare.toFixed(1)})
+                  </div>
+                </div>
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">
+                  {isEnglish
+                    ? `Oberholzer-Gee Value Stick Insight: Sustainable competitive advantage requires widening the total stick (WTP - WTS). Moving price alone only transfers value between the customer and firm without creating new economic surplus.`
+                    : `Oberholzer-Gee Değer Çubuğu İlkesi: Sürdürülebilir bir ekonomik hendek toplam çubuğun (WTP - WTS) genişletilmesiyle inşa edilir. Sadece fiyatı artırmak veya indirmek yeni bir değer yaratmaz, yalnızca mevcut refahı müşteriyle şirket arasında kaydırır.`}
+                </p>
+              </div>
+
+              {/* Actionable Strategy Guidance */}
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span>{isEnglish ? "Pedagogical Lever Experiments:" : "Terminal Değer Deneyleri:"}</span>
+                </div>
+                <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <p>
+                    👉 <strong className="text-indigo-900 dark:text-indigo-300">{isEnglish ? "WTP Expansion (Differentiation):" : "WTP Genişlemesi (Farklılaşma):"}</strong>{" "}
+                    {isEnglish
+                      ? "Increase WTP through branding, premium UX, or network effects. Customer delight expands dramatically without sacrificing firm margin."
+                      : "Marka, benzersiz kullanıcı deneyimi veya ağ etkisiyle WTP'yi yükseltin. Müşteri memnuniyeti tavan yaparken şirketin kâr marjı da korunur."}
+                  </p>
+                  <p>
+                    👉 <strong className="text-pink-900 dark:text-pink-300">{isEnglish ? "WTS Compression (Supplier Delight):" : "WTS Daralması (Tedarikçi Refahı):"}</strong>{" "}
+                    {isEnglish
+                      ? "Lower supplier willingness-to-sell through scale and predictable volumes, expanding overall economic surplus from the bottom."
+                      : "Ölçek ve yüksek sipariş öngörülebilirliği ile tedarikçinin asgari kabul tabanını (WTS) aşağı çekin; toplam refah tabandan genişlesin."}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

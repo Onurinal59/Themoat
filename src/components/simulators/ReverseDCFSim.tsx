@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   TrendingUp,
   RotateCcw,
@@ -11,6 +12,8 @@ import {
   BarChart3,
   Percent,
   DollarSign,
+  ChevronDown,
+  Calculator,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -75,6 +78,7 @@ export const ReverseDCFSim: React.FC = () => {
   const [currentFCF, setCurrentFCF] = useState<number>(4000); // Milyon $
   const [nearTermGrowth, setNearTermGrowth] = useState<number>(15); // %
   const [wacc, setWacc] = useState<number>(8.5); // %
+  const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   // Steady-State Value (Zero-Growth Terminal Value = FCF / WACC)
   const steadyStateValue = currentFCF > 0 && wacc > 0 ? (currentFCF / (wacc / 100)) : 0;
@@ -406,6 +410,83 @@ export const ReverseDCFSim: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Progressive Disclosure: "See the calculation & deep dive" Collapsible Panel */}
+      <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button
+          id="btn-toggle-reverse-dcf-sim-details"
+          onClick={() => setShowCalculationDetails(!showCalculationDetails)}
+          className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer min-h-[44px]"
+        >
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+            <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>
+              {isEnglish
+                ? "See the calculation & deep dive (Steady-State Math, PVGO Decomposition & Reverse DCF Proof)"
+                : "Hesabı & Derinlemesine Analizi Gör (Taban Değer Formülü, PVGO Ayrışımı & Tersine DCF)"}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
+            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                showCalculationDetails ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {showCalculationDetails && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="overflow-hidden space-y-4 pt-4"
+            >
+              {/* Formula and Numerical Proof */}
+              <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
+                <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
+                  <div className="font-bold">
+                    Steady-State Value = Current FCF (${currentFCF}M) / WACC (%{wacc}) = ${(steadyStateValue / 1000).toFixed(2)}B (%{steadyStatePercentage})
+                  </div>
+                  <div className="text-slate-600 dark:text-slate-300">
+                    PVGO (Present Value of Growth Options) = Market Cap (${(marketCap / 1000).toFixed(1)}B) - Steady-State Value (${(steadyStateValue / 1000).toFixed(2)}B) = ${(Math.max(0, marketCap - steadyStateValue) / 1000).toFixed(2)}B (%{futureValuePercentage})
+                  </div>
+                </div>
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">
+                  {isEnglish
+                    ? `Mauboussin & Rappaport Expectations Investing Framework: Instead of forecasting cash flows into the distant future, Reverse DCF unpacks the market price to reveal the growth duration and moat durability already embedded in the stock.`
+                    : `Mauboussin & Rappaport Beklenti Yatırımcılığı (Expectations Investing): Uzak geleceğe yönelik rastgele nakit akışı tahminleri yapmak yerine Tersine DCF, mevcut hisse fiyatının içine gizlenmiş büyüme süresi ve hendek ömrü beklentilerini açığa çıkarır.`}
+                </p>
+              </div>
+
+              {/* Actionable Reverse DCF Experiments */}
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span>{isEnglish ? "Pedagogical Reverse DCF Experiments:" : "Terminal DCF Deneyleri:"}</span>
+                </div>
+                <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <p>
+                    👉 <strong className="text-indigo-900 dark:text-indigo-300">{isEnglish ? "High Expectations Trap:" : "Yüksek Beklenti Tuzağı:"}</strong>{" "}
+                    {isEnglish
+                      ? "When PVGO exceeds 70% of Market Cap, even strong operational performance can lead to poor stock returns if growth falls slightly short of heroic market assumptions."
+                      : "PVGO piyasa değerinin %70'ini aştığında şirket operasyonel olarak harika performans gösterse bile, piyasanın olağanüstü beklentilerinin bir parça altında kalması hissede sert düşüş yaratabilir."}
+                  </p>
+                  <p>
+                    👉 <strong className="text-emerald-900 dark:text-emerald-300">{isEnglish ? "Deep Value / Steady State Floor:" : "Derin Değer / Taban Değer Koruması:"}</strong>{" "}
+                    {isEnglish
+                      ? "When Steady-State Value covers 80%+ of Market Cap, investors pay almost zero for future growth options, providing asymmetric upside if the moat endures."
+                      : "Taban Değer piyasa değerinin %80'inden fazlasını karşıladığında yatırımcı gelecekteki büyüme opsiyonlarını adeta bedavaya satın alır; hendek korunduğu sürece asimetrik getiri sunar."}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

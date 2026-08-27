@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   TrendingUp,
   RotateCcw,
@@ -8,6 +9,9 @@ import {
   Shield,
   Zap,
   HelpCircle,
+  ChevronDown,
+  Calculator,
+  Sparkles,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -77,6 +81,7 @@ export const CashConversionSim: React.FC = () => {
   const [dio, setDio] = useState<number>(29);
   const [dso, setDso] = useState<number>(2);
   const [dpo, setDpo] = useState<number>(60);
+  const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   // Cash Conversion Cycle Formula: CCC = DIO + DSO - DPO
   const ccc = dio + dso - dpo;
@@ -395,6 +400,89 @@ export const CashConversionSim: React.FC = () => {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Progressive Disclosure: "See the calculation & deep dive" Collapsible Panel */}
+      <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button
+          id="btn-toggle-ccc-sim-details"
+          onClick={() => setShowCalculationDetails(!showCalculationDetails)}
+          className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer min-h-[44px]"
+        >
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+            <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>
+              {isEnglish
+                ? "See the calculation & deep dive (Working Capital Math, Float & Cash Dynamics)"
+                : "Hesabı & Derinlemesine Analizi Gör (İşletme Sermayesi Formülü, Float & Dinamikler)"}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
+            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                showCalculationDetails ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {showCalculationDetails && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="overflow-hidden space-y-4 pt-4"
+            >
+              {/* Formula Breakdown Card */}
+              <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
+                <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
+                  <div className="font-bold">
+                    CCC = DIO ({dio} gün) + DSO ({dso} gün) - DPO ({dpo} gün) = {ccc} gün
+                  </div>
+                  <div className="text-slate-600 dark:text-slate-300">
+                    {isNegative
+                      ? isEnglish
+                        ? `Negative Float Advantage: The firm operates with -${Math.abs(ccc)} days of working capital. Suppliers fund daily operations.`
+                        : `Negatif Float Avantajı: Şirket -${Math.abs(ccc)} gün negatif işletme sermayesiyle çalışıyor. Tedarikçiler operasyonu bedelsiz finanse ediyor.`
+                      : isEnglish
+                        ? `Working Capital Drag: The business must fund +${ccc} days of tied-up cash in inventory and receivables.`
+                        : `İşletme Sermayesi Yükü: Şirket stokta ve alacakta kilitli kalan +${ccc} günü banka kredisi veya özkaynakla finanse etmek zorundadır.`}
+                  </div>
+                </div>
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">
+                  {isEnglish
+                    ? `Working Capital Moat (Warren Buffett & Jeff Bezos): A negative CCC is the ultimate liquidity moat. While competitors borrow money to stock inventory, the negative-float firm generates fresh cash on every sale before its supplier bills are due.`
+                    : `İşletme Sermayesi Hendeği (Buffett & Bezos): Negatif CCC en güçlü likidite hendeklerinden biridir. Rakipler stok tutmak için kredi faizi öderken, negatif float'a sahip şirket her satışta tedarikçiye ödeme günü gelene kadar taze nakit biriktirir.`}
+                </p>
+              </div>
+
+              {/* Actionable CCC Experiments */}
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span>{isEnglish ? "Pedagogical Float Experiments:" : "Terminal Float Deneyleri:"}</span>
+                </div>
+                <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <p>
+                    👉 <strong className="text-cyan-900 dark:text-cyan-300">{isEnglish ? "Amazon / E-Commerce Float:" : "Amazon / E-Ticaret Float Modeli:"}</strong>{" "}
+                    {isEnglish
+                      ? "Set DIO to 29, DSO to 2, and DPO to 60. The net cycle falls to -29 days, converting sales growth into self-funding cash."
+                      : "DIO'yu 29, DSO'yu 2 ve DPO'yu 60 yapın. Net döngü -29 güne düşerek ciro büyümesini sıfır maliyetli iç finansmana çevirir."}
+                  </p>
+                  <p>
+                    👉 <strong className="text-rose-900 dark:text-rose-300">{isEnglish ? "Heavy Manufacturing Trap:" : "Ağır Sanayi Sermaye Tuzağı:"}</strong>{" "}
+                    {isEnglish
+                      ? "Set DIO to 80, DSO to 60, and DPO to 50. Working capital is locked for +90 days, draining cash flow during market expansions."
+                      : "DIO'yu 80, DSO'yu 60 ve DPO'yu 50 yapın. Nakit +90 gün kilitlenerek büyüme evrelerinde işletme sermayesi açığı üretir."}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

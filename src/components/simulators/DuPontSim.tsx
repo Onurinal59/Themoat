@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   TrendingUp,
   RotateCcw,
@@ -9,6 +10,8 @@ import {
   BarChart3,
   HelpCircle,
   Shield,
+  ChevronDown,
+  Calculator,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -93,6 +96,7 @@ export const DuPontSim: React.FC = () => {
   const { isEnglish } = useLanguage();
   const [nopatMargin, setNopatMargin] = useState<number>(26);
   const [capitalTurnover, setCapitalTurnover] = useState<number>(0.6);
+  const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   const calculatedRoic = Math.round(nopatMargin * capitalTurnover * 10) / 10;
 
@@ -399,6 +403,85 @@ export const DuPontSim: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Progressive Disclosure: "See the calculation & deep dive" Collapsible Panel */}
+      <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button
+          id="btn-toggle-dupont-sim-details"
+          onClick={() => setShowCalculationDetails(!showCalculationDetails)}
+          className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer min-h-[44px]"
+        >
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+            <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>
+              {isEnglish
+                ? "See the calculation & deep dive (DuPont Proof, Margins vs Turnover & Diagnosis)"
+                : "Hesabı & Derinlemesine Analizi Gör (DuPont Formül Dökümü, Marj vs Hız Analizi)"}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
+            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                showCalculationDetails ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {showCalculationDetails && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="overflow-hidden space-y-4 pt-4"
+            >
+              {/* Formula and Numerical Proof */}
+              <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
+                <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
+                  <div className="font-bold">
+                    ROIC = NOPAT Marjı × Sermaye Devir Hızı = %{nopatMargin} × {capitalTurnover.toFixed(1)}x = %{calculatedRoic}
+                  </div>
+                  <div className="text-slate-600 dark:text-slate-300">
+                    {isEnglish
+                      ? `Calculation Proof: (NOPAT / Revenue) × (Revenue / Invested Capital) = (NOPAT / Invested Capital)`
+                      : `Matematiksel İspat: (NOPAT / Ciro) × (Ciro / Yatırılan Sermaye) = (NOPAT / Yatırılan Sermaye)`}
+                  </div>
+                </div>
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">
+                  {isEnglish
+                    ? `Two Distinct Competitive Strategies: Coca-Cola (26% margin × 0.6x turnover = 15.6% ROIC) and Costco (4% margin × 4.3x turnover = 17.2% ROIC) both achieve world-class capital returns via completely opposite operating engines.`
+                    : `İki Zıt Rekabet Stratejisi: Coca-Cola (%26 marj × 0.6x devir = %15.6 ROIC) ile Costco (%4 marj × 4.3x devir = %17.2 ROIC) tamamen zıt iki motorla aynı üstün sermaye getirisi liginde yarışır.`}
+                </p>
+              </div>
+
+              {/* Actionable DuPont Experiments */}
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span>{isEnglish ? "Pedagogical DuPont Experiments:" : "Terminal DuPont Deneyleri:"}</span>
+                </div>
+                <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <p>
+                    👉 <strong className="text-indigo-900 dark:text-indigo-300">{isEnglish ? "Luxury / Moat Experiment:" : "Lüks / Hendek Deneyi:"}</strong>{" "}
+                    {isEnglish
+                      ? "Raise NOPAT Margin to 28% while holding Turnover at 1.6x (Apple model). Observe how twin engines blast ROIC to 44.8%."
+                      : "NOPAT Marjını %28'e çıkarıp Devir Hızını 1.6x yapın (Apple modeli). Çifte motorun ROIC'yi nasıl %44.8'e fırlattığını izleyin."}
+                  </p>
+                  <p>
+                    👉 <strong className="text-rose-900 dark:text-rose-300">{isEnglish ? "The Commodity Trap:" : "Emtia Tuzağı:"}</strong>{" "}
+                    {isEnglish
+                      ? "Set Margin to 6% and Turnover to 0.8x. ROIC drops to 4.8%, destroying shareholder value below the WACC hurdle rate."
+                      : "Marjı %6'ya ve Devri 0.8x'e indirin. ROIC %4.8'e düşerek %10'luk sermaye maliyetinin altında servet eritir."}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

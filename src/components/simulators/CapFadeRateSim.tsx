@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   TrendingDown,
   Shield,
@@ -13,7 +13,9 @@ import {
   ArrowRight,
   TrendingUp,
   Percent,
-  CheckCircle2
+  CheckCircle2,
+  ChevronDown,
+  Calculator,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -97,6 +99,7 @@ export const CapFadeRateSim: React.FC = () => {
   const [fadeRate, setFadeRate] = useState<number>(0.08); // Exponential decay rate
   const [investedCapital, setInvestedCapital] = useState<number>(1000); // $M
   const [activeTab, setActiveTab] = useState<"chart" | "table">("chart");
+  const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   // Generate 20-year projection
   const data = Array.from({ length: 21 }, (_, t) => {
@@ -376,6 +379,85 @@ export const CapFadeRateSim: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Progressive Disclosure: "See the calculation & deep dive" Collapsible Panel */}
+      <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button
+          id="btn-toggle-cap-sim-details"
+          onClick={() => setShowCalculationDetails(!showCalculationDetails)}
+          className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer min-h-[44px]"
+        >
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+            <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>
+              {isEnglish
+                ? "See the calculation & deep dive (Exponential Decay Formula, Cumulative EP Math & CAP Threshold)"
+                : "Hesabı & Derinlemesine Analizi Gör (Üstel Bozunma Formülü, Kümülatif Refah & CAP Eşiği)"}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
+            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                showCalculationDetails ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {showCalculationDetails && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="overflow-hidden space-y-4 pt-4"
+            >
+              {/* Formula and Numerical Proof */}
+              <div className="p-4 rounded-2xl bg-emerald-50/60 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/40 space-y-2">
+                <div className="font-mono text-xs text-emerald-900 dark:text-emerald-200 space-y-1">
+                  <div className="font-bold">
+                    ROIC(t) = WACC + (ROIC₀ - WACC) × e^(-FadeRate × t)
+                  </div>
+                  <div className="text-slate-600 dark:text-slate-300">
+                    {isEnglish
+                      ? `At Year t: Spread(t) = max(0, ROIC(t) - WACC). Annual Economic Profit = Invested Capital ($${investedCapital}M) × Spread(t)`
+                      : `t Yılında: Yayılım (Spread) = max(0, ROIC(t) - WACC). Yıllık Ekonomik Kâr = Yatırılan Sermaye ($${investedCapital}M) × Yayılım(t)`}
+                  </div>
+                </div>
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-emerald-200/50 dark:border-emerald-800/50">
+                  {isEnglish
+                    ? `Mauboussin / Miller-Modigliani CAP Core Theorem: A stock's intrinsic value is not determined by current high ROIC alone, but by the integral (area under the curve) of excess returns over WACC before mean reversion inevitably completes.`
+                    : `Mauboussin / Miller-Modigliani CAP Teoremi: Bir hissenin içsel değeri sadece bugünkü yüksek ROIC'sine değil; kâr aşınması (mean reversion) tamamlanana kadar WACC üzerindeki kümülatif eğrinin alanına (CAP süresine) bağlıdır.`}
+                </p>
+              </div>
+
+              {/* Actionable CAP Experiments */}
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span>{isEnglish ? "Pedagogical CAP Experiments:" : "Terminal CAP Deneyleri:"}</span>
+                </div>
+                <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <p>
+                    👉 <strong className="text-emerald-900 dark:text-emerald-300">{isEnglish ? "Wide Moat (TSMC / Hermès):" : "Geniş Hendek (TSMC / Hermès):"}</strong>{" "}
+                    {isEnglish
+                      ? "Set Fade Rate to 0.04 (slow erosion). The company sustains excess returns for 20+ years, generating massive cumulative shareholder wealth."
+                      : "Aşınma Hızını 0.04'e (çok yavaş) ayarlayın. Şirket 20+ yıl boyunca WACC üzerinde kalarak devasa kümülatif refah üretir."}
+                  </p>
+                  <p>
+                    👉 <strong className="text-rose-900 dark:text-rose-300">{isEnglish ? "Hyper-Competitive Commodity (Ocean Shipping):" : "Acımasız Emtia Rekabeti (Deniz Taşımacılığı):"}</strong>{" "}
+                    {isEnglish
+                      ? "Set Fade Rate to 0.35. High ROIC evaporates to WACC within 3 years as aggressive competitor capital enters the market."
+                      : "Aşınma Hızını 0.35'e çıkarın. Piyasa yeni kapasiteyle dolup taştığı için yüksek kârlar 3 yıl içinde WACC seviyesine çöker."}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   TrendingUp,
   Activity,
@@ -11,6 +12,8 @@ import {
   Layers,
   ArrowRight,
   HelpCircle,
+  ChevronDown,
+  Calculator,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -182,6 +185,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
   const [investingSign, setInvestingSign] = useState<Sign>("-");
   const [financingSign, setFinancingSign] = useState<Sign>("-");
   const [activeChartTab, setActiveChartTab] = useState<"cashflows" | "distribution">("cashflows");
+  const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   const patternKey = `${operatingSign} ${investingSign} ${financingSign}`;
 
@@ -595,6 +599,86 @@ export const DickinsonLifecycleSim: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Progressive Disclosure: "See the calculation & deep dive" Collapsible Panel */}
+      <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button
+          id="btn-toggle-dickinson-sim-details"
+          onClick={() => setShowCalculationDetails(!showCalculationDetails)}
+          className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer min-h-[44px]"
+        >
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+            <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>
+              {isEnglish
+                ? "See the calculation & deep dive (Dickinson Cash Flow Matrix, ROIC Linkage & 8-Pattern Taxonomy)"
+                : "Hesabı & Derinlemesine Analizi Gör (Dickinson Nakit Akışı Matrisi, ROIC Bağı & 8 Kombinasyon)"}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
+            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                showCalculationDetails ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {showCalculationDetails && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="overflow-hidden space-y-4 pt-4"
+            >
+              {/* Formula and Numerical Proof */}
+              <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
+                <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
+                  <div className="font-bold">
+                    Pattern: CFO [{operatingSign}] | CFI [{investingSign}] | CFF [{financingSign}] → {isEnglish ? currentStage.stage : currentStage.stageTr}
+                  </div>
+                  <div className="text-slate-600 dark:text-slate-300">
+                    Empirical Sample: {currentStage.distributionShare}% of US Non-Financial Public Equities (Dickinson, The Accounting Review 2011)
+                  </div>
+                  <div className="text-slate-600 dark:text-slate-300">
+                    Average Stage ROIC: %{currentStage.avgRoic.toFixed(1)} (Spread: {currentStage.roicSpread})
+                  </div>
+                </div>
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">
+                  {isEnglish
+                    ? `Victoria Dickinson's Research Finding: Cash flow patterns classify firm lifecycle stages far more accurately than firm age or sales growth. Companies in Mature [+ - -] and Growth [+ - +] stages generate the highest sustained economic value and moat resilience.`
+                    : `Victoria Dickinson Araştırması: Nakit akış kombinasyonları, şirketlerin yaşam döngüsü evresini şirket yaşı veya ciro büyümesinden çok daha kusursuz sınıflandırır. Olgun [+ - -] ve Büyüme [+ - +] evresindeki şirketler en yüksek ROIC ve hendek dayanıklılığını sergiler.`}
+                </p>
+              </div>
+
+              {/* Actionable Dickinson Experiments */}
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
+                  <Sparkles className="w-4 h-4 text-amber-500" />
+                  <span>{isEnglish ? "Pedagogical Lifecycle Experiments:" : "Terminal Döngü Deneyleri:"}</span>
+                </div>
+                <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <p>
+                    👉 <strong className="text-emerald-900 dark:text-emerald-300">{isEnglish ? "Maturity / Free Cash Flow Power (+ - -):" : "Olgunluk / Serbest Nakit Akışı Gücü (+ - -):"}</strong>{" "}
+                    {isEnglish
+                      ? "CFO is heavily positive, CapEx (CFI) is disciplined, and CFF is negative via share buybacks and dividends. Average ROIC reaches 11.2%."
+                      : "Faaliyet nakdi pozitiftir, yatırım harcaması disiplinlidir ve finansman nakdi temettü ve hisse geri alımlarıyla negatiftir. Ortalama ROIC %11.2'ye ulaşır."}
+                  </p>
+                  <p>
+                    👉 <strong className="text-rose-900 dark:text-rose-300">{isEnglish ? "Terminal Decline Distress (- + +):" : "Düşüş & Finansal Sıkıntı (- + +):"}</strong>{" "}
+                    {isEnglish
+                      ? "Operating cash flow is negative (-), the firm sells assets (+) and raises desperate rescue financing (+). Average ROIC plunges to -12.0%."
+                      : "Faaliyet nakdi negatiftir (-), şirket varlıklarını ve fabrikalarını satar (+) ve acil kurtarma borçlanması yapar (+). Ortalama ROIC -%12.0'ye çakılır."}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
