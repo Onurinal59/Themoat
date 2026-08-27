@@ -1148,32 +1148,8 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             >
               {isEnglish ? "Complete Test & Save Score" : "Testi Tamamla & Puanı Kaydet"}
             </motion.button>
-          ) : isNextModuleNormalLearning ? (
-            nextModule ? (
-              <motion.button
-                type="button"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={() => onSelectModule(nextModule)}
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
-              >
-                <span>{isEnglish ? `Continue to Next Step (Step 0${nextModule.id})` : `Sonraki Adıma Geç (Adım 0${nextModule.id})`}</span>
-                <ArrowRight className="w-4 h-4 shrink-0" />
-              </motion.button>
-            ) : (
-              <motion.button
-                type="button"
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                onClick={onBackToRoadmap}
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
-              >
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>{isEnglish ? "Academy Completed! View Roadmap" : "Akademi Tamamlandı! Müfredatı Gör"}</span>
-              </motion.button>
-            )
           ) : (
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 ml-auto">
               {missedFlashcardIds.length > 0 && onReviewMissedInFlashcards && (
                 <motion.button
                   type="button"
@@ -1200,8 +1176,32 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 className="w-full sm:w-auto px-5 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
               >
                 <RotateCcw className="w-4 h-4 shrink-0" />
-                <span>{isEnglish ? "Retake Quiz" : "Testi Tekrar Çöz"}</span>
+                <span>{isEnglish ? "Retry Quiz" : "Testi Tekrar Çöz"}</span>
               </motion.button>
+
+              <motion.button
+                type="button"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={onBackToRoadmap}
+                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs sm:text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
+              >
+                <CheckCircle2 className="w-4 h-4 shrink-0" />
+                <span>{isEnglish ? "Back to Roadmap" : "Müfredata Dön"}</span>
+              </motion.button>
+
+              {isNextModuleNormalLearning && !nextModule && (
+                <motion.button
+                  type="button"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  onClick={onBackToRoadmap}
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
+                >
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <span>{isEnglish ? "Academy Completed! View Roadmap" : "Akademi Tamamlandı! Müfredatı Gör"}</span>
+                </motion.button>
+              )}
             </div>
           )}
         </div>

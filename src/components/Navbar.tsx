@@ -416,13 +416,16 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Daily Learning Streak Capsule (Visible on >= 640px in header; also inside Tools dropdown) */}
               <div
                 id="user-learning-streak-badge"
-                className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-300 text-xs font-black shadow-2xs select-none min-h-[38px] shrink-0"
-                title={isEnglish ? `${userState.currentStreak} day learning streak` : `${userState.currentStreak} günlük aktif öğrenme serisi`}
+                className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-300 text-xs font-black shadow-2xs select-none min-h-[38px] shrink-0 whitespace-nowrap"
+                title={isEnglish ? `${userState.currentStreak || 0} day learning streak` : `${userState.currentStreak || 0} günlük aktif öğrenme serisi`}
               >
-                <Flame className="w-4 h-4 text-amber-500 fill-amber-500 shrink-0 animate-pulse" />
-                <span>{userState.currentStreak}</span>
-                <span className="font-medium text-[10px] opacity-80">
-                  {isEnglish ? "days" : "gün"}
+                <Flame className={`w-4 h-4 text-amber-500 shrink-0 ${userState.currentStreak > 0 ? "fill-amber-500 animate-pulse" : "fill-none opacity-50"}`} />
+                <span>
+                  {(!userState.currentStreak || userState.currentStreak === 0)
+                    ? (isEnglish ? "Start your streak" : "Seriye başla")
+                    : userState.currentStreak === 1
+                    ? (isEnglish ? "Day 1 streak" : "1. gün serisi")
+                    : (isEnglish ? `${userState.currentStreak}-day streak` : `${userState.currentStreak} günlük seri`)}
                 </span>
               </div>
 
@@ -490,8 +493,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                             </span>
                           </div>
                         </div>
-                        <span className="text-xs font-black px-2 py-0.5 rounded-md bg-amber-500 text-white shadow-2xs">
-                          {userState.currentStreak} {isEnglish ? "days" : "gün"}
+                        <span className="text-xs font-black px-2 py-0.5 rounded-md bg-amber-500 text-white shadow-2xs whitespace-nowrap">
+                          {(!userState.currentStreak || userState.currentStreak === 0)
+                            ? (isEnglish ? "Start your streak" : "Seriye başla")
+                            : userState.currentStreak === 1
+                            ? (isEnglish ? "Day 1 streak" : "1. gün serisi")
+                            : (isEnglish ? `${userState.currentStreak}-day streak` : `${userState.currentStreak} günlük seri`)}
                         </span>
                       </div>
 
