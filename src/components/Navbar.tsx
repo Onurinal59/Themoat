@@ -282,13 +282,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                   type="button"
                   ref={toolsButtonRef}
                   id="nav-dropdown-tools-toggle"
-                  onClick={() => setIsToolsOpen(!isToolsOpen)}
+                  onClick={() => setIsToolsOpen((prev) => !prev)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") {
                       e.preventDefault();
-                      setIsToolsOpen(!isToolsOpen);
+                      setIsToolsOpen((prev) => !prev);
                     }
                   }}
+                  aria-haspopup="true"
                   aria-expanded={isToolsOpen}
                   aria-controls="tools-duel-menu"
                   aria-label={isEnglish ? "Tools and Duel" : "Uygulama ve Düello"}

@@ -108,9 +108,18 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
 
         <div className="relative z-10 flex flex-col md:flex-row gap-6 sm:gap-8 items-start md:items-center justify-between">
             <div className="space-y-3.5 sm:space-y-4 max-w-2xl w-full">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-white/10 border border-indigo-200 dark:border-white/20 text-indigo-700 dark:text-white/90 text-xs font-bold backdrop-blur-md uppercase tracking-wider">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-100 dark:bg-white/10 border border-indigo-200 dark:border-white/20 text-indigo-700 dark:text-white/90 text-xs font-bold backdrop-blur-md uppercase tracking-wider max-w-full">
                     <Award className="w-4 h-4 text-amber-500 dark:text-amber-400 shrink-0" />
-                    <span className="truncate">{isEnglish ? "Mauboussin & Callahan Framework" : "Michael Mauboussin Metodolojisi"}</span>
+                    <span
+                      className="text-xs font-bold leading-normal text-left"
+                      style={{
+                        whiteSpace: "normal",
+                        overflowWrap: "anywhere",
+                        wordBreak: "normal",
+                      }}
+                    >
+                      {isEnglish ? "Mauboussin & Callahan Framework" : "Michael Mauboussin Metodolojisi"}
+                    </span>
                 </div>
                 <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
                     {isEnglish ? "Measuring the Moat:" : "Ekonomik Hendeklerin Ölçülmesi:"}{" "}

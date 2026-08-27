@@ -238,16 +238,16 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 text-center md:text-left">
             <span>{t("footer.copyright", "© 2026 Ekonomik Hendek Akademisi")}</span>
             <span>•</span>
-            <span>
+            <span className="inline-flex items-center">
               {isEnglish ? "Author: " : "Yapımcı: "}
               <a
                 href="https://www.linkedin.com/in/onurınal"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center gap-1"
+                className="font-bold text-indigo-600 dark:text-indigo-400 hover:underline inline-flex items-center min-h-11 min-h-[44px] px-2 py-1.5 gap-1 rounded-md"
               >
                 Onur İnal
-                <Linkedin className="w-3 h-3 inline" />
+                <Linkedin className="w-3 h-3 inline shrink-0" />
               </a>
             </span>
             <span>•</span>
