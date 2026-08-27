@@ -72,7 +72,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
     };
     if (idx === 6) return { 
         title: isEnglish ? "Phase IV: Internal Engines, Expectations & Moat Audit" : "Faz IV: Şirket İçi Kâr Motoru, Beklentiler & Hendek Denetimi", 
-        desc: isEnglish ? "Dissect DuPont ROIC (Margin vs. Turnover), unmask working capital financing (CCC), reverse-engineer market-implied CAP, and execute the 60-point audit." : "DuPont ROIC ayrıştırmasını yapın, negatif işletme sermayesiyle büyümenin sırrını çözün, piyasanın ima ettiği CAP süresini (Tersine DCF) hesaplayın ve 60 maddelik denetimi tamamlayın.",
+        desc: isEnglish ? "Dissect DuPont ROIC (Margin vs. Turnover), unmask working capital financing (CCC), reverse-engineer market-implied CAP, and execute the sustainable value creation checklist." : "DuPont ROIC ayrıştırmasını yapın, negatif işletme sermayesiyle büyümenin sırrını çözün, piyasanın ima ettiği CAP süresini (Tersine DCF) hesaplayın ve sürdürülebilir değer yaratımı kontrol listesini tamamlayın.",
         color: "from-purple-500 to-fuchsia-500" 
     };
     return null;

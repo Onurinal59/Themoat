@@ -52,6 +52,13 @@ export interface ModuleSection {
   interactiveVisualId?: "dickinson-lifecycle" | "value-stick" | "porter-forces" | "dupont-tree" | "ccc-timeline" | "profit-pool" | "reverse-dcf" | "entry-barriers";
 }
 
+export interface SourceAndAssumption {
+  primarySource: string; // E.g. "Mauboussin & Callahan (2024), s. 3" or "Victoria Dickinson (2011)"
+  secondarySource?: string;
+  scopeNote: string; // Educational scope & model clarification
+  assumptions?: string[]; // Critical model assumptions
+}
+
 export interface LearningModule {
   id: number;
   slug: string;
@@ -62,6 +69,7 @@ export interface LearningModule {
   description: string;
   zeroKnowledgeSummary: string;
   moduleBridge?: ModuleBridge;
+  sourceAndAssumption?: SourceAndAssumption;
   sections: ModuleSection[];
   quiz: QuizQuestion[];
 }

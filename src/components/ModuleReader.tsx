@@ -42,6 +42,7 @@ import {
   Award,
   Compass,
   Milestone,
+  FileText,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -409,6 +410,33 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               </span>
               <span>{module.moduleBridge.transitionQuestion}</span>
             </div>
+          </div>
+        )}
+
+        {/* Academic Source & Methodological Assumptions Callout */}
+        {module.sourceAndAssumption && (
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 space-y-2">
+            <div className="flex items-center gap-2 text-xs font-bold text-slate-700 dark:text-slate-200">
+              <FileText className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
+              <span>{isEnglish ? "Academic Sources & Analytical Scope" : "Akademik Kaynak & Metodolojik Kapsam"}</span>
+            </div>
+            <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-600 dark:text-slate-300">
+              <div>
+                <span className="font-semibold text-slate-800 dark:text-slate-200">{isEnglish ? "Primary Source: " : "Ana Kaynak: "}</span>
+                <span>{module.sourceAndAssumption.primarySource}</span>
+              </div>
+              {module.sourceAndAssumption.secondarySource && (
+                <div>
+                  <span className="font-semibold text-slate-800 dark:text-slate-200">{isEnglish ? "Secondary: " : "İkincil: "}</span>
+                  <span>{module.sourceAndAssumption.secondarySource}</span>
+                </div>
+              )}
+            </div>
+            {module.sourceAndAssumption.scopeNote && (
+              <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 leading-relaxed italic">
+                {module.sourceAndAssumption.scopeNote}
+              </p>
+            )}
           </div>
         )}
       </div>

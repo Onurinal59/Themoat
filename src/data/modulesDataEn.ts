@@ -12,6 +12,15 @@ export const MODULES_DATA_EN: LearningModule[] = [
       "Warren Buffett's iconic economic moat metaphor, Return on Invested Capital (ROIC), Cost of Capital (WACC), and the crucial mathematical divergence between accounting revenue and true shareholder value creation.",
     zeroKnowledgeSummary:
       "Even with zero financial background: Imagine starting a lemonade stand. If you borrow money from family at 10% interest, but your stand earns only a 5% return; even if lines are around the block and sales hit records, you are quietly destroying wealth! Real wealth begins only when your operational return (ROIC) exceeds your cost of capital (WACC).",
+    sourceAndAssumption: {
+      primarySource: "Mauboussin & Callahan (2024), pp. 3–7",
+      secondarySource: "Morningstar Equity Research (2024)",
+      scopeNote: "This module adapts Mauboussin & Callahan's ROIC–WACC and sustainability framework. Calculations represent an educational model; outputs depend on chosen NOPAT, capital, and WACC assumptions.",
+      assumptions: [
+        "The debt tax shield is calculated based on standard statutory corporate tax rates.",
+        "Simulator outputs represent educational scenario modeling rather than deterministic forecasts."
+      ]
+    },
     moduleBridge: {
       transitionQuestion: "When does a business produce authentic economic wealth, and how does it protect that wealth from competitors?",
       nextTitle: "Step 2: Corporate Life Cycle (Dickinson Model)",
@@ -27,7 +36,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
           "Imagine opening an exquisite, packed coffee shop in your neighborhood. Driven by capitalism, dozens of entrepreneurs will immediately open competing cafes next door to capture your high profits.",
           "Warren Buffett observes: 'We think of every business as an economic castle. In a free market, castles are under continuous assault. Millions of people think about how to take your profit. The fundamental question is: What kind of moat protects that castle?'",
           "An Economic Moat is a structural, durable barrier that prevents rivals from stealing your profits and market share. The deeper and wider the moat, the longer a company sustains superior returns.",
-          "According to Michael Mauboussin's research at Morgan Stanley, only ~17% of public companies possess a genuine 'Wide Moat' lasting over 20 years."
+          "Approximately 17% of over 1,600 companies evaluated by Morningstar in 2024 were rated as having a 'wide moat'. Morningstar applies this rating to companies where competitive advantages are expected to persist for more than 20 years. (Source: Mauboussin & Callahan (2024), p. 5; Morningstar ratings.)"
         ],
         analogyBox: {
           title: "🏰 Castle and Moat Analogy",
@@ -44,6 +53,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
         content: [
           "ROIC (Return on Invested Capital): How much net operating profit after tax (NOPAT) a business generates for every $100 tied up in working capital, equipment, and stores.",
           "WACC (Weighted Average Cost of Capital): The blended annual opportunity cost of capital (shareholder equity required returns + after-tax debt interest).",
+          "This calculation represents an educational model. Results depend on chosen assumptions for NOPAT, invested capital, and intangible asset adjustments. (Source: Mauboussin & Callahan (2024), p. 52 and pp. 70–72.)",
           "Action in Terminal: In the simulator below, drag the left NOPAT slider upward; watch the green Economic Spread bar expand immediately on the right-hand terminal as annual wealth compounding surges.",
           "Diagnose the Capital Trap: Push the WACC slider above ROIC. Notice how the visual bar flips to Crimson Red—proving high revenue without economic spread actively destroys shareholder wealth."
         ],
@@ -77,9 +87,9 @@ export const MODULES_DATA_EN: LearningModule[] = [
         content: [
           "In Michael Mauboussin and Dan Callahan's 'Measuring the Moat' framework, value creation is not a static single-year metric; it is the mathematical product of three pillars (The Triad):",
           "1. Magnitude (Spread): The distance between ROIC and WACC.",
-          "2. Reinvestment Runway (I): How much incremental capital can be deployed at high rates of return (RONIC). A static 80% ROIC company with zero reinvestment runway (like See's Candies) is a wonderful dividend distributor, but high-reinvestment compounders (like Costco, Amazon, or early Walmart) create exponential multi-decade wealth.",
-          "3. Duration & Mean Reversion (CAP & Fade Rate): In a competitive free market, excess profits attract capital like a magnet. Empirical research proves that most high-ROIC companies rapidly fade toward WACC within 5-10 years.",
-          "Take Action in the Terminal: Adjust Initial ROIC and Decay Velocity (Fade Rate) in the model below. Observe how competitive pressure compresses the green spread zone toward WACC, and why total intrinsic wealth equals the cumulative area under the fade curve."
+          "2. Reinvestment Runway (I): How much incremental capital can be deployed at high rates of return (RONIC). A static 80% ROIC company with zero reinvestment runway is a wonderful cash cow, but high-reinvestment compounders create exponential multi-decade wealth.",
+          "3. Sustainability & Competitive Erosion: Excess returns may erode over time due to competition, imitation, and the diminishing effect of luck. Mauboussin and Callahan's 2013–2023 US corporate dataset demonstrates that ROIC exhibits noticeable mean reversion over a decade, though the pace varies by sector, business model, and defensive barriers. (Source: Mauboussin & Callahan (2024), p. 3.)",
+          "Take Action in the Terminal: Adjust Initial ROIC and Decay Velocity (Fade Rate) in the model below. Keep in mind that simulator outputs are educational scenario models rather than deterministic predictions."
         ],
         interactiveWidgetId: "cap-fade",
         formulaBox: {
@@ -152,6 +162,14 @@ export const MODULES_DATA_EN: LearningModule[] = [
       "In Module 1 we learned ROIC. But at what stage of their life cycle do companies generate high ROIC? Victoria Dickinson's 5-stage cash flow life cycle model and 8 cash flow sign combinations.",
     zeroKnowledgeSummary:
       "A baby, a college student, a working adult, and a retiree have vastly different spending habits. A company's true age is determined not by the calendar year of incorporation, but by the (+ / -) signs on its Cash Flow Statement. This method lets you instantly spot companies with paper profits whose bank accounts are silently draining.",
+    sourceAndAssumption: {
+      primarySource: "Victoria Dickinson (2011), 'Cash Flow Patterns as a Proxy for Firm Life Cycle', The Accounting Review, 86(6), pp. 1969–1994.",
+      scopeNote: "Cash flow sign patterns (+/-) serve as an empirical proxy for corporate life cycle stages; they should be interpreted alongside industry structure and operational context rather than as an isolated diagnostic.",
+      assumptions: [
+        "Operating, Investing, and Financing cash flows follow standard GAAP/IFRS classification.",
+        "Simulator outputs are educational scenario tools."
+      ]
+    },
     moduleBridge: {
       prevTitle: "Step 1: The Castle, Crocodile Moat & True Value Creation",
       takeawayFromPrev: "A company produces real economic wealth only when ROIC > WACC.",
@@ -168,7 +186,8 @@ export const MODULES_DATA_EN: LearningModule[] = [
         content: [
           "Traditional analysis focused on the founding year. However, in the modern economy, calendar age fails to reveal a firm's operational vitality.",
           "Accounting professor Victoria Dickinson (2011) developed an empirical classification: examining the signs (+ or -) of the 3 primary cash flow arteries on the Cash Flow Statement!",
-          "These 3 arteries are: 1. CFO: Cash Flow from Operations (actual cash from the core business), 2. CFI: Cash Flow from Investing (capital expenditures on factories/equipment/R&D), 3. CFF: Cash Flow from Financing (debt/equity issuance or debt repayment/dividends)."
+          "These 3 arteries are: 1. CFO: Cash Flow from Operations (actual cash from the core business), 2. CFI: Cash Flow from Investing (capital expenditures on factories/equipment/R&D), 3. CFF: Cash Flow from Financing (debt/equity issuance or debt repayment/dividends).",
+          "Cash flow signs provide a compelling signal, but should always be evaluated alongside qualitative business dynamics."
         ],
         analogyBox: {
           title: "🌱 Human Life Cycle vs Corporate Life Cycle",
@@ -183,11 +202,11 @@ export const MODULES_DATA_EN: LearningModule[] = [
         title: "2. The 5 Life Cycle Stages and Dickinson Cash Flow Fingerprints",
         summary: "Combinations of Operating, Investing, and Financing flows generate 5 core corporate life cycle stages.",
         content: [
-          "1. Introduction (Giriş) [CFO: (-), CFI: (-), CFF: (+)]: The firm cannot yet generate operational cash from sales, invests heavily in capacity, and relies on external debt/equity funding. (Average ROIC: -2.8%)",
-          "2. Growth (Büyüme) [CFO: (+), CFI: (-), CFF: (+)]: The business generates positive cash from operations, but expands so aggressively that internal cash plus external financing are poured into expansion CAPEX. (Average ROIC: +10.6%)",
-          "3. Maturity (Olgunluk) [CFO: (+), CFI: (-), CFF: (-)]: The company has become a cash-printing fortress! Massive operating cash flows in, easily funding maintenance CAPEX, while surplus cash is returned to shareholders via buybacks and dividends. (Average ROIC: +11.2% - IDEAL MOAT STAGE)",
-          "4. Shake-Out (Sarsıntı) [CFO: (+/-), CFI: (+/-), CFF: (+/-)]: Sector growth decelerates, price wars intensify, weaker players are eliminated, and profitability fluctuates. (Average ROIC: +3.8%)",
-          "5. Decline (Düşüş) [CFO: (-), CFI: (+), CFF: (+/-)]: Core operations burn cash. To survive, the firm sells off factories and equipment to raise liquidity (CFI +). (Average ROIC: -12.0%)",
+          "1. Introduction [CFO: (-), CFI: (-), CFF: (+)]: The firm cannot yet generate operational cash from sales, invests heavily in capacity, and relies on external debt/equity funding.",
+          "2. Growth [CFO: (+), CFI: (-), CFF: (+)]: The business generates positive cash from operations, but expands so aggressively that internal cash plus external financing are poured into expansion CAPEX.",
+          "3. Maturity [CFO: (+), CFI: (-), CFF: (-)]: The company has become a cash-printing fortress! Massive operating cash flows in, easily funding maintenance CAPEX, while surplus cash is returned to shareholders via buybacks and dividends.",
+          "4. Shake-Out [Mixed Flows]: Sector growth decelerates, price wars intensify, weaker players are eliminated, and profitability fluctuates.",
+          "5. Decline [CFO: (-), CFI: (+), CFF: (+/-)]: Core operations burn cash. To survive, the firm sells off factories and equipment to raise liquidity (CFI +).",
           "Action in Terminal: In the simulator below, use the left control panel to select preset company profiles (Apple, Early Startup, Declining Firm) or manually toggle CFO/CFI/CFF signs. Verify the corporate life cycle stage and cash distribution on the Recharts breakdown on the right."
         ],
         interactiveWidgetId: "dickinson",
@@ -203,13 +222,17 @@ export const MODULES_DATA_EN: LearningModule[] = [
           exampleCalculation: "Maturity Stage: CFO (+$300M) / CFI (-$80M) / CFF (-$150M)\nResult: Operations self-fund capital needs, debt is retired, and dividends are paid to shareholders!"
         },
         formulaDeepDiveId: "dickinson",
+        companyExample: {
+          company: "Apple Inc. (Educational Scenario)",
+          context: "Apple was in the Introduction stage in a garage in 1976. In 2007 with the iPhone, it entered hyper Growth. Today, generating massive operational cash flow and buying back stock, it is in the Maturity stage."
+        },
         analogyBox: {
-          title: "🍎 The Stages of Apple",
+          title: "🍎 Growth vs Maturity",
           description:
-            "Apple was in the Introduction stage in a garage in 1976. In 2007 with the iPhone, it entered hyper Growth. Today, generating ~$100B in annual operating cash flow and buying back stock, it is the quintessential Maturity castle."
+            "Regardless of growth speed, an enduring enterprise in Maturity must self-fund its investments and generate free cash flow (FCF) for shareholders without external debt reliance."
         },
         keyTakeaway:
-          "~74% of public companies reside in Growth (38%) or Maturity (36%) stages; the durability of economic moats is primarily tested during Maturity."
+          "The majority of public companies reside in Growth or Maturity stages; the durability of economic moats is primarily tested during Maturity."
       }
     ],
     quiz: [
@@ -252,6 +275,14 @@ export const MODULES_DATA_EN: LearningModule[] = [
       "We identified the life cycle stage. Now, how does a company generate profit at the individual product level? Felix Oberholzer-Gee's Value Stick: WTP, Price, Cost, and WTS surplus distribution.",
     zeroKnowledgeSummary:
       "Business is not just about raising prices. Enduring companies increase the value perceived by customers (WTP) or lower the supplier's cost floor (WTS), expanding the total pie for everyone. When customers are thrilled with the price and suppliers are delighted with the transaction, the firm captures massive sustainable margins.",
+    sourceAndAssumption: {
+      primarySource: "Felix Oberholzer-Gee (2021), Better, Simpler Strategy: A Value-Based Guide to Exceptional Performance, Harvard Business Review Press.",
+      scopeNote: "The Value Stick is an analytical model illustrating unit microeconomics and surplus allocation. Numerical values are hypothetical unit scenarios.",
+      assumptions: [
+        "WTP = Maximum reservation price perceived by customer (Not the transaction price).",
+        "WTS = Minimum reservation cost accepted by supplier/worker (Not the accounting cost)."
+      ]
+    },
     moduleBridge: {
       prevTitle: "Step 2: Corporate Life Cycle (Dickinson Model)",
       takeawayFromPrev: "The cash flow profile (CFO+, CFI-, CFF-) proved the company is an established mature fortress.",
@@ -263,24 +294,24 @@ export const MODULES_DATA_EN: LearningModule[] = [
     sections: [
       {
         id: "m3-s1",
-        title: "1. The 4 Critical Rungs of the Value Stick",
+        title: "1. The 4 Critical Rungs: WTP vs Price, Cost vs WTS",
         summary: "A product's commercial journey occurs between the customer's valuation ceiling and the supplier's cost floor.",
         content: [
-          "1. WTP (Willingness to Pay): The absolute maximum ceiling price a customer is willing to pay based on perceived value, delight, and utility.",
-          "2. Price: The actual dollar figure charged at checkout or on the invoice.",
-          "3. Cost: The total accounting resources incurred by the firm to manufacture, distribute, and support the product.",
-          "4. WTS (Willingness to Sell): The minimum reservation price acceptable to suppliers or employees to provide their inputs/labor (opportunity cost).",
-          "Action in Terminal: In the simulator below, adjust the WTP, Price, Cost, and WTS sliders or click the Apple/Costco preset buttons. Watch how Consumer Surplus (blue), Firm Profit (green), and Supplier Surplus (purple) expand dynamically on the Recharts Value Stick on the right."
+          "In the Value Stick framework, two frequent conceptual confusions must be clarified:",
+          "1. WTP (Willingness to Pay) is NOT the Price: WTP is the maximum ceiling value perceived by the customer. Price is the transaction figure charged at checkout. Consumer Surplus = WTP - Price.",
+          "2. WTS (Willingness to Sell) is NOT the Accounting Cost: WTS is the minimum compensation a supplier or employee requires. Cost is the actual price the firm pays for inputs. Supplier Surplus = Cost - WTS.",
+          "Firm Value Creation / Margin = Price - Cost. Total Value Created = WTP - WTS.",
+          "Action in Terminal: In the simulator below, adjust the WTP, Price, Cost, and WTS sliders. Observe how Consumer Surplus (blue), Firm Profit (green), and Supplier Surplus (purple) expand dynamically on the Recharts Value Stick."
         ],
         interactiveVisualId: "value-stick",
         formulaBox: {
           title: "Felix Oberholzer-Gee Value Stick Equations",
           equation: "Total Value Created = WTP - WTS\nConsumer Surplus = WTP - Price\nFirm Value Creation = Price - Cost\nSupplier Surplus = Cost - WTS",
           variables: [
-            { symbol: "WTP", label: "Willingness to Pay", desc: "Maximum ceiling value perceived by the customer" },
+            { symbol: "WTP", label: "Willingness to Pay", desc: "Maximum ceiling value perceived by the customer (Not price)" },
             { symbol: "Price", label: "Transaction Price", desc: "Actual price charged and collected at checkout" },
             { symbol: "Cost", label: "Unit Cost", desc: "Firm's direct raw materials, labor, and operational cost" },
-            { symbol: "WTS", label: "Willingness to Sell", desc: "Supplier/employee minimum acceptable reservation cost" }
+            { symbol: "WTS", label: "Willingness to Sell", desc: "Supplier/employee minimum acceptable reservation cost (Not cost)" }
           ],
           exampleCalculation: "WTP ($100) - Price ($60) = $40 Consumer Surplus\nPrice ($60) - Cost ($25) = $35 Firm Profit\nCost ($25) - WTS ($15) = $10 Supplier Surplus\nTotal Value Created = $100 - $15 = $85"
         },
@@ -292,17 +323,17 @@ export const MODULES_DATA_EN: LearningModule[] = [
             "You are willing to pay up to $10 for an exquisite artisan coffee (WTP = $10). The cafe charges $6 (Price = $6). The cost to brew and serve it is $2.50 (Cost = $2.50). The coffee bean farmer was willing to sell at a minimum of $1.50 (WTS = $1.50)."
         },
         keyTakeaway:
-          "The wider the distance between WTP and WTS, the larger the total economic pie available to be shared."
+          "The wider the distance between WTP and WTS, the larger the total economic pie available to be shared. A sustainable moat expands both rungs."
       },
       {
         id: "m3-s2",
         title: "2. Surpluses and Value Distribution: Who Captures What?",
         summary: "The total economic surplus is divided among Consumer Surplus, Firm Margin, and Supplier Surplus.",
         content: [
-          "Consumer Surplus = WTP - Price. When a customer pays $60 for something they value at $100, they experience a $40 psychological 'delight buffer'. Loyal customers return repeatedly!",
+          "Consumer Surplus = WTP - Price. When a customer pays $60 for something they value at $100, they experience a $40 psychological surplus. Delighted customers remain loyal!",
           "Firm Value Creation / Margin = Price - Cost. Selling for $60 while spending $25 yields $35 in gross economic profit.",
           "Supplier / Employee Surplus = Cost - WTS. When a supplier receives $25 for an input they were willing to sell for $15, they capture $10 in supplier surplus.",
-          "There are only 2 sustainable paths to expand firm value: Pushing WTP upward (Differentiation Strategy - Apple) or pulling WTS downward (Cost Leadership - Costco)."
+          "There are only 2 sustainable paths to expand firm value: Pushing WTP upward (Differentiation Strategy) or pulling WTS downward (Cost Leadership)."
         ],
         analogyBox: {
           title: "🤝 Zero-Sum Game vs Win-Win",
@@ -341,13 +372,22 @@ export const MODULES_DATA_EN: LearningModule[] = [
     id: 4,
     slug: "industry-map-profit-pools",
     title: "Step 4: Industry Map and Profit Pools",
-    subtitle: "The External Environment: The Fish May Be Healthy, But Is the Ocean Stormy?",
+    subtitle: "The External Environment: Industry Attractiveness vs Individual Advantage",
     estimatedMinutes: 16,
     iconName: "Compass",
     description:
-      "Moving from micro unit economics to the entire industry: mapping the value chain, the airline profit pool (-$69B historical analysis), and market share stability (the 2% rule).",
+      "Moving from micro unit economics to the entire industry: distinguishing industry attractiveness from firm-specific competitive advantage, profit pool mapping, and Bruce Greenwald's market share stability rule.",
     zeroKnowledgeSummary:
-      "Warren Buffett observed: 'When a management with a reputation for brilliance tackles a business with a reputation for bad economics, the reputation of the business remains intact.' If you operate in a structurally value-destroying sector (like commercial airlines), even genius managers struggle to earn ROIC > WACC.",
+      "Even a great captain cannot make headway in a structurally sinking ship. Some sectors destroy capital by nature, while others generate high returns. However: a profitable industry does not guarantee an individual company possesses a moat. In this module, we map value chains and profit pools.",
+    sourceAndAssumption: {
+      primarySource: "Mauboussin & Callahan (2024), pp. 10–18; Michael E. Porter (2008), 'The Five Competitive Forces That Shape Strategy', HBR.",
+      secondarySource: "Bruce Greenwald & Judd Kahn (2005), Competition Demystified.",
+      scopeNote: "Profit pool analysis examines capital allocation vs economic spread concentration across value chain segments. Aviation and tech examples are historical educational scenarios.",
+      assumptions: [
+        "Greenwald's 5-year average market share volatility rule (≤ 2%) is used as the stability benchmark.",
+        "Profit pool box area = Capital Share × (ROIC - WACC)."
+      ]
+    },
     moduleBridge: {
       prevTitle: "Step 3: The Value Stick (Microeconomic Foundations)",
       takeawayFromPrev: "We learned how unit profit is born from the spread between WTP and Cost.",
@@ -359,12 +399,12 @@ export const MODULES_DATA_EN: LearningModule[] = [
     sections: [
       {
         id: "m4-s1",
-        title: "1. Constructing an Industry Map (Case: US Commercial Aviation)",
-        summary: "Mapping suppliers, airlines, airports, GDS booking systems, and passengers onto a unified grid.",
+        title: "1. Constructing an Industry Map: Industry Attractiveness vs Firm Advantage",
+        summary: "An industry may be attractive overall, but sustainable excess returns require a company-specific structural defense.",
         content: [
-          "A company's profitability does not exist in a vacuum; it is surrounded by buyers, suppliers, regulators, and rivals.",
-          "Aviation Ecosystem: Aircraft makers (Boeing & Airbus - duopoly), Engine makers (GE, Rolls-Royce), Airports (local monopolies), Pilot unions, and Global Distribution Systems (Amadeus, Sabre).",
-          "Airlines sit trapped between powerful monopoly suppliers and price-sensitive travelers!"
+          "The first analytical rule is to never confuse general industry attractiveness with a company's unique competitive advantage. A mediocre firm can ride high industry tailwinds temporarily, but a genuine moat belongs to the firm's structural barriers.",
+          "Aviation Ecosystem (Educational Scenario): Aircraft makers (Boeing & Airbus), Engine makers (GE, Rolls-Royce), Airports, Pilot unions, and Global Distribution Systems (Amadeus, Sabre).",
+          "Airline operators sit trapped between powerful suppliers and price-sensitive travelers."
         ],
         analogyBox: {
           title: "🥪 The Airline in the Sandwich",
@@ -372,7 +412,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
             "An airline is like a thin slice of cheese in a heavy sandwich: pressed from above by duopoly plane makers and monopoly airports, and squeezed from below by passengers demanding the cheapest flight."
         },
         keyTakeaway:
-          "A firm's returns depend heavily on the bargaining power balance across the entire value chain."
+          "Industry structure sets the baseline economics; a company's moat determines whether it captures above-average returns."
       },
       {
         id: "m4-s2",
@@ -381,8 +421,8 @@ export const MODULES_DATA_EN: LearningModule[] = [
         content: [
           "A Profit Pool plots Invested Capital Share (0-100%) on the X-axis and Economic Spread (ROIC - WACC) on the Y-axis.",
           "Box Area = Total Economic Profit / Loss ($). Formula: Economic Profit = Invested Capital × (ROIC - WACC).",
-          "Aviation Insight: Airlines committed >75% of the sector's total capital but generated deep cumulative economic losses (-$69B). Meanwhile, asset-light GDS reservation systems (Amadeus) and Jet Fuel refiners captured massive positive economic profit.",
-          "Action in Terminal: In the simulator below, select Airlines, Plane Manufacturers, or Booking Systems (GDS) from the left control panel. Observe on the Recharts Profit Pool chart on the right how capital share width (X) multiplied by return spread height (Y) translates directly into economic dollars created or destroyed."
+          "Aviation Case: Airlines committed the majority of total capital and historically produced weak or negative economic profits. Meanwhile, asset-light GDS reservation systems achieved high economic spreads.",
+          "Action in Terminal: In the simulator below, explore industry segments and observe how capital share width (X) multiplied by return spread height (Y) translates into economic profit in educational scenarios."
         ],
         formulaBox: {
           title: "Economic Profit Pool Geometry",
@@ -411,7 +451,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
         content: [
           "According to Columbia professor Bruce Greenwald, establishing a durable moat in industries where market shares swing wildly is near impossible.",
           "Formula: Compute the average 5-year absolute annual market share changes across all major competitors.",
-          "If average change ≤ 2%, the market is stable (e.g., Search Engines: Google ~90%, Soft Drinks: Coca-Cola / Pepsi).",
+          "If average change ≤ 2%, the market is structurally stable.",
           "If average change > 2%, the sector is unstable and prone to destructive price wars."
         ],
         analogyBox: {
@@ -451,13 +491,22 @@ export const MODULES_DATA_EN: LearningModule[] = [
     id: 5,
     slug: "porter-five-forces-barriers",
     title: "Step 5: Porter's 5 Forces, Entry Barriers & 10-K Footnotes",
-    subtitle: "The Armor Keeping Rivals Out: Scale, Network Effects & R&D Capitalization",
+    subtitle: "The Armor Keeping Rivals Out: 7 Entry Barriers & Reported vs Adjusted ROIC",
     estimatedMinutes: 18,
     iconName: "Lock",
     description:
-      "Mapping competitive forces: Michael Porter's 5 Forces, the 7 Entry Barriers, and 10-K Footnote Forensics for R&D and Operating Lease capitalization.",
+      "Mapping competitive forces: Michael Porter's 5 Forces, the 7 Entry Barriers, and 10-K Footnote Forensics for R&D and Operating Lease adjustments.",
     zeroKnowledgeSummary:
-      "The harder it is for a new rival to enter your market, the safer your profits are. Furthermore, standard accounting rules treat software and pharma R&D as an immediate expense rather than a balance sheet asset; in this step, we learn how to perform forensic adjustments to uncover true invested capital.",
+      "High market share alone is not an economic moat; the decisive test is how difficult it is for a newcomer to enter. Furthermore, accounting rules expense R&D immediately; in this module, we examine the distinction between reported accounting numbers and analytical adjusted ROIC.",
+    sourceAndAssumption: {
+      primarySource: "Mauboussin & Callahan (2024), pp. 20–35 & pp. 70–72 (Capitalizing Intangibles).",
+      secondarySource: "Michael E. Porter (2008), 'The Five Competitive Forces That Shape Strategy', HBR.",
+      scopeNote: "R&D and lease capitalizations are analytical adjustments designed to normalize accounting timing differences; outcomes depend on chosen amortization periods and discount rates.",
+      assumptions: [
+        "High market share is not automatic proof of an economic moat.",
+        "R&D is capitalized assuming a 3–5 year straight-line amortization schedule."
+      ]
+    },
     moduleBridge: {
       prevTitle: "Step 4: Industry Map and Profit Pools",
       takeawayFromPrev: "We mapped where industry profit pools accumulate.",
@@ -469,14 +518,12 @@ export const MODULES_DATA_EN: LearningModule[] = [
     sections: [
       {
         id: "m5-s1",
-        title: "1. Michael Porter's 5 Forces Model and Entry Threats",
+        title: "1. Porter's 5 Forces: High Market Share Is Not Automatically a Moat",
         summary: "The 5 gravitational forces governing industry profitability and the primacy of entry threats.",
         content: [
-          "1. Threat of New Entrants - The single most critical force!",
-          "2. Rivalry Among Existing Competitors",
-          "3. Bargaining Power of Suppliers",
-          "4. Bargaining Power of Buyers",
-          "5. Threat of Substitutes"
+          "Michael Porter's 5 Forces Framework: 1. Threat of New Entrants, 2. Rivalry Among Existing Competitors, 3. Supplier Power, 4. Buyer Power, 5. Threat of Substitutes.",
+          "Critical Caveat: Possessing a large market share is NOT automatic proof of an economic moat. Without structural barriers to entry, high profits in an open market attract immediate capital, rapidly eroding margins.",
+          "The true shield is not the market share itself, but the structural entry barriers defending it."
         ],
         interactiveVisualId: "porter-forces",
         analogyBox: {
@@ -485,20 +532,20 @@ export const MODULES_DATA_EN: LearningModule[] = [
             "Your company is a ship sailing in a storm. Gusts blow from suppliers, buyers, neighboring ships, new pirates, and aircraft (substitutes). The ship's survival depends on structural resilience against all 5 forces."
         },
         keyTakeaway:
-          "Bruce Greenwald highlights that 'Threat of New Entrants' is the master force governing the other four."
+          "High market share without entry barriers is merely temporary scale, vulnerable to fast erosion."
       },
       {
         id: "m5-s2",
         title: "2. The 7 Entry Barriers Protecting the Incumbent",
         summary: "Mechanisms that make entry prohibitively expensive or structurally unprofitable for newcomers.",
         content: [
-          "1. Supply-Side Economies of Scale & MES (Minimum Efficient Scale): The incumbent spreads fixed costs over massive volume, yielding lowest unit cost. Small entrants face higher unit costs.",
-          "2. Capital Requirements: Upfront capital barriers like TSMC spending $20B on a single semiconductor fabrication fab.",
-          "3. Network Effects (Demand-Side Scale): Value grows exponentially as more users join (e.g., WhatsApp, Uber, Visa).",
-          "4. Customer Switching Costs (Lock-in): High friction/cost for customers to switch vendors (e.g., SAP ERP systems, Bloomberg Terminal).",
-          "5. Advantages Independent of Size & Wright's Law: Unit costs drop ~20% for every doubling of cumulative manufacturing experience (learning curve).",
-          "6. Unequal Access to Distribution Channels: Supermarket shelf dominance or default browser agreements (Google paying Apple $20B/year).",
-          "7. Government Regulation & Licensing: High regulatory hurdles ('Regulation is the incumbent's best friend')."
+          "1. Supply-Side Economies of Scale & MES (Minimum Efficient Scale): The incumbent spreads fixed costs over massive volume, yielding lowest unit cost.",
+          "2. Capital Requirements: Upfront capital barriers such as advanced semiconductor fabrication facilities.",
+          "3. Network Effects (Demand-Side Scale): Value grows exponentially as more users join the platform.",
+          "4. Customer Switching Costs (Lock-in): High friction/cost for customers to switch vendors.",
+          "5. Advantages Independent of Size & Wright's Law: Unit costs drop ~20% for every doubling of cumulative manufacturing output (learning curve).",
+          "6. Unequal Access to Distribution Channels: Shelf space dominance or default digital distribution agreements.",
+          "7. Government Regulation & Licensing: High regulatory hurdles and legal protections."
         ],
         analogyBox: {
           title: "🔌 Wright's Law and EV Batteries",
@@ -510,13 +557,13 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "m5-s3",
-        title: "3. 10-K Footnote Adjustments: Capitalizing R&D & Operating Leases",
+        title: "3. 10-K Footnote Adjustments: Reported ROIC vs Adjusted ROIC",
         summary: "Transforming immediate R&D expenses into multi-year amortizing balance sheet assets.",
         content: [
-          "GAAP/IFRS rules immediately expense R&D budgets in the current year. For tech and biotech firms, this depresses reported operating earnings and conceals the true invested capital base.",
-          "Mauboussin Forensic Adjustment: Add current R&D back to EBIT, amortize past R&D over 3-5 years, and add the net unamortized R&D asset to Invested Capital.",
-          "Operating Leases: Calculate the present value (PV) of future minimum lease commitments (stores/aircraft) and add to both debt and fixed assets.",
-          "Action in Terminal: In the simulator below, pick a 10-K scenario (e.g., Biotech & SaaS Firm) on the left panel or adjust R&D expenses and amortization life. Observe the stark difference between unadjusted reported earnings and true adjusted ROIC on the right."
+          "There is no single universal 'true ROIC'. Instead, analysts distinguish between reported accounting ROIC and analytical adjusted ROIC by stating clear assumptions.",
+          "R&D Capitalization: Standard accounting expenses R&D in the current period. In Mauboussin and Callahan's approach, R&D is added back to EBIT, amortized over 3–5 years, and capitalized as an intangible asset on the balance sheet. (Source: Mauboussin & Callahan (2024), pp. 70–72.)",
+          "Operating Leases: The present value (PV) of non-cancellable lease commitments is capitalized into debt and productive assets.",
+          "Action in Terminal: In the simulator below, pick a 10-K scenario or adjust R&D parameters to observe how reported numbers compare with adjusted ROIC figures."
         ],
         formulaBox: {
           title: "10-K Balance Sheet Adjustments & R&D / Lease Capitalization",
@@ -533,10 +580,10 @@ export const MODULES_DATA_EN: LearningModule[] = [
         analogyBox: {
           title: "🧪 Laboratory vs Steel Blast Furnace",
           description:
-            "When a steelmaker builds a blast furnace, accounting capitalizes it over 30 years as an asset; when a pharma company discovers a life-saving vaccine, accountants treat it like a one-day expense! Footnote adjustments restore economic reality."
+            "When a steelmaker builds a blast furnace, accounting capitalizes it over 30 years as an asset; when a tech firm develops software, accounting may treat it as an immediate expense. Adjustments balance this timing difference."
         },
         keyTakeaway:
-          "Forensic capitalization of R&D and operating leases is essential to calculate the true ROIC of knowledge and asset-light enterprises."
+          "Adjusted ROIC is an analytical construct; its value depends on explicit assumptions regarding asset life, lease discount rates, and excess cash."
       }
     ],
     quiz: [
@@ -545,20 +592,20 @@ export const MODULES_DATA_EN: LearningModule[] = [
         question: "According to Wright's Law (Learning Curve), approximately how much do unit manufacturing costs decline every time cumulative production volume doubles?",
         options: ["1%", "20%", "50%", "0% (costs remain unchanged)"],
         correctAnswerIndex: 1,
-        explanation: "Wright's Law establishes that unit costs decline by ~20% for every doubling of cumulative manufacturing output."
+        explanation: "Wright's Law establishes that unit costs decline empirically by ~20% for every doubling of cumulative manufacturing output."
       },
       {
         id: "q5-2",
         question: "What is the primary balance sheet impact of capitalizing and amortizing R&D expenditures?",
         options: [
           "It forces the company into immediate bankruptcy",
-          "It reveals the true economic Invested Capital base and normalizes adjusted NOPAT earnings",
+          "It incorporates intangible investments into the capital base to calculate adjusted NOPAT and invested capital",
           "It reduces corporate tax rates to zero",
           "It multiplies the total share count"
         ],
         correctAnswerIndex: 1,
         explanation:
-          "Capitalizing R&D treats innovation expenditures as long-term productive assets, bringing Invested Capital and NOPAT into economic alignment."
+          "Capitalizing R&D treats innovation expenditures as long-term productive assets, bringing Invested Capital and NOPAT into analytical alignment."
       }
     ]
   },
@@ -570,9 +617,18 @@ export const MODULES_DATA_EN: LearningModule[] = [
     estimatedMinutes: 17,
     iconName: "Zap",
     description:
-      "Even with thick castle walls, what if competitors tunnel in from below? Clayton Christensen's Disruptive Innovation, Prisoner's Dilemma in Price Wars, and Colonel Blotto strategies.",
+      "Even with thick castle walls, what if competitors tunnel in from below? Clayton Christensen's Disruptive Innovation, Prisoner's Dilemma in Price Wars, and Axelrod's Tit-for-Tat strategy.",
     zeroKnowledgeSummary:
-      "Sometimes industry giants collapse not because they were badly run, but because they did everything 'right': listening to their best customers and maximizing short-term margins! Meanwhile, an entrant enters from the low-end and quietly evolves. Furthermore, entering uncontrolled price wars destroys value for all competitors.",
+      "Sometimes industry giants collapse not because they were badly run, but because they focused strictly on their most profitable customers, missing low-end shifts. But caution: not every technological advancement is disruptive innovation. In this module, we examine business model shifts and game-theoretic price discipline.",
+    sourceAndAssumption: {
+      primarySource: "Clayton M. Christensen (1997), The Innovator’s Dilemma: When New Technologies Cause Great Firms to Fail.",
+      secondarySource: "Robert Axelrod (1984), The Evolution of Cooperation; Mauboussin & Callahan (2024), pp. 38–48.",
+      scopeNote: "Disruptive innovation and game theory simulations are theoretical models explaining behavioral and strategic competition dynamics.",
+      assumptions: [
+        "Not all technological change constitutes disruption; low-end Foothold and business model shifts are key markers.",
+        "Repeated game scenarios foster rational coordination over time."
+      ]
+    },
     moduleBridge: {
       prevTitle: "Step 5: Porter's 5 Forces, Entry Barriers & 10-K Footnotes",
       takeawayFromPrev: "We audited the 7 entry barriers and hidden balance sheet R&D capital.",
@@ -588,16 +644,21 @@ export const MODULES_DATA_EN: LearningModule[] = [
         summary: "Sustaining innovation makes good products better; disruptive innovation reinvents the business model.",
         content: [
           "Sustaining Innovation: Making existing products faster, more powerful, and more expensive for demanding premium customers. Incumbent market leaders almost always win this game.",
-          "Disruptive Innovation: A new business model that initially appears 'inferior, low-margin, or inadequate' to mainstream users, but is vastly cheaper, simpler, and more accessible.",
-          "Overshooting: Incumbents add more complexity and performance than average customers need or are willing to pay for. Competition then pivots to simplicity, convenience, and low cost."
+          "Disruptive Innovation: A new business model that initially appears 'inferior or inadequate' to mainstream users, but is vastly cheaper, simpler, and more accessible.",
+          "Important Distinction: Not every technological breakthrough is disruptive innovation. Genuine disruption typically begins in a neglected low-end foothold with an asymmetric business model.",
+          "Overshooting: Incumbents add more complexity than average customers need or are willing to pay for, shifting competition toward simplicity and speed."
         ],
+        companyExample: {
+          company: "Netflix vs Blockbuster (Educational Scenario)",
+          context: "Blockbuster operated retail stores with revenue partly derived from late fees. Netflix transformed the distribution model via mail-order DVDs with zero late fees, eventually transitioning into streaming."
+        },
         analogyBox: {
-          title: "📼 Blockbuster vs Netflix",
+          title: "📼 Business Model Disruption",
           description:
-            "Blockbuster operated massive retail stores and earned ~15% of revenue from punitive late fees. Netflix started with mail-order DVDs with zero late fees, then pivoted to streaming. Blockbuster filed for bankruptcy in 2010!"
+            "Disruptive innovation is fundamentally a BUSINESS MODEL challenge rather than just a technology upgrade."
         },
         keyTakeaway:
-          "Disruptive innovation is fundamentally a BUSINESS MODEL challenge, not merely a technology issue."
+          "Even established market leaders can be vulnerable to low-end business model disruption."
       },
       {
         id: "m6-s2",
@@ -605,8 +666,8 @@ export const MODULES_DATA_EN: LearningModule[] = [
         summary: "Incumbents accelerate their own downfall by fleeing low-margin market segments.",
         content: [
           "Christensen's classic case: Integrated steel mills refined iron ore into premium steel. Mini-mills melted cheap scrap steel in electric arc furnaces.",
-          "Mini-mills first entered the lowest-margin product: rebar (concrete reinforcing rods). Integrated mills gladly ceded rebar, celebrating improved average corporate margins!",
-          "However, mini-mills steadily refined their technology, climbed up-market into structural beams, and ultimately dominated sheet steel, driving integrated giants into distress."
+          "Mini-mills first entered the lowest-margin product: rebar. Integrated mills gladly ceded rebar, celebrating improved average corporate margins!",
+          "However, mini-mills steadily refined their technology, climbed up-market into structural beams, and ultimately dominated sheet steel."
         ],
         analogyBox: {
           title: "🪜 The Bottom Rung of the Ladder",
@@ -623,8 +684,8 @@ export const MODULES_DATA_EN: LearningModule[] = [
         content: [
           "Two rival airlines compete on the same route. If both maintain premium fares (Cooperation), both earn robust profits. If one slashes fares, it temporarily steals share.",
           "When both cut fares, prices drop below cost and both suffer severe losses (Nash Equilibrium Trap).",
-          "Robert Axelrod proved the optimal repeated-game strategy is 'Tit-for-Tat': 1. Start with Cooperation (firm pricing), 2. Immediately retaliate if the rival cuts price, 3. Instantly forgive and restore normal pricing when the competitor cooperates.",
-          "Action in Terminal: In the simulator below, pick Tit-for-Tat or Aggressive Undercutter from the left strategy panel; click 'Step Simulation' to advance rounds. Watch on the Recharts Cumulative Payoff graph on the right how disciplined retaliation outperforms destructive price wars."
+          "Robert Axelrod proved the optimal repeated-game strategy is 'Tit-for-Tat': 1. Start with Cooperation (disciplined pricing), 2. Immediately retaliate if the rival cuts price, 3. Instantly forgive and restore normal pricing when the competitor cooperates.",
+          "Action in Terminal: In the simulator below, pick strategies and step through rounds to see how disciplined retaliation fosters stability over destructive price wars."
         ],
         interactiveWidgetId: "game-theory",
         analogyBox: {
@@ -634,24 +695,6 @@ export const MODULES_DATA_EN: LearningModule[] = [
         },
         keyTakeaway:
           "Disciplined game theory and tacit coordination protect industry profit pools from mutually assured destruction."
-      },
-      {
-        id: "m6-s4",
-        title: "4. Regulatory Moats (Licensing, Patents, Tariffs) & Co-opetition (Value Net)",
-        summary: "Government protections and industry standard cooperation determine the size and durability of profit pools.",
-        content: [
-          "1. Legal Moats and Government Protection (Regulation & Licensing): Some of the most durable moats originate outside market forces. Moody's and S&P hold the regulatory 'NRSRO' status for debt ratings; airport operating concessions and pharmaceutical compound patents (20-year legal monopoly) enforce barriers by law.",
-          "2. Tariffs and Trade Protection: Import quotas and tariffs provide domestic producers with artificial pricing insulation; however, political shifts can dissolve these protections overnight.",
-          "3. Antitrust and Regulatory Risk: For dominant digital platforms (Google, Meta, Apple), the primary existential risk is not direct competitor attack, but antitrust breakups and regulatory fines.",
-          "4. Co-opetition & The Value Net: In Adam Brandenburger and Barry Nalebuff's framework, firms do not simply fight—they cooperate to expand total industry Willingness to Pay (WTP) via shared standards (USB-C, 5G patent pools, open-source software), then compete to capture their share of the expanded pie."
-        ],
-        analogyBox: {
-          title: "🏛️ The Sovereign Seal on the Castle Gate",
-          description:
-            "Building stone ramparts takes years of capital expenditure; but an official government charter (like an NRSRO license) ensures competitors cannot legally enter the territory at all."
-        },
-        keyTakeaway:
-          "The most durable barriers to entry are backed by regulation and patents, while the most lucrative industries expand total value through co-opetition before competing on share."
       }
     ],
     quiz: [
@@ -693,12 +736,20 @@ export const MODULES_DATA_EN: LearningModule[] = [
     description:
       "Opening the company's financial statements: DuPont decomposition (Margin × Turnover) and Amazon's Negative Cash Conversion Cycle (CCC = DIO + DSO - DPO).",
     zeroKnowledgeSummary:
-      "Two companies with the exact same 16% ROIC can arrive there through polar opposite pathways: high pricing power (Coca-Cola making 26% NOPAT margin) vs extreme asset velocity (Costco making 3.8% margin but turning inventory at lightning speed). In this step, we learn how to perform a forensic audit of the balance sheet engine.",
+      "Two companies with the exact same 16% ROIC can arrive there through polar opposite pathways: high pricing power (Coca-Cola making 26% NOPAT margin) vs extreme asset velocity (Costco making 3.8% margin but turning inventory rapidly). In this step, we learn how to audit whether high returns stem from margin, turnover, or working capital timing.",
+    sourceAndAssumption: {
+      primarySource: "Mauboussin & Callahan (2024), pp. 50–58.",
+      scopeNote: "DuPont decomposition and the Cash Conversion Cycle (CCC) analyze operational return mechanics based on company financial statements.",
+      assumptions: [
+        "ROIC = NOPAT Margin (%) × Invested Capital Turnover (x).",
+        "CCC = Days Inventory Outstanding (DIO) + Days Sales Outstanding (DSO) - Days Payable Outstanding (DPO)."
+      ]
+    },
     moduleBridge: {
       prevTitle: "Step 6: Disruptive Innovation and Game Theory",
       takeawayFromPrev: "We learned game theory price discipline and disruptive innovation mechanics.",
       transitionQuestion: "How does a company's internal engine produce its ROIC? Is it driven by Margin or Capital Turnover?",
-      nextTitle: "Step 8: Reverse DCF, Brands and 60-Point Moat Audit",
+      nextTitle: "Step 8: Reverse DCF, Brands and Sustainable Value Checklist",
       whyNext: "Having completed internal and external analysis, we reach the grand finale: reverse-engineering the Competitive Advantage Period (CAP) embedded in stock prices.",
       previewQuestion: "How many years of exceptional moat returns has the market already priced into the stock?"
     },
@@ -710,7 +761,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
         content: [
           "Michael Porter emphasizes: Operational Effectiveness is performing similar activities better than competitors. It is not strategy because best practices are quickly copied, eroding margins.",
           "Strategic Positioning is performing DIFFERENT activities or performing activities differently to deliver unique value with deliberate trade-offs.",
-          "Southwest Airlines Case: Flew exclusively Boeing 737s, flew point-to-point rather than hub-and-spoke, and offered no seat assignments or meals. This slashed gate turnaround to 15 minutes and crushed competitors' cost structures."
+          "Southwest Airlines Case (Educational Scenario): Flew exclusively Boeing 737s, flew point-to-point rather than hub-and-spoke, and offered no meals. This cut gate turnaround to 15 minutes, yielding a distinct cost advantage."
         ],
         analogyBox: {
           title: "🎯 Trying to Please Everyone",
@@ -725,11 +776,10 @@ export const MODULES_DATA_EN: LearningModule[] = [
         title: "2. DuPont ROIC Dissection: Margin Champions vs Velocity Champions",
         summary: "ROIC (%) = NOPAT Margin (%) × Invested Capital Turnover (x).",
         content: [
-          "In the DuPont mathematical identity, Sales cancels out: (NOPAT / Sales) × (Sales / Invested Capital) = NOPAT / Invested Capital = ROIC.",
-          "Differentiation Path (High Margin / Low Turnover): Coca-Cola (26.2% margin, 0.61x turnover = 16.0% ROIC), Apple, Ferrari.",
+          "When auditing a high ROIC, the primary question is: 'Does this return stem from high pricing power (margins), rapid asset turnover (velocity), or temporary working capital timing?'",
+          "Differentiation Path (High Margin / Low Turnover): Coca-Cola (26.2% margin, 0.61x turnover = 16.0% ROIC), Apple.",
           "Cost Leadership Path (Low Margin / High Turnover): Costco (3.8% margin, 4.21x turnover = 16.0% ROIC), Walmart.",
-          "Costco and Coca-Cola produce the identical 16% ROIC, but one wins via pricing power while the other wins via asset velocity!",
-          "Action in Terminal: In the simulator below, test Coca-Cola (Margin) vs Costco (Turnover) from the preset buttons, or adjust margin and asset turnover sliders. Discover on the DuPont Scatter Matrix on the right which operational axis powers your firm's return engine."
+          "Action in Terminal: In the simulator below, test preset profiles or adjust margin and asset turnover sliders. Observe on the DuPont scatter plot which operational axis powers the firm's returns."
         ],
         formulaBox: {
           title: "DuPont ROIC Decomposition",
@@ -749,18 +799,17 @@ export const MODULES_DATA_EN: LearningModule[] = [
             "A Ferrari earns a massive margin on every single car sold. A freight truck makes a tiny margin per ton but runs non-stop 24/7 to generate the same total economic return."
         },
         keyTakeaway:
-          "The most durable compounders adhere to 'Better before Cheaper' and 'Revenues before Cost'."
+          "Dissecting ROIC reveals whether a company's edge comes from customer pricing power or asset velocity."
       },
       {
         id: "m7-s3",
-        title: "3. Amazon's Secret Weapon: Negative Cash Conversion Cycle (CCC)",
-        summary: "Collecting cash upfront and paying suppliers months later, funding growth with float.",
+        title: "3. Amazon's Negative Cash Conversion Cycle (CCC)",
+        summary: "Collecting cash upfront and paying suppliers months later, generating operational float.",
         content: [
           "Cash Conversion Cycle (CCC) = Days Inventory Outstanding (DIO) + Days Sales Outstanding (DSO) - Days Payable Outstanding (DPO).",
-          "1999 Barnes & Noble: Kept books on shelves for 149 days, collected cash in 6 days, paid publishers in 75 days. CCC = 149 + 6 - 75 = +80 Days! (Cash locked up in inventory for 80 days).",
-          "1999 Amazon: Sold books in 29 days, collected credit card cash in 2 days, paid publishers in 60 days. CCC = 29 + 2 - 60 = -29 Days!",
-          "Amazon held customer cash for nearly two months before paying suppliers, generating interest-free working capital float to fund hyper-expansion.",
-          "Action in Terminal: In the simulator below, select Amazon vs Barnes & Noble from the company presets or adjust DIO, DSO, and DPO sliders. Watch the Recharts Waterfall chart on the right as negative working capital days create a massive interest-free liquidity engine."
+          "Traditional Retail Scenario: Inventory held for 149 days, cash collected in 6 days, suppliers paid in 75 days -> CCC = +80 Days (Capital tied up in inventory).",
+          "Amazon Scenario: Inventory sold in 29 days, credit card cash collected in 2 days, suppliers paid in 60 days -> CCC = -29 Days!",
+          "A negative CCC allows a company to collect revenue from customers before paying supplier bills, providing free working capital float to fund organic growth."
         ],
         formulaBox: {
           title: "Cash Conversion Cycle (CCC)",
@@ -809,14 +858,22 @@ export const MODULES_DATA_EN: LearningModule[] = [
   {
     id: 8,
     slug: "reverse-dcf-brands-checklist",
-    title: "Step 8: Reverse DCF, Brands and 60-Point Moat Audit",
-    subtitle: "The Grand Finale: Uncover Market Expectations, Tiffany Test & Morgan Stanley Checklist",
+    title: "Step 8: Reverse DCF, Brands and Sustainable Value Creation Checklist",
+    subtitle: "The Grand Finale: Uncover Market Expectations, Tiffany Test & Value Creation Audit",
     estimatedMinutes: 20,
     iconName: "CheckSquare",
     description:
-      "Synthesizing all tools: Reverse DCF to solve for the market's implied Competitive Advantage Period (CAP), Is Brand a Moat? (Tiffany diamond test), and the 60-Point Morgan Stanley Moat Checklist.",
+      "Synthesizing all tools: Reverse DCF to solve for the market's implied Competitive Advantage Period (CAP), Is Brand a Moat? (Tiffany diamond test), and the Sustainable Value Creation Checklist adapted from the report.",
     zeroKnowledgeSummary:
-      "You cannot predict the future with a crystal ball. But you can reverse-engineer what future growth and moat longevity the current stock price implies (Reverse DCF). In this final module, we crown everything you have learned with an institutional investor moat checklist.",
+      "Rather than forecasting the future, Reverse DCF reveals what duration of exceptional returns the current stock price implies. Recognizing that this expectation is a model-based interpretation rather than an absolute truth, you can systematically audit companies using an institutional checklist.",
+    sourceAndAssumption: {
+      primarySource: "Mauboussin & Callahan (2024), 'Checklist for Measuring Sustainable Value Creation', pp. 67–69 and Reverse DCF, pp. 60–65.",
+      scopeNote: "Reverse DCF and the Checklist are analytical frameworks adapted from the report for educational assessment of competitive durability.",
+      assumptions: [
+        "Implied CAP is an analytical interpretation of market price, not a guaranteed future outcome.",
+        "The checklist adapts the original 75 questions into 22 focused operational items."
+      ]
+    },
     moduleBridge: {
       prevTitle: "Step 7: Internal Analysis & DuPont ROIC Forensic Dissection",
       takeawayFromPrev: "We unraveled the company's internal ROIC and negative working capital float engine.",
@@ -832,11 +889,12 @@ export const MODULES_DATA_EN: LearningModule[] = [
         summary: "Don't forecast the future; solve for the expectations embedded in current price.",
         content: [
           "In traditional DCF models, analysts attempt to forecast cash flows 10 years out, often with large forecasting error.",
-          "Mauboussin's Reverse DCF: Invert the question: 'What future growth rate and Competitive Advantage Period (CAP) must this firm achieve to justify its current stock price?'",
+          "Mauboussin and Callahan's Reverse DCF: Invert the question: 'What future growth rate and Competitive Advantage Period (CAP) must this firm achieve to justify its current stock price?'",
           "Stock Price = Steady-State Value (NOPAT / WACC) + Present Value of Growth Opportunities (PVGO / CAP Years).",
-          "If the market prices in 25 years of uncontested wide moat (CAP) in a fast-moving industry, the stock is priced for perfection. If the market prices in only 4 years of CAP for a company with 15-year patents, it presents a compelling margin of safety.",
-          "Action in Terminal: In the simulator below, adjust Stock Price, Current NOPAT, Growth Rate, and WACC sliders or click preset scenarios (Apple, Coca-Cola, Overpriced Tech). Discover the split between Steady-State Value and PVGO Future Value, and determine the market's implied CAP (Moat) longevity on the right."
+          "Remember: Implied CAP is an educational scenario interpretation based on input NOPAT and WACC parameters, rather than an indisputable forecast. (Source: Mauboussin & Callahan (2024), pp. 60–65.)",
+          "Action in Terminal: In the simulator below, adjust Stock Price, Current NOPAT, Growth Rate, and WACC sliders or load preset scenarios to examine the implied CAP horizon."
         ],
+        interactiveWidgetId: "reverse-dcf",
         formulaBox: {
           title: "Michael Mauboussin Reverse DCF & Implied CAP",
           equation: "Stock Price ($) = Steady-State Value (NOPAT / WACC) + Future Growth Options (PVGO)\nImplied CAP (Years) = f( Market Price, ROIC, WACC, Reinvestment Rate )",
@@ -848,7 +906,6 @@ export const MODULES_DATA_EN: LearningModule[] = [
           exampleCalculation: "NOPAT: $10/share | WACC: 8.0% | Stock Price: $350\nSteady-State Value = $10 / 0.08 = $125 (36%)\nPVGO (Growth Expectation) = $350 - $125 = $225 (64%)\nImplied CAP = 18 Years (The market requires 18 consecutive years of high spread to justify the price!)"
         },
         formulaDeepDiveId: "reverse-dcf",
-        interactiveWidgetId: "reverse-dcf",
         analogyBox: {
           title: "🎯 Aiming at the Target",
           description:
@@ -862,11 +919,10 @@ export const MODULES_DATA_EN: LearningModule[] = [
         title: "2. Is Brand Alone an Economic Moat? (The Brand Acid Test)",
         summary: "Brand recognition alone is not a moat. A brand is a moat only if it increases customer WTP or lowers CAC.",
         content: [
-          "Comparing Interbrand's 'Top 25 Global Brands' list against corporate ROIC reveals surprisingly weak correlation!",
-          "Tiffany vs Costco Diamond Test: For two near-identical solitaire diamond rings, Tiffany charged $16,600 while Costco charged $6,600. An independent appraiser found only a $2,500 difference in wholesale components. Customers willingly paid a $10,000 premium for the iconic 'little blue box' and social signaling (WTP expansion).",
-          "Charlie Munger's Chewing Gum Test: 'If I am in a foreign country and Glotz gum is 30 cents while Wrigley's is 40 cents, I am not going to put an unknown product in my mouth to save a dime.' (Search cost reduction and trust).",
-          "The Brand Acid Test: A brand qualifies as an economic moat ONLY if demand is price-inelastic (e < 1) and market share is defended without continuous, crushing advertising expenses. Otherwise, brand awareness is merely an expensive operating cost.",
-          "Take Action in the Terminal: Compare Tiffany (True Moat) vs CPG vs Ad-Dependent Commodity in the simulation below; test price hike shocks and verify how operating profit responds in real-time."
+          "Comparing global brand value rankings against corporate ROIC reveals surprisingly weak correlation.",
+          "Tiffany vs Costco Diamond Test (Educational Scenario): For near-identical diamond rings, Tiffany's ability to command a price premium stems from customer willingness to pay (WTP) for the iconic blue box and prestige signaling.",
+          "The Brand Acid Test: A brand qualifies as an economic moat ONLY if demand is price-inelastic (e < 1) and market share is defended without crushing, continuous advertising budgets.",
+          "Take Action in the Terminal: Compare Tiffany vs CPG vs Ad-Dependent brand models in the simulation below; test price hike shocks and verify how operating profit responds in real-time."
         ],
         interactiveWidgetId: "brand-acid-test",
         formulaBox: {
@@ -889,24 +945,26 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "m8-s3",
-        title: "3. The 60-Point Morgan Stanley Moat Checklist",
-        summary: "A 5-category institutional audit before presenting any company to an investment committee.",
+        title: "3. Sustainable Value Creation Checklist (Adapted Working Checklist)",
+        summary: "A systematic 22-item audit across 5 categories adapted from the report's methodology.",
         content: [
+          "Mauboussin & Callahan's 'Checklist for Measuring Sustainable Value Creation' (pp. 67–69) comprises 75 questions and sub-items. For practical educational analysis, this framework is adapted into 22 focused working criteria across 5 dimensions:",
           "1. Industry Structure & Profit Pool (Buyer/Supplier bargaining power)",
           "2. Entry Barriers & Scale Advantages (MES, Wright's Law, Network Effects)",
           "3. Customer Advantages & Switching Costs (WTP ceiling, Lock-in)",
-          "4. Management Capital Allocation Discipline (M&A avoidance, buyback timing)",
+          "4. Management Capital Allocation Discipline (M&A discipline, buyback timing)",
           "5. Moat Durability & Disruption Threat (CAP horizon, technological substitutes)",
-          "Action in Terminal: In the simulator below, check items across the 5 categories on the left or load preset company audits (Apple Inc., Costco, Average Airline). Evaluate the fortress score and economic verdict on the Recharts Radar Breakdown on the right."
+          "Best Practice: Rather than simple yes/no checks, support each item with evidence from 10-K filings and record uncertainty notes.",
+          "Action in Terminal: In the simulator below, audit items across the 5 categories or load preset company audits (Apple Inc., Costco, Average Airline) to evaluate the moat profile."
         ],
         interactiveWidgetId: "checklist",
         analogyBox: {
           title: "📋 The Pre-Flight Checklist",
           description:
-            "Just as an airline captain audits every instrument prior to takeoff, institutional investors do not purchase a single share before auditing all 60 moat criteria."
+            "Just as an airline captain audits every instrument prior to takeoff, careful analysts evaluate critical moat criteria before committing capital."
         },
         keyTakeaway:
-          "A systematic institutional checklist protects investors from emotional biases and cyclical illusions."
+          "A systematic checklist protects investors from emotional biases and cyclical illusions. (Source: Mauboussin & Callahan (2024), pp. 67–69.)"
       }
     ],
     quiz: [
@@ -925,7 +983,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "q8-2",
-        question: "In the Value Stick framework, what does Tiffany's ability to sell a diamond ring for $10,000 more than Costco demonstrate?",
+        question: "In the Value Stick framework, what does Tiffany's ability to sell a diamond ring for a premium over Costco demonstrate?",
         options: [
           "The mining cost of the diamond increased",
           "Brand prestige and signaling significantly elevate customer Willingness to Pay (WTP)",

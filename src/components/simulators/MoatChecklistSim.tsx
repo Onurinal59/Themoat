@@ -84,14 +84,14 @@ export const MoatChecklistSim: React.FC = () => {
   const checkedCount = Object.values(checkedState).filter(Boolean).length;
   const scorePercent = Math.round((checkedCount / totalItems) * 100);
 
-  let moatVerdict = isEnglish ? "No Moat (Capital Destroyer)" : "Hendek Yok (Değer Yok Eden)";
+  let moatVerdict = isEnglish ? "Weak / Undetermined Moat Profile" : "Zayıf veya Belirsiz Hendek Profili";
   let verdictBadge = "bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800";
 
   if (scorePercent >= 70) {
-    moatVerdict = isEnglish ? "Wide Moat (20+ Years Durable Advantage)" : "Geniş Hendek (Wide Moat - 20+ Yıl Korumalı)";
+    moatVerdict = isEnglish ? "Strong Moat Profile (High Sustainability Indicators)" : "Güçlü Hendek Profili (Yüksek Sürdürülebilirlik Göstergesi)";
     verdictBadge = "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800";
   } else if (scorePercent >= 45) {
-    moatVerdict = isEnglish ? "Narrow Moat (5-10 Years Decaying Advantage)" : "Dar Hendek (Narrow Moat - 5-10 Yıl Korumalı)";
+    moatVerdict = isEnglish ? "Moderate Moat Profile (Selective Advantages)" : "Orta Düzey Hendek Profili (Kısmi Avantajlar)";
     verdictBadge = "bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-800";
   }
 
@@ -139,16 +139,16 @@ export const MoatChecklistSim: React.FC = () => {
               {isEnglish ? "Module 1-8 Comprehensive Diagnostic" : "Modül 1-8 Kapsamlı Hendek Testi"}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {isEnglish ? "22-Point Moat Checklist (Pat Dorsey / Morningstar)" : "22 Maddelik Hendek Kontrol Listesi"}
+              {isEnglish ? "Sustainable Value Creation Checklist (Adapted from Mauboussin & Callahan 2024)" : "Sürdürülebilir Değer Yaratımı Kontrol Listesi (Mauboussin & Callahan 2024 Raporundan Uyarlanmıştır)"}
             </span>
           </div>
           <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {isEnglish ? "22-Point Economic Moat Audit Checklist" : "22 Maddelik Ekonomik Hendek Denetim Testi"}
+            {isEnglish ? "Sustainable Value Creation Checklist (22 Focused Items)" : "Sürdürülebilir Değer Yaratımı Kontrol Listesi (22 Odak Madde)"}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
             {isEnglish
-              ? "Audit any target company against 22 criteria across 5 structural dimensions. Watch real-time category scores update on the right."
-              : "Herhangi bir hedef şirketi 5 yapısal boyutta 22 stratejik kritere göre denetleyin. Sağdaki terminalde kategori bazlı hendek skorunu canlı izleyin."}
+              ? "Audit any target company against 22 working criteria across 5 structural dimensions. (Adapted from Mauboussin & Callahan 2024, pp. 67–69)."
+              : "Herhangi bir şirketi 5 stratejik boyutta 22 odak kritere göre denetleyin. (Mauboussin & Callahan 2024 raporu ss. 67–69'daki 75 sorudan uyarlanmıştır)."}
           </p>
         </div>
 

@@ -93,7 +93,7 @@ export const SimulationsView: React.FC<SimulationsViewProps> = ({
     { id: "dupont", label: "7. DuPont ROIC Röntgeni", icon: TrendingUp, badge: "Marj vs Hız", step: "Adım 7" },
     { id: "ccc", label: "Nakit Dönüşüm (CCC)", icon: Clock, badge: "Amazon vs B&N", step: "Adım 7+" },
     { id: "reverse-dcf", label: "8. Tersine DCF & CAP", icon: Target, badge: "İleri Değerleme", step: "Adım 8" },
-    { id: "checklist", label: "60 Maddelik Hendek Listesi", icon: CheckSquare, badge: "Morgan Stanley", step: "Final" },
+    { id: "checklist", label: "Değer Yaratımı Listesi (22 Madde)", icon: CheckSquare, badge: "Morgan Stanley", step: "Final" },
   ];
 
   const SIMS_EN = [
@@ -110,7 +110,7 @@ export const SimulationsView: React.FC<SimulationsViewProps> = ({
     { id: "dupont", label: "7. DuPont ROIC X-Ray", icon: TrendingUp, badge: "Margin vs Turn", step: "Step 7" },
     { id: "ccc", label: "Cash Conversion (CCC)", icon: Clock, badge: "Amazon vs B&N", step: "Step 7+" },
     { id: "reverse-dcf", label: "8. Reverse DCF & CAP", icon: Target, badge: "Valuation", step: "Step 8" },
-    { id: "checklist", label: "60-Item Moat Checklist", icon: CheckSquare, badge: "Morgan Stanley", step: "Final" },
+    { id: "checklist", label: "Sustainable Value Checklist (22 Items)", icon: CheckSquare, badge: "Morgan Stanley", step: "Final" },
   ];
 
   const SIMS = isEnglish ? SIMS_EN : SIMS_TR;
