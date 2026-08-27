@@ -549,10 +549,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* Group 1: Core Learning Modules */}
               <div className="space-y-1.5">
-                <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1">
+                <div className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 px-1">
                   {isEnglish ? "Core Curriculum" : "Ana Eğitim & Teori"}
                 </div>
-                <div className="grid grid-cols-1 gap-1.5">
+                <div className="grid grid-cols-1 gap-2">
                   {PRIMARY_NAV_ITEMS.map((item) => {
                     const Icon = item.icon;
                     const isActive = activeTab === item.id;
@@ -560,17 +560,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <button
                         key={item.id}
                         onClick={() => handleTabClick(item.id)}
-                        className={`flex items-center justify-between p-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        className={`flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all min-h-[46px] cursor-pointer ${
                           isActive
                             ? "bg-indigo-600 text-white shadow-xs"
-                            : "bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800"
+                            : "bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800"
                         }`}
                       >
-                        <div className="flex items-center gap-2.5">
-                          <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-500 dark:text-slate-400"}`} />
+                        <div className="flex items-center gap-3">
+                          <Icon className={`w-4.5 h-4.5 ${isActive ? "text-white" : "text-indigo-600 dark:text-indigo-400"}`} />
                           <span>{item.label}</span>
                         </div>
-                        <ArrowUpRight className={`w-3.5 h-3.5 ${isActive ? "text-white/80" : "text-slate-400"}`} />
+                        <ArrowUpRight className={`w-4 h-4 ${isActive ? "text-white/80" : "text-slate-400"}`} />
                       </button>
                     );
                   })}
@@ -579,10 +579,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* Group 2: Advanced Interactive Tools */}
               <div className="space-y-1.5">
-                <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1">
+                <div className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 px-1">
                   {isEnglish ? "Interactive Analysis & Duel" : "Uygulama, Teşhis & Düello"}
                 </div>
-                <div className="grid grid-cols-1 gap-1.5">
+                <div className="grid grid-cols-1 gap-2">
                   {TOOLS_ITEMS.map((item) => {
                     const Icon = item.icon;
                     const isActive = activeTab === item.id;
@@ -590,17 +590,19 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <button
                         key={item.id}
                         onClick={() => handleTabClick(item.id)}
-                        className={`flex items-center justify-between p-3 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                        className={`flex items-center justify-between p-3.5 rounded-xl text-sm font-bold transition-all min-h-[46px] cursor-pointer ${
                           isActive
                             ? "bg-indigo-600 text-white shadow-xs"
-                            : "bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800"
+                            : "bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200/60 dark:border-slate-800"
                         }`}
                       >
-                        <div className="flex items-center gap-2.5">
-                          <Icon className={`w-4 h-4 ${isActive ? "text-white" : "text-slate-500 dark:text-slate-400"}`} />
+                        <div className="flex items-center gap-3">
+                          <Icon className={`w-4.5 h-4.5 ${isActive ? "text-white" : "text-indigo-600 dark:text-indigo-400"}`} />
                           <span>{item.label}</span>
                         </div>
-                        <span className="text-[10px] opacity-75">{item.badge}</span>
+                        <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-md bg-slate-200/60 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                          {item.badge}
+                        </span>
                       </button>
                     );
                   })}
@@ -609,18 +611,18 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* Group 3: Reference & Resources */}
               <div className="pt-2 border-t border-slate-200/60 dark:border-slate-800 space-y-1.5">
-                <div className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-1">
+                <div className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400 px-1">
                   {isEnglish ? "Reference & Tools" : "Yardımcı & Başvuru Araçları"}
                 </div>
-                <div className="grid grid-cols-1 gap-1.5">
+                <div className="grid grid-cols-1 gap-2">
                   <button
                     onClick={() => {
                       setIsMobileDrawerOpen(false);
                       onOpenGlossary();
                     }}
-                    className="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 text-xs font-medium border border-slate-200/60 dark:border-slate-800 cursor-pointer"
+                    className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 text-sm font-semibold border border-slate-200/60 dark:border-slate-800 min-h-[46px] cursor-pointer"
                   >
-                    <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                    <BookOpen className="w-4.5 h-4.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
                     <span>{isEnglish ? "Finance & Strategy Glossary" : "Finans & Strateji Terimleri Sözlüğü"}</span>
                   </button>
 
@@ -630,9 +632,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                         setIsMobileDrawerOpen(false);
                         onOpenGuide();
                       }}
-                      className="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-700 dark:text-slate-300 text-xs font-medium border border-slate-200/60 dark:border-slate-800 cursor-pointer"
+                      className="flex items-center gap-3 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 text-sm font-semibold border border-slate-200/60 dark:border-slate-800 min-h-[46px] cursor-pointer"
                     >
-                      <HelpCircle className="w-4 h-4 text-amber-500" />
+                      <HelpCircle className="w-4.5 h-4.5 text-amber-500 shrink-0" />
                       <span>{isEnglish ? "Learning Journey Guide" : "Öğrenme Yolculuğu Rehberi"}</span>
                     </button>
                   )}

@@ -82,14 +82,14 @@ export const MathFormula: React.FC<MathFormulaProps> = ({
   };
 
   const sizeClasses = {
-    sm: "font-serif text-lg sm:text-xl tracking-wide",
-    md: "font-serif text-xl sm:text-2xl tracking-wider",
-    lg: "font-serif text-2xl sm:text-3xl tracking-widest text-slate-800 dark:text-slate-100",
+    sm: "font-serif text-base sm:text-lg md:text-xl tracking-normal sm:tracking-wide",
+    md: "font-serif text-lg sm:text-xl md:text-2xl tracking-normal sm:tracking-wider",
+    lg: "font-serif text-xl sm:text-2xl md:text-3xl tracking-normal sm:tracking-widest text-slate-800 dark:text-slate-100",
   }[size];
 
   return (
     <div
-      className={`rounded-2xl p-4 sm:p-6 bg-slate-100/90 dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 shadow-inner ring-1 ring-slate-400/20 dark:ring-slate-700/40 text-center select-all transition-all duration-300 overflow-x-auto ${className}`}
+      className={`rounded-2xl p-3.5 sm:p-6 bg-slate-100/90 dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 shadow-inner ring-1 ring-slate-400/20 dark:ring-slate-700/40 text-center select-all transition-all duration-300 overflow-x-auto ${className}`}
     >
       <div className="space-y-3">
         {lines.map((line, lIdx) => (

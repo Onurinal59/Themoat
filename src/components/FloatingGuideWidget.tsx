@@ -42,7 +42,7 @@ export const FloatingGuideWidget: React.FC<FloatingGuideWidgetProps> = ({
   };
 
   return (
-    <div className="fixed bottom-6 left-6 z-40 max-w-sm pointer-events-none select-none transition-opacity duration-300">
+    <div className="fixed bottom-20 sm:bottom-6 left-3 sm:left-6 right-3 sm:right-auto z-30 max-w-sm pointer-events-none select-none transition-opacity duration-300">
       <AnimatePresence mode="wait">
         {!isMinimized ? (
           <motion.div

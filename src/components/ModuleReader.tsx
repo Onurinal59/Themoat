@@ -418,7 +418,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
         {module.sections.map((section, idx) => (
           <div
             key={section.id}
-            className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-5"
+            className="p-4 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-5"
           >
             <div className="flex items-center gap-2.5 pb-2 border-b border-slate-100 dark:border-slate-800">
               <span className="w-6 h-6 rounded-full bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 font-mono font-bold text-xs flex items-center justify-center">
@@ -548,7 +548,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             )}
 
             {/* Main Content Paragraphs & Structured Cards */}
-            <div className="prose dark:prose-invert max-w-none text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed space-y-3">
+            <div className="prose dark:prose-invert max-w-none text-sm sm:text-base text-slate-700 dark:text-slate-200 leading-relaxed sm:leading-loose space-y-3.5">
               {(Array.isArray(section.content)
                 ? section.content
                 : typeof section.content === "string"
@@ -818,7 +818,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
       )}
 
       {/* Interactive Module Quiz */}
-      <div className="p-5 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-6" id="module-quiz">
+      <div className="p-4 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-6" id="module-quiz">
         <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
           <div>
             <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
@@ -835,7 +835,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={handleResetQuiz}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+              className="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer min-h-[40px]"
             >
               <RotateCcw className="w-3.5 h-3.5" /> {isEnglish ? "Retry Quiz" : "Tekrar Dene"}
             </motion.button>
@@ -850,11 +850,11 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
 
             return (
               <div key={q.id} className="space-y-3">
-                <div className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">
+                <div className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 leading-snug">
                   {qIdx + 1}. {q.question}
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   {q.options.map((opt, optIdx) => {
                     const isSelected = selectedOpt === optIdx;
                     let optStyle = "bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 hover:border-indigo-300 text-slate-700 dark:text-slate-300";
@@ -876,12 +876,12 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                         whileTap={{ scale: isQuizSubmitted ? 1 : 0.99 }}
                         disabled={isQuizSubmitted}
                         onClick={() => handleOptionSelect(q.id, optIdx)}
-                        className={`w-full text-left p-3.5 rounded-xl border text-xs sm:text-sm transition-all flex items-start gap-3 cursor-pointer ${optStyle}`}
+                        className={`w-full text-left p-3.5 rounded-xl border text-sm transition-all flex items-start gap-3 min-h-[46px] cursor-pointer ${optStyle}`}
                       >
-                        <span className="w-5 h-5 rounded-full border border-current flex items-center justify-center font-mono font-bold text-[10px] shrink-0 mt-0.5">
+                        <span className="w-5 h-5 rounded-full border border-current flex items-center justify-center font-mono font-bold text-xs shrink-0 mt-0.5">
                           {String.fromCharCode(65 + optIdx)}
                         </span>
-                        <span className="flex-1">{opt}</span>
+                        <span className="flex-1 leading-relaxed">{opt}</span>
                       </motion.button>
                     );
                   })}
@@ -892,13 +892,13 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
-                    className={`p-3.5 rounded-xl text-xs leading-relaxed border ${
+                    className={`p-4 rounded-xl text-xs sm:text-sm leading-relaxed border ${
                       isCorrect
                         ? "bg-emerald-50/70 dark:bg-emerald-950/40 border-emerald-200 dark:border-emerald-900/60 text-emerald-900 dark:text-emerald-200"
                         : "bg-amber-50/70 dark:bg-amber-950/40 border-amber-200 dark:border-amber-900/60 text-amber-900 dark:text-amber-200"
                     }`}
                   >
-                    <strong className="block mb-0.5 font-bold">
+                    <strong className="block mb-1 font-bold">
                       {isCorrect
                         ? isEnglish ? "✅ Excellent, Correct Answer!" : "✅ Harika, Doğru Cevap!"
                         : isEnglish ? "💡 Explanation & Solution:" : "💡 Açıklama ve Çözüm:"}
@@ -912,11 +912,11 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
         </div>
 
         {/* Quiz Submit Bar */}
-        <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           <div className="text-xs text-slate-500 dark:text-slate-400">
             {isQuizSubmitted ? (
               <span className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
-                <Trophy className="w-4 h-4 text-amber-500" />
+                <Trophy className="w-4 h-4 text-amber-500 shrink-0" />
                 {isEnglish
                   ? `Your Score: ${quizScore}% (${quizScore! >= 66 ? "Passed 🎉" : "Review Recommended"})`
                   : `Başarı Puanınız: %${quizScore} (${quizScore! >= 66 ? "Geçtiniz 🎉" : "Gözden Geçiriniz"})`}
@@ -932,7 +932,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               whileTap={{ scale: 0.97 }}
               disabled={Object.keys(selectedAnswers).length < module.quiz.length}
               onClick={handleSubmitQuiz}
-              className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold shadow-xs transition-all cursor-pointer"
+              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-bold shadow-xs transition-all cursor-pointer min-h-[44px]"
             >
               {isEnglish ? "Complete Test & Save Score" : "Testi Tamamla & Puanı Kaydet"}
             </motion.button>
@@ -942,10 +942,10 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => onSelectModule(nextModule)}
-                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
               >
                 <span>{isEnglish ? `Continue to Next Step (Step 0${nextModule.id})` : `Sonraki Adıma Geç (Adım 0${nextModule.id})`}</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 shrink-0" />
               </motion.button>
             )
           )}
@@ -953,15 +953,15 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
       </div>
 
       {/* Bottom Prev / Next Navigation Bar */}
-      <div className="flex items-center justify-between gap-4 pt-4">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4">
         {prevModule ? (
           <motion.button
             whileHover={{ scale: 1.02, x: -2 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onSelectModule(prevModule)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 shadow-xs transition-colors cursor-pointer"
+            className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-sm font-bold text-slate-700 dark:text-slate-200 shadow-xs transition-colors cursor-pointer min-h-[44px]"
           >
-            <ArrowLeft className="w-4 h-4" />
+            <ArrowLeft className="w-4 h-4 shrink-0" />
             <span>{isEnglish ? `Previous Step (0${prevModule.id})` : `Önceki Adım (0${prevModule.id})`}</span>
           </motion.button>
         ) : (
@@ -973,10 +973,10 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             whileHover={{ scale: 1.02, x: 2 }}
             whileTap={{ scale: 0.98 }}
             onClick={() => onSelectModule(nextModule)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-xs transition-colors cursor-pointer"
+            className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition-colors cursor-pointer min-h-[44px]"
           >
             <span>{isEnglish ? `Next Step (0${nextModule.id})` : `Sonraki Adım (0${nextModule.id})`}</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-4 h-4 shrink-0" />
           </motion.button>
         )}
       </div>

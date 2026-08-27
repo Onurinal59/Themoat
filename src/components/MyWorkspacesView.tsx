@@ -69,6 +69,14 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
     setTimeout(() => setToastMessage(null), 3500);
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>, target: HTMLElement) => {
+    const rect = target.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    target.style.setProperty("--mouse-x", `${x}px`);
+    target.style.setProperty("--mouse-y", `${y}px`);
+  };
+
   // Find if master template is present
   const hasMasterTemplate = dossiers.some((d) => d.id === MAUBOUSSIN_GUIDED_TEMPLATE.id);
 

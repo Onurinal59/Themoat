@@ -56,19 +56,24 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
 
   const getPhaseInfo = (idx: number) => {
     if (idx === 0) return { 
-        title: isEnglish ? "Phase I: The Triad & Strategic Foundations" : "Faz 1: Değer Yaratma Üçlüsü & Stratejik Temeller", 
-        desc: isEnglish ? "Master the Triad (Spread, Runway, Duration), lifecycle diagnostics, and unit microeconomics (WTP/WTS)." : "Değer Yaratma Üçlüsünü (Yayılım, Yatırım Pisti, CAP), yaşam döngüsü teşhisini ve birim mikroekonomiyi kavrayın.",
+        title: isEnglish ? "Phase I: Strategic Foundations & Capital Economics" : "Faz I: Stratejik Temeller & Sermaye Ekonomisi", 
+        desc: isEnglish ? "Establish the mathematics of true economic profit (ROIC vs. WACC), avoid value-destroying growth traps, and diagnose corporate lifecycles via cash flow signatures." : "Gerçek ekonomik kârın matematiğini kurun (ROIC vs. WACC), değer yok eden büyüme tuzaklarından kaçının ve nakit akış vektörleriyle kurumsal yaşam döngüsünü teşhis edin.",
         color: "from-blue-500 to-indigo-500" 
     };
-    if (idx === 3) return { 
-        title: isEnglish ? "Phase II: Industry Diagnostics & Forensic Accounting" : "Faz 2: Sektör Kâr Havuzları & Adli Bilanço Analizi", 
-        desc: isEnglish ? "Map profit pool distortions, capitalize operating leases and R&D, and analyze competitive games & regulation." : "Kâr havuzu haritalarını çıkarın, kiralama ve Ar-Ge'yi aktifleştirerek düzeltilmiş ROIC hesaplayın ve regülasyonu analiz edin.",
-        color: "from-indigo-500 to-violet-500" 
+    if (idx === 2) return { 
+        title: isEnglish ? "Phase II: Microeconomics & Industry Topology" : "Faz II: Mikroekonomi & Sektör Topolojisi", 
+        desc: isEnglish ? "Deconstruct unit transactions via Oberholzer-Gee's Value Stick (WTP vs. WTS) and calculate industry-wide economic profit pools." : "Felix Oberholzer-Gee'nin Değer Çubuğu (WTP vs. WTS) ile birim ekonomiyi ayrıştırın ve sektör genelindeki ekonomik kâr havuzlarını haritalandırın.",
+        color: "from-indigo-500 to-cyan-500" 
+    };
+    if (idx === 4) return { 
+        title: isEnglish ? "Phase III: Structural Defenses & Competitive Dynamics" : "Faz III: Yapısal Savunma Hatları & Rekabet Dinamikleri", 
+        desc: isEnglish ? "Evaluate the 7 entry barriers, execute forensic 10-K R&D/lease capitalizations, and model game-theoretic pricing dynamics (Tit-for-Tat)." : "7 yapısal giriş engelini değerlendirin, adli 10-K Ar-Ge/kiralama aktifleştirmelerini uygulayın ve oyun teorisiyle fiyat savaşlarını modelleyin.",
+        color: "from-violet-500 to-purple-500" 
     };
     if (idx === 6) return { 
-        title: isEnglish ? "Phase III: Internal Engines, Reverse DCF & Final Moat Audit" : "Faz 3: Şirket İçi Kâr Motoru, Tersine DCF & Hendek Denetimi", 
-        desc: isEnglish ? "Deconstruct DuPont & cash conversion cycles, solve market-implied CAP (MICAP), and execute the 60-point moat audit." : "DuPont ve nakit dönüşümünü ayrıştırın, piyasanın ima ettiği CAP'i (MICAP) çözün ve 60 maddelik Morgan Stanley denetimini uygulayın.",
-        color: "from-violet-500 to-fuchsia-500" 
+        title: isEnglish ? "Phase IV: Internal Engines, Expectations & Moat Audit" : "Faz IV: Şirket İçi Kâr Motoru, Beklentiler & Hendek Denetimi", 
+        desc: isEnglish ? "Dissect DuPont ROIC (Margin vs. Turnover), unmask working capital financing (CCC), reverse-engineer market-implied CAP, and execute the 60-point audit." : "DuPont ROIC ayrıştırmasını yapın, negatif işletme sermayesiyle büyümenin sırrını çözün, piyasanın ima ettiği CAP süresini (Tersine DCF) hesaplayın ve 60 maddelik denetimi tamamlayın.",
+        color: "from-purple-500 to-fuchsia-500" 
     };
     return null;
   };
@@ -85,32 +90,48 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
       className="space-y-10 sm:space-y-14 max-w-5xl mx-auto pb-12"
     >
       {/* Hero Header Section */}
-      <div className="relative rounded-3xl bg-slate-50 dark:bg-slate-900 overflow-hidden shadow-2xl p-6 sm:p-10 lg:p-12 border border-slate-200 dark:border-slate-800 group">
+      <div className="relative rounded-3xl bg-slate-50 dark:bg-slate-900 overflow-hidden shadow-2xl p-5 sm:p-10 lg:p-12 border border-slate-200 dark:border-slate-800 group">
         {/* Animated Background Gradients */}
         <div className="absolute top-0 right-0 w-full h-full overflow-hidden pointer-events-none">
             <div className="absolute -top-[50%] -right-[20%] w-[80%] h-[150%] bg-gradient-to-b from-indigo-500/20 to-purple-600/20 blur-3xl rounded-full transform rotate-12 opacity-50 group-hover:opacity-70 transition-opacity duration-1000"></div>
             <div className="absolute -bottom-[20%] -left-[10%] w-[60%] h-[80%] bg-gradient-to-tr from-emerald-500/10 to-teal-400/10 blur-3xl rounded-full opacity-40"></div>
         </div>
 
-        <div className="relative z-10 flex flex-col md:flex-row gap-8 items-center justify-between">
-            <div className="space-y-4 max-w-2xl">
+        <div className="relative z-10 flex flex-col md:flex-row gap-6 sm:gap-8 items-start md:items-center justify-between">
+            <div className="space-y-3.5 sm:space-y-4 max-w-2xl w-full">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-white/10 border border-indigo-200 dark:border-white/20 text-indigo-700 dark:text-white/90 text-xs font-bold backdrop-blur-md uppercase tracking-wider">
-                    <Award className="w-4 h-4 text-amber-400" />
-                    {isEnglish ? "Michael Mauboussin & Dan Callahan Framework" : "Michael Mauboussin & Dan Callahan Metodolojisi"}
+                    <Award className="w-4 h-4 text-amber-500 dark:text-amber-400 shrink-0" />
+                    <span className="truncate">{isEnglish ? "Mauboussin & Callahan Framework" : "Michael Mauboussin Metodolojisi"}</span>
                 </div>
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
                     {isEnglish ? "Measuring the Moat:" : "Ekonomik Hendeklerin Ölçülmesi:"}{" "}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400">
                         {isEnglish ? "Magnitude, Runway & Longevity" : "Yayılım, Yatırım Pisti & CAP"}
                     </span>
                 </h1>
                 <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-medium">
                     {isEnglish 
-                        ? "In competitive markets, high returns attract capital that erodes margins. Learn the rigorous Morgan Stanley / Credit Suisse framework to calculate true ROIC, model competitive advantage periods (CAP), and reverse-engineer market expectations."
-                        : "Serbest piyasada yüksek kârlar sermayeyi mıknatıs gibi çeker ve aşındırır. Morgan Stanley ve Credit Suisse araştırmalarına dayanan Measuring the Moat çerçevesiyle gerçek ROIC'yi hesaplayın, hendek süresini (CAP) modelleyin ve piyasa beklentilerini tersine DCF ile çözün."}
+                        ? "In competitive markets, high returns attract capital that erodes margins. Learn the Morgan Stanley framework to calculate true ROIC, model competitive advantage periods (CAP), and reverse-engineer market expectations."
+                        : "Serbest piyasada yüksek kârlar sermayeyi mıknatıs gibi çeker ve aşındırır. Morgan Stanley ve Credit Suisse araştırmalarına dayanan bu akademide gerçek ROIC'yi hesaplayın, hendek süresini (CAP) modelleyin ve tersine DCF uygulayın."}
                 </p>
+
+                {/* Mobile Progress Bar Widget */}
+                <div className="md:hidden pt-1 pb-2 space-y-2">
+                  <div className="flex items-center justify-between text-xs font-bold">
+                    <span className="text-slate-700 dark:text-slate-300">
+                      {completedCount} / {modules.length} {isEnglish ? "Modules Done" : "Modül Tamamlandı"}
+                    </span>
+                    <span className="text-indigo-600 dark:text-indigo-400 font-mono">%{progressPercent} {isEnglish ? "Mastery" : "Ustalık"}</span>
+                  </div>
+                  <div className="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full transition-all duration-700"
+                      style={{ width: `${progressPercent}%` }}
+                    />
+                  </div>
+                </div>
                 
-                <div className="pt-2 flex flex-wrap gap-3">
+                <div className="pt-1 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                     <button 
                         onClick={() => {
                             if (nextUpIndex !== -1) {
@@ -119,25 +140,25 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                                 onSelectModule(modules[0]);
                             }
                         }}
-                        className="px-6 py-3 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 transition-colors font-bold text-sm flex items-center gap-2 shadow-xl shadow-indigo-600/20 dark:shadow-[0_0_20px_rgba(255,255,255,0.3)] dark:hover:shadow-[0_0_25px_rgba(255,255,255,0.5)]"
+                        className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-indigo-600/30 transition-all min-h-[48px] active:scale-98 cursor-pointer"
                     >
-                        <PlayCircle className="w-5 h-5 text-indigo-600" />
-                        {isEnglish ? (nextUpIndex === 0 ? "Start Curriculum" : "Continue Curriculum") : (nextUpIndex === 0 ? "Müfredata Başla" : "Kaldığın Yerden Devam Et")}
+                        <PlayCircle className="w-5 h-5 shrink-0" />
+                        <span>{isEnglish ? (nextUpIndex === 0 ? "Start Academy" : "Continue Academy") : (nextUpIndex === 0 ? "Akademiye Başla" : "Kaldığın Yerden Devam Et")}</span>
                     </button>
                     {onNavigateTab && (
                         <button 
-                            onClick={() => onNavigateTab("simulations", "cap-fade")}
-                            className="px-6 py-3 rounded-xl bg-slate-200 hover:bg-slate-300 border border-slate-300 text-slate-700 dark:bg-white/10 dark:hover:bg-white/20 dark:border-white/20 dark:text-white transition-colors font-bold text-sm flex items-center gap-2 backdrop-blur-sm"
+                            onClick={() => onNavigateTab("simulators", "cap-fade")}
+                            className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-white/80 hover:bg-white dark:bg-slate-800/80 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 transition-all font-bold text-xs sm:text-sm flex items-center justify-center gap-2 min-h-[48px] cursor-pointer"
                         >
-                            <Sparkles className="w-5 h-5 text-emerald-400" />
-                            {isEnglish ? "CAP & Fade Rate Engine" : "CAP & Fade Rate Simülatörü"}
+                            <Sparkles className="w-4.5 h-4.5 text-emerald-500 shrink-0" />
+                            <span>{isEnglish ? "CAP & Fade Rate Engine" : "CAP & Fade Rate Simülatörü"}</span>
                         </button>
                     )}
                 </div>
             </div>
 
-            {/* Progress Radar/Stats */}
-            <div className="shrink-0 w-full md:w-auto p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex flex-col items-center justify-center min-w-[240px]">
+            {/* Progress Radar/Stats for Desktop */}
+            <div className="hidden md:flex shrink-0 w-full md:w-auto p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md flex-col items-center justify-center min-w-[240px]">
                 <div className="relative w-32 h-32 flex items-center justify-center">
                     <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                         <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" strokeWidth="8" className="text-slate-200 dark:text-white/10" />
@@ -261,14 +282,14 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
       </div>
 
       {/* The Mastery Timeline */}
-      <div className="relative mt-8">
-        {/* Main Vertical Line (Background) */}
-        <div className="absolute left-6 sm:left-10 top-4 bottom-12 w-0.5 bg-slate-200 dark:bg-slate-800 rounded-full"></div>
+      <div className="relative mt-6 sm:mt-8">
+        {/* Main Vertical Line for desktop */}
+        <div className="hidden sm:block absolute left-10 top-4 bottom-12 w-0.5 bg-slate-200 dark:bg-slate-800 rounded-full"></div>
         
-        {/* Animated Progress Line (Foreground) */}
-        <div className="absolute left-6 sm:left-10 top-4 w-0.5 bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500 rounded-full transition-all duration-1000 ease-out" style={{ height: `${Math.max(0, (completedCount / modules.length) * 100 - 5)}%`, minHeight: completedCount > 0 ? '5%' : '0' }}></div>
+        {/* Animated Progress Line for desktop */}
+        <div className="hidden sm:block absolute left-10 top-4 w-0.5 bg-gradient-to-b from-indigo-500 via-purple-500 to-pink-500 rounded-full transition-all duration-1000 ease-out" style={{ height: `${Math.max(0, (completedCount / modules.length) * 100 - 5)}%`, minHeight: completedCount > 0 ? '5%' : '0' }}></div>
 
-        <div className="space-y-6 sm:space-y-8 relative">
+        <div className="space-y-4 sm:space-y-8 relative">
           {modules.map((module, idx) => {
             const isCompleted = userState.completedModules.includes(module.id);
             const isNext = idx === nextUpIndex;
@@ -281,23 +302,26 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
               <React.Fragment key={module.id}>
                 {/* Phase Header Injection */}
                 {phaseInfo && (
-                    <div className="relative pl-16 sm:pl-24 py-4">
-                        <div className={`absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-4.5 h-4.5 rounded-full bg-gradient-to-br ${phaseInfo.color} shadow-lg ring-4 ring-white dark:ring-slate-950 z-10 flex items-center justify-center`}>
+                    <div className="relative sm:pl-24 pt-4 pb-2 sm:py-4">
+                        <div className={`hidden sm:flex absolute left-8 top-1/2 -translate-y-1/2 w-4.5 h-4.5 rounded-full bg-gradient-to-br ${phaseInfo.color} shadow-lg ring-4 ring-white dark:ring-slate-950 z-10 items-center justify-center`}>
                             <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
                         </div>
-                        <h2 className={`text-sm sm:text-base font-black uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r ${phaseInfo.color}`}>
-                            {phaseInfo.title}
-                        </h2>
-                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 font-medium">
+                        <div className="inline-flex sm:block items-center gap-2">
+                          <span className={`sm:hidden w-2.5 h-2.5 rounded-full bg-gradient-to-br ${phaseInfo.color}`}></span>
+                          <h2 className={`text-xs sm:text-base font-black uppercase tracking-widest text-transparent bg-clip-text bg-gradient-to-r ${phaseInfo.color}`}>
+                              {phaseInfo.title}
+                          </h2>
+                        </div>
+                        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1 font-medium leading-relaxed">
                             {phaseInfo.desc}
                         </p>
                     </div>
                 )}
 
                 {/* Module Node & Card */}
-                <div className="relative pl-16 sm:pl-24">
-                  {/* Timeline Node Marker */}
-                  <div className={`absolute left-[1.125rem] sm:left-[2.125rem] top-8 w-5 h-5 rounded-full border-2 z-10 transition-all duration-500 flex items-center justify-center bg-white dark:bg-slate-950
+                <div className="relative sm:pl-24">
+                  {/* Timeline Node Marker for desktop */}
+                  <div className={`hidden sm:flex absolute left-[2.125rem] top-8 w-5 h-5 rounded-full border-2 z-10 transition-all duration-500 items-center justify-center bg-white dark:bg-slate-950
                     ${isCompleted 
                         ? 'border-indigo-500 scale-100' 
                         : isNext 
@@ -311,18 +335,18 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
 
                   {/* Module Card */}
                   <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{ duration: 0.4, delay: (idx % 3) * 0.1 }}
-                    whileHover={!isLocked ? { scale: 1.01, x: 4 } : {}}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-30px" }}
+                    transition={{ duration: 0.3, delay: (idx % 3) * 0.08 }}
+                    whileHover={!isLocked ? { scale: 1.01, x: 2 } : {}}
                     onClick={() => !isLocked && onSelectModule(module)}
-                    className={`relative p-5 sm:p-6 rounded-2xl border transition-all duration-300 group ${
+                    className={`relative p-4 sm:p-6 rounded-2xl border transition-all duration-300 group ${
                         isLocked 
-                            ? "bg-slate-50/50 dark:bg-slate-900/30 border-slate-200/50 dark:border-slate-800/50 opacity-70 cursor-not-allowed" 
+                            ? "bg-slate-50/60 dark:bg-slate-900/40 border-slate-200/60 dark:border-slate-800/60 opacity-70 cursor-not-allowed" 
                             : isCompleted
-                                ? "bg-white dark:bg-slate-900 border-indigo-200/50 dark:border-indigo-800/40 shadow-md hover:shadow-xl hover:shadow-indigo-500/10 cursor-pointer overflow-hidden"
-                                : "bg-white dark:bg-slate-900 border-indigo-400 dark:border-indigo-500 shadow-lg shadow-indigo-500/10 cursor-pointer overflow-hidden"
+                                ? "bg-white dark:bg-slate-900 border-indigo-200/60 dark:border-indigo-800/40 shadow-sm hover:shadow-lg hover:shadow-indigo-500/10 cursor-pointer overflow-hidden"
+                                : "bg-white dark:bg-slate-900 border-indigo-400 dark:border-indigo-500 shadow-md shadow-indigo-500/10 cursor-pointer overflow-hidden ring-1 ring-indigo-400/20"
                     }`}
                   >
                     {/* Glowing hover effect for unlocked cards */}
@@ -330,33 +354,37 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                         <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/0 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
                     )}
 
-                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-between items-start sm:items-center">
-                        <div className="flex-1 space-y-2">
+                    <div className="flex flex-col sm:flex-row gap-3.5 sm:gap-6 justify-between items-start sm:items-center">
+                        <div className="flex-1 space-y-2 w-full">
                             <div className="flex flex-wrap items-center gap-2">
-                                <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider border ${
+                                <span className={`px-2.5 py-0.5 rounded-md text-xs font-black uppercase tracking-wider border ${
                                     isNext 
-                                        ? "bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800"
-                                        : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700"
+                                        ? "bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-700"
+                                        : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700"
                                 }`}>
+                                    {isEnglish ? `Step 0${module.id}` : `Adım 0${module.id}`}
+                                </span>
+                                <span className="px-2 py-0.5 rounded text-xs font-semibold bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                                     {module.subtitle}
                                 </span>
-                                <span className="flex items-center gap-1 text-[11px] font-bold text-slate-400 dark:text-slate-500">
+                                <span className="flex items-center gap-1 text-xs font-bold text-slate-500 dark:text-slate-400">
                                     <Clock className="w-3 h-3" /> {module.estimatedMinutes} {isEnglish ? "Min" : "Dk"}
                                 </span>
                                 {quizScore !== undefined && (
-                                    <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900">
+                                    <span className="px-2 py-0.5 rounded text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
+                                        <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                                         {isEnglish ? `Score: ${quizScore}%` : `Skor: %${quizScore}`}
                                     </span>
                                 )}
                             </div>
                             
-                            <h3 className={`text-base sm:text-lg font-black transition-colors ${
+                            <h3 className={`text-base sm:text-xl font-black transition-colors leading-snug ${
                                 isLocked ? "text-slate-400 dark:text-slate-500" : "text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400"
                             }`}>
                                 {module.title}
                             </h3>
                             
-                            <p className={`text-xs sm:text-sm font-medium leading-relaxed line-clamp-2 ${
+                            <p className={`text-xs sm:text-sm font-medium leading-relaxed ${
                                 isLocked ? "text-slate-400 dark:text-slate-600" : "text-slate-600 dark:text-slate-300"
                             }`}>
                                 {module.description}
@@ -364,32 +392,34 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
 
                             {/* Takeaway Teaser */}
                             {!isLocked && (
-                                <div className="inline-flex items-center gap-1.5 text-[11px] text-amber-700 dark:text-amber-400/90 font-semibold pt-1">
-                                    <Sparkles className="w-3.5 h-3.5 shrink-0" />
-                                    <span className="line-clamp-1">{module.zeroKnowledgeSummary}</span>
+                                <div className="p-2.5 sm:p-3 rounded-xl bg-amber-50/70 dark:bg-amber-950/30 border border-amber-200/60 dark:border-amber-900/40 text-xs text-amber-900 dark:text-amber-200 font-medium flex items-start gap-2 mt-1">
+                                    <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                                    <span className="leading-relaxed">{module.zeroKnowledgeSummary}</span>
                                 </div>
                             )}
                         </div>
 
                         {/* CTA / Status */}
-                        <div className="shrink-0 pt-2 sm:pt-0 w-full sm:w-auto">
+                        <div className="shrink-0 pt-1 sm:pt-0 w-full sm:w-auto">
                             {isLocked ? (
-                                <div className="flex items-center gap-2 text-slate-400 dark:text-slate-600 text-xs font-bold px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800/50">
+                                <div className="flex items-center justify-center gap-2 text-slate-400 dark:text-slate-600 text-xs font-bold px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800/50 min-h-[46px] w-full sm:w-auto">
                                     <Lock className="w-4 h-4" />
-                                    {isEnglish ? "Locked" : "Kilitli"}
+                                    <span>{isEnglish ? "Locked" : "Kilitli"}</span>
                                 </div>
                             ) : (
                                 <button
-                                    className={`w-full sm:w-auto px-5 py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-2 transition-all duration-300 ${
+                                    className={`w-full sm:w-auto px-5 py-3 rounded-xl text-xs sm:text-sm font-extrabold flex items-center justify-center gap-2 transition-all duration-200 min-h-[46px] cursor-pointer shadow-xs active:scale-98 ${
                                         isNext
-                                            ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-500/30 hover:scale-105"
-                                            : "bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700"
+                                            ? "bg-indigo-600 hover:bg-indigo-500 text-white shadow-indigo-600/30 shadow-md"
+                                            : "bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700"
                                     }`}
                                 >
-                                    {isCompleted 
-                                        ? (isEnglish ? "Review Masterclass" : "Dersi Tekrarla")
-                                        : (isEnglish ? "Start Masterclass" : "Dersi Başlat")}
-                                    <ArrowRight className={`w-4 h-4 ${isNext ? "animate-pulse" : "transition-transform group-hover:translate-x-1"}`} />
+                                    <span>
+                                      {isCompleted 
+                                          ? (isEnglish ? "Review Masterclass" : "Dersi Tekrarla")
+                                          : (isEnglish ? "Start Masterclass" : "Dersi Başlat")}
+                                    </span>
+                                    <ArrowRight className={`w-4 h-4 shrink-0 ${isNext ? "animate-pulse" : "transition-transform group-hover:translate-x-1"}`} />
                                 </button>
                             )}
                         </div>

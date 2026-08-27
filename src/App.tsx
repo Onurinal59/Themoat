@@ -16,6 +16,7 @@ import { FloatingGuideWidget } from "./components/FloatingGuideWidget";
 import { FormulaDeepDiveModal } from "./components/FormulaDeepDiveModal";
 import { Footer } from "./components/Footer";
 import { GlobalClickEffect } from "./components/GlobalClickEffect";
+import { MobileBottomNav } from "./components/MobileBottomNav";
 import type { SimTab } from "./components/SimulationsView";
 
 const RoadmapView = React.lazy(() => import("./components/RoadmapView").then(m => ({ default: m.RoadmapView })));
@@ -71,6 +72,15 @@ export default function App() {
   const [selectedGlossaryTermId, setSelectedGlossaryTermId] = useState<string | null>(null);
 
   const activeModule = activeModuleId ? currentModules.find(m => m.id === activeModuleId) || null : null;
+  const currentModuleIndex = activeModule ? currentModules.findIndex(m => m.id === activeModule.id) : -1;
+  const hasNextModule = currentModuleIndex !== -1 && currentModuleIndex < currentModules.length - 1;
+
+  const handleNextModuleFromBottomNav = () => {
+    if (hasNextModule) {
+      handleSelectModule(currentModules[currentModuleIndex + 1]);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
 
   // Apply dark mode class to html document element
   // Apply dark mode class to html document element
@@ -228,7 +238,7 @@ export default function App() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-12">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-4 sm:pt-8 pb-28 sm:pb-12">
         <React.Suspense fallback={<div className="flex h-64 items-center justify-center text-slate-500 font-medium">Yükleniyor...</div>}>
           <AnimatePresence mode="wait">
             {activeModule ? (
@@ -439,6 +449,23 @@ export default function App() {
           setActiveTab("formulas");
           setActiveModuleId(null);
         }}
+      />
+
+      {/* Modern Mobile-First Bottom Navigation Bar */}
+      <MobileBottomNav
+        activeTab={activeTab}
+        setActiveTab={(tab) => {
+          setActiveTab(tab);
+          setActiveModuleId(null);
+        }}
+        activeModule={activeModule}
+        onBackToRoadmap={handleBackToRoadmap}
+        onOpenAICoach={() => {
+          setAiCoachPrompt(undefined);
+          setIsAICoachOpen(true);
+        }}
+        onNextModule={handleNextModuleFromBottomNav}
+        hasNextModule={hasNextModule}
       />
     </div>
   );

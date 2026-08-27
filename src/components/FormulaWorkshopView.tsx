@@ -274,7 +274,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+          <div className="flex overflow-x-auto no-scrollbar sm:grid sm:grid-cols-2 lg:grid-cols-1 gap-2 pb-1 sm:pb-0">
             {ALL_FORMULA_KEYS.map((key, idx) => {
               const guide = formulaGuides[key];
               const isSelected = activeId === key;
@@ -284,7 +284,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   whileHover={{ scale: 1.015 }}
                   whileTap={{ scale: 0.985 }}
                   onClick={() => handleFormulaChange(key)}
-                  className={`p-3.5 rounded-2xl text-left transition-all border flex items-start justify-between gap-3 cursor-pointer ${
+                  className={`p-3 sm:p-3.5 rounded-2xl text-left transition-all border flex items-start justify-between gap-3 cursor-pointer shrink-0 min-w-[240px] sm:min-w-0 ${
                     isSelected
                       ? "bg-indigo-600 text-white border-indigo-500 shadow-lg shadow-indigo-600/25 ring-2 ring-indigo-400/40"
                       : "bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:border-indigo-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800/60"

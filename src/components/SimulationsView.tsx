@@ -147,8 +147,8 @@ export const SimulationsView: React.FC<SimulationsViewProps> = ({
         </p>
       </div>
 
-      {/* Simulator Selector Tabs (Wrapped responsive pill buttons, no hidden overflow) */}
-      <div className="flex flex-wrap gap-2 justify-start sm:justify-center border-b border-slate-200/80 dark:border-slate-800/80 py-2.5">
+      {/* Simulator Selector Tabs (Horizontally scrollable on mobile, flex-wrap on tablet/desktop) */}
+      <div className="flex overflow-x-auto no-scrollbar sm:flex-wrap gap-2 justify-start sm:justify-center border-b border-slate-200/80 dark:border-slate-800/80 py-2.5 px-1 sm:px-0">
         {SIMS.map((s) => {
           const Icon = s.icon;
           const isActive = activeSim === s.id;
