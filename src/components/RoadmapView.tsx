@@ -65,23 +65,23 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
 
   const getPhaseInfo = (idx: number) => {
     if (idx === 0) return { 
-        title: isEnglish ? "Phase I: Strategic Foundations & Capital Economics" : "Faz I: Stratejik Temeller & Sermaye Ekonomisi", 
-        desc: isEnglish ? "Establish the mathematics of economic profit (ROIC vs. WACC), avoid value-destroying growth traps, and diagnose corporate lifecycles via cash flow signatures." : "Ekonomik kârın matematiğini kurun (ROIC vs. WACC), değer yok eden büyüme tuzaklarından kaçının ve nakit akış vektörleriyle kurumsal yaşam döngüsünü teşhis edin.",
+        title: t("RoadmapView.phase_i_strategic_fo_677"), 
+        desc: t("RoadmapView.establish_the_mathem_678"),
         color: "from-blue-500 to-indigo-500" 
     };
     if (idx === 2) return { 
-        title: isEnglish ? "Phase II: Microeconomics & Industry Topology" : "Faz II: Mikroekonomi & Sektör Topolojisi", 
-        desc: isEnglish ? "Deconstruct unit transactions via Oberholzer-Gee's Value Stick (WTP vs. WTS) and calculate industry-wide economic profit pools." : "Felix Oberholzer-Gee'nin Değer Çubuğu (WTP vs. WTS) ile birim ekonomiyi ayrıştırın ve sektör genelindeki ekonomik kâr havuzlarını haritalandırın.",
+        title: t("RoadmapView.phase_ii_microeconom_679"), 
+        desc: t("RoadmapView.deconstruct_unit_tra_680"),
         color: "from-indigo-500 to-cyan-500" 
     };
     if (idx === 4) return { 
-        title: isEnglish ? "Phase III: Structural Defenses & Competitive Dynamics" : "Faz III: Yapısal Savunma Hatları & Rekabet Dinamikleri", 
-        desc: isEnglish ? "Evaluate the 7 entry barriers, execute forensic 10-K R&D/lease capitalizations, and model game-theoretic pricing dynamics (Tit-for-Tat)." : "7 yapısal giriş engelini değerlendirin, adli 10-K Ar-Ge/kiralama aktifleştirmelerini uygulayın ve oyun teorisiyle fiyat savaşlarını modelleyin.",
+        title: t("RoadmapView.phase_iii_structural_681"), 
+        desc: t("RoadmapView.evaluate_the_7_entry_682"),
         color: "from-violet-500 to-purple-500" 
     };
     if (idx === 6) return { 
-        title: isEnglish ? "Phase IV: Internal Engines, Expectations & Moat Audit" : "Faz IV: Şirket İçi Kâr Motoru, Beklentiler & Hendek Denetimi", 
-        desc: isEnglish ? "Dissect DuPont ROIC (Margin vs. Turnover), unmask working capital financing (CCC), reverse-engineer market-implied CAP, and execute the sustainable value creation checklist." : "DuPont ROIC ayrıştırmasını yapın, negatif işletme sermayesiyle büyümenin sırrını çözün, piyasanın ima ettiği CAP süresini (Tersine DCF) hesaplayın ve sürdürülebilir değer yaratımı kontrol listesini tamamlayın.",
+        title: t("RoadmapView.phase_iv_internal_en_683"), 
+        desc: t("RoadmapView.dissect_dupont_roic_684"),
         color: "from-purple-500 to-fuchsia-500" 
     };
     return null;
@@ -122,28 +122,26 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                         minWidth: 0,
                       }}
                     >
-                      {isEnglish ? "Mauboussin & Callahan Framework" : "Michael Mauboussin Metodolojisi"}
+                      {t("RoadmapView.mauboussin_callahan_685")}
                     </span>
                 </div>
                 <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
-                    {isEnglish ? "Measuring the Moat:" : "Ekonomik Hendeklerin Ölçülmesi:"}{" "}
+                    {t("RoadmapView.measuring_the_moat_686")}{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400">
-                        {isEnglish ? "Magnitude, Runway & Longevity" : "Yayılım, Yatırım Pisti & CAP"}
+                        {t("RoadmapView.magnitude_runway_lon_687")}
                     </span>
                 </h1>
                 <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-medium">
-                    {isEnglish 
-                        ? "In competitive markets, high returns attract capital that erodes margins. Learn the Morgan Stanley framework to calculate ROIC with clear assumptions, model competitive advantage periods (CAP), and reverse-engineer market expectations."
-                        : "Serbest piyasada yüksek kârlar sermayeyi mıknatıs gibi çeker ve aşındırır. Morgan Stanley araştırmalarına dayanan bu akademide varsayımları açık ROIC hesaplayın, hendek süresini (CAP) modelleyin ve tersine DCF uygulayın."}
+                    {t("RoadmapView.in_competitive_marke_688")}
                 </p>
 
                 {/* Mobile Progress Bar Widget */}
                 <div className="md:hidden pt-1 pb-2 space-y-2">
                   <div className="flex items-center justify-between text-xs font-bold">
                     <span className="text-slate-700 dark:text-slate-300">
-                      {completedCount} / {modules.length} {isEnglish ? "Modules Done" : "Modül Tamamlandı"}
+                      {completedCount} / {modules.length} {t("RoadmapView.modules_done_689")}
                     </span>
-                    <span className="text-indigo-600 dark:text-indigo-400 font-mono">%{progressPercent} {isEnglish ? "Mastery" : "Ustalık"}</span>
+                    <span className="text-indigo-600 dark:text-indigo-400 font-mono">%{progressPercent} {t("RoadmapView.mastery_690")}</span>
                   </div>
                   <div className="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                     <div
@@ -173,7 +171,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                             className="w-full sm:w-auto px-5 py-3.5 rounded-xl bg-white/80 hover:bg-white dark:bg-slate-800/80 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-700 transition-all font-bold text-xs sm:text-sm flex items-center justify-center gap-2 min-h-[48px] cursor-pointer"
                         >
                             <Sparkles className="w-4.5 h-4.5 text-emerald-500 shrink-0" />
-                            <span>{isEnglish ? "CAP & Fade Rate Engine" : "CAP & Fade Rate Simülatörü"}</span>
+                            <span>{t("RoadmapView.cap_fade_rate_engine_691")}</span>
                         </button>
                     )}
                 </div>
@@ -195,12 +193,12 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
                         <span className="text-3xl font-black text-white">{progressPercent}%</span>
-                        <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">{isEnglish ? "Mastery" : "Ustalık"}</span>
+                        <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">{t("RoadmapView.mastery_692")}</span>
                     </div>
                 </div>
                 <div className="mt-4 text-center">
                     <div className="text-xs font-bold text-slate-600 dark:text-slate-300">
-                        {completedCount} / {modules.length} {isEnglish ? "Modules Completed" : "Modül Tamamlandı"}
+                        {completedCount} / {modules.length} {t("RoadmapView.modules_completed_693")}
                     </div>
                 </div>
             </div>
@@ -212,51 +210,45 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
-              {isEnglish ? "1. Magnitude" : "1. Büyüklük"}
+              {t("RoadmapView.1_magnitude_694")}
             </span>
             <span className="text-xs font-mono font-bold text-slate-400">ROIC - WACC</span>
           </div>
           <h3 className="text-base font-black text-slate-900 dark:text-white">
-            {isEnglish ? "Economic Spread" : "Ekonomik Yayılım (Spread)"}
+            {t("RoadmapView.economic_spread_695")}
           </h3>
           <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-            {isEnglish
-              ? "The excess return generated on every dollar of invested capital above the hurdle rate."
-              : "Yatırılan her 100 TL sermayenin, sermaye maliyetinin üzerinde ürettiği net fazlalık getiri."}
+            {t("RoadmapView.the_excess_return_ge_696")}
           </p>
         </div>
 
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
-              {isEnglish ? "2. Runway" : "2. Yatırım Pisti"}
+              {t("RoadmapView.2_runway_697")}
             </span>
             <span className="text-xs font-mono font-bold text-slate-400">I × RONIC</span>
           </div>
           <h3 className="text-base font-black text-slate-900 dark:text-white">
-            {isEnglish ? "Reinvestment Capacity" : "Yeniden Yatırım Hacmi"}
+            {t("RoadmapView.reinvestment_capacit_698")}
           </h3>
           <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-            {isEnglish
-              ? "How much capital the firm can redeploy at high incremental returns before exhausting runway."
-              : "Şirketin kârını yüksek getiriyle tekrar işe yatırabilme kapasitesi ve büyüme alanı."}
+            {t("RoadmapView.how_much_capital_the_699")}
           </p>
         </div>
 
         <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 uppercase tracking-wider">
-              {isEnglish ? "3. Sustainability" : "3. Sürdürülebilirlik"}
+              {t("RoadmapView.3_sustainability_700")}
             </span>
             <span className="text-xs font-mono font-bold text-slate-400">CAP & Fade Rate</span>
           </div>
           <h3 className="text-base font-black text-slate-900 dark:text-white">
-            {isEnglish ? "Competitive Advantage Period" : "Hendek Süresi (CAP)"}
+            {t("RoadmapView.competitive_advantag_701")}
           </h3>
           <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-            {isEnglish
-              ? "The number of years the firm can resist competitive arbitrage before ROIC fades to WACC."
-              : "Rakiplerin kârı eritmesine direnilebilen ve ROIC'nin sermaye maliyetine düşmediği toplam yıl."}
+            {t("RoadmapView.the_number_of_years_702")}
           </p>
         </div>
       </div>
@@ -272,8 +264,8 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
             <div className="p-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 mb-3 group-hover:scale-110 transition-transform">
                 <Search className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm mb-1">{isEnglish ? "10-K Balance Sheet Audit" : "10-K Bilanço Röntgeni"}</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{isEnglish ? "Review financials to estimate adjusted NOPAT and ROIC." : "Finansalları inceleyerek düzeltilmiş NOPAT ve ROIC hesaplayın."}</p>
+            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm mb-1">{t("RoadmapView.10_k_balance_sheet_a_703")}</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{t("RoadmapView.review_financials_to_704")}</p>
           </motion.button>
           
           <motion.button
@@ -285,8 +277,8 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
             <div className="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 mb-3 group-hover:scale-110 transition-transform">
                 <Swords className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm mb-1">{isEnglish ? "Moat Duel Simulator" : "Hendek Düellosu"}</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{isEnglish ? "Compare two companies head-to-head on competitive advantages." : "İki şirketi rekabet avantajları açısından kafa kafaya çarpıştırın."}</p>
+            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm mb-1">{t("RoadmapView.moat_duel_simulator_705")}</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{t("RoadmapView.compare_two_companie_706")}</p>
           </motion.button>
 
           <motion.button
@@ -298,8 +290,8 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
             <div className="p-2.5 rounded-xl bg-purple-50 dark:bg-purple-950/50 text-purple-600 dark:text-purple-400 mb-3 group-hover:scale-110 transition-transform">
                 <Trophy className="w-5 h-5" />
             </div>
-            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm mb-1">{isEnglish ? "Spaced Repetition (SM-2)" : "Aralıklı Tekrar (SM-2)"}</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{isEnglish ? "Solidify mental models in your long-term memory." : "Öğrendiğiniz finansal zihinsel modelleri kalıcı hafızaya kazıyın."}</p>
+            <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm mb-1">{t("RoadmapView.spaced_repetition_sm_707")}</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{t("RoadmapView.solidify_mental_mode_708")}</p>
           </motion.button>
       </div>
 
@@ -329,7 +321,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                 <div className="space-y-1">
                   <div className="flex items-center gap-2 flex-wrap">
                     <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-slate-100">
-                      {isEnglish ? "Review needed" : "Gözden Geçirme Gerekli"}
+                      {t("RoadmapView.review_needed_709")}
                     </h3>
                     <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
                       {isEnglish
@@ -357,7 +349,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                 }
                 className="shrink-0 self-end sm:self-auto px-5 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md shadow-amber-600/20 active:scale-98 cursor-pointer min-h-[44px]"
               >
-                <span>{isEnglish ? "Review missed concepts" : "Kaçırılan kavramları çalış"}</span>
+                <span>{t("RoadmapView.review_missed_concep_710")}</span>
                 <ArrowRight className="w-4 h-4 shrink-0" />
               </button>
             </motion.div>
@@ -378,7 +370,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
               <div className="space-y-1">
                 <div className="flex items-center gap-2 flex-wrap">
                   <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-slate-100">
-                    {isEnglish ? "Due for Spaced Review" : "Günü Gelen Aralıklı Tekrarlar"}
+                    {t("RoadmapView.due_for_spaced_revie_711")}
                   </h3>
                   <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-purple-100 dark:bg-purple-950/70 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
                     {isEnglish ? `${dueCards.length} Cards Ready` : `${dueCards.length} Kart Hazır`}
@@ -396,7 +388,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
               onClick={() => (onNavigateTab ? onNavigateTab("spaced-repetition", undefined, "due") : undefined)}
               className="shrink-0 self-end sm:self-auto px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md shadow-purple-600/20 active:scale-98 cursor-pointer min-h-[44px]"
             >
-              <span>{isEnglish ? "Start due review" : "Tekrar kuyruğunu başlat"}</span>
+              <span>{t("RoadmapView.start_due_review_712")}</span>
               <ArrowRight className="w-4 h-4 shrink-0" />
             </button>
           </motion.div>
@@ -490,7 +482,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                             {module.subtitle}
                           </span>
                           <span className="flex items-center gap-1 text-xs font-medium text-slate-600 dark:text-slate-400">
-                            <Clock className="w-3 h-3 text-slate-400" /> {module.estimatedMinutes} {isEnglish ? "Min" : "Dk"}
+                            <Clock className="w-3 h-3 text-slate-400" /> {module.estimatedMinutes} {t("RoadmapView.min_713")}
                           </span>
                           {isCompleted ? (
                             <span className="px-2 py-0.5 rounded text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
@@ -500,12 +492,12 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                           ) : isNext ? (
                             <span className="px-2 py-0.5 rounded text-xs font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 flex items-center gap-1">
                               <Sparkles className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
-                              {isEnglish ? "Continue learning" : "Öğrenmeye devam et"}
+                              {t("RoadmapView.continue_learning_714")}
                             </span>
                           ) : (
                             <span className="px-2 py-0.5 rounded text-xs font-bold bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800 flex items-center gap-1">
                               <Eye className="w-3 h-3 text-sky-600 dark:text-sky-400" />
-                              {isEnglish ? "Preview available" : "Önizleme açık"}
+                              {t("RoadmapView.preview_available_715")}
                             </span>
                           )}
                         </div>
@@ -543,10 +535,10 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                           {isPreview && <Eye className="w-4 h-4 shrink-0 text-slate-500 dark:text-slate-400" />}
                           <span>
                             {isCompleted
-                              ? isEnglish ? "Review Masterclass" : "Dersi Tekrarla"
+                              ? t("RoadmapView.review_masterclass_716")
                               : isNext
                               ? isEnglish ? (idx === 0 ? "Start Masterclass" : "Continue Masterclass") : (idx === 0 ? "Dersi Başlat" : "Derse Devam Et")
-                              : isEnglish ? "Preview Masterclass" : "Dersi Önizle"}
+                              : t("RoadmapView.preview_masterclass_717")}
                           </span>
                           <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
                         </button>

@@ -12,7 +12,7 @@ export const FloatingGuideWidget: React.FC<FloatingGuideWidgetProps> = ({
   onOpenGuide,
   isAllCompleted = false,
 }) => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   // Default to popover closed so it never covers lesson text or simulators
   const [isOpen, setIsOpen] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
@@ -74,11 +74,11 @@ export const FloatingGuideWidget: React.FC<FloatingGuideWidgetProps> = ({
                   <div>
                     <div className="flex items-center gap-1.5">
                       <span className="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.2 rounded bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 border border-indigo-200/60 dark:border-indigo-800/60">
-                        {isEnglish ? "Academy Tour" : "Akademi Turu"}
+                        {t("FloatingGuideWidget.academy_tour_180")}
                       </span>
                     </div>
                     <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 mt-0.5">
-                      {isEnglish ? "Master the Platform" : "Platformda Ustalaşın"}
+                      {t("FloatingGuideWidget.master_the_platform_181")}
                     </h4>
                   </div>
                 </div>
@@ -86,9 +86,9 @@ export const FloatingGuideWidget: React.FC<FloatingGuideWidgetProps> = ({
                 <button
                   id="btn-close-tour-popover"
                   onClick={handleDismiss}
-                  aria-label={isEnglish ? "Close and remember" : "Kapat ve hatırla"}
+                  aria-label={t("FloatingGuideWidget.close_and_remember_182")}
                   className="p-1 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-                  title={isEnglish ? "Close tour widget" : "Tur kutusunu kapat"}
+                  title={t("FloatingGuideWidget.close_tour_widget_183")}
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -96,9 +96,7 @@ export const FloatingGuideWidget: React.FC<FloatingGuideWidgetProps> = ({
 
               {/* Description */}
               <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                {isEnglish
-                  ? "Take the 7-step interactive tour to understand financial forensics, reverse DCF, and moat analysis."
-                  : "Finansal adli tıp, tersine DCF ve hendek analizini kavramak için 7 adımlı hızlı rehberi başlatın."}
+                {t("FloatingGuideWidget.take_the_7_step_inte_184")}
               </p>
 
               {/* Action Buttons */}
@@ -112,14 +110,14 @@ export const FloatingGuideWidget: React.FC<FloatingGuideWidgetProps> = ({
                   className="flex-1 py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs"
                 >
                   <PlayCircle className="w-3.5 h-3.5" />
-                  <span>{isEnglish ? "Start Tour" : "Turu Başlat"}</span>
+                  <span>{t("FloatingGuideWidget.start_tour_185")}</span>
                 </button>
                 <button
                   id="btn-dismiss-tour-permanently"
                   onClick={handleDismiss}
                   className="py-2 px-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-semibold transition-colors cursor-pointer"
                 >
-                  {isEnglish ? "Dismiss" : "Gizle"}
+                  {t("FloatingGuideWidget.dismiss_186")}
                 </button>
               </div>
             </motion.div>
@@ -132,7 +130,7 @@ export const FloatingGuideWidget: React.FC<FloatingGuideWidgetProps> = ({
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.96 }}
           onClick={handleToggleOpen}
-          aria-label={isEnglish ? "Open Mastery Tour" : "Ustalık Turunu Aç"}
+          aria-label={t("FloatingGuideWidget.open_mastery_tour_187")}
           className={`flex items-center gap-2 px-3 py-2 rounded-full backdrop-blur-md border text-xs font-bold shadow-md transition-all cursor-pointer min-h-[38px] ${
             isOpen
               ? "bg-indigo-600 text-white border-indigo-500 shadow-indigo-600/25"
@@ -146,7 +144,7 @@ export const FloatingGuideWidget: React.FC<FloatingGuideWidgetProps> = ({
           >
             <Compass className="w-3 h-3" />
           </div>
-          <span className="font-semibold">{isEnglish ? "Mastery Tour" : "Akademi Turu"}</span>
+          <span className="font-semibold">{t("FloatingGuideWidget.mastery_tour_188")}</span>
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
         </motion.button>
       </div>

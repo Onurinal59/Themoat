@@ -30,7 +30,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import { CustomChartTooltip } from "../ChartTooltip";
 
 export const ColonelBlottoSim: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const [b1, setB1] = useState<number>(35);
   const [b2, setB2] = useState<number>(35);
   const [b3, setB3] = useState<number>(30);
@@ -57,16 +57,10 @@ export const ColonelBlottoSim: React.FC = () => {
 
   const overallWinner =
     playerWins > oppWins
-      ? isEnglish
-        ? "🏆 Strategic Victory! (2+ Fronts Won)"
-        : "🏆 Stratejik Zafer! (2+ Cephe Kazanıldı)"
+      ? t("ColonelBlottoSim.strategic_victory_2_856")
       : oppWins > playerWins
-      ? isEnglish
-        ? "⚠️ Incumbent Retains Dominance"
-        : "⚠️ Pazar Lideri Hakimiyetini Korudu"
-      : isEnglish
-      ? "🤝 Stalemate (Tie)"
-      : "🤝 Berabere Kaldınız";
+      ? t("ColonelBlottoSim.incumbent_retains_d_857")
+      : t("ColonelBlottoSim.stalemate_tie_858");
 
   const handlePreset = (alloc: [number, number, number]) => {
     setB1(alloc[0]);
@@ -77,17 +71,17 @@ export const ColonelBlottoSim: React.FC = () => {
   // Recharts Data
   const chartData = [
     {
-      name: isEnglish ? "Front 1 (Core)" : "1. Cephe (Ana Pazar)",
+      name: t("ColonelBlottoSim.front_1_core_859"),
       player: b1,
       incumbent: oppB1,
     },
     {
-      name: isEnglish ? "Front 2 (Growth)" : "2. Cephe (Büyüme)",
+      name: t("ColonelBlottoSim.front_2_growth_860"),
       player: b2,
       incumbent: oppB2,
     },
     {
-      name: isEnglish ? "Front 3 (Niche)" : "3. Cephe (Niş/Ar-Ge)",
+      name: t("ColonelBlottoSim.front_3_niche_861"),
       player: b3,
       incumbent: oppB3,
     },
@@ -100,19 +94,17 @@ export const ColonelBlottoSim: React.FC = () => {
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-1">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50">
-              {isEnglish ? "Module 6+ Strategy Terminal" : "Modül 6+ İleri Strateji Terminali"}
+              {t("ColonelBlottoSim.module_6_strategy_te_862")}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {isEnglish ? "Colonel Blotto Asymmetric Budget Allocation" : "Albay Blotto Asimetrik Bütçe Dağıtımı"}
+              {t("ColonelBlottoSim.colonel_blotto_asymm_863")}
             </span>
           </div>
           <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {isEnglish ? "Colonel Blotto Strategic Resource Allocation" : "Albay Blotto Stratejik Kaynak Dağıtım Simülasyonu"}
+            {t("ColonelBlottoSim.colonel_blotto_strat_864")}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-            {isEnglish
-              ? "Allocate your 100-unit corporate budget across 3 competitive fronts. Winning at least 2 fronts wins the overall market war."
-              : "Toplam 100 birimlik şirket bütçenizi 3 farklı pazar/ürün cephesine dağıtın. En az 2 cephede lider rakibi geçen savaşı kazanır!"}
+            {t("ColonelBlottoSim.allocate_your_100_un_865")}
           </p>
         </div>
 
@@ -120,14 +112,14 @@ export const ColonelBlottoSim: React.FC = () => {
           onClick={() => handlePreset([35, 35, 30])}
           className="self-start md:self-auto flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors cursor-pointer"
         >
-          <RotateCcw className="w-3.5 h-3.5" /> {isEnglish ? "Reset" : "Sıfırla"}
+          <RotateCcw className="w-3.5 h-3.5" /> {t("ColonelBlottoSim.reset_866")}
         </button>
       </div>
 
       {/* Preset Strategies */}
       <div>
         <label className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-2">
-          {isEnglish ? "Preset Allocation Gambits:" : "Stratejik Hamle Şablonları:"}
+          {t("ColonelBlottoSim.preset_allocation_ga_867")}
         </label>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {[
@@ -156,7 +148,7 @@ export const ColonelBlottoSim: React.FC = () => {
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
               <Swords className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              {isEnglish ? "Deploy 100 Budget Units:" : "100 Birim Bütçe Dağıtımı:"}
+              {t("ColonelBlottoSim.deploy_100_budget_un_868")}
             </h3>
             <span
               className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
@@ -176,7 +168,7 @@ export const ColonelBlottoSim: React.FC = () => {
                 {isEnglish ? `Front 1: Core Market (Rival: ${oppB1})` : `1. Cephe: Ana Pazar (Rakip: ${oppB1})`}
               </span>
               <span className="font-mono font-black text-sm text-indigo-600 dark:text-indigo-400">
-                {b1} {isEnglish ? "Units" : "Birim"} ({win1 ? (isEnglish ? "✅ Won" : "✅ Galip") : tie1 ? (isEnglish ? "🤝 Tied" : "🤝 Berabere") : (isEnglish ? "❌ Lost" : "❌ Mağlup")})
+                {b1} {t("ColonelBlottoSim.units_869")} ({win1 ? (t("ColonelBlottoSim.won_870")) : tie1 ? (t("ColonelBlottoSim.tied_871")) : (t("ColonelBlottoSim.lost_872"))})
               </span>
             </div>
             <input
@@ -196,7 +188,7 @@ export const ColonelBlottoSim: React.FC = () => {
                 {isEnglish ? `Front 2: Growth Segment (Rival: ${oppB2})` : `2. Cephe: Büyüme Segmenti (Rakip: ${oppB2})`}
               </span>
               <span className="font-mono font-black text-sm text-indigo-600 dark:text-indigo-400">
-                {b2} {isEnglish ? "Units" : "Birim"} ({win2 ? (isEnglish ? "✅ Won" : "✅ Galip") : tie2 ? (isEnglish ? "🤝 Tied" : "🤝 Berabere") : (isEnglish ? "❌ Lost" : "❌ Mağlup")})
+                {b2} {t("ColonelBlottoSim.units_873")} ({win2 ? (t("ColonelBlottoSim.won_874")) : tie2 ? (t("ColonelBlottoSim.tied_875")) : (t("ColonelBlottoSim.lost_876"))})
               </span>
             </div>
             <input
@@ -216,7 +208,7 @@ export const ColonelBlottoSim: React.FC = () => {
                 {isEnglish ? `Front 3: Niche / R&D (Rival: ${oppB3})` : `3. Cephe: Niş / Ar-Ge (Rakip: ${oppB3})`}
               </span>
               <span className="font-mono font-black text-sm text-indigo-600 dark:text-indigo-400">
-                {b3} {isEnglish ? "Units" : "Birim"} ({win3 ? (isEnglish ? "✅ Won" : "✅ Galip") : tie3 ? (isEnglish ? "🤝 Tied" : "🤝 Berabere") : (isEnglish ? "❌ Lost" : "❌ Mağlup")})
+                {b3} {t("ColonelBlottoSim.units_877")} ({win3 ? (t("ColonelBlottoSim.won_878")) : tie3 ? (t("ColonelBlottoSim.tied_879")) : (t("ColonelBlottoSim.lost_880"))})
               </span>
             </div>
             <input
@@ -232,11 +224,9 @@ export const ColonelBlottoSim: React.FC = () => {
           {/* Action-Oriented Pedagogical Directive */}
           <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-900 dark:text-amber-200">
             <strong className="block font-bold text-amber-800 dark:text-amber-300 mb-1">
-              💡 {isEnglish ? "Action-Oriented Blotto Experiment:" : "Eyleme Dönük Blotto Teşhisi:"}
+              💡 {t("ColonelBlottoSim.action_oriented_blot_881")}
             </strong>
-            {isEnglish
-              ? "Notice that the Incumbent allocates (30, 30, 40). If you deploy (35, 35, 30), you willingly concede Front 3 to capture Fronts 1 & 2, winning the war 2-1 with zero budget expansion!"
-              : "Rakibin (30, 30, 40) bütçe ayırdığını fark edin. Siz (35, 35, 30) dağıtarak 3. cepheden feragat edip 1. ve 2. cepheyi kesin galibiyetle alabilir ve 2-1 ile savaşı bütçe büyütmeden kazanabilirsiniz!"}
+            {t("ColonelBlottoSim.notice_that_the_incu_882")}
           </div>
         </div>
 
@@ -248,11 +238,11 @@ export const ColonelBlottoSim: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <BarChart3 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  {isEnglish ? "Battlefield Deployment Comparison" : "Cephe Bazında Bütçe Karşılaştırması"}
+                  {t("ColonelBlottoSim.battlefield_deployme_883")}
                 </span>
               </div>
               <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">
-                {isEnglish ? "Score: " : "Skor: "}{playerWins} - {oppWins}
+                {t("ColonelBlottoSim.score_884")}{playerWins} - {oppWins}
               </span>
             </div>
 
@@ -266,21 +256,17 @@ export const ColonelBlottoSim: React.FC = () => {
                     content={
                       <CustomChartTooltip
                         valueFormatter={(val, name) => [
-                          `${val} ${isEnglish ? "Units" : "Birim"}`,
+                          `${val} ${t("ColonelBlottoSim.units_885")}`,
                           name === "player"
-                            ? isEnglish
-                              ? "Your Strategy"
-                              : "Sizin Hamleniz"
-                            : isEnglish
-                            ? "Incumbent Rival"
-                            : "Pazar Lideri",
+                            ? t("ColonelBlottoSim.your_strategy_886")
+                            : t("ColonelBlottoSim.incumbent_rival_887"),
                         ]}
                       />
                     }
                   />
                   <Legend
                     wrapperStyle={{ fontSize: "11px", paddingTop: "6px" }}
-                    formatter={(val) => (val === "player" ? (isEnglish ? "Your Strategy" : "Sizin Hamleniz") : (isEnglish ? "Incumbent Rival" : "Pazar Lideri"))}
+                    formatter={(val) => (val === "player" ? (t("ColonelBlottoSim.your_strategy_888")) : (t("ColonelBlottoSim.incumbent_rival_889")))}
                   />
                   <Bar dataKey="player" fill="#6366F1" radius={[4, 4, 0, 0]} />
                   <Bar dataKey="incumbent" fill="#94A3B8" radius={[4, 4, 0, 0]} />
@@ -294,7 +280,7 @@ export const ColonelBlottoSim: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                  {isEnglish ? "Market War Outcome" : "Savaş Sonucu"}
+                  {t("ColonelBlottoSim.market_war_outcome_890")}
                 </span>
                 <h4 className="text-base sm:text-lg font-black text-slate-900 dark:text-slate-100">
                   {overallWinner}
@@ -307,18 +293,14 @@ export const ColonelBlottoSim: React.FC = () => {
                     : "bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 border border-rose-300"
                 }`}
               >
-                {playerWins} / 3 {isEnglish ? "Fronts" : "Cephe"}
+                {playerWins} / 3 {t("ColonelBlottoSim.fronts_891")}
               </span>
             </div>
 
             <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
               {playerWins >= 2
-                ? isEnglish
-                  ? "Asymmetric Efficiency: By conceding non-essential segments and concentrating resources on decisive fronts, you defeated the stronger incumbent with equal budget."
-                  : "Asimetrik Verimlilik: Önemsiz cepheleri feda edip kaynakları kritik noktalara yoğunlaştırarak, eşit bütçeyle daha köklü pazar liderini alt ettiniz."
-                : isEnglish
-                ? "Sub-optimal Resource Spread: Diluting your budget across all fronts allowed the incumbent to overpower you on the majority of battlefields."
-                : "Bütçe Seyrelmesi: Kaynaklarınızı her yere eşit yaymaya çalışmak pazar liderinin ölçek üstünlüğüyle sizi 2 veya daha fazla cephede ezmesine neden oldu."}
+                ? t("ColonelBlottoSim.asymmetric_efficienc_892")
+                : t("ColonelBlottoSim.sub_optimal_resource_893")}
             </p>
           </div>
         </div>
@@ -334,11 +316,11 @@ export const ColonelBlottoSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("ColonelBlottoSim.see_the_calculation_894")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("ColonelBlottoSim.hide_895")) : (t("ColonelBlottoSim.show_896"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -361,26 +343,26 @@ export const ColonelBlottoSim: React.FC = () => {
               <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
                   <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                  <span>{isEnglish ? "Game Theory & Blotto Payoff Formula" : "Oyun Teorisi ve Albay Blotto Kazanç Formülü"}</span>
+                  <span>{t("ColonelBlottoSim.game_theory_blotto_p_897")}</span>
                 </div>
                 <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
-                  <span>{isEnglish ? "Battlefield Outcome: Win (Bi > Oi) -> +1 Point | Loss (Bi < Oi) -> 0 Points" : "Cephe Çıktısı: Galibiyet (Bi > Oi) -> +1 Puan | Mağlubiyet (Bi < Oi) -> 0 Puan"}</span>
+                  <span>{t("ColonelBlottoSim.battlefield_outcome_898")}</span>
                   <br />
-                  <span>{isEnglish ? "Budget Constraint: Σ Bi = 100 & Σ Oi = 100" : "Bütçe Kısıtı: Toplam Bi = 100 & Toplam Oi = 100"}</span>
+                  <span>{t("ColonelBlottoSim.budget_constraint_bi_899")}</span>
                   <br />
-                  <span>{isEnglish ? "Dominant Strategy: Win 2 of 3 battlefields with concentrated force (e.g., 35, 35, 30 vs 30, 30, 40)" : "Baskın Strateji: Yoğunlaştırılmış güçle 3 cepheden en az 2'sini kazanmak"}</span>
+                  <span>{t("ColonelBlottoSim.dominant_strategy_wi_900")}</span>
                 </div>
               </div>
 
               {/* Step-by-Step Diagnostic Breakdown */}
               <div className="space-y-3">
                 <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  {isEnglish ? "Battlefield Diagnostic Breakdown" : "Cepheler Bazında Stratejik Teşhis"}
+                  {t("ColonelBlottoSim.battlefield_diagnost_901")}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 block font-bold mb-1">
-                      {isEnglish ? "1. High Margin Enterprise" : "1. Yüksek Marjlı Kurumsal"}
+                      {t("ColonelBlottoSim.1_high_margin_enterp_902")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {b1 > oppB1 ? (isEnglish ? `Won! (${b1} vs ${oppB1})` : `Kazanıldı! (${b1} vs ${oppB1})`) : b1 === oppB1 ? (isEnglish ? `Tied (${b1})` : `Berabere (${b1})`) : (isEnglish ? `Lost (${b1} vs ${oppB1})` : `Kaybedildi (${b1} vs ${oppB1})`)}
@@ -388,7 +370,7 @@ export const ColonelBlottoSim: React.FC = () => {
                   </div>
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 block font-bold mb-1">
-                      {isEnglish ? "2. Mid-Market Segment" : "2. Orta Ölçek KOBİ"}
+                      {t("ColonelBlottoSim.2_mid_market_segment_903")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {b2 > oppB2 ? (isEnglish ? `Won! (${b2} vs ${oppB2})` : `Kazanıldı! (${b2} vs ${oppB2})`) : b2 === oppB2 ? (isEnglish ? `Tied (${b2})` : `Berabere (${b2})`) : (isEnglish ? `Lost (${b2} vs ${oppB2})` : `Kaybedildi (${b2} vs ${oppB2})`)}
@@ -396,7 +378,7 @@ export const ColonelBlottoSim: React.FC = () => {
                   </div>
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 block font-bold mb-1">
-                      {isEnglish ? "3. Self-Serve / Low Margin" : "3. Bireysel / Düşük Marj"}
+                      {t("ColonelBlottoSim.3_self_serve_low_mar_904")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {b3 > oppB3 ? (isEnglish ? `Won! (${b3} vs ${oppB3})` : `Kazanıldı! (${b3} vs ${oppB3})`) : b3 === oppB3 ? (isEnglish ? `Tied (${b3})` : `Berabere (${b3})`) : (isEnglish ? `Lost (${b3} vs ${oppB3})` : `Kaybedildi (${b3} vs ${oppB3})`)}

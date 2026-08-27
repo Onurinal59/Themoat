@@ -129,21 +129,19 @@ export const SimulationsView: React.FC<SimulationsViewProps> = ({
         <div className="flex flex-wrap items-center gap-2 mb-2">
           <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50 flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-            {isEnglish ? "Step-by-Step Interactive Labs" : "Adım Adım İnteraktif Laboratuvarlar"}
+            {t("SimulationsView.step_by_step_interac_718")}
           </span>
           <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
-            {isEnglish ? "Directly Integrated with Curriculum" : "Müfredat Adımlarına Göre Entegre"}
+            {t("SimulationsView.directly_integrated_719")}
           </span>
         </div>
 
         <h1 className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-          {isEnglish ? "Strategic Simulators & Financial Laboratory" : "Stratejik Simülatörler & Bilanço Deney Alanı"}
+          {t("SimulationsView.strategic_simulators_720")}
         </h1>
 
         <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          {isEnglish
-            ? "From Step 1 ROIC & Moat Castle calculations to Step 8 Reverse DCF (Implied CAP duration) and the Sustainable Value Creation Checklist: test real scenarios with interactive parameters."
-            : "1. Adımdaki ROIC & Şato Hendeği hesaplamasından 8. Adımdaki Tersine DCF (Zımni CAP süresi) ve Sürdürülebilir Değer Yaratımı Kontrol Listesi'ne kadar tüm modelleri dinamik parametrelerle deneyimleyin."}
+          {t("SimulationsView.from_step_1_roic_moa_721")}
         </p>
       </div>
 

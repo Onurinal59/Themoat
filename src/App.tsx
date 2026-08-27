@@ -29,6 +29,7 @@ const OnboardingGuideModal = React.lazy(() => import("./components/OnboardingGui
 const FormulaDeepDiveModal = React.lazy(() => import("./components/FormulaDeepDiveModal").then(m => ({ default: m.FormulaDeepDiveModal })));
 
 export default function App() {
+  const { t, formatPercent, formatCurrency } = useLanguage();
   const { getModules, isEnglish } = useLanguage();
   const currentModules = getModules();
 
@@ -238,7 +239,7 @@ export default function App() {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-indigo-600 focus:text-white focus:font-bold focus:rounded-xl focus:shadow-2xl focus:ring-4 focus:ring-indigo-400 focus:outline-none transition-all"
       >
-        {isEnglish ? "Skip to main content" : "Ana içeriğe atla"}
+        {t("App.skip_to_main_content_1")}
       </a>
       
       {/* Global Interactive Click Ripple */}
@@ -453,10 +454,10 @@ export default function App() {
             }}
             currentTopic={
               activeTab === "company-audit"
-                ? (isEnglish ? "Company Balance Sheet X-Ray & Moat Diagnostic" : "Şirket Bilançosu Röntgeni & Hendek Teşhisi")
+                ? (t("App.company_balance_shee_2"))
                 : activeModule
                 ? activeModule.title
-                : (isEnglish ? "General Moat Strategy" : "Genel Hendek Stratejisi")
+                : (t("App.general_moat_strateg_3"))
             }
             initialPrompt={aiCoachPrompt}
           />

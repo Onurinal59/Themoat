@@ -39,11 +39,7 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
 }) => {
   const { isEnglish, t } = useLanguage();
 
-  const welcomeMessage = isEnglish
-    ? `Hello! I am your Socratic Analysis AI Coach, here to guide you through Michael Mauboussin's "Measuring the Moat" framework step by step and apply it to real-world equities.
-Feel free to ask about any unclear concepts or test your company's moat evidence together!`
-    : `Merhaba! Ben Michael Mauboussin'in "Measuring the Moat" (Ekonomik Hendeği Ölçmek) araştırmasını adım adım öğrenmende ve gerçek piyasadaki hisselere uygulamanda sana rehberlik edecek Sokratik Analiz Koçunum.
-Aklına takılan kavramları sorabilir veya analiz ettiğin şirketin hendek kanıtlarını birlikte test edebiliriz!`;
+  const welcomeMessage = t("AICoachDrawer.hello_i_am_your_socr_1");
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -94,8 +90,8 @@ Aklına takılan kavramları sorabilir veya analiz ettiğin şirketin hendek kan
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           question: textToSend,
-          currentTopic: currentTopic || (isEnglish ? "Economic Moat and Sustainable Value Creation" : "Ekonomik Hendek ve Sürdürülebilir Değer Yaratma"),
-          language: isEnglish ? "en" : "tr",
+          currentTopic: currentTopic || (t("AICoachDrawer.economic_moat_and_su_2")),
+          language: t("AICoachDrawer.en_3"),
         }),
       });
 
@@ -107,9 +103,7 @@ Aklına takılan kavramları sorabilir veya analiz ettiğin şirketin hendek kan
           ...prev,
           {
             sender: "coach",
-            text: isEnglish
-              ? "There was a temporary issue getting a response. Please try again."
-              : "Yanıt alırken geçici bir aksaklık oldu. Lütfen tekrar dener misiniz?",
+            text: t("AICoachDrawer.there_was_a_temporar_4"),
           },
         ]);
       }
@@ -119,9 +113,7 @@ Aklına takılan kavramları sorabilir veya analiz ettiğin şirketin hendek kan
         ...prev,
         {
           sender: "coach",
-          text: isEnglish
-            ? "Could not connect to the server. Please check your network connection."
-            : "Sunucuya bağlanırken bir sorun oluştu. Lütfen bağlantınızı kontrol edin.",
+          text: t("AICoachDrawer.could_not_connect_to_5"),
         },
       ]);
     } finally {
@@ -162,14 +154,14 @@ Aklına takılan kavramları sorabilir veya analiz ettiğin şirketin hendek kan
                 <div>
                   <div className="flex items-center gap-1.5">
                     <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100">
-                      {isEnglish ? "Socratic AI Learning Coach" : "Sokratik AI Öğrenme Koçu"}
+                      {t("AICoachDrawer.socratic_ai_learning_6")}
                     </h3>
                     <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50">
                       Mauboussin AI
                     </span>
                   </div>
                   <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                    {isEnglish ? "Topic:" : "Konu:"} {currentTopic || (isEnglish ? "General Strategy & Moat" : "Genel Strateji & Hendek")}
+                    {t("AICoachDrawer.topic_7")} {currentTopic || (t("AICoachDrawer.general_strategy_moa_8"))}
                   </p>
                 </div>
               </div>
@@ -240,7 +232,7 @@ Aklına takılan kavramları sorabilir veya analiz ettiğin şirketin hendek kan
                   </div>
                   <div className="p-3 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 flex items-center gap-2 shadow-xs">
                     <Loader2 className="w-4 h-4 animate-spin text-indigo-600 dark:text-indigo-400" />
-                    <span>{isEnglish ? "Preparing a clear analogy..." : "Sade ve anlaşılır bir analoji hazırlanıyor..."}</span>
+                    <span>{t("AICoachDrawer.preparing_a_clear_an_9")}</span>
                   </div>
                 </motion.div>
               )}
@@ -258,7 +250,7 @@ Aklına takılan kavramları sorabilir veya analiz ettiğin şirketin hendek kan
               >
                 <input
                   type="text"
-                  placeholder={isEnglish ? "Ask about any term or concept..." : "Anlamadığın bir kelime veya konsepti sor..."}
+                  placeholder={t("AICoachDrawer.ask_about_any_term_o_10")}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   disabled={isLoading}

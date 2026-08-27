@@ -40,7 +40,7 @@ interface RoundResult {
 }
 
 export const PrisonersDilemmaSim: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const [botStrategy, setBotStrategy] = useState<StrategyType>("tit-for-tat");
   const [history, setHistory] = useState<RoundResult[]>([]);
   const [currentRound, setCurrentRound] = useState<number>(1);
@@ -122,19 +122,17 @@ export const PrisonersDilemmaSim: React.FC = () => {
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-1">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50">
-              {isEnglish ? "Step 6 Interactive Terminal" : "6. Adım İnteraktif Terminal"}
+              {t("PrisonersDilemmaSim.step_6_interactive_t_1134")}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {isEnglish ? "Game Theory & Nash Equilibrium" : "Oyun Teorisi & Nash Dengesi"}
+              {t("PrisonersDilemmaSim.game_theory_nash_equ_1135")}
             </span>
           </div>
           <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {isEnglish ? "Airline Duopoly Price War Simulation" : "Havayolu İkili Tekel Fiyat Savaşı Simülatörü"}
+            {t("PrisonersDilemmaSim.airline_duopoly_pric_1136")}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-            {isEnglish
-              ? "Compete against rival Airline B on the NY-London route across 5 seasonal quarters. Make your pricing move on the left, monitor real-time cumulative profit curves on the right."
-              : "New York - Londra hattında rakip B Havayolu ile 5 sezon boyunca yarışın. Soldan fiyat hamlenizi yapın; sağdaki grafikte kümülatif kâr eğrilerinin nasıl ayrıştığını canlı izleyin."}
+            {t("PrisonersDilemmaSim.compete_against_riva_1137")}
           </p>
         </div>
 
@@ -142,14 +140,14 @@ export const PrisonersDilemmaSim: React.FC = () => {
           onClick={handleReset}
           className="self-start md:self-auto flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors cursor-pointer"
         >
-          <RotateCcw className="w-3.5 h-3.5" /> {isEnglish ? "Reset Arena" : "Arenayı Sıfırla"}
+          <RotateCcw className="w-3.5 h-3.5" /> {t("PrisonersDilemmaSim.reset_arena_1138")}
         </button>
       </div>
 
       {/* Opponent Strategy Selection */}
       <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60">
         <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
-          {isEnglish ? "Opponent AI Strategy:" : "Rakip (B Havayolu) Karakteri:"}
+          {t("PrisonersDilemmaSim.opponent_ai_strategy_1139")}
         </span>
         <div className="flex flex-wrap gap-1.5">
           {[
@@ -185,7 +183,7 @@ export const PrisonersDilemmaSim: React.FC = () => {
               {isEnglish ? `Season ${Math.min(currentRound, 5)} / 5 Action:` : `${Math.min(currentRound, 5)}. Sezon Hamleniz:`}
             </h3>
             <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
-              {currentRound > maxRounds ? (isEnglish ? "Finished" : "Tamamlandı") : `${currentRound}. Tur`}
+              {currentRound > maxRounds ? (t("PrisonersDilemmaSim.finished_1140")) : `${currentRound}. Tur`}
             </span>
           </div>
 
@@ -197,11 +195,11 @@ export const PrisonersDilemmaSim: React.FC = () => {
                 className="w-full p-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-left font-bold text-xs transition-all shadow-sm cursor-pointer space-y-1"
               >
                 <div className="flex justify-between items-center">
-                  <span>🕊️ {isEnglish ? "Maintain High Price ($220)" : "Yüksek Fiyatı Koru ($220)"}</span>
+                  <span>🕊️ {t("PrisonersDilemmaSim.maintain_high_price_1141")}</span>
                   <span className="font-mono text-emerald-100 text-[11px]">+300M$ (İşbirliği)</span>
                 </div>
                 <p className="text-[11px] text-emerald-100 font-normal">
-                  {isEnglish ? "Cooperative strategy aiming for shared monopoly profit." : "Rakiple zımni anlaşma sağlayarak ortak kârı maksimize etmeye çalışır."}
+                  {t("PrisonersDilemmaSim.cooperative_strategy_1142")}
                 </p>
               </button>
 
@@ -210,11 +208,11 @@ export const PrisonersDilemmaSim: React.FC = () => {
                 className="w-full p-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-left font-bold text-xs transition-all shadow-sm cursor-pointer space-y-1"
               >
                 <div className="flex justify-between items-center">
-                  <span>⚔️ {isEnglish ? "Slash Price ($200 War)" : "Fiyat Kır ($200 Savaş)"}</span>
+                  <span>⚔️ {t("PrisonersDilemmaSim.slash_price_200_war_1143")}</span>
                   <span className="font-mono text-rose-100 text-[11px]">+320M$ (Tek Taraflı)</span>
                 </div>
                 <p className="text-[11px] text-rose-100 font-normal">
-                  {isEnglish ? "Undercut rival to grab volume; risks retaliatory price war." : "Rakibin pazarını kapmak için fiyat kırar; misilleme riskini başlatır."}
+                  {t("PrisonersDilemmaSim.undercut_rival_to_gr_1144")}
                 </p>
               </button>
             </div>
@@ -222,13 +220,13 @@ export const PrisonersDilemmaSim: React.FC = () => {
             <div className="p-4 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 text-center space-y-2">
               <Trophy className="w-6 h-6 text-amber-500 mx-auto" />
               <div className="font-bold text-xs text-indigo-950 dark:text-indigo-200">
-                {isEnglish ? "5-Season Tournament Completed!" : "5 Sezonluk Turnuva Tamamlandı!"}
+                {t("PrisonersDilemmaSim.5_season_tournament_1145")}
               </div>
               <button
                 onClick={handleReset}
                 className="px-4 py-1.5 rounded-full bg-indigo-600 text-white text-xs font-bold shadow-xs hover:bg-indigo-700 cursor-pointer"
               >
-                {isEnglish ? "Play Again" : "Yeniden Oyna"}
+                {t("PrisonersDilemmaSim.play_again_1146")}
               </button>
             </div>
           )}
@@ -236,30 +234,30 @@ export const PrisonersDilemmaSim: React.FC = () => {
           {/* Payoff Matrix Table */}
           <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 text-[11px] space-y-2">
             <span className="font-bold text-slate-700 dark:text-slate-300 block">
-              {isEnglish ? "Payoff Matrix ($M Profit):" : "Kâr Matrisi (Milyon $):"}
+              {t("PrisonersDilemmaSim.payoff_matrix_m_prof_1147")}
             </span>
             <div className="grid grid-cols-2 gap-1.5 text-center font-mono">
               <div className="p-2 rounded bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300">
                 <span className="block text-[9px] font-sans text-slate-400">
-                  {isEnglish ? "Both $220 (Coop)" : "İki Taraf $220"}
+                  {t("PrisonersDilemmaSim.both_220_coop_1148")}
                 </span>
                 300M$ / 300M$
               </div>
               <div className="p-2 rounded bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300">
                 <span className="block text-[9px] font-sans text-slate-400">
-                  {isEnglish ? "You $200 / Rival $220" : "Sen $200 / Rakip $220"}
+                  {t("PrisonersDilemmaSim.you_200_rival_220_1149")}
                 </span>
                 320M$ / 120M$
               </div>
               <div className="p-2 rounded bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300">
                 <span className="block text-[9px] font-sans text-slate-400">
-                  {isEnglish ? "You $220 / Rival $200" : "Sen $220 / Rakip $200"}
+                  {t("PrisonersDilemmaSim.you_220_rival_200_1150")}
                 </span>
                 120M$ / 320M$
               </div>
               <div className="p-2 rounded bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300">
                 <span className="block text-[9px] font-sans text-slate-400">
-                  {isEnglish ? "Both $200 (Nash)" : "İki Taraf $200"}
+                  {t("PrisonersDilemmaSim.both_200_nash_1151")}
                 </span>
                 200M$ / 200M$
               </div>
@@ -269,11 +267,9 @@ export const PrisonersDilemmaSim: React.FC = () => {
           {/* Action-Oriented Pedagogical Directive */}
           <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-900 dark:text-amber-200">
             <strong className="block font-bold text-amber-800 dark:text-amber-300 mb-1">
-              💡 {isEnglish ? "Action-Oriented Game Theory Experiment:" : "Eyleme Dönük Oyun Teorisi Deneyi:"}
+              💡 {t("PrisonersDilemmaSim.action_oriented_game_1152")}
             </strong>
-            {isEnglish
-              ? "Click 'Slash Price ($200)'. Notice on the right chart how your profit spikes in Round 1, but Tit-for-Tat immediately retaliates in Round 2, locking both airlines into the low-margin $200M Nash Trap."
-              : "Soldaki 'Fiyat Kır ($200)' butonuna basın. Sağdaki grafikte 1. turda kârınızın sıçradığını, fakat 2. turdan itibaren rakibin misilleme yaparak her iki havayolunu da 200M$'lık düşük kâr kapanına (Nash Dengesi) kilitlediğini izleyin."}
+            {t("PrisonersDilemmaSim.click_slash_price_20_1153")}
           </div>
         </div>
 
@@ -285,15 +281,15 @@ export const PrisonersDilemmaSim: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <BarChart3 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  {isEnglish ? "Cumulative Earnings Over 5 Seasons ($M)" : "5 Sezonluk Kümülatif Kâr Eğrisi (Milyon $)"}
+                  {t("PrisonersDilemmaSim.cumulative_earnings_1154")}
                 </span>
               </div>
               <div className="flex items-center gap-3 text-xs font-mono font-bold">
                 <span className="text-emerald-600">
-                  {isEnglish ? "You" : "Sen"}: ${totalPlayerScore}M
+                  {t("PrisonersDilemmaSim.you_1155")}: ${totalPlayerScore}M
                 </span>
                 <span className="text-rose-600">
-                  {isEnglish ? "Rival" : "Rakip"}: ${totalBotScore}M
+                  {t("PrisonersDilemmaSim.rival_1156")}: ${totalBotScore}M
                 </span>
               </div>
             </div>
@@ -310,19 +306,15 @@ export const PrisonersDilemmaSim: React.FC = () => {
                         valueFormatter={(val, name) => [
                           `$${val}M`,
                           name === "player"
-                            ? isEnglish
-                              ? "Your Airline"
-                              : "Sizin Havayolunuz"
-                            : isEnglish
-                            ? "Rival Airline B"
-                            : "Rakip B",
+                            ? t("PrisonersDilemmaSim.your_airline_1157")
+                            : t("PrisonersDilemmaSim.rival_airline_b_1158"),
                         ]}
                       />
                     }
                   />
                   <Legend
                     wrapperStyle={{ fontSize: "11px", paddingTop: "6px" }}
-                    formatter={(value) => (value === "player" ? (isEnglish ? "Your Firm" : "Sizin Şirketiniz") : (isEnglish ? "Rival B" : "Rakip B"))}
+                    formatter={(value) => (value === "player" ? (t("PrisonersDilemmaSim.your_firm_1159")) : (t("PrisonersDilemmaSim.rival_b_1160")))}
                   />
                   <Line type="monotone" dataKey="player" stroke="#10B981" strokeWidth={3} dot={{ r: 4 }} />
                   <Line type="monotone" dataKey="bot" stroke="#F43F5E" strokeWidth={3} dot={{ r: 4 }} strokeDasharray="4 4" />
@@ -334,12 +326,12 @@ export const PrisonersDilemmaSim: React.FC = () => {
           {/* Dynamic History Log */}
           <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              {isEnglish ? "Round-by-Round Breakdown:" : "Sezonluk Karşılaşma Dökümü:"}
+              {t("PrisonersDilemmaSim.round_by_round_break_1161")}
             </h4>
 
             {history.length === 0 ? (
               <div className="p-4 text-center text-xs text-slate-400 border border-dashed border-slate-200 dark:border-slate-800 rounded-xl">
-                {isEnglish ? "Click a price button on the left to start Round 1." : "1. Sezonu başlatmak için soldaki fiyat butonlarından birine tıklayın."}
+                {t("PrisonersDilemmaSim.click_a_price_button_1162")}
               </div>
             ) : (
               <div className="space-y-1.5 max-h-40 overflow-y-auto pr-1">
@@ -371,11 +363,11 @@ export const PrisonersDilemmaSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("PrisonersDilemmaSim.see_the_calculation_1163")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("PrisonersDilemmaSim.hide_1164")) : (t("PrisonersDilemmaSim.show_1165"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -398,41 +390,37 @@ export const PrisonersDilemmaSim: React.FC = () => {
               <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
                   <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                  <span>{isEnglish ? "Game Theory Pricing Payoff Matrix & ROIC Math" : "Oyun Teorisi Fiyatlandırma Matrisi ve ROIC Mantığı"}</span>
+                  <span>{t("PrisonersDilemmaSim.game_theory_pricing_1166")}</span>
                 </div>
                 <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
-                  <span>{isEnglish ? "Both Cooperate ($220, $220): +$100M each (Total Industry Profit = $200M)" : "İki Taraf da Anlaşır ($220, $220): Her biri +$100M (Sektör Toplam Kârı = $200M)"}</span>
+                  <span>{t("PrisonersDilemmaSim.both_cooperate_220_2_1167")}</span>
                   <br />
-                  <span>{isEnglish ? "One Defects ($200 vs $220): Defector +$120M, Cooperator +$40M (Total = $160M)" : "Tek Taraf Fiyat Kırar ($200 vs $220): İndiren +$120M, Koruyan +$40M (Toplam = $160M)"}</span>
+                  <span>{t("PrisonersDilemmaSim.one_defects_200_vs_2_1168")}</span>
                   <br />
-                  <span>{isEnglish ? "Both Defect ($200, $200): +$60M each (Total Industry Profit = $120M — 40% Value Destroyed)" : "İki Taraf da Fiyat Kırar ($200, $200): Her biri +$60M (Sektör Kârı = $120M — %40 Kâr Yok Oluşu)"}</span>
+                  <span>{t("PrisonersDilemmaSim.both_defect_200_200_1169")}</span>
                 </div>
               </div>
 
               {/* Step-by-Step Diagnostic Breakdown */}
               <div className="space-y-3">
                 <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  {isEnglish ? "Nash Equilibrium vs Long-Term Moat Economics" : "Nash Dengesi vs Uzun Vadeli Hendek Ekonomisi"}
+                  {t("PrisonersDilemmaSim.nash_equilibrium_vs_1170")}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-rose-500 block font-bold mb-1">
-                      {isEnglish ? "The Pricing War Trap" : "Fiyat Savaşı Tuzağı"}
+                      {t("PrisonersDilemmaSim.the_pricing_war_trap_1171")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
-                      {isEnglish
-                        ? "Undercutting prices creates a transient advantage that rivals immediately match, driving the entire industry into sub-WACC returns."
-                        : "Fiyat kırmak geçici bir pazar payı sağlasa da rakipler anında karşılık verir ve sektörün ROIC'si sermaye maliyetinin altına düşer."}
+                      {t("PrisonersDilemmaSim.undercutting_prices_1172")}
                     </p>
                   </div>
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-emerald-600 block font-bold mb-1">
-                      {isEnglish ? "Tit-For-Tat & Rational Discipline" : "Tit-For-Tat ve Rasyonel Oligopol Disiplini"}
+                      {t("PrisonersDilemmaSim.tit_for_tat_rational_1173")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
-                      {isEnglish
-                        ? "Cooperating by default and immediately punishing price cuts restores industry rationality, preserving sustainable economic profit."
-                        : "Varsayılan olarak işbirliği yapıp fiyat kırmayı anında cezalandırmak rasyonel fiyatlama disiplinini yeniden tesis eder."}
+                      {t("PrisonersDilemmaSim.cooperating_by_defau_1174")}
                     </p>
                   </div>
                 </div>

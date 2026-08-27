@@ -26,32 +26,32 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   hasNextModule,
   isNextModuleUnlocked = false,
 }) => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
 
   const NAV_ITEMS: { id: NavTab; label: string; icon: React.ElementType }[] = [
     {
       id: "roadmap",
-      label: isEnglish ? "Academy" : "Akademi",
+      label: t("MobileBottomNav.academy_486"),
       icon: Compass,
     },
     {
       id: "simulators",
-      label: isEnglish ? "Lab" : "Lab",
+      label: t("MobileBottomNav.lab_487"),
       icon: FlaskConical,
     },
     {
       id: "company-audit",
-      label: isEnglish ? "10-K Audit" : "10-K Röntgen",
+      label: t("MobileBottomNav.10_k_audit_488"),
       icon: Building2,
     },
     {
       id: "formulas",
-      label: isEnglish ? "Formulas" : "Formüller",
+      label: t("MobileBottomNav.formulas_489"),
       icon: Calculator,
     },
     {
       id: "moat-duel",
-      label: isEnglish ? "Duel" : "Düello",
+      label: t("MobileBottomNav.duel_490"),
       icon: Swords,
     },
   ];
@@ -70,7 +70,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             className="flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 text-xs font-bold active:scale-95 transition-all min-h-[44px] cursor-pointer"
           >
             <ArrowLeft className="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" />
-            <span>{isEnglish ? "Roadmap" : "Müfredat"}</span>
+            <span>{t("MobileBottomNav.roadmap_491")}</span>
           </button>
 
           {/* AI Coach Quick Trigger */}
@@ -79,7 +79,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             className="flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/60 text-xs font-bold active:scale-95 transition-all min-h-[44px] cursor-pointer"
           >
             <MessageSquare className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
-            <span>{isEnglish ? "Ask Coach" : "Koça Sor"}</span>
+            <span>{t("MobileBottomNav.ask_coach_492")}</span>
           </button>
 
           {/* Next Step / Preview Step */}
@@ -94,7 +94,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
             >
               <span>
                 {isNextModuleUnlocked
-                  ? isEnglish ? "Next Step" : "Sonraki Adım"
+                  ? t("MobileBottomNav.next_step_493")
                   : isEnglish ? `Preview Step 0${activeModule ? activeModule.id + 1 : ""}` : `Adım 0${activeModule ? activeModule.id + 1 : ""} Önizle`}
               </span>
               <ChevronRight className="w-4 h-4 shrink-0" />
@@ -108,7 +108,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
               className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-md shadow-indigo-600/30 active:scale-95 transition-all min-h-[44px] cursor-pointer"
             >
               <CheckCircle2 className="w-4 h-4 shrink-0" />
-              <span>{isEnglish ? "Go to Quiz" : "Teste Git"}</span>
+              <span>{t("MobileBottomNav.go_to_quiz_494")}</span>
             </button>
           )}
         </div>

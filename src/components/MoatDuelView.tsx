@@ -44,7 +44,7 @@ export const MoatDuelView: React.FC<MoatDuelViewProps> = ({
   if (!comp1 || !comp2) {
     return (
       <div className="p-8 text-center text-slate-500">
-        {isEnglish ? "At least 2 company dossiers are required for comparison." : "Kıyaslama yapabilmek için en az 2 şirket dosyası gereklidir."}
+        {t("MoatDuelView.at_least_2_company_d_436")}
       </div>
     );
   }
@@ -82,9 +82,7 @@ export const MoatDuelView: React.FC<MoatDuelViewProps> = ({
   };
 
   const handleCopyComparison = () => {
-    const disclaimer = isEnglish
-      ? `Educational scenario report — not investment advice.\nThis comparison uses illustrative teaching inputs and may not represent current verified company data, valuation, or price targets.\nVerify the latest company filings, source dates, and your own assumptions before using it outside this learning exercise.\n\n`
-      : `Eğitimsel senaryo raporu — yatırım tavsiyesi değildir.\nBu karşılaştırma temsili eğitim girdilerini kullanır; güncel şirket verisi, değerleme veya fiyat hedeflerini yansıtmayabilir.\nBu öğrenme egzersizi dışında kullanmadan önce en güncel şirket raporlarını, veri tarihlerini ve kendi varsayımlarınızı doğrulayın.\n\n`;
+    const disclaimer = t("MoatDuelView.educational_scenario_437");
 
     const summary = disclaimer + (isEnglish
       ? `⚔️ MAUBOUSSIN MOAT DUEL REPORT:
@@ -118,13 +116,13 @@ ${
 }`
       : `⚔️ MAUBOUSSIN HENDEK DÜELLOSU RAPORU:
 ------------------------------------------
-${isEnglish ? "Company 1" : "Şirket 1"}: ${comp1.companyName} (${comp1.ticker})
+${t("MoatDuelView.company_1_438")}: ${comp1.companyName} (${comp1.ticker})
 - ROIC: %${fin1.roicPercent} | WACC: %${comp1.financials.wacc} | Spread: %${fin1.spread}
 - NOPAT Marjı: %${fin1.nopatMarginPercent} | Sermaye Devir Hızı: ${fin1.capitalTurnover}x
 - Hendek Genişliği: ${score1.diagnosedMoat} (Skor: ${score1.scorePercent}/100)
 - Tahmini CAP: ${comp1.sustainability.estimatedCapYears} Yıl
 
-${isEnglish ? "Company 2" : "Şirket 2"}: ${comp2.companyName} (${comp2.ticker})
+${t("MoatDuelView.company_2_439")}: ${comp2.companyName} (${comp2.ticker})
 - ROIC: %${fin2.roicPercent} | WACC: %${comp2.financials.wacc} | Spread: %${fin2.spread}
 - NOPAT Marjı: %${fin2.nopatMarginPercent} | Sermaye Devir Hızı: ${fin2.capitalTurnover}x
 - Hendek Genişliği: ${score2.diagnosedMoat} (Skor: ${score2.scorePercent}/100)
@@ -167,35 +165,31 @@ ${
           <div className="flex flex-wrap items-center gap-2">
             <span className="px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-400/30 flex items-center gap-1.5">
               <Swords className="w-3.5 h-3.5 text-indigo-600 dark:text-amber-400" />
-              {isEnglish ? "Michael Mauboussin Moat Duel" : "Michael Mauboussin Hendek Düellosu"}
+              {t("MoatDuelView.michael_mauboussin_m_440")}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-50 dark:bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-400/30">
-              {isEnglish ? "Relative Competitive Advantage Analysis" : "Göreli Rekabet Analizi (Relative Advantage)"}
+              {t("MoatDuelView.relative_competitive_441")}
             </span>
           </div>
 
           <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-            {isEnglish ? "Clash Two Companies' Economic Moats Head-to-Head" : "İki Şirketin Ekonomik Hendeklerini Yan Yana Çarpıştırın"}
+            {t("MoatDuelView.clash_two_companies_442")}
           </h1>
 
           <p className="text-xs sm:text-sm text-slate-600 dark:text-indigo-100/80 max-w-3xl leading-relaxed">
-            {isEnglish
-              ? "According to Mauboussin, an economic moat is not an absolute number, but a relative advantage over competitors. Test two companies' DuPont decomposition, pricing power, capital turnover, and CAP duration side by side."
-              : "Mauboussin'e göre ekonomik hendek mutlak bir sayı değil, rakiplere karşı sağlanan göreli üstünlüktür. İki şirketin DuPont ayrıştırmasını, fiyatlama gücünü, sermaye devir hızını ve CAP ömrünü kafa kafaya test edin."}
+            {t("MoatDuelView.according_to_maubous_443")}
           </p>
 
           {/* Educational Disclaimer */}
           <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/50 rounded-xl text-[11px] sm:text-xs text-amber-800 dark:text-amber-300/90 leading-relaxed font-medium">
-            {isEnglish
-              ? "Educational scenario template — company labels are used to demonstrate the Mauboussin framework. The displayed inputs and outputs may be illustrative and are not current verified company data, a valuation, a price target, or investment advice. Verify the latest company filings, source dates, and your own assumptions before any real-world decision."
-              : "Eğitimsel senaryo şablonu — şirket etiketleri Mauboussin çerçevesini göstermek için kullanılmıştır. Görüntülenen veriler ve sonuçlar temsilidir; güncel doğrulanmış şirket verisi, değerleme, fiyat hedefi veya yatırım tavsiyesi değildir. Gerçek kararlar almadan önce en güncel şirket raporlarını, veri tarihlerini ve kendi varsayımlarınızı doğrulayın."}
+            {t("MoatDuelView.educational_scenario_444")}
           </div>
 
           {/* Quick preset matchup tags */}
           <div className="pt-2 flex flex-wrap items-center gap-2 text-xs">
             <span className="text-slate-500 dark:text-slate-400 text-[11px] font-semibold flex items-center gap-1.5 flex-wrap">
-              {isEnglish ? "Quick Matchup Presets:" : "Hızlı Karşılaştırma Önerileri:"}
-              <span className="text-amber-600 dark:text-amber-400 font-normal">({isEnglish ? "Illustrative teaching scenario — not current company data." : "Eğitimsel senaryo — güncel şirket verisi değildir."})</span>
+              {t("MoatDuelView.quick_matchup_preset_445")}
+              <span className="text-amber-600 dark:text-amber-400 font-normal">({t("MoatDuelView.illustrative_teachin_446")})</span>
             </span>
             {dossiers.length >= 2 && (
               <>
@@ -225,7 +219,7 @@ ${
         <div className="space-y-2">
           <label className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 flex items-center gap-1.5">
             <span className="w-5 h-5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 flex items-center justify-center text-[11px] font-extrabold">1</span>
-            {isEnglish ? "Left Corner: Company 1" : "Sol Köşe: 1. Şirket"}
+            {t("MoatDuelView.left_corner_company_447")}
           </label>
           <select
             value={comp1Id}
@@ -244,7 +238,7 @@ ${
         <div className="space-y-2">
           <label className="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400 flex items-center gap-1.5">
             <span className="w-5 h-5 rounded-full bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300 flex items-center justify-center text-[11px] font-extrabold">2</span>
-            {isEnglish ? "Right Corner: Company 2" : "Sağ Köşe: 2. Şirket"}
+            {t("MoatDuelView.right_corner_company_448")}
           </label>
           <select
             value={comp2Id}
@@ -268,8 +262,8 @@ ${
         }`}>
           {overallWinner === 1 && (
             <div className="absolute -top-3 right-6 px-3 py-1 rounded-full bg-indigo-600 text-white text-[10px] font-extrabold flex flex-col items-center shadow-sm">
-              <span className="flex items-center gap-1"><Award className="w-3.5 h-3.5 text-amber-300" /> {isEnglish ? "Illustrative model outcome" : "Eğitim modeli sonucu"}</span>
-              <span className="text-[9px] text-indigo-200 font-medium">{isEnglish ? "Based on selected educational inputs." : "Seçilen eğitim girdilerine dayanır."}</span>
+              <span className="flex items-center gap-1"><Award className="w-3.5 h-3.5 text-amber-300" /> {t("MoatDuelView.illustrative_model_o_449")}</span>
+              <span className="text-[9px] text-indigo-200 font-medium">{t("MoatDuelView.based_on_selected_ed_450")}</span>
             </div>
           )}
 
@@ -310,7 +304,7 @@ ${
 
             <div className="bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
               <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase block">
-                {isEnglish ? "Economic Spread" : "Değer Yayılımı (Spread)"}
+                {t("MoatDuelView.economic_spread_451")}
               </span>
               <span className={`text-lg font-black ${fin1.spread > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
                 {fin1.spread > 0 ? `+${fin1.spread}%` : `${fin1.spread}%`}
@@ -319,7 +313,7 @@ ${
 
             <div className="bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
               <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase block">
-                {isEnglish ? "NOPAT Margin" : "NOPAT Kâr Marjı"}
+                {t("MoatDuelView.nopat_margin_452")}
               </span>
               <span className="text-base font-bold text-slate-800 dark:text-slate-200">
                 {fin1.nopatMarginPercent}%
@@ -328,7 +322,7 @@ ${
 
             <div className="bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
               <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase block">
-                {isEnglish ? "Capital Turnover" : "Sermaye Devir Hızı"}
+                {t("MoatDuelView.capital_turnover_453")}
               </span>
               <span className="text-base font-bold text-slate-800 dark:text-slate-200">
                 {fin1.capitalTurnover}x
@@ -339,7 +333,7 @@ ${
           {/* Moat Subdrivers Tags */}
           <div className="space-y-1.5">
             <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-              {isEnglish ? "Moat Drivers:" : "Hendek Motorları:"}
+              {t("MoatDuelView.moat_drivers_454")}
             </span>
             <div className="flex flex-wrap gap-1.5">
               {comp1.competitiveAdvantage.subDrivers.map((driver, idx) => (
@@ -352,9 +346,9 @@ ${
 
           {/* Estimated CAP */}
           <div className="p-3 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 flex items-center justify-between text-xs">
-            <span className="font-semibold text-slate-600 dark:text-slate-300">{isEnglish ? "Illustrative CAP assumption:" : "Temsili CAP varsayımı:"}</span>
+            <span className="font-semibold text-slate-600 dark:text-slate-300">{t("MoatDuelView.illustrative_cap_ass_455")}</span>
             <span className="font-extrabold text-indigo-700 dark:text-indigo-300">
-              {comp1.sustainability.estimatedCapYears} {isEnglish ? "Years" : "Yıl"}
+              {comp1.sustainability.estimatedCapYears} {t("MoatDuelView.years_456")}
             </span>
           </div>
         </div>
@@ -365,8 +359,8 @@ ${
         }`}>
           {overallWinner === 2 && (
             <div className="absolute -top-3 right-6 px-3 py-1 rounded-full bg-rose-600 text-white text-[10px] font-extrabold flex flex-col items-center shadow-sm">
-              <span className="flex items-center gap-1"><Award className="w-3.5 h-3.5 text-amber-300" /> {isEnglish ? "Illustrative model outcome" : "Eğitim modeli sonucu"}</span>
-              <span className="text-[9px] text-rose-200 font-medium">{isEnglish ? "Based on selected educational inputs." : "Seçilen eğitim girdilerine dayanır."}</span>
+              <span className="flex items-center gap-1"><Award className="w-3.5 h-3.5 text-amber-300" /> {t("MoatDuelView.illustrative_model_o_457")}</span>
+              <span className="text-[9px] text-rose-200 font-medium">{t("MoatDuelView.based_on_selected_ed_458")}</span>
             </div>
           )}
 
@@ -407,7 +401,7 @@ ${
 
             <div className="bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
               <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase block">
-                {isEnglish ? "Economic Spread" : "Değer Yayılımı (Spread)"}
+                {t("MoatDuelView.economic_spread_459")}
               </span>
               <span className={`text-lg font-black ${fin2.spread > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
                 {fin2.spread > 0 ? `+${fin2.spread}%` : `${fin2.spread}%`}
@@ -416,7 +410,7 @@ ${
 
             <div className="bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
               <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase block">
-                {isEnglish ? "NOPAT Margin" : "NOPAT Kâr Marjı"}
+                {t("MoatDuelView.nopat_margin_460")}
               </span>
               <span className="text-base font-bold text-slate-800 dark:text-slate-200">
                 {fin2.nopatMarginPercent}%
@@ -425,7 +419,7 @@ ${
 
             <div className="bg-slate-50 dark:bg-slate-800/60 p-3 rounded-2xl border border-slate-200/60 dark:border-slate-700/60">
               <span className="text-[10px] font-semibold text-slate-500 dark:text-slate-400 uppercase block">
-                {isEnglish ? "Capital Turnover" : "Sermaye Devir Hızı"}
+                {t("MoatDuelView.capital_turnover_461")}
               </span>
               <span className="text-base font-bold text-slate-800 dark:text-slate-200">
                 {fin2.capitalTurnover}x
@@ -436,7 +430,7 @@ ${
           {/* Moat Subdrivers Tags */}
           <div className="space-y-1.5">
             <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
-              {isEnglish ? "Moat Drivers:" : "Hendek Motorları:"}
+              {t("MoatDuelView.moat_drivers_462")}
             </span>
             <div className="flex flex-wrap gap-1.5">
               {comp2.competitiveAdvantage.subDrivers.map((driver, idx) => (
@@ -449,9 +443,9 @@ ${
 
           {/* Estimated CAP */}
           <div className="p-3 rounded-2xl bg-rose-50/50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 flex items-center justify-between text-xs">
-            <span className="font-semibold text-slate-600 dark:text-slate-300">{isEnglish ? "Illustrative CAP assumption:" : "Temsili CAP varsayımı:"}</span>
+            <span className="font-semibold text-slate-600 dark:text-slate-300">{t("MoatDuelView.illustrative_cap_ass_463")}</span>
             <span className="font-extrabold text-rose-700 dark:text-rose-300">
-              {comp2.sustainability.estimatedCapYears} {isEnglish ? "Years" : "Yıl"}
+              {comp2.sustainability.estimatedCapYears} {t("MoatDuelView.years_464")}
             </span>
           </div>
         </div>
@@ -461,41 +455,41 @@ ${
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-xs space-y-4">
         <h3 className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
           <BarChart3 className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-          {isEnglish ? "Head-to-Head Strategic Metrics Breakdown" : "Kritik Metriklerin Kafa Kafaya Karşılaştırması"}
+          {t("MoatDuelView.head_to_head_strateg_465")}
         </h3>
 
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left border-collapse">
             <thead>
               <tr className="border-b border-slate-200 dark:border-slate-800 text-slate-400 uppercase text-[10px]">
-                <th className="py-3 px-4 font-bold">{isEnglish ? "Strategic Metric" : "Stratejik Metrik"}</th>
+                <th className="py-3 px-4 font-bold">{t("MoatDuelView.strategic_metric_466")}</th>
                 <th className="py-3 px-4 font-bold text-indigo-600 dark:text-indigo-400">{comp1.ticker}</th>
                 <th className="py-3 px-4 font-bold text-rose-600 dark:text-rose-400">{comp2.ticker}</th>
-                <th className="py-3 px-4 font-bold">{isEnglish ? "Advantage & Pedagogical Takeaway" : "Üstün Taraf & Pedagojik Yorum"}</th>
+                <th className="py-3 px-4 font-bold">{t("MoatDuelView.advantage_pedagogica_467")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60 font-medium">
               {/* ROIC */}
               <tr>
-                <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{isEnglish ? "ROIC (Return on Invested Capital)" : "ROIC (Yatırılan Sermaye Getirisi)"}</td>
+                <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{t("MoatDuelView.roic_return_on_inves_468")}</td>
                 <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{fin1.roicPercent}%</td>
                 <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{fin2.roicPercent}%</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                   {roicWinner === 1 ? (
                     <span className="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 font-bold">
-                      <CheckCircle2 className="w-3.5 h-3.5" /> {comp1.ticker} {isEnglish ? "deploys capital with higher efficiency" : "sermayesini daha verimli çalıştırıyor"}
+                      <CheckCircle2 className="w-3.5 h-3.5" /> {comp1.ticker} {t("MoatDuelView.deploys_capital_with_469")}
                     </span>
                   ) : roicWinner === 2 ? (
                     <span className="inline-flex items-center gap-1 text-rose-600 dark:text-rose-400 font-bold">
-                      <CheckCircle2 className="w-3.5 h-3.5" /> {comp2.ticker} {isEnglish ? "deploys capital with higher efficiency" : "sermayesini daha verimli çalıştırıyor"}
+                      <CheckCircle2 className="w-3.5 h-3.5" /> {comp2.ticker} {t("MoatDuelView.deploys_capital_with_470")}
                     </span>
-                  ) : (isEnglish ? "Equal" : "Eşit")}
+                  ) : (t("MoatDuelView.equal_471"))}
                 </td>
               </tr>
 
               {/* Spread */}
               <tr>
-                <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{isEnglish ? "Economic Spread (ROIC - WACC)" : "Ekonomik Yayılım (ROIC - WACC)"}</td>
+                <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{t("MoatDuelView.economic_spread_roic_472")}</td>
                 <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{fin1.spread}%</td>
                 <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{fin2.spread}%</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
@@ -507,7 +501,7 @@ ${
 
               {/* NOPAT Margin */}
               <tr>
-                <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{isEnglish ? "NOPAT Margin (Pricing Power / WTP)" : "NOPAT Marjı (Fiyatlama Gücü / WTP)"}</td>
+                <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{t("MoatDuelView.nopat_margin_pricing_473")}</td>
                 <td className="py-3 px-4 text-indigo-700 dark:text-indigo-300 font-bold">{fin1.nopatMarginPercent}%</td>
                 <td className="py-3 px-4 text-rose-700 dark:text-rose-300 font-bold">{fin2.nopatMarginPercent}%</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
@@ -519,7 +513,7 @@ ${
 
               {/* Turnover */}
               <tr>
-                <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{isEnglish ? "Capital Turnover (Velocity & Asset Efficiency)" : "Sermaye Devir Hızı (Hız & Verimlilik)"}</td>
+                <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{t("MoatDuelView.capital_turnover_vel_474")}</td>
                 <td className="py-3 px-4 text-indigo-700 dark:text-indigo-300 font-bold">{fin1.capitalTurnover}x</td>
                 <td className="py-3 px-4 text-rose-700 dark:text-rose-300 font-bold">{fin2.capitalTurnover}x</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
@@ -531,21 +525,21 @@ ${
 
               {/* Moat Width */}
               <tr>
-                <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{isEnglish ? "Diagnosed Moat Classification" : "Teşhis Edilen Hendek Genişliği"}</td>
+                <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{t("MoatDuelView.diagnosed_moat_class_475")}</td>
                 <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{translateMoatWidth(score1.diagnosedMoat, isEnglish)}</td>
                 <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{translateMoatWidth(score2.diagnosedMoat, isEnglish)}</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
-                  {isEnglish ? "Mauboussin 5-step qualitative and quantitative score" : "Mauboussin 5 adımlı nitel ve nicel hendek puanı"}
+                  {t("MoatDuelView.mauboussin_5_step_qu_476")}
                 </td>
               </tr>
 
               {/* CAP */}
               <tr>
-                <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{isEnglish ? "Competitive Advantage Period (CAP)" : "Rekabetçi Avantaj Dönemi (CAP)"}</td>
-                <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{comp1.sustainability.estimatedCapYears} {isEnglish ? "Years" : "Yıl"}</td>
-                <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{comp2.sustainability.estimatedCapYears} {isEnglish ? "Years" : "Yıl"}</td>
+                <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{t("MoatDuelView.competitive_advantag_477")}</td>
+                <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{comp1.sustainability.estimatedCapYears} {t("MoatDuelView.years_478")}</td>
+                <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{comp2.sustainability.estimatedCapYears} {t("MoatDuelView.years_479")}</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
-                  {isEnglish ? "Teaching assumption for the competitive-advantage duration in this model." : "Bu modeldeki rekabet avantajı süresi için eğitim varsayımı."}
+                  {t("MoatDuelView.teaching_assumption_480")}
                 </td>
               </tr>
             </tbody>
@@ -558,7 +552,7 @@ ${
         <div className="space-y-1">
           <h4 className="text-sm font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-amber-500" />
-            {isEnglish ? "Mauboussin Strategic Duel Synthesis" : "Mauboussin Stratejik Düello Özeti"}
+            {t("MoatDuelView.mauboussin_strategic_481")}
           </h4>
           <p className="text-xs text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
             {marginWinner !== turnoverWinner && marginWinner !== 0 && turnoverWinner !== 0 ? (
@@ -575,9 +569,7 @@ ${
               </span>
             ) : (
               <span>
-                {isEnglish
-                  ? "Duel results clearly highlight how each firm's competitive advantages diverge in capital markets under the selected teaching inputs."
-                  : "Düello sonuçları iki şirketin rekabetçi güçlerinin sermaye piyasalarında seçilen eğitim girdilerine göre nasıl farklılaştığını açıkça ortaya koymaktadır."}
+                {t("MoatDuelView.duel_results_clearly_482")}
               </span>
             )}
           </p>
@@ -589,7 +581,7 @@ ${
             className="px-4 py-2.5 rounded-2xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold border border-slate-300 dark:border-slate-700 flex items-center gap-2 transition-all cursor-pointer shadow-xs"
           >
             {copied ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4 text-indigo-500" />}
-            <span>{copied ? (isEnglish ? "Copied!" : "Kopyalandı!") : (isEnglish ? "Copy Duel Report" : "Düello Raporunu Kopyala")}</span>
+            <span>{copied ? (t("MoatDuelView.copied_483")) : (t("MoatDuelView.copy_duel_report_484"))}</span>
           </button>
 
           {onOpenAICoachWithPrompt && (
@@ -604,7 +596,7 @@ ${
               className="px-4 py-2.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-2 transition-all cursor-pointer shadow-xs"
             >
               <Sparkles className="w-4 h-4 text-amber-300" />
-              <span>{isEnglish ? "Ask AI Coach to Compare" : "AI Koç'a Kıyaslat"}</span>
+              <span>{t("MoatDuelView.ask_ai_coach_to_comp_485")}</span>
             </button>
           )}
         </div>

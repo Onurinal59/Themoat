@@ -56,7 +56,7 @@ interface CompanyAuditLabProps {
 }
 
 export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: CompanyAuditLabProps) {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t, formatCurrency, formatPercent, formatNumber } = useLanguage();
   // Modal for Investment Committee Devil's Advocate
   const [isCommitteeModalOpen, setIsCommitteeModalOpen] = useState(false);
   // Saved dossiers in local storage or fallback to presets
@@ -89,7 +89,7 @@ export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: Com
   const [activeStep, setActiveStep] = useState<1 | 2 | 3 | 4 | 5>(1);
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false);
   const [copiedNotification, setCopiedNotification] = useState(false);
-  const [lastSavedTime, setLastSavedTime] = useState<string>(() => new Date().toLocaleTimeString(isEnglish ? "en-US" : "tr-TR", { hour: "2-digit", minute: "2-digit" }));
+  const [lastSavedTime, setLastSavedTime] = useState<string>(() => new Date().toLocaleTimeString(t("CompanyAuditLab.en_us_11"), { hour: "2-digit", minute: "2-digit" }));
   const [saveFlash, setSaveFlash] = useState(false);
 
   // Auto-heal: Ensure any new preset dossiers added to the system are available to the user
@@ -109,7 +109,7 @@ export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: Com
   // Sync to local storage whenever dossiers change
   useEffect(() => {
     localStorage.setItem("moat_dossiers", JSON.stringify(dossiers));
-    const now = new Date().toLocaleTimeString(isEnglish ? "en-US" : "tr-TR", { hour: "2-digit", minute: "2-digit" });
+    const now = new Date().toLocaleTimeString(t("CompanyAuditLab.en_us_12"), { hour: "2-digit", minute: "2-digit" });
     setLastSavedTime(now);
   }, [dossiers, isEnglish]);
 
@@ -203,10 +203,10 @@ export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: Com
     const newId = "dossier-custom-" + Date.now();
     const newDossier: CompanyAuditDossier = {
       id: newId,
-      companyName: isEnglish ? "New Analyzed Company" : "Yeni Analiz Edilen Şirket",
+      companyName: t("CompanyAuditLab.new_analyzed_company_13"),
       ticker: "TICKER",
-      industry: isEnglish ? "Specify Industry" : "Sektör Belirtiniz",
-      description: isEnglish ? "Company's core business model and value proposition." : "Şirketin ana iş modeli ve değer önerisi.",
+      industry: t("CompanyAuditLab.specify_industry_14"),
+      description: t("CompanyAuditLab.company_s_core_busin_15"),
       isCustom: true,
       createdAt: new Date().toISOString().split("T")[0],
       updatedAt: new Date().toISOString().split("T")[0],
@@ -230,7 +230,7 @@ export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: Com
       },
       competitiveAdvantage: {
         primaryType: "tüketici_avantajı",
-        subDrivers: [isEnglish ? "Brand / Search Costs" : "Marka/Arama Maliyeti"],
+        subDrivers: [t("CompanyAuditLab.brand_search_costs_16")],
         pricingPowerEvidence: "",
         costAdvantageEvidence: ""
       },
@@ -273,7 +273,7 @@ export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: Com
 
   const handleDeleteDossier = (id: string) => {
     if (dossiers.length <= 1) {
-      console.warn(isEnglish ? "At least one dossier must remain in your workspace." : "En az 1 dosya listenizde bulunmalıdır.");
+      console.warn(t("CompanyAuditLab.at_least_one_dossier_17"));
       return;
     }
     const filtered = dossiers.filter((d) => d.id !== id);
@@ -317,43 +317,43 @@ export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: Com
   const copyReportToClipboard = () => {
     const reportText = `
 === ${currentDossier.companyName} (${currentDossier.ticker}) MAUBOUSSIN MOAT AUDIT REPORT ===
-${isEnglish ? "Industry" : "Sektör"}: ${currentDossier.industry}
-${isEnglish ? "Date" : "Tarih"}: ${currentDossier.updatedAt}
+${t("CompanyAuditLab.industry_18")}: ${currentDossier.industry}
+${t("CompanyAuditLab.date_19")}: ${currentDossier.updatedAt}
 
-1. ${isEnglish ? "FINANCIAL X-RAY (ROIC & DUPONT)" : "FİNANSAL RÖNTGEN (ROIC & DUPONT)"}
+1. ${t("CompanyAuditLab.financial_x_ray_roic_20")}
 - ROIC: %${finCalc.roicPercent} (WACC: %${currentDossier.financials.wacc} | Spread: ${finCalc.spread >= 0 ? "+" : ""}%${finCalc.spread})
-- ${isEnglish ? "Value Status" : "Değer Durumu"}: ${finCalc.isCreatingValue ? (isEnglish ? "CREATING VALUE" : "DEĞER YARATIYOR") : (isEnglish ? "DESTROYING VALUE" : "DEĞER YIKIYOR")}
+- ${t("CompanyAuditLab.value_status_21")}: ${finCalc.isCreatingValue ? (t("CompanyAuditLab.creating_value_22")) : (t("CompanyAuditLab.destroying_value_23"))}
 - NOPAT: ${finCalc.nopat} M
-- ${isEnglish ? "Invested Capital" : "Yatırılan Sermaye (IC)"}: ${finCalc.investedCapital} M
+- ${t("CompanyAuditLab.invested_capital_24")}: ${finCalc.investedCapital} M
 - NOPAT Margin: %${finCalc.nopatMarginPercent}
 - Capital Turnover: ${finCalc.capitalTurnover}x
-- ${isEnglish ? "Annual Economic Profit" : "Yıllık Ekonomik Kâr"}: ${finCalc.economicProfit} M
+- ${t("CompanyAuditLab.annual_economic_prof_25")}: ${finCalc.economicProfit} M
 
-2. ${isEnglish ? "INDUSTRY STRUCTURE & FORCES" : "SEKTÖR YAPISI & GÜÇLER"}
+2. ${t("CompanyAuditLab.industry_structure_f_26")}
 - Threat of New Entrants: ${currentDossier.industryStructure.threatOfNewEntrants}
 - Supplier Power: ${currentDossier.industryStructure.supplierPower}
 - Buyer Power: ${currentDossier.industryStructure.buyerPower}
 - Threat of Substitutes: ${currentDossier.industryStructure.threatOfSubstitutes}
 - Industry Rivalry: ${currentDossier.industryStructure.industryRivalry}
 
-3. ${isEnglish ? "COMPETITIVE ADVANTAGE & MOAT DRIVERS" : "REKABET AVANTAJI & HENDEK MOTORLARI"}
+3. ${t("CompanyAuditLab.competitive_advantag_27")}
 - Primary Type: ${currentDossier.competitiveAdvantage.primaryType}
 - Sub Drivers: ${currentDossier.competitiveAdvantage.subDrivers.join(", ")}
-- Pricing Power: ${currentDossier.competitiveAdvantage.pricingPowerEvidence || (isEnglish ? "N/A" : "Belirtilmedi")}
-- Cost Advantage: ${currentDossier.competitiveAdvantage.costAdvantageEvidence || (isEnglish ? "N/A" : "Belirtilmedi")}
+- Pricing Power: ${currentDossier.competitiveAdvantage.pricingPowerEvidence || (t("CompanyAuditLab.n_a_28"))}
+- Cost Advantage: ${currentDossier.competitiveAdvantage.costAdvantageEvidence || (t("CompanyAuditLab.n_a_29"))}
 
-4. ${isEnglish ? "CAPITAL ALLOCATION & GAME THEORY" : "SERMAYE TAHSİSİ & OYUN TEORİSİ"}
+4. ${t("CompanyAuditLab.capital_allocation_g_30")}
 - Capacity Discipline: ${currentDossier.interactionAndDiscipline.capacityDiscipline}
 - Price War Risk: ${currentDossier.interactionAndDiscipline.priceWarRisk}
 - Capital Allocation: ${currentDossier.interactionAndDiscipline.managementCapitalAllocation}
 
-5. ${isEnglish ? "FINAL ASSESSMENT & SUSTAINABILITY" : "DEĞERLENDİRME & SÜRDÜRÜLEBİLİRLİK"}
+5. ${t("CompanyAuditLab.final_assessment_sus_31")}
 - Diagnosed Moat: ${moatScore.diagnosedMoat}
 - Moat Score: %${moatScore.scorePercent} / 100
-- Estimated CAP: ${currentDossier.sustainability.estimatedCapYears} ${isEnglish ? "Years" : "Yıl"}
-- Key Vulnerability: ${currentDossier.sustainability.keyVulnerability || (isEnglish ? "N/A" : "Belirtilmedi")}
+- Estimated CAP: ${currentDossier.sustainability.estimatedCapYears} ${t("CompanyAuditLab.years_32")}
+- Key Vulnerability: ${currentDossier.sustainability.keyVulnerability || (t("CompanyAuditLab.n_a_33"))}
 
-${isEnglish ? "Notes" : "Notlar"}: ${currentDossier.notes || (isEnglish ? "No notes" : "Not girilmedi")}
+${t("CompanyAuditLab.notes_34")}: ${currentDossier.notes || (t("CompanyAuditLab.no_notes_35"))}
 =============================================
 `;
     navigator.clipboard.writeText(reportText);
@@ -426,7 +426,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
             }`}
           >
             <Building2 className="w-4 h-4" />
-            <span>🔬 {isEnglish ? "Balance Sheet & Moat Studio" : "Bilanço & Hendek Röntgen Masası"}</span>
+            <span>🔬 {t("CompanyAuditLab.balance_sheet_moat_s_36")}</span>
           </button>
         </div>
 
@@ -436,7 +436,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
             <span className={`w-2 h-2 rounded-full ${saveFlash ? "bg-amber-400 animate-ping" : "bg-emerald-500"}`}></span>
             <span className="font-mono text-[11px]">
               {saveFlash
-                ? (isEnglish ? "Saving..." : "Kaydediliyor...")
+                ? (t("CompanyAuditLab.saving_37"))
                 : isEnglish
                 ? `Auto-saved: ${lastSavedTime}`
                 : `Otomatik kaydedildi: ${lastSavedTime}`}
@@ -449,10 +449,10 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 handleUpdateCurrentDossier({});
               }}
               className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-[11px] font-semibold flex items-center gap-1 cursor-pointer"
-              title={isEnglish ? "Manually confirm changes to local storage" : "Değişiklikleri yerel belleğe manuel doğrula"}
+              title={t("CompanyAuditLab.manually_confirm_cha_38")}
             >
               <Save className="w-3 h-3 text-indigo-500" />
-              <span>{isEnglish ? "Save" : "Kaydet"}</span>
+              <span>{t("CompanyAuditLab.save_39")}</span>
             </button>
           )}
         </div>
@@ -499,24 +499,22 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     onClick={() => setViewMode("workspaces")}
                     className="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 flex items-center gap-1.5 cursor-pointer transition-colors"
                   >
-                    <ArrowLeft className="w-3.5 h-3.5" /> {isEnglish ? "All Workspaces" : "Tüm Çalışmalarım"}
+                    <ArrowLeft className="w-3.5 h-3.5" /> {t("CompanyAuditLab.all_workspaces_40")}
                   </button>
                   <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50">
-                    {isEnglish ? "Active File: " : "Aktif Dosya: "} {currentDossier.companyName} ({currentDossier.ticker})
+                    {t("CompanyAuditLab.active_file_41")} {currentDossier.companyName} ({currentDossier.ticker})
                   </span>
                   {currentDossier.isCustom && (
                     <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-900/50 flex items-center gap-1">
-                      <Sparkles className="w-2.5 h-2.5" /> {isEnglish ? "Custom Study" : "Özgün Çalışma"}
+                      <Sparkles className="w-2.5 h-2.5" /> {t("CompanyAuditLab.custom_study_42")}
                     </span>
                   )}
                 </div>
                 <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-                  {currentDossier.companyName} ({currentDossier.ticker}) — {isEnglish ? "Moat Diagnosis" : "Hendek Teşhisi"}
+                  {currentDossier.companyName} ({currentDossier.ticker}) — {t("CompanyAuditLab.moat_diagnosis_43")}
                 </h1>
                 <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
-                  {isEnglish
-                    ? "Fill in the balance sheet figures according to Mauboussin's 5-step framework, test ROIC & DuPont multipliers and moat drivers. Changes are saved automatically under 'My Workspaces'."
-                    : "5 adımlı Mauboussin çerçevesinde bilançoyu doldurun, ROIC & DuPont çarpanlarını ve hendek motorlarını test edin. Değişiklikler anında 'Çalışmalarım' altına kaydedilir."}
+                  {t("CompanyAuditLab.fill_in_the_balance_44")}
                 </p>
               </div>
 
@@ -537,24 +535,24 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                       ? "bg-amber-500 text-white border-amber-600 shadow-sm"
                       : "bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/80 text-indigo-700 dark:text-indigo-300 border-indigo-200 dark:border-indigo-800"
                   }`}
-                  title={isEnglish ? "Open Mauboussin 'Measuring the Moat' case template" : "Mauboussin 'Measuring the Moat' örnek vaka taslağını aç"}
+                  title={t("CompanyAuditLab.open_mauboussin_meas_45")}
                 >
                   <Award className="w-4 h-4 text-amber-400 fill-amber-400/20" />
-                  <span>📘 {isEnglish ? "Mauboussin Master Guide" : "Mauboussin Rehber Taslağı"}</span>
+                  <span>📘 {t("CompanyAuditLab.mauboussin_master_gu_46")}</span>
                 </button>
                 <button
                   onClick={() => setIsGuideModalOpen(true)}
                   className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold flex items-center gap-2 transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
                 >
                   <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                  {isEnglish ? "Balance Sheet Guide (SEC 10-K / KAP)" : "Bilanço Rehberi (KAP / 10-K)"}
+                  {t("CompanyAuditLab.balance_sheet_guide_47")}
                 </button>
                 <button
                   onClick={handleAddNewCompany}
                   className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow-xs transition-all cursor-pointer"
                 >
                   <Plus className="w-4 h-4" />
-                  {isEnglish ? "Add New Company" : "Yeni Şirket Ekle"}
+                  {t("CompanyAuditLab.add_new_company_48")}
                 </button>
               </div>
             </div>
@@ -562,7 +560,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
             {/* Company Quick-Switch Horizontal Bar */}
             <div className="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex items-center justify-start gap-2 flex-wrap pb-2">
               <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 mr-1 shrink-0">
-                {isEnglish ? "Switch Dossier:" : "Dosya Değiştir:"}
+                {t("CompanyAuditLab.switch_dossier_49")}
               </span>
               {dossiers.map((doss) => {
                 const isSelected = doss.id === currentDossier.id;
@@ -591,10 +589,10 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 <button
                   onClick={() => handleDuplicateDossier(currentDossier)}
                   className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold flex items-center gap-1.5 cursor-pointer"
-                  title={isEnglish ? "Create a clone of this dossier" : "Bu çalışmanın kopyasını oluştur"}
+                  title={t("CompanyAuditLab.create_a_clone_of_th_50")}
                 >
                   <Copy className="w-3.5 h-3.5 text-indigo-500" />
-                  <span>{isEnglish ? "Clone" : "Klonla"}</span>
+                  <span>{t("CompanyAuditLab.clone_51")}</span>
                 </button>
               </div>
             </div>
@@ -609,12 +607,10 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 </div>
                 <div>
                   <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100">
-                    {isEnglish ? "Master Case Study: Michael Mauboussin 'Measuring the Moat' Blueprint" : "Örnek Vaka: Michael Mauboussin 'Measuring the Moat' Usta Taslağı"}
+                    {t("CompanyAuditLab.master_case_study_mi_52")}
                   </h3>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 max-w-2xl leading-relaxed">
-                    {isEnglish
-                      ? "This dossier is a pre-filled gold standard template in the retail sector (Costco & BİM model) to practice negative working capital, 19.6% ROIC, and 20-year CAP duration analysis."
-                      : "Bu dosya, perakende sektöründe (Costco & BİM modeli) negatif işletme sermayesi, %19.6 ROIC ve 20 yıllık CAP süresi analizini pratik etmeniz için önceden eksiksiz doldurulmuş altın standart şablondur."}
+                    {t("CompanyAuditLab.this_dossier_is_a_pr_53")}
                   </p>
                 </div>
               </div>
@@ -623,7 +619,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 className="px-4 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold shrink-0 transition-colors flex items-center gap-2 shadow-xs cursor-pointer"
               >
                 <Copy className="w-4 h-4" />
-                <span>{isEnglish ? "Copy Template to My Studies" : "Bu Şablonu Kendi Şirketime Kopyala"}</span>
+                <span>{t("CompanyAuditLab.copy_template_to_my_54")}</span>
               </button>
             </div>
           )}
@@ -635,11 +631,11 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
               {/* Step Navigation Tabs */}
               <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-2 flex items-center justify-start gap-1 sm:gap-2 shadow-xs flex-wrap">
                 {[
-                  { step: 1, title: isEnglish ? "1. Financial X-Ray (ROIC)" : "1. Finansal Röntgen (ROIC)", icon: Calculator },
-                  { step: 2, title: isEnglish ? "2. Industry & Profit Pool" : "2. Sektör & Kâr Havuzu", icon: Layers },
-                  { step: 3, title: isEnglish ? "3. Value Stick & Moat" : "3. Değer Çubuğu & Hendek", icon: Shield },
-                  { step: 4, title: isEnglish ? "4. Game Theory & Capital" : "4. Oyun Teorisi & Sermaye", icon: Zap },
-                  { step: 5, title: isEnglish ? "5. Assessment & Diagnosis" : "5. Değerlendirme & Teşhis Raporu", icon: Award }
+                  { step: 1, title: t("CompanyAuditLab.1_financial_x_ray_ro_55"), icon: Calculator },
+                  { step: 2, title: t("CompanyAuditLab.2_industry_profit_po_56"), icon: Layers },
+                  { step: 3, title: t("CompanyAuditLab.3_value_stick_moat_57"), icon: Shield },
+                  { step: 4, title: t("CompanyAuditLab.4_game_theory_capita_58"), icon: Zap },
+                  { step: 5, title: t("CompanyAuditLab.5_assessment_diagnos_59"), icon: Award }
                 ].map((st) => {
                   const IconComp = st.icon;
                   const isActive = activeStep === st.step;
@@ -684,26 +680,24 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 <div>
                   <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                     <Calculator className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                    {isEnglish ? "Step 1: Financial X-Ray & Balance Sheet Inputs" : "Adım 1: Finansal Röntgen & Bilanço Girdileri"}
+                    {t("CompanyAuditLab.step_1_financial_x_r_60")}
                   </h3>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-                    {isEnglish
-                      ? "Enter the 7 critical financial figures from the company's annual 10-K or financial report."
-                      : "Şirketin yıllık KAP bildiriminden veya 10-K raporundan aşağıdaki 7 kritik sayıyı girin."}
+                    {t("CompanyAuditLab.enter_the_7_critical_61")}
                   </p>
                 </div>
                 <button
                   onClick={() => setIsGuideModalOpen(true)}
                   className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 hover:underline flex items-center gap-1 cursor-pointer"
                 >
-                  <HelpCircle className="w-3.5 h-3.5" /> {isEnglish ? "Where to Find?" : "Nereden Bulurum?"}
+                  <HelpCircle className="w-3.5 h-3.5" /> {t("CompanyAuditLab.where_to_find_62")}
                 </button>
               </div>
 
               {/* Company Info Header */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">{isEnglish ? "Company Name:" : "Şirket Adı:"}</label>
+                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">{t("CompanyAuditLab.company_name_63")}</label>
                   <input
                     type="text"
                     value={currentDossier.companyName}
@@ -712,7 +706,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">{isEnglish ? "Ticker / Symbol:" : "Hisse / Borsa Kodu:"}</label>
+                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">{t("CompanyAuditLab.ticker_symbol_64")}</label>
                   <input
                     type="text"
                     value={currentDossier.ticker}
@@ -721,7 +715,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   />
                 </div>
                 <div>
-                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">{isEnglish ? "Industry / Sector:" : "Faaliyet Sektörü:"}</label>
+                  <label className="text-xs font-semibold text-slate-600 dark:text-slate-400">{t("CompanyAuditLab.industry_sector_65")}</label>
                   <input
                     type="text"
                     value={currentDossier.industry}
@@ -736,9 +730,9 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1">
                   <div className="flex justify-between items-center">
                     <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                      {isEnglish ? "1. Annual Revenue" : "1. Yıllık Gelir (Hasılat / Revenue)"}
+                      {t("CompanyAuditLab.1_annual_revenue_66")}
                     </label>
-                    <span className="text-[10px] text-slate-400 font-mono">{isEnglish ? "Million USD / Local" : "Milyon TL / $"}</span>
+                    <span className="text-[10px] text-slate-400 font-mono">{t("CompanyAuditLab.million_usd_local_67")}</span>
                   </div>
                   <input
                     type="number"
@@ -747,16 +741,16 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     className="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100"
                   />
                   <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                    {isEnglish ? "Top line on the Income Statement (Total Revenue)." : "Gelir Tablosu'ndaki 'Hasılat' (Total Revenue) satırı."}
+                    {t("CompanyAuditLab.top_line_on_the_inco_68")}
                   </p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1">
                   <div className="flex justify-between items-center">
                     <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                      {isEnglish ? "2. Operating Income (EBIT)" : "2. Esas Faaliyet Kârı (EBIT)"}
+                      {t("CompanyAuditLab.2_operating_income_e_69")}
                     </label>
-                    <span className="text-[10px] text-slate-400 font-mono">{isEnglish ? "Million USD / Local" : "Milyon TL / $"}</span>
+                    <span className="text-[10px] text-slate-400 font-mono">{t("CompanyAuditLab.million_usd_local_70")}</span>
                   </div>
                   <input
                     type="number"
@@ -765,14 +759,14 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     className="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100"
                   />
                   <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                    {isEnglish ? "Operating profit before financing costs and taxes (Operating Income)." : "Finansman ve vergiden önceki operasyonel kâr (Operating Income)."}
+                    {t("CompanyAuditLab.operating_profit_bef_71")}
                   </p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1">
                   <div className="flex justify-between items-center">
                     <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                      {isEnglish ? "3. Effective Tax Rate (%)" : "3. Efektif Vergi Oranı (%)"}
+                      {t("CompanyAuditLab.3_effective_tax_rate_72")}
                     </label>
                     <span className="text-[10px] text-slate-400 font-mono">%</span>
                   </div>
@@ -783,16 +777,16 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     className="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100"
                   />
                   <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                    {isEnglish ? "Tax Expense / Pre-Tax Income (standard 15-25%)." : "Vergi Gideri / Vergi Öncesi Kâr (Türkiye için standart %25-30, ABD için %15-21)."}
+                    {t("CompanyAuditLab.tax_expense_pre_tax_73")}
                   </p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1">
                   <div className="flex justify-between items-center">
                     <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                      {isEnglish ? "4. Total Assets" : "4. Toplam Varlıklar (Total Assets)"}
+                      {t("CompanyAuditLab.4_total_assets_74")}
                     </label>
-                    <span className="text-[10px] text-slate-400 font-mono">{isEnglish ? "Million USD / Local" : "Milyon TL / $"}</span>
+                    <span className="text-[10px] text-slate-400 font-mono">{t("CompanyAuditLab.million_usd_local_75")}</span>
                   </div>
                   <input
                     type="number"
@@ -801,16 +795,16 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     className="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100"
                   />
                   <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                    {isEnglish ? "Total assets on the balance sheet (Current + Non-Current)." : "Bilanço aktif toplamı (Dönen + Duran Varlıklar)."}
+                    {t("CompanyAuditLab.total_assets_on_the_76")}
                   </p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1">
                   <div className="flex justify-between items-center">
                     <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                      {isEnglish ? "5. Cash & Cash Equivalents" : "5. Nakit ve Nakit Benzerleri"}
+                      {t("CompanyAuditLab.5_cash_cash_equivale_77")}
                     </label>
-                    <span className="text-[10px] text-slate-400 font-mono">{isEnglish ? "Million USD / Local" : "Milyon TL / $"}</span>
+                    <span className="text-[10px] text-slate-400 font-mono">{t("CompanyAuditLab.million_usd_local_78")}</span>
                   </div>
                   <input
                     type="number"
@@ -819,16 +813,16 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     className="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100"
                   />
                   <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                    {isEnglish ? "Excess idle cash and short-term marketable investments." : "Kasada duran atıl nakit ve kısa vadeli finansal yatırımlar."}
+                    {t("CompanyAuditLab.excess_idle_cash_and_79")}
                   </p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1">
                   <div className="flex justify-between items-center">
                     <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                      {isEnglish ? "6. Non-Interest Bearing Current Liabilities" : "6. Ticari Borçlar & Faizsiz Kısa Borçlar"}
+                      {t("CompanyAuditLab.6_non_interest_beari_80")}
                     </label>
-                    <span className="text-[10px] text-slate-400 font-mono">{isEnglish ? "Million USD / Local" : "Milyon TL / $"}</span>
+                    <span className="text-[10px] text-slate-400 font-mono">{t("CompanyAuditLab.million_usd_local_81")}</span>
                   </div>
                   <input
                     type="number"
@@ -837,14 +831,14 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     className="w-full px-3 py-2 text-sm font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100"
                   />
                   <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                    {isEnglish ? "Accounts payable to suppliers (Interest-free working capital financing)." : "Tedarikçilere olan borçlar (Accounts Payable - Faizsiz sermaye)."}
+                    {t("CompanyAuditLab.accounts_payable_to_82")}
                   </p>
                 </div>
 
                 <div className="sm:col-span-2 p-4 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-900/50 space-y-1">
                   <div className="flex justify-between items-center">
                     <label className="text-xs font-bold text-indigo-900 dark:text-indigo-200">
-                      {isEnglish ? "7. Cost of Capital (WACC - Hurdle Rate)" : "7. Sermaye Maliyeti (WACC - Hurdle Rate)"}
+                      {t("CompanyAuditLab.7_cost_of_capital_wa_83")}
                     </label>
                     <span className="text-xs font-mono font-bold text-indigo-700 dark:text-indigo-400">%{currentDossier.financials.wacc}</span>
                   </div>
@@ -857,9 +851,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     className="w-full h-2 bg-indigo-200 dark:bg-indigo-900/60 rounded-lg appearance-none cursor-pointer accent-indigo-600"
                   />
                   <p className="text-[11px] text-indigo-800/80 dark:text-indigo-300">
-                    {isEnglish
-                      ? "Minimum hurdle rate of return demanded by investors (typically 8-10% for US blue chips, 25-35% in high-inflation emerging markets)."
-                      : "Yatırımcıların bu şirketten talep ettiği asgari getiri oranı (BIST hisseleri için genelde %25-35, ABD hisseleri için %8-10)."}
+                    {t("CompanyAuditLab.minimum_hurdle_rate_84")}
                   </p>
                 </div>
               </div>
@@ -872,7 +864,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   onClick={() => setActiveStep(2)}
                   className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-xs"
                 >
-                  {isEnglish ? "Proceed to Step 2: Industry Structure" : "Adım 2'ye Geç: Sektör Yapısı"} <ArrowRight className="w-4 h-4" />
+                  {t("CompanyAuditLab.proceed_to_step_2_in_85")} <ArrowRight className="w-4 h-4" />
                 </motion.button>
               </div>
             </motion.div>
@@ -891,12 +883,10 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
               <div className="pb-4 border-b border-slate-100 dark:border-slate-800">
                 <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                   <Layers className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                  {isEnglish ? "Step 2: Industry Structure & Porter 5 Forces Assessment" : "Adım 2: Sektör Yapısı & Porter 5 Güç Değerlendirmesi"}
+                  {t("CompanyAuditLab.step_2_industry_stru_86")}
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-                  {isEnglish
-                    ? "As Michael Porter and Mauboussin teach: 'In a structurally difficult industry, even a great company gets pulled toward average.'"
-                    : "Michael Porter ve Mauboussin'in öğrettiği gibi: 'Kötü bir sektörde harika bir şirket bile ortalamaya çekilir.'"}
+                  {t("CompanyAuditLab.as_michael_porter_an_87")}
                 </p>
               </div>
 
@@ -904,32 +894,32 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 {[
                   {
                     key: "threatOfNewEntrants",
-                    label: isEnglish ? "1. Threat of New Entrants (Barriers to Entry)" : "1. Yeni Giriş Tehdidi (Giriş Engelleri)",
-                    desc: isEnglish ? "Can a new rival enter tomorrow and easily capture customer share?" : "Yarın yeni bir rakip piyasaya girip şirketin müşterilerini kolayca kapabilir mi?",
+                    label: t("CompanyAuditLab.1_threat_of_new_entr_88"),
+                    desc: t("CompanyAuditLab.can_a_new_rival_ente_89"),
                     goodIsLow: true
                   },
                   {
                     key: "supplierPower",
-                    label: isEnglish ? "2. Bargaining Power of Suppliers" : "2. Tedarikçi Pazarlık Gücü",
-                    desc: isEnglish ? "Can key input suppliers unilaterally dictate price increases?" : "Hammadde/bileşen satanlar (örneğin Nvidia TSMC'ye, Havayolu Boeing'e) fiyatı tek taraflı dikte edebilir mi?",
+                    label: t("CompanyAuditLab.2_bargaining_power_o_90"),
+                    desc: t("CompanyAuditLab.can_key_input_suppli_91"),
                     goodIsLow: true
                   },
                   {
                     key: "buyerPower",
-                    label: isEnglish ? "3. Bargaining Power of Buyers" : "3. Müşteri Pazarlık Gücü",
-                    desc: isEnglish ? "Can buyers exert leverage and squeeze the company's profit margins?" : "Müşteri toplu alım yapıp şirketin kâr marjını ezebilir mi?",
+                    label: t("CompanyAuditLab.3_bargaining_power_o_92"),
+                    desc: t("CompanyAuditLab.can_buyers_exert_lev_93"),
                     goodIsLow: true
                   },
                   {
                     key: "threatOfSubstitutes",
-                    label: isEnglish ? "4. Threat of Substitutes" : "4. İkame Ürün Tehdidi",
-                    desc: isEnglish ? "Can customers switch to an entirely different technology or alternative?" : "Müşteriler tamamen farklı bir teknolojiye (tren yerine uçak, petrol yerine elektrik) kayabilir mi?",
+                    label: t("CompanyAuditLab.4_threat_of_substitu_94"),
+                    desc: t("CompanyAuditLab.can_customers_switch_95"),
                     goodIsLow: true
                   },
                   {
                     key: "industryRivalry",
-                    label: isEnglish ? "5. Industry Rivalry Intensity" : "5. Sektör İçi Rekabet Şiddeti",
-                    desc: isEnglish ? "Do competitors engage in destructive price wars to win volume?" : "Rakipler pazar payı için yıkıcı fiyat kırma savaşlarına giriyor mu?",
+                    label: t("CompanyAuditLab.5_industry_rivalry_i_96"),
+                    desc: t("CompanyAuditLab.do_competitors_engag_97"),
                     goodIsLow: true
                   }
                 ].map((item) => {
@@ -945,9 +935,9 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                           const isSelected = val === level;
                           const isFavorable = (level === "düşük" && item.goodIsLow) || (level === "yüksek" && !item.goodIsLow);
                           const levelLabels = {
-                            düşük: isEnglish ? "Low" : "Düşük",
-                            orta: isEnglish ? "Medium" : "Orta",
-                            yüksek: isEnglish ? "High" : "Yüksek"
+                            düşük: t("CompanyAuditLab.low_98"),
+                            orta: t("CompanyAuditLab.medium_99"),
+                            yüksek: t("CompanyAuditLab.high_100")
                           };
                           return (
                             <button
@@ -979,7 +969,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
 
                 <div className="pt-2">
                   <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                    {isEnglish ? "Industry Profit Pool Position:" : "Sektör Kâr Havuzu Konumu (Profit Pool):"}
+                    {t("CompanyAuditLab.industry_profit_pool_101")}
                   </label>
                   <textarea
                     rows={2}
@@ -992,7 +982,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                         }
                       })
                     }
-                    placeholder={isEnglish ? "Which segment in the value chain captures the bulk of industry profits? Where is this company positioned?" : "Sektörde en çok kârı hangi halka topluyor? Şirket nerede duruyor?"}
+                    placeholder={t("CompanyAuditLab.which_segment_in_the_102")}
                     className="mt-1.5 w-full p-3 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-slate-100"
                   />
                 </div>
@@ -1005,7 +995,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   onClick={() => setActiveStep(1)}
                   className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs cursor-pointer"
                 >
-                  {isEnglish ? "◀ Back to Financials" : "◀ Finansallara Dön"}
+                  {t("CompanyAuditLab.back_to_financials_103")}
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
@@ -1013,7 +1003,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   onClick={() => setActiveStep(3)}
                   className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-xs"
                 >
-                  {isEnglish ? "Proceed to Step 3: Moat Drivers" : "Adım 3'e Geç: Hendek Motorları"} <ArrowRight className="w-4 h-4" />
+                  {t("CompanyAuditLab.proceed_to_step_3_mo_104")} <ArrowRight className="w-4 h-4" />
                 </motion.button>
               </div>
             </motion.div>
@@ -1032,36 +1022,34 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
               <div className="pb-4 border-b border-slate-100 dark:border-slate-800">
                 <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                   <Shield className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                  {isEnglish ? "Step 3: Value Stick & Sources of Competitive Advantage" : "Adım 3: Değer Çubuğu & Rekabet Avantajı Kaynağı"}
+                  {t("CompanyAuditLab.step_3_value_stick_s_105")}
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-                  {isEnglish
-                    ? "Where does the economic profit come from? By expanding customer Willingness to Pay (WTP) or lowering cost (WTS)?"
-                    : "Şirket bu kârı nereden üretiyor? Müşteriye daha çok değer katıp fiyat yükselterek mi (WTP), yoksa maliyetleri kısarak mı (WTS)?"}
+                  {t("CompanyAuditLab.where_does_the_econo_106")}
                 </p>
               </div>
 
               {/* Primary Advantage Radio */}
               <div className="space-y-2">
                 <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                  {isEnglish ? "Primary Competitive Advantage Archetype:" : "Temel Rekabet Üstünlüğü Türü:"}
+                  {t("CompanyAuditLab.primary_competitive_107")}
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   {[
                     {
                       id: "tüketici_avantajı",
-                      title: isEnglish ? "Consumer Advantage (WTP)" : "Tüketici Avantajı (WTP)",
-                      desc: isEnglish ? "High pricing power, brand loyalty, switching costs, network effects." : "Yüksek fiyatlama gücü, marka, geçiş maliyeti, ağ etkisi."
+                      title: t("CompanyAuditLab.consumer_advantage_w_108"),
+                      desc: t("CompanyAuditLab.high_pricing_power_b_109")
                     },
                     {
                       id: "üretim_avantajı",
-                      title: isEnglish ? "Production / Process Advantage" : "Üretim / Süreç Avantajı",
-                      desc: isEnglish ? "Secret recipe, patents, unique geographic logistics edge." : "Gizli formül, patent, benzersiz coğrafi lojistik üstünlük."
+                      title: t("CompanyAuditLab.production_process_a_110"),
+                      desc: t("CompanyAuditLab.secret_recipe_patent_111")
                     },
                     {
                       id: "ölçek_avantajı",
-                      title: isEnglish ? "Scale Advantage (Unit Cost)" : "Ölçek Üstünlüğü (Birim Maliyet)",
-                      desc: isEnglish ? "Lowest unit cost enabled by massive scale (Costco / BİM)." : "Devasa hacim sayesinde en düşük birim maliyet (Costco/BIM)."
+                      title: t("CompanyAuditLab.scale_advantage_unit_112"),
+                      desc: t("CompanyAuditLab.lowest_unit_cost_ena_113")
                     }
                   ].map((t) => {
                     const isSelected = currentDossier.competitiveAdvantage.primaryType === t.id;
@@ -1093,7 +1081,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
               {/* Moat Sub-driver checkboxes */}
               <div className="space-y-2 pt-2">
                 <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                  {isEnglish ? "Active Moat Sub-Drivers (Select all that apply):" : "Şirkette Bulunan Hendek Alt Motorları (Birden fazla seçebilirsiniz):"}
+                  {t("CompanyAuditLab.active_moat_sub_driv_114")}
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                   {[
@@ -1142,7 +1130,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                 <div>
                   <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                    {isEnglish ? "Pricing Power Evidence:" : "Fiyat Gücü Kanıtı (Pricing Power):"}
+                    {t("CompanyAuditLab.pricing_power_eviden_115")}
                   </label>
                   <textarea
                     rows={2}
@@ -1155,14 +1143,14 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                         }
                       })
                     }
-                    placeholder={isEnglish ? "Did the company raise prices during inflation without losing volume?" : "Şirket enflasyonda fiyat artırabildi mi? Müşteri kaybı oldu mu?"}
+                    placeholder={t("CompanyAuditLab.did_the_company_rais_116")}
                     className="mt-1 w-full p-2.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-slate-100"
                   />
                 </div>
 
                 <div>
                   <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                    {isEnglish ? "Cost / Process Advantage Evidence:" : "Birim Maliyet / Süreç Kanıtı:"}
+                    {t("CompanyAuditLab.cost_process_advanta_117")}
                   </label>
                   <textarea
                     rows={2}
@@ -1175,7 +1163,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                         }
                       })
                     }
-                    placeholder={isEnglish ? "Operating expenses % compared to rivals or proprietary supply chain edge..." : "Rakiplere göre faaliyet gideri % veya tedarik maliyet avantajı..."}
+                    placeholder={t("CompanyAuditLab.operating_expenses_c_118")}
                     className="mt-1 w-full p-2.5 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-slate-100"
                   />
                 </div>
@@ -1188,7 +1176,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   onClick={() => setActiveStep(2)}
                   className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs cursor-pointer"
                 >
-                  {isEnglish ? "◀ Back to Industry" : "◀ Sektör Yapısına Dön"}
+                  {t("CompanyAuditLab.back_to_industry_119")}
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
@@ -1196,7 +1184,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   onClick={() => setActiveStep(4)}
                   className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-xs"
                 >
-                  {isEnglish ? "Proceed to Step 4: Game Theory" : "Adım 4'e Geç: Oyun Teorisi"} <ArrowRight className="w-4 h-4" />
+                  {t("CompanyAuditLab.proceed_to_step_4_ga_120")} <ArrowRight className="w-4 h-4" />
                 </motion.button>
               </div>
             </motion.div>
@@ -1215,12 +1203,10 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
               <div className="pb-4 border-b border-slate-100 dark:border-slate-800">
                 <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                   <Zap className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                  {isEnglish ? "Step 4: Dynamic Interaction & Capital Allocation Discipline" : "Adım 4: Dinamik Etkileşim & Sermaye Tahsisi Disiplini"}
+                  {t("CompanyAuditLab.step_4_dynamic_inter_121")}
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-                  {isEnglish
-                    ? "Probability of destructive price wars and management's capital allocation track record."
-                    : "Rakiplerle fiyat savaşı olasılığı ve yönetimin serbest nakit akışını nasıl değerlendirdiği."}
+                  {t("CompanyAuditLab.probability_of_destr_122")}
                 </p>
               </div>
 
@@ -1228,18 +1214,18 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
                     <div className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                      {isEnglish ? "1. Capacity Discipline" : "1. Kapasite Disiplini"}
+                      {t("CompanyAuditLab.1_capacity_disciplin_123")}
                     </div>
                     <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                      {isEnglish ? "Is there a risk of industry overcapacity (excess factories, planes, inventory)?" : "Sektörde atıl fabrika/stok/uçak fazlası riski var mı?"}
+                      {t("CompanyAuditLab.is_there_a_risk_of_i_124")}
                     </div>
                   </div>
                   <div className="flex gap-2">
                     {(["yüksek", "orta", "düşük"] as const).map((lvl) => {
                       const lvlLabels = {
-                        yüksek: isEnglish ? "High" : "Yüksek",
-                        orta: isEnglish ? "Medium" : "Orta",
-                        düşük: isEnglish ? "Low" : "Düşük"
+                        yüksek: t("CompanyAuditLab.high_125"),
+                        orta: t("CompanyAuditLab.medium_126"),
+                        düşük: t("CompanyAuditLab.low_127")
                       };
                       return (
                         <button
@@ -1270,18 +1256,18 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
                     <div className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                      {isEnglish ? "2. Price War Risk (Prisoner's Dilemma)" : "2. Fiyat Kırma & Fiyat Savaşı Riski (Mahkumlar İkilemi)"}
+                      {t("CompanyAuditLab.2_price_war_risk_pri_128")}
                     </div>
                     <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                      {isEnglish ? "Do competitors engage in margin-destroying price wars to gain market share?" : "Rakipler pazar payı kapmak için kârları sıfırlayacak savaşlara girer mi?"}
+                      {t("CompanyAuditLab.do_competitors_engag_129")}
                     </div>
                   </div>
                   <div className="flex gap-2">
                     {(["düşük", "orta", "yüksek"] as const).map((lvl) => {
                       const lvlLabels = {
-                        düşük: isEnglish ? "Low" : "Düşük",
-                        orta: isEnglish ? "Medium" : "Orta",
-                        yüksek: isEnglish ? "High" : "Yüksek"
+                        düşük: t("CompanyAuditLab.low_130"),
+                        orta: t("CompanyAuditLab.medium_131"),
+                        yüksek: t("CompanyAuditLab.high_132")
                       };
                       return (
                         <button
@@ -1312,18 +1298,18 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div>
                     <div className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                      {isEnglish ? "3. Management Capital Allocation Skill" : "3. Yönetimin Sermaye Tahsis Becerisi (Capital Allocation)"}
+                      {t("CompanyAuditLab.3_management_capital_133")}
                     </div>
                     <div className="text-[11px] text-slate-500 dark:text-slate-400">
-                      {isEnglish ? "Does management reinvest cash into high-ROIC projects and avoid empire-building M&A?" : "Kazanılan parayı yüksek ROIC'li işlere yatırıp, gereksiz satın almalardan kaçınıyor mu?"}
+                      {t("CompanyAuditLab.does_management_rein_134")}
                     </div>
                   </div>
                   <div className="flex gap-2">
                     {(["mükemmel", "ortalama", "kötü"] as const).map((lvl) => {
                       const lvlLabels = {
-                        mükemmel: isEnglish ? "Excellent" : "Mükemmel",
-                        ortalama: isEnglish ? "Average" : "Ortalama",
-                        kötü: isEnglish ? "Poor" : "Kötü"
+                        mükemmel: t("CompanyAuditLab.excellent_135"),
+                        ortalama: t("CompanyAuditLab.average_136"),
+                        kötü: t("CompanyAuditLab.poor_137")
                       };
                       return (
                         <button
@@ -1359,7 +1345,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   onClick={() => setActiveStep(3)}
                   className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-semibold text-xs cursor-pointer"
                 >
-                  {isEnglish ? "◀ Back to Moat Drivers" : "◀ Değer Çubuğuna Dön"}
+                  {t("CompanyAuditLab.back_to_moat_driver_138")}
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.02 }}
@@ -1367,7 +1353,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   onClick={() => setActiveStep(5)}
                   className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-xs"
                 >
-                  {isEnglish ? "Final Step: Generate Report" : "Son Adım: Raporu Oluştur"} <ArrowRight className="w-4 h-4" />
+                  {t("CompanyAuditLab.final_step_generate_139")} <ArrowRight className="w-4 h-4" />
                 </motion.button>
               </div>
             </motion.div>
@@ -1387,12 +1373,10 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 <div>
                   <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                     <Award className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                    {isEnglish ? "Step 5: Final Moat Diagnosis & Investment Thesis" : "Adım 5: Nihai Hendek Teşhisi & Yatırım Raporu"}
+                    {t("CompanyAuditLab.step_5_final_moat_di_140")}
                   </h3>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-                    {isEnglish
-                      ? "Economic moat summary and risk assessment according to Michael Mauboussin's methodology."
-                      : "Michael Mauboussin metodolojisine göre şirketin ekonomik hendek özeti ve risk haritası."}
+                    {t("CompanyAuditLab.economic_moat_summar_141")}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
@@ -1401,14 +1385,14 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     className="px-3.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
                   >
                     <Copy className="w-3.5 h-3.5" />
-                    {copiedNotification ? (isEnglish ? "Copied!" : "Kopyalandı!") : isEnglish ? "Copy Report" : "Raporu Kopyala"}
+                    {copiedNotification ? (t("CompanyAuditLab.copied_142")) : t("CompanyAuditLab.copy_report_143")}
                   </button>
                   <button
                     onClick={askAICoachAboutThisCompany}
                     className="px-3.5 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 text-indigo-700 dark:text-indigo-300 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer border border-indigo-200 dark:border-indigo-800"
                   >
                     <Sparkles className="w-3.5 h-3.5" />
-                    {isEnglish ? "Review with AI Coach" : "AI Koçuna Değerlendirttir"}
+                    {t("CompanyAuditLab.review_with_ai_coach_144")}
                   </button>
                 </div>
               </div>
@@ -1417,7 +1401,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
               <div className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 flex flex-col md:flex-row items-center justify-between gap-6">
                 <div>
                   <div className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                    {isEnglish ? "Diagnosed Moat Width" : "Teşhis Edilen Hendek Genişliği (Moat Width)"}
+                    {t("CompanyAuditLab.diagnosed_moat_width_145")}
                   </div>
                   <div className="text-2xl font-extrabold text-slate-900 dark:text-slate-100 mt-1 flex items-center gap-2">
                     {translateMoatWidth(moatScore.diagnosedMoat, isEnglish)}
@@ -1435,11 +1419,11 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 </div>
 
                 <div className="text-center bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xs shrink-0 w-full md:w-auto">
-                  <div className="text-[11px] text-slate-500 dark:text-slate-400">{isEnglish ? "Mauboussin Moat Score" : "Mauboussin Hendek Skoru"}</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400">{t("CompanyAuditLab.mauboussin_moat_scor_146")}</div>
                   <div className="text-3xl font-mono font-black text-indigo-600 dark:text-indigo-400 mt-0.5">
                     %{moatScore.scorePercent}
                   </div>
-                  <div className="text-[10px] text-slate-400">{isEnglish ? "Out of 100" : "100 Üzerinden"}</div>
+                  <div className="text-[10px] text-slate-400">{t("CompanyAuditLab.out_of_100_147")}</div>
                 </div>
               </div>
 
@@ -1448,10 +1432,10 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-2">
                   <div className="flex justify-between items-center">
                     <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                      {isEnglish ? "Estimated Competitive Advantage Period (CAP)" : "Tahmini Rekabetçi Avantaj Dönemi (CAP)"}
+                      {t("CompanyAuditLab.estimated_competitiv_148")}
                     </label>
                     <span className="text-sm font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                      {currentDossier.sustainability.estimatedCapYears} {isEnglish ? "Years" : "Yıl"}
+                      {currentDossier.sustainability.estimatedCapYears} {t("CompanyAuditLab.years_149")}
                     </span>
                   </div>
                   <input
@@ -1470,15 +1454,13 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
                   />
                   <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                    {isEnglish
-                      ? "Estimated number of years the company can sustain economic profits above WACC before fading to mean."
-                      : "Şirketin ortalamaya dönmeden (ROIC = WACC olmadan) kârını koruyabileceği tahmini yıl sayısı."}
+                    {t("CompanyAuditLab.estimated_number_of_150")}
                   </p>
                 </div>
 
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 space-y-1">
                   <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                    {isEnglish ? "Key Moat Threat / Vulnerability:" : "Hendeği Tehdit Eden En Büyük Kırılganlık:"}
+                    {t("CompanyAuditLab.key_moat_threat_vuln_151")}
                   </label>
                   <input
                     type="text"
@@ -1491,7 +1473,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                         }
                       })
                     }
-                    placeholder={isEnglish ? "E.g. Regulatory scrutiny, technological disruption, lost customer loyalty..." : "Örn: Regülasyon baskısı, teknolojik ikame, müşteri sadakati kaybı..."}
+                    placeholder={t("CompanyAuditLab.e_g_regulatory_scrut_152")}
                     className="w-full px-3 py-2 text-xs bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-slate-100"
                   />
                 </div>
@@ -1500,13 +1482,13 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
               {/* Final Notes */}
               <div>
                 <label className="text-xs font-bold text-slate-800 dark:text-slate-200">
-                  {isEnglish ? "Personal Investment Thesis & Audit Notes:" : "Kişisel Analiz Özeti ve Notlarınız:"}
+                  {t("CompanyAuditLab.personal_investment_153")}
                 </label>
                 <textarea
                   rows={3}
                   value={currentDossier.notes}
                   onChange={(e) => handleUpdateCurrentDossier({ notes: e.target.value })}
-                  placeholder={isEnglish ? "Why does this company possess or lack a moat? Summarize your investment thesis..." : "Bu şirket neden hendekli veya hendeksiz? Yatırım tezini özetleyin..."}
+                  placeholder={t("CompanyAuditLab.why_does_this_compan_154")}
                   className="mt-1 w-full p-3 text-xs bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-indigo-500 text-slate-900 dark:text-slate-100"
                 />
               </div>
@@ -1517,13 +1499,11 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   <div className="flex items-center justify-center sm:justify-start gap-2">
                     <ShieldAlert className="w-4 h-4 text-amber-600 dark:text-amber-400" />
                     <span className="text-xs font-bold text-amber-800 dark:text-amber-300 uppercase tracking-wider">
-                      {isEnglish ? "Investment Committee Defense (Devil's Advocate)" : "Yatırım Komitesi Savunması (Devil's Advocate)"}
+                      {t("CompanyAuditLab.investment_committee_155")}
                     </span>
                   </div>
                   <p className="text-xs text-slate-600 dark:text-slate-300 max-w-lg">
-                    {isEnglish
-                      ? "Stress-test your thesis before the skeptical Mauboussin investment committee. Defend against the company's biggest vulnerabilities!"
-                      : "Analizinizi şüpheci Mauboussin yatırım komitesi önünde test edin. Şirketin en zayıf noktalarına karşı tezinizi savunun ve puan alın!"}
+                    {t("CompanyAuditLab.stress_test_your_the_156")}
                   </p>
                 </div>
 
@@ -1535,7 +1515,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   className="px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-black text-xs flex items-center gap-1.5 transition-all cursor-pointer shrink-0 shadow-xs"
                 >
                   <ShieldAlert className="w-4 h-4" />
-                  <span>{isEnglish ? "Present to Committee" : "Komiteye Sun"}</span>
+                  <span>{t("CompanyAuditLab.present_to_committee_157")}</span>
                 </motion.button>
               </div>
 
@@ -1545,7 +1525,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   onClick={() => handleDeleteDossier(currentDossier.id)}
                   className="text-xs font-semibold text-rose-600 hover:text-rose-700 flex items-center gap-1 cursor-pointer"
                 >
-                  <Trash2 className="w-3.5 h-3.5" /> {isEnglish ? "Delete This Study" : "Bu Dosyayı Sil"}
+                  <Trash2 className="w-3.5 h-3.5" /> {t("CompanyAuditLab.delete_this_study_158")}
                 </button>
                 <span className="text-[11px] text-slate-400">{isEnglish ? `Last Updated: ${currentDossier.updatedAt}` : `Son Güncelleme: ${currentDossier.updatedAt}`}</span>
               </div>
@@ -1560,7 +1540,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-xs space-y-5">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                {isEnglish ? "Live ROIC Diagnosis" : "Canlı ROIC Röntgeni"}
+                {t("CompanyAuditLab.live_roic_diagnosis_159")}
               </span>
               <span
                 className={`px-2.5 py-0.5 rounded-full text-xs font-bold font-mono ${
@@ -1569,13 +1549,13 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     : "bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800"
                 }`}
               >
-                {finCalc.isCreatingValue ? (isEnglish ? "CREATING VALUE" : "DEĞER YARATIYOR") : isEnglish ? "DESTROYING VALUE" : "DEĞER YIKIYOR"}
+                {finCalc.isCreatingValue ? (t("CompanyAuditLab.creating_value_160")) : t("CompanyAuditLab.destroying_value_161")}
               </span>
             </div>
 
             {/* Big ROIC vs WACC Spread */}
             <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 text-center space-y-1">
-              <div className="text-xs text-slate-500 dark:text-slate-400">{isEnglish ? "ROIC (Return on Invested Capital)" : "ROIC (Yatırılan Sermaye Getirisi)"}</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400">{t("CompanyAuditLab.roic_return_on_inves_162")}</div>
               <div
                 className={`text-3xl sm:text-4xl font-mono font-black ${
                   finCalc.roicPercent >= currentDossier.financials.wacc
@@ -1586,7 +1566,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 %{finCalc.roicPercent}
               </div>
               <div className="text-xs text-slate-600 dark:text-slate-300 font-mono">
-                WACC: %{currentDossier.financials.wacc} | {isEnglish ? "Spread" : "Fark (Spread)"}:{" "}
+                WACC: %{currentDossier.financials.wacc} | {t("CompanyAuditLab.spread_163")}:{" "}
                 <strong className={finCalc.spread >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}>
                   {finCalc.spread > 0 ? `+${finCalc.spread}%` : `${finCalc.spread}%`}
                 </strong>
@@ -1596,17 +1576,17 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
             {/* DuPont Breakdown */}
             <div className="space-y-2">
               <div className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                {isEnglish ? "Mauboussin DuPont Decomposition:" : "Mauboussin DuPont Ayrıştırması:"}
+                {t("CompanyAuditLab.mauboussin_dupont_de_164")}
               </div>
               <div className="grid grid-cols-2 gap-2 text-xs font-mono">
                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-                  <div className="text-[10px] text-slate-500 dark:text-slate-400 font-sans">{isEnglish ? "NOPAT Margin (Profitability)" : "NOPAT Marjı (Kârlılık)"}</div>
+                  <div className="text-[10px] text-slate-500 dark:text-slate-400 font-sans">{t("CompanyAuditLab.nopat_margin_profita_165")}</div>
                   <div className="text-base font-bold text-slate-900 dark:text-slate-100 mt-0.5">
                     %{finCalc.nopatMarginPercent}
                   </div>
                 </div>
                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-                  <div className="text-[10px] text-slate-500 dark:text-slate-400 font-sans">{isEnglish ? "Capital Turnover (Efficiency)" : "Sermaye Devir Hızı (Verimlilik)"}</div>
+                  <div className="text-[10px] text-slate-500 dark:text-slate-400 font-sans">{t("CompanyAuditLab.capital_turnover_eff_166")}</div>
                   <div className="text-base font-bold text-slate-900 dark:text-slate-100 mt-0.5">
                     {finCalc.capitalTurnover}x
                   </div>
@@ -1620,17 +1600,17 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
             {/* Financial Intermediate Details */}
             <div className="pt-2 border-t border-slate-100 dark:border-slate-800 space-y-2 text-xs font-mono">
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
-                <span>{isEnglish ? "NOPAT (Net Operating Profit):" : "NOPAT (Net Faaliyet Kârı):"}</span>
-                <span className="font-bold text-slate-900 dark:text-slate-100">{finCalc.nopat} {isEnglish ? "Million" : "Milyon"}</span>
+                <span>{t("CompanyAuditLab.nopat_net_operating_167")}</span>
+                <span className="font-bold text-slate-900 dark:text-slate-100">{finCalc.nopat} {t("CompanyAuditLab.million_168")}</span>
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
-                <span>{isEnglish ? "Invested Capital (IC):" : "Yatırılan Sermaye (IC):"}</span>
-                <span className="font-bold text-slate-900 dark:text-slate-100">{finCalc.investedCapital} {isEnglish ? "Million" : "Milyon"}</span>
+                <span>{t("CompanyAuditLab.invested_capital_ic_169")}</span>
+                <span className="font-bold text-slate-900 dark:text-slate-100">{finCalc.investedCapital} {t("CompanyAuditLab.million_170")}</span>
               </div>
               <div className="flex justify-between text-slate-600 dark:text-slate-300">
-                <span>{isEnglish ? "Annual Economic Profit:" : "Yıllık Ekonomik Kâr:"}</span>
+                <span>{t("CompanyAuditLab.annual_economic_prof_171")}</span>
                 <span className={`font-bold ${finCalc.economicProfit >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
-                  {finCalc.economicProfit >= 0 ? `+${finCalc.economicProfit}` : finCalc.economicProfit} {isEnglish ? "Million" : "Milyon"}
+                  {finCalc.economicProfit >= 0 ? `+${finCalc.economicProfit}` : finCalc.economicProfit} {t("CompanyAuditLab.million_172")}
                 </span>
               </div>
             </div>
@@ -1640,12 +1620,10 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
           <div className="p-5 rounded-3xl bg-indigo-50/60 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-900/50 space-y-3">
             <div className="flex items-center gap-2 text-xs font-bold text-indigo-900 dark:text-indigo-200">
               <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
-              {isEnglish ? "Market Analyst Insight (Mauboussin Principle)" : "Piyasa Analisti İpucu (Mauboussin İlkesi)"}
+              {t("CompanyAuditLab.market_analyst_insig_173")}
             </div>
             <p className="text-xs text-indigo-900/80 dark:text-indigo-300/90 leading-relaxed">
-              {isEnglish
-                ? "Revenue growth alone is meaningless. If a company grows with a 10% ROIC while its cost of capital (WACC) is 15%, every dollar of growth destroys shareholder value! Real wealth is created only when ROIC > WACC."
-                : "Bir şirketin gelir büyümesi tek başına anlamsızdır. Eğer şirket %10 ROIC ile büyüyor ve sermaye maliyeti (WACC) %15 ise, her büyüdüğü gün hissedar değerini yok eder! Gerçek servet sadece ROIC > WACC farkından doğar."}
+              {t("CompanyAuditLab.revenue_growth_alone_174")}
             </p>
           </div>
         </div>
@@ -1662,12 +1640,10 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
               <div>
                 <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 flex items-center gap-2">
                   <BookOpen className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
-                  {isEnglish ? "Balance Sheet X-Ray: Where to Extract Each Metric?" : "Bilanço Röntgeni: Hangi Sayıyı Nereden Alacaksınız?"}
+                  {t("CompanyAuditLab.balance_sheet_x_ray_175")}
                 </h3>
                 <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                  {isEnglish
-                    ? "Field guide for extracting figures from SEC 10-K (US Stocks) and KAP (Borsa Istanbul) with Mauboussin frameworks."
-                    : "KAP (Borsa İstanbul) ve SEC 10-K (ABD Borsaları) finansal tablolarını Mauboussin metotlarıyla okuma rehberi."}
+                  {t("CompanyAuditLab.field_guide_for_extr_176")}
                 </p>
               </div>
               <button
@@ -1703,10 +1679,10 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   </div>
 
                   <div className="pt-1 text-slate-700 dark:text-slate-300">
-                    <strong>{isEnglish ? "Practical Meaning:" : "Ne Anlama Gelir?"}</strong> {guide.practicalMeaning}
+                    <strong>{t("CompanyAuditLab.practical_meaning_177")}</strong> {guide.practicalMeaning}
                   </div>
                   <div className="text-[11px] text-amber-800 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/40 p-2 rounded-lg border border-amber-200 dark:border-amber-900/50">
-                    💡 <strong>{isEnglish ? "Common Trap Warning:" : "Tuzak Uyarısı:"}</strong> {guide.warningTip}
+                    💡 <strong>{t("CompanyAuditLab.common_trap_warning_178")}</strong> {guide.warningTip}
                   </div>
                 </div>
               ))}
@@ -1717,7 +1693,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 onClick={() => setIsGuideModalOpen(false)}
                 className="px-5 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs cursor-pointer hover:bg-indigo-700 transition-colors"
               >
-                {isEnglish ? "Got It, Return to Audit" : "Anladım, Analize Dön"}
+                {t("CompanyAuditLab.got_it_return_to_aud_179")}
               </button>
             </div>
           </div>

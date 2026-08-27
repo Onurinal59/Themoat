@@ -156,7 +156,7 @@ const DICKINSON_STAGES: DickinsonStageData[] = [
 ];
 
 export const DickinsonLifecycleVisual: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const [selectedStageId, setSelectedStageId] = useState<string>("maturity");
   const currentStage = DICKINSON_STAGES.find((s) => s.id === selectedStageId) || DICKINSON_STAGES[2];
 
@@ -170,15 +170,15 @@ export const DickinsonLifecycleVisual: React.FC = () => {
           </div>
           <div>
             <h4 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-slate-100">
-              {isEnglish ? "Victoria Dickinson Cash Flow Lifecycle Diagnostic" : "Victoria Dickinson Nakit Akışı Yaşam Döngüsü Röntgeni"}
+              {t("ModuleVisualDiagrams.victoria_dickinson_c_545")}
             </h4>
             <p className="text-xs text-slate-600 dark:text-slate-400">
-              {isEnglish ? "Diagnose corporate lifecycles from CFO, CFI, and CFF cash flow signatures." : "Faaliyet (CFO), Yatırım (CFI) ve Finansman (CFF) işaretlerinden şirketin evresini teşhis edin."}
+              {t("ModuleVisualDiagrams.diagnose_corporate_l_546")}
             </p>
           </div>
         </div>
         <span className="px-3 py-1 rounded-full text-xs font-mono font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800/60 self-start sm:self-auto">
-          {isEnglish ? "Interactive Diagnostic" : "İnteraktif Röntgen"}
+          {t("ModuleVisualDiagrams.interactive_diagnost_547")}
         </span>
       </div>
 
@@ -204,7 +204,7 @@ export const DickinsonLifecycleVisual: React.FC = () => {
               </div>
 
               <div className="text-xs font-mono font-bold text-slate-700 dark:text-slate-300">
-                <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-sans">{isEnglish ? "Avg ROIC:" : "Ort. ROIC:"}</span>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 block font-sans">{t("ModuleVisualDiagrams.avg_roic_548")}</span>
                 <span className={stg.roicNum > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}>
                   {stg.avgRoic}
                 </span>
@@ -245,13 +245,13 @@ export const DickinsonLifecycleVisual: React.FC = () => {
               </span>
               {currentStage.idealForMoat && (
                 <span className="px-2.5 py-1 rounded-xl bg-amber-50 dark:bg-amber-500/20 text-amber-800 dark:text-amber-300 text-xs font-bold border border-amber-300 dark:border-amber-500/30 flex items-center gap-1">
-                  👑 {isEnglish ? "Shareholder Value Peak" : "Hissedar Değer Zirvesi"}
+                  👑 {t("ModuleVisualDiagrams.shareholder_value_pe_549")}
                 </span>
               )}
             </div>
 
             <div className="flex items-center gap-2 font-mono text-xs">
-              <span className="text-slate-500 dark:text-slate-400">{isEnglish ? "Average ROIC:" : "Ortalama ROIC:"}</span>
+              <span className="text-slate-500 dark:text-slate-400">{t("ModuleVisualDiagrams.average_roic_550")}</span>
               <span
                 className={`px-2.5 py-0.5 rounded-lg font-bold text-xs ${
                   currentStage.roicNum > 0
@@ -270,7 +270,7 @@ export const DickinsonLifecycleVisual: React.FC = () => {
             <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-bold text-slate-700 dark:text-slate-400">
-                  {isEnglish ? "CFO (Operating Cash Flow)" : "CFO (Faaliyet Nakit Akışı)"}
+                  {t("ModuleVisualDiagrams.cfo_operating_cash_f_551")}
                 </span>
                 <span
                   className={`px-2 py-0.5 rounded-md font-mono font-black text-xs ${
@@ -279,13 +279,13 @@ export const DickinsonLifecycleVisual: React.FC = () => {
                       : "bg-rose-100 text-rose-800 border border-rose-300 dark:bg-rose-500/20 dark:text-rose-400 dark:border-rose-500/30"
                   }`}
                 >
-                  {currentStage.cfo === "+" ? (isEnglish ? "POSITIVE (+)" : "POZİTİF (+)") : (isEnglish ? "NEGATIVE (-)" : "NEGATİF (-)")}
+                  {currentStage.cfo === "+" ? (t("ModuleVisualDiagrams.positive_552")) : (t("ModuleVisualDiagrams.negative_553"))}
                 </span>
               </div>
               <p className="text-xs text-slate-700 dark:text-slate-300">
                 {currentStage.cfo === "+"
-                  ? (isEnglish ? "Customer cash exceeds operating expenses; the business generates organic cash." : "Müşterilerden gelen para faaliyet giderlerini aşıyor; iş nakit üretiyor.")
-                  : (isEnglish ? "Cash receipts fail to cover salaries and suppliers; cash is being burned." : "Müşterilerden gelen para maaş ve tedarikçileri karşılamaya yetmiyor; nakit yakılıyor.")}
+                  ? (t("ModuleVisualDiagrams.customer_cash_exceed_554"))
+                  : (t("ModuleVisualDiagrams.cash_receipts_fail_t_555"))}
               </p>
             </div>
 
@@ -293,7 +293,7 @@ export const DickinsonLifecycleVisual: React.FC = () => {
             <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-bold text-slate-700 dark:text-slate-400">
-                  {isEnglish ? "CFI (Investing Cash Flow)" : "CFI (Yatırım Nakit Akışı)"}
+                  {t("ModuleVisualDiagrams.cfi_investing_cash_f_556")}
                 </span>
                 <span
                   className={`px-2 py-0.5 rounded-md font-mono font-black text-xs ${
@@ -302,13 +302,13 @@ export const DickinsonLifecycleVisual: React.FC = () => {
                       : "bg-amber-100 text-amber-800 border border-amber-300 dark:bg-amber-500/20 dark:text-amber-400 dark:border-amber-500/30"
                   }`}
                 >
-                  {currentStage.cfi === "-" ? (isEnglish ? "NEGATIVE (-) [CAPEX]" : "NEGATİF (-) [Yatırım]") : (isEnglish ? "POSITIVE (+) [Asset Sale]" : "POZİTİF (+) [Varlık Satışı]")}
+                  {currentStage.cfi === "-" ? (t("ModuleVisualDiagrams.negative_capex_557")) : (t("ModuleVisualDiagrams.positive_asset_sale_558"))}
                 </span>
               </div>
               <p className="text-xs text-slate-700 dark:text-slate-300">
                 {currentStage.cfi === "-"
-                  ? (isEnglish ? "Company invests in the future: factories, equipment, R&D, and software." : "Şirket geleceğe yatırım yapıyor; fabrika, makine ve yazılım satın alıyor.")
-                  : (isEnglish ? "🚨 Company is selling fixed assets/factories to scrape together liquidity." : "🚨 Şirket duran varlıklarını ve fabrikalarını satarak nakit yaratmaya çalışıyor.")}
+                  ? (t("ModuleVisualDiagrams.company_invests_in_t_559"))
+                  : (t("ModuleVisualDiagrams.company_is_selling_560"))}
               </p>
             </div>
 
@@ -316,7 +316,7 @@ export const DickinsonLifecycleVisual: React.FC = () => {
             <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
               <div className="flex items-center justify-between">
                 <span className="text-[11px] font-bold text-slate-700 dark:text-slate-400">
-                  {isEnglish ? "CFF (Financing Cash Flow)" : "CFF (Finansman Nakit Akışı)"}
+                  {t("ModuleVisualDiagrams.cff_financing_cash_f_561")}
                 </span>
                 <span
                   className={`px-2 py-0.5 rounded-md font-mono font-black text-xs ${
@@ -325,13 +325,13 @@ export const DickinsonLifecycleVisual: React.FC = () => {
                       : "bg-slate-200 text-slate-800 border border-slate-300 dark:bg-slate-800 dark:text-slate-200 dark:border-slate-700"
                   }`}
                 >
-                  {currentStage.cff === "+" ? (isEnglish ? "POSITIVE (+) [Debt/Equity]" : "POZİTİF (+) [Borç/Sermaye]") : (isEnglish ? "NEGATIVE (-) [Repay/Dividends]" : "NEGATİF (-) [Geri Ödeme/Temettü]")}
+                  {currentStage.cff === "+" ? (t("ModuleVisualDiagrams.positive_debt_equity_562")) : (t("ModuleVisualDiagrams.negative_repay_divid_563"))}
                 </span>
               </div>
               <p className="text-xs text-slate-700 dark:text-slate-300">
                 {currentStage.cff === "+"
-                  ? (isEnglish ? "Company borrows from banks or issues new equity shares to stay afloat." : "Şirket dışarıdan banka kredisi alıyor veya yeni hisse ihraç ediyor.")
-                  : (isEnglish ? "Company repays debt or distributes dividends & share buybacks to shareholders." : "Şirket borçlarını kapatıyor veya hissedara temettü / hisse geri alımı yapıyor.")}
+                  ? (t("ModuleVisualDiagrams.company_borrows_from_564"))
+                  : (t("ModuleVisualDiagrams.company_repays_debt_565"))}
               </p>
             </div>
           </div>
@@ -346,7 +346,7 @@ export const DickinsonLifecycleVisual: React.FC = () => {
               <span>{isEnglish ? currentStage.diagnosticInsightEn : currentStage.diagnosticInsightTr}</span>
             </div>
             <div className="text-[11px] text-slate-500 dark:text-slate-400 pt-1 border-t border-slate-200 dark:border-slate-800 flex items-center gap-1.5 font-mono">
-              <span>{isEnglish ? "🏢 Archetype Case Companies:" : "🏢 Vaka / Arketip Şirketler:"}</span>
+              <span>{t("ModuleVisualDiagrams.archetype_case_comp_566")}</span>
               <span className="text-indigo-600 dark:text-indigo-300 font-bold">{currentStage.archetypeCompany}</span>
             </div>
           </div>
@@ -361,7 +361,7 @@ export const DickinsonLifecycleVisual: React.FC = () => {
    ========================================================================= */
 
 export const ValueStickVisual: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const [strategyMode, setStrategyMode] = useState<"standard" | "diff" | "cost">("standard");
 
   let wtp = 100;
@@ -392,14 +392,14 @@ export const ValueStickVisual: React.FC = () => {
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 uppercase tracking-wider border border-indigo-200 dark:border-indigo-500/30">
-              📏 {isEnglish ? "Visual Value Stick" : "Görsel Değer Çubuğu"}
+              📏 {t("ModuleVisualDiagrams.visual_value_stick_567")}
             </span>
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-              {isEnglish ? "Felix Oberholzer-Gee Model" : "Felix Oberholzer-Gee Modeli"}
+              {t("ModuleVisualDiagrams.felix_oberholzer_gee_568")}
             </span>
           </div>
           <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">
-            {isEnglish ? "Economic Surplus Sharing between WTP, Price, Cost, and WTS" : "WTP, Fiyat, Maliyet ve WTS Arasındaki Rant Bölüşümü"}
+            {t("ModuleVisualDiagrams.economic_surplus_sha_569")}
           </h3>
         </div>
 
@@ -411,7 +411,7 @@ export const ValueStickVisual: React.FC = () => {
               strategyMode === "standard" ? "bg-indigo-600 text-white shadow-xs" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
             }`}
           >
-            {isEnglish ? "Standard" : "Standart"}
+            {t("ModuleVisualDiagrams.standard_570")}
           </button>
           <button
             onClick={() => setStrategyMode("diff")}
@@ -419,7 +419,7 @@ export const ValueStickVisual: React.FC = () => {
               strategyMode === "diff" ? "bg-amber-600 text-white shadow-xs" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
             }`}
           >
-            {isEnglish ? "Differentiation (Apple)" : "Farklılaşma (Apple)"}
+            {t("ModuleVisualDiagrams.differentiation_appl_571")}
           </button>
           <button
             onClick={() => setStrategyMode("cost")}
@@ -427,7 +427,7 @@ export const ValueStickVisual: React.FC = () => {
               strategyMode === "cost" ? "bg-emerald-600 text-white shadow-xs" : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
             }`}
           >
-            {isEnglish ? "Cost Leadership (Costco)" : "Maliyet Liderliği (Costco)"}
+            {t("ModuleVisualDiagrams.cost_leadership_cost_572")}
           </button>
         </div>
       </div>
@@ -439,7 +439,7 @@ export const ValueStickVisual: React.FC = () => {
           <div className="w-full max-w-[240px] space-y-2">
             {/* WTP line */}
             <div className="flex items-center justify-between text-xs font-mono font-bold text-amber-600 dark:text-amber-400 border-b border-dashed border-amber-400 dark:border-amber-500/60 pb-1">
-              <span>WTP ({isEnglish ? "Willingness to Pay" : "Ödeme İstekliliği"})</span>
+              <span>WTP ({t("ModuleVisualDiagrams.willingness_to_pay_573")})</span>
               <span>{wtp} $</span>
             </div>
 
@@ -448,13 +448,13 @@ export const ValueStickVisual: React.FC = () => {
               layout
               className="p-3 rounded-xl bg-amber-50 dark:bg-amber-500/20 border border-amber-200 dark:border-amber-500/40 text-amber-900 dark:text-amber-200 text-center space-y-0.5"
             >
-              <div className="text-xs font-bold">😊 {isEnglish ? "Customer Surplus" : "Müşteri Rantı"}</div>
-              <div className="text-[11px] font-mono opacity-90">{isEnglish ? "WTP - Price" : "WTP - Fiyat"} = {consumerSurplus} $</div>
+              <div className="text-xs font-bold">😊 {t("ModuleVisualDiagrams.customer_surplus_574")}</div>
+              <div className="text-[11px] font-mono opacity-90">{t("ModuleVisualDiagrams.wtp_price_575")} = {consumerSurplus} $</div>
             </motion.div>
 
             {/* Price line */}
             <div className="flex items-center justify-between text-xs font-mono font-bold text-indigo-600 dark:text-indigo-400 border-b border-dashed border-indigo-400 dark:border-indigo-500/60 pb-1">
-              <span>{isEnglish ? "PRICE (Tag)" : "FİYAT (Etiket)"}</span>
+              <span>{t("ModuleVisualDiagrams.price_tag_576")}</span>
               <span>{price} $</span>
             </div>
 
@@ -464,14 +464,14 @@ export const ValueStickVisual: React.FC = () => {
               className="p-3.5 rounded-xl bg-indigo-50 dark:bg-indigo-600/30 border-2 border-indigo-300 dark:border-indigo-500/50 text-indigo-900 dark:text-indigo-200 text-center space-y-0.5 shadow-xs"
             >
               <div className="text-xs font-extrabold flex items-center justify-center gap-1">
-                <span>🏰 {isEnglish ? "Firm Profit (Moat Arena)" : "Şirket Kârı (Hendek Alanı)"}</span>
+                <span>🏰 {t("ModuleVisualDiagrams.firm_profit_moat_are_577")}</span>
               </div>
-              <div className="text-xs font-mono text-indigo-700 dark:text-indigo-300 font-bold">{isEnglish ? "Price - Cost" : "Fiyat - Maliyet"} = {firmProfit} $</div>
+              <div className="text-xs font-mono text-indigo-700 dark:text-indigo-300 font-bold">{t("ModuleVisualDiagrams.price_cost_578")} = {firmProfit} $</div>
             </motion.div>
 
             {/* Cost line */}
             <div className="flex items-center justify-between text-xs font-mono font-bold text-rose-600 dark:text-rose-400 border-b border-dashed border-rose-400 dark:border-rose-500/60 pb-1">
-              <span>{isEnglish ? "COST" : "MALİYET"}</span>
+              <span>{t("ModuleVisualDiagrams.cost_579")}</span>
               <span>{cost} $</span>
             </div>
 
@@ -480,13 +480,13 @@ export const ValueStickVisual: React.FC = () => {
               layout
               className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-500/20 border border-emerald-200 dark:border-emerald-500/40 text-emerald-900 dark:text-emerald-200 text-center space-y-0.5"
             >
-              <div className="text-xs font-bold">🤝 {isEnglish ? "Supplier / Employee Surplus" : "Tedarikçi / Çalışan Rantı"}</div>
-              <div className="text-[11px] font-mono opacity-90">{isEnglish ? "Cost - WTS" : "Maliyet - WTS"} = {supplierSurplus} $</div>
+              <div className="text-xs font-bold">🤝 {t("ModuleVisualDiagrams.supplier_employee_su_580")}</div>
+              <div className="text-[11px] font-mono opacity-90">{t("ModuleVisualDiagrams.cost_wts_581")} = {supplierSurplus} $</div>
             </motion.div>
 
             {/* WTS line */}
             <div className="flex items-center justify-between text-xs font-mono font-bold text-emerald-600 dark:text-emerald-400 border-t border-dashed border-emerald-400 dark:border-emerald-500/60 pt-1">
-              <span>WTS ({isEnglish ? "Willingness to Sell" : "Satmaya İsteklilik"})</span>
+              <span>WTS ({t("ModuleVisualDiagrams.willingness_to_sell_582")})</span>
               <span>{wts} $</span>
             </div>
           </div>
@@ -496,15 +496,15 @@ export const ValueStickVisual: React.FC = () => {
         <div className="md:col-span-7 space-y-4">
           <div className="p-4 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-2 font-mono text-xs shadow-sm">
             <div className="flex items-center justify-between text-slate-700 dark:text-slate-300">
-              <span>{isEnglish ? "Total Economic Value (WTP - WTS):" : "Toplam Yaratılan Ekonomik Refah (WTP - WTS):"}</span>
+              <span>{t("ModuleVisualDiagrams.total_economic_value_583")}</span>
               <span className="font-bold text-amber-600 dark:text-amber-300">{totalValue} $</span>
             </div>
             <div className="flex items-center justify-between text-indigo-700 dark:text-indigo-300">
-              <span>{isEnglish ? "Firm Profit Share (%):" : "Şirketin Aldığı Kâr Payı (%):"}</span>
+              <span>{t("ModuleVisualDiagrams.firm_profit_share_584")}</span>
               <span className="font-bold">{Math.round((firmProfit / totalValue) * 100)}%</span>
             </div>
             <div className="flex items-center justify-between text-amber-700 dark:text-amber-300">
-              <span>{isEnglish ? "Consumer Surplus Share (%):" : "Tüketicinin Yaşadığı Memnuniyet Payı (%):"}</span>
+              <span>{t("ModuleVisualDiagrams.consumer_surplus_sha_585")}</span>
               <span className="font-bold">{Math.round((consumerSurplus / totalValue) * 100)}%</span>
             </div>
           </div>
@@ -512,23 +512,21 @@ export const ValueStickVisual: React.FC = () => {
           <div className="space-y-2 text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
             {strategyMode === "standard" && (
               <p>
-                ⚖️ <strong>{isEnglish ? "Balanced Market:" : "Dengeli Piyasa:"}</strong> {isEnglish ? "The company prices above cost while leaving adequate consumer surplus (WTP - Price)." : "Şirket fiyatı maliyetinin üstünde tutarken müşteriye de yeterli bir fayda (WTP - Fiyat) bırakmaktadır."}
+                ⚖️ <strong>{t("ModuleVisualDiagrams.balanced_market_586")}</strong> {t("ModuleVisualDiagrams.the_company_prices_a_587")}
               </p>
             )}
             {strategyMode === "diff" && (
               <p>
-                💎 <strong>{isEnglish ? "Differentiation Strategy (Apple, Ferrari):" : "Farklılaşma Stratejisi (Apple, Ferrari):"}</strong> {isEnglish ? "The ceiling (WTP) is elevated. Customers are enthusiastic even at elevated price points ($90) because perceived surplus is huge ($45). Firm profit jumps to $55." : "Üst çizgi (WTP) tavan yapmıştır. Müşteri ürüne aşık olduğu için 90 TL gibi yüksek bir fiyatta bile mutlu hisseder (Tüketici rantı 45 TL!). Şirket kârı 55 TL'ye fırlar."}
+                💎 <strong>{t("ModuleVisualDiagrams.differentiation_stra_588")}</strong> {t("ModuleVisualDiagrams.the_ceiling_wtp_is_e_589")}
               </p>
             )}
             {strategyMode === "cost" && (
               <p>
-                ⚡ <strong>{isEnglish ? "Cost Leadership (Costco, Amazon Model):" : "Maliyet Liderliği (Costco, Amazon Modeli):"}</strong> {isEnglish ? "Supplier efficiency lowers the WTS floor. Low prices draw volume and generate returns via capital velocity." : "Tedarikçilerin verimliliği artırılarak WTS tabanı düşürülür, etiket fiyatı 50 TL'ye çekilir. Müşteri akın eder ve şirket yüksek devir hızıyla toplam refah üretir."}
+                ⚡ <strong>{t("ModuleVisualDiagrams.cost_leadership_cost_590")}</strong> {t("ModuleVisualDiagrams.supplier_efficiency_591")}
               </p>
             )}
             <p className="text-[10px] text-slate-400 dark:text-slate-500 italic pt-1 border-t border-slate-200 dark:border-slate-800">
-              {isEnglish
-                ? "Illustrative teaching scenario — figures are not current company estimates or investment views."
-                : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
+              {t("ModuleVisualDiagrams.illustrative_teachin_592")}
             </p>
           </div>
         </div>
@@ -542,74 +540,54 @@ export const ValueStickVisual: React.FC = () => {
    ========================================================================= */
 
 export const PorterForcesVisual: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const [activeForce, setActiveForce] = useState<string>("entrants");
 
   const forces = [
     {
       id: "entrants",
-      name: isEnglish ? "1. Threat of New Entrants" : "1. Yeni Girenlerin Tehdidi",
-      sub: isEnglish ? "Key Moat Factor!" : "En Belirleyici Güç!",
+      name: t("ModuleVisualDiagrams.1_threat_of_new_entr_593"),
+      sub: t("ModuleVisualDiagrams.key_moat_factor_594"),
       icon: "🚪",
       color: "bg-indigo-600 text-white",
-      desc: isEnglish
-        ? "If entry is friction-free, hundreds of copycats flood in to copy high returns, driving industry ROIC down to cost of capital."
-        : "Eğer sektöre girmek çok kolaysa, yüksek kârları gören yüzlerce yeni şirket içeri dalar ve kâr marjlarını sıfıra çeker.",
-      moatDefense: isEnglish
-        ? "7 Entry Barriers: Scale economies, Network effects, High switching costs, Patents & Regulatory licenses."
-        : "7 Giriş Engeli: Ölçek ekonomisi, Ağ etkisi, Yüksek geçiş maliyeti ve Patentler.",
+      desc: t("ModuleVisualDiagrams.if_entry_is_friction_595"),
+      moatDefense: t("ModuleVisualDiagrams.7_entry_barriers_sca_596"),
     },
     {
       id: "suppliers",
-      name: isEnglish ? "2. Bargaining Power of Suppliers" : "2. Tedarikçilerin Gücü",
-      sub: isEnglish ? "Margin Squeeze" : "Bozucu Baskı",
+      name: t("ModuleVisualDiagrams.2_bargaining_power_o_597"),
+      sub: t("ModuleVisualDiagrams.margin_squeeze_598"),
       icon: "🏭",
       color: "bg-amber-600 text-white",
-      desc: isEnglish
-        ? "If key suppliers hold a monopoly (e.g., TSMC for fabless chips or GE/Rolls-Royce for jet engines), they capture most downstream economic profit."
-        : "Tedarikçiniz tekel ise (örneğin uçak motorunda GE/Rolls-Royce), kârınızı fiyat artışlarıyla süpürür.",
-      moatDefense: isEnglish
-        ? "Multi-sourcing, backward vertical integration, or designing custom in-house architectures."
-        : "Çoklu tedarikçi yapısı kurmak veya geriye doğru dikey entegrasyon.",
+      desc: t("ModuleVisualDiagrams.if_key_suppliers_hol_599"),
+      moatDefense: t("ModuleVisualDiagrams.multi_sourcing_backw_600"),
     },
     {
       id: "buyers",
-      name: isEnglish ? "3. Bargaining Power of Buyers" : "3. Alıcıların Gücü",
-      sub: isEnglish ? "Pricing Pressure" : "Fiyat Baskısı",
+      name: t("ModuleVisualDiagrams.3_bargaining_power_o_601"),
+      sub: t("ModuleVisualDiagrams.pricing_pressure_602"),
       icon: "🛒",
       color: "bg-emerald-600 text-white",
-      desc: isEnglish
-        ? "If customers are concentrated and price-sensitive, they demand endless discounts, compressing gross margins."
-        : "Müşteriler az sayıda ve fiyata aşırı duyarlıysa, sürekli indirim talep ederek kârınızı kırarlar.",
-      moatDefense: isEnglish
-        ? "High switching costs (lock-in) and strong emotional brand equity (high WTP)."
-        : "Müşteri geçiş maliyeti (Lock-in) ve üstün marka aidiyeti (WTP artışı).",
+      desc: t("ModuleVisualDiagrams.if_customers_are_con_603"),
+      moatDefense: t("ModuleVisualDiagrams.high_switching_costs_604"),
     },
     {
       id: "substitutes",
-      name: isEnglish ? "4. Threat of Substitutes" : "4. İkame Ürünlerin Tehdidi",
-      sub: isEnglish ? "Invisible Risk" : "Görünmez Tehlike",
+      name: t("ModuleVisualDiagrams.4_threat_of_substitu_605"),
+      sub: t("ModuleVisualDiagrams.invisible_risk_606"),
       icon: "⚡",
       color: "bg-purple-600 text-white",
-      desc: isEnglish
-        ? "Products outside the direct industry that solve the same underlying job-to-be-done (e.g. High-Speed Rail vs. Short-Haul Airlines, Zoom vs. Business Travel)."
-        : "Doğrudan rakip olmasa bile müşterinin problemini farklı bir yoldan çözen ürünler (Örn: Havayoluna karşı Hızlı Tren).",
-      moatDefense: isEnglish
-        ? "Ecosystem synergy, proprietary integration, and continuous innovation."
-        : "Ekosistem kurarak müşterinin hayatını kolaylaştırmak.",
+      desc: t("ModuleVisualDiagrams.products_outside_the_607"),
+      moatDefense: t("ModuleVisualDiagrams.ecosystem_synergy_pr_608"),
     },
     {
       id: "rivalry",
-      name: isEnglish ? "5. Industry Rivalry & Price Wars" : "5. Mevcut Rakipler Arası Rekabet",
-      sub: isEnglish ? "Price Destruction" : "Fiyat Savaşları",
+      name: t("ModuleVisualDiagrams.5_industry_rivalry_p_609"),
+      sub: t("ModuleVisualDiagrams.price_destruction_610"),
       icon: "⚔️",
       color: "bg-rose-600 text-white",
-      desc: isEnglish
-        ? "Fierce competition over market share with excess capacity leads to devastating discount wars."
-        : "Aynı sektördeki rakiplerin kapasite fazlası ve fiyat kırma yarışına girmesi.",
-      moatDefense: isEnglish
-        ? "Market share stability, capacity discipline, and rational pricing behavior (Tit-for-Tat)."
-        : "Pazar payı istikrarı, kapasite disiplini ve örtük işbirliği (Tit-for-Tat).",
+      desc: t("ModuleVisualDiagrams.fierce_competition_o_611"),
+      moatDefense: t("ModuleVisualDiagrams.market_share_stabili_612"),
     },
   ];
 
@@ -621,14 +599,14 @@ export const PorterForcesVisual: React.FC = () => {
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-purple-50 dark:bg-purple-500/20 text-purple-700 dark:text-purple-300 uppercase tracking-wider border border-purple-200 dark:border-purple-500/30">
-              🛡️ {isEnglish ? "Michael Porter Framework" : "Michael Porter Modeli"}
+              🛡️ {t("ModuleVisualDiagrams.michael_porter_frame_613")}
             </span>
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">
-              {isEnglish ? "5 Forces Determining Industry Profitability" : "Sektör Kârlılığını Belirleyen 5 Çekim Gücü"}
+              {t("ModuleVisualDiagrams.5_forces_determining_614")}
             </span>
           </div>
           <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">
-            {isEnglish ? "Mapping Competitors & Industry Structure" : "Rakipleri ve Tehditleri Haritalandırma"}
+            {t("ModuleVisualDiagrams.mapping_competitors_615")}
           </h3>
         </div>
       </div>
@@ -669,7 +647,7 @@ export const PorterForcesVisual: React.FC = () => {
         <div className="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/50 text-xs text-indigo-900 dark:text-indigo-200 flex items-start gap-2">
           <Shield className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
           <div>
-            <strong>{isEnglish ? "Moat Defense: " : "Hendek Savunması: "}</strong> {current.moatDefense}
+            <strong>{t("ModuleVisualDiagrams.moat_defense_616")}</strong> {current.moatDefense}
           </div>
         </div>
       </motion.div>

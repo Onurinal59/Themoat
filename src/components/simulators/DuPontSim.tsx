@@ -93,7 +93,7 @@ const BENCHMARKS: CompanyBenchmark[] = [
 ];
 
 export const DuPontSim: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const [nopatMargin, setNopatMargin] = useState<number>(26);
   const [capitalTurnover, setCapitalTurnover] = useState<number>(0.6);
   const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
@@ -151,7 +151,7 @@ export const DuPontSim: React.FC = () => {
   // Recharts Data: Benchmark Comparison vs Active Setup
   const comparisonData = [
     {
-      name: isEnglish ? "Active Scenario" : "Aktif Senaryonuz",
+      name: t("DuPontSim.active_scenario_960"),
       roic: calculatedRoic,
       margin: nopatMargin,
       turnover: capitalTurnover,
@@ -173,19 +173,17 @@ export const DuPontSim: React.FC = () => {
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-1">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50">
-              {isEnglish ? "Step 7 Interactive Terminal" : "7. Adım İnteraktif Terminal"}
+              {t("DuPontSim.step_7_interactive_t_961")}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {isEnglish ? "DuPont ROIC Decomposition" : "DuPont ROIC Ayrıştırması"}
+              {t("DuPontSim.dupont_roic_decompos_962")}
             </span>
           </div>
           <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {isEnglish ? "DuPont Strategic Twin Engines: Margin × Velocity" : "DuPont Stratejik İkiz Motor Röntgeni: Marj × Hız"}
+            {t("DuPontSim.dupont_strategic_twi_963")}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-            {isEnglish
-              ? "ROIC = NOPAT Margin (%) × Capital Turnover (x). Discover how high margin and high asset velocity are two distinct mathematical paths to the same superior ROIC."
-              : "ROIC = NOPAT Marjı (%) × Sermaye Devir Hızı (x). Yüksek kâr marjı ile yüksek devir hızının aynı üstün ROIC'e giden iki farklı stratejik yol olduğunu keşfedin."}
+            {t("DuPontSim.roic_nopat_margin_ca_964")}
           </p>
         </div>
 
@@ -193,14 +191,14 @@ export const DuPontSim: React.FC = () => {
           onClick={() => handleSelectBenchmark(BENCHMARKS[0])}
           className="self-start md:self-auto flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors cursor-pointer"
         >
-          <RotateCcw className="w-3.5 h-3.5" /> {isEnglish ? "Reset (Coca-Cola)" : "Sıfırla (Coca-Cola)"}
+          <RotateCcw className="w-3.5 h-3.5" /> {t("DuPontSim.reset_coca_cola_965")}
         </button>
       </div>
 
       {/* Corporate Benchmarks */}
       <div>
         <label className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-2">
-          {isEnglish ? "Preset Corporate Benchmarks:" : "Kurumsal Strateji Şablonları:"}
+          {t("DuPontSim.preset_corporate_ben_966")}
         </label>
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
           {BENCHMARKS.map((b, idx) => (
@@ -227,7 +225,7 @@ export const DuPontSim: React.FC = () => {
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
               <Zap className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              {isEnglish ? "Twin Engine Levers:" : "İkiz Motor Kontrolleri:"}
+              {t("DuPontSim.twin_engine_levers_967")}
             </h3>
             <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
               ROIC: %{calculatedRoic}
@@ -257,7 +255,7 @@ export const DuPontSim: React.FC = () => {
               </div>
             </div>
             <p className="text-[11px] text-slate-500 dark:text-slate-400">
-              {isEnglish ? "Net Operating Profit per $100 Revenue" : "Her 100 TL Cirodan Kalan Net Faaliyet Kârı"}
+              {t("DuPontSim.net_operating_profit_968")}
             </p>
             <input
               type="range"
@@ -293,7 +291,7 @@ export const DuPontSim: React.FC = () => {
               </div>
             </div>
             <p className="text-[11px] text-slate-500 dark:text-slate-400">
-              {isEnglish ? "Revenue generated per $1 of Invested Capital" : "Yatırılan Her 1 TL Sermaye ile Üretilen Yıllık Ciro"}
+              {t("DuPontSim.revenue_generated_pe_969")}
             </p>
             <input
               type="range"
@@ -309,11 +307,9 @@ export const DuPontSim: React.FC = () => {
           {/* Action-Oriented Pedagogical Directive */}
           <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-900 dark:text-amber-200">
             <strong className="block font-bold text-amber-800 dark:text-amber-300 mb-1">
-              💡 {isEnglish ? "Action-Oriented Experiment:" : "Eyleme Dönük DuPont Deneyi:"}
+              💡 {t("DuPontSim.action_oriented_expe_970")}
             </strong>
-            {isEnglish
-              ? "Lower NOPAT margin to 4% and push Capital Turnover to 4.3x; watch the right chart prove how Costco matches Coca-Cola's 16% ROIC purely through asset velocity!"
-              : "NOPAT marjını %4'e indirin ve Sermaye Devir Hızını 4.3x'e çıkarın; sağdaki grafikte Costco'nun incecik kâr marjıyla bile Coca-Cola ile aynı %16-%17 ROIC seviyesine sırf hızla nasıl ulaştığını canlı görün!"}
+            {t("DuPontSim.lower_nopat_margin_t_971")}
           </div>
         </div>
 
@@ -325,7 +321,7 @@ export const DuPontSim: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <BarChart3 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  {isEnglish ? "ROIC Comparison vs Benchmarks (%)" : "ROIC Karşılaştırma Grafiği (%)"}
+                  {t("DuPontSim.roic_comparison_vs_b_972")}
                 </span>
               </div>
               <span className="text-xs font-mono font-bold text-slate-500">
@@ -346,11 +342,11 @@ export const DuPontSim: React.FC = () => {
                           const margin = item?.payload?.margin;
                           const turnover = item?.payload?.turnover;
                           const extra = margin !== undefined && turnover !== undefined
-                            ? ` (${isEnglish ? "Margin" : "Marj"}: %${margin}, ${isEnglish ? "Velocity" : "Hız"}: ${turnover}x)`
+                            ? ` (${t("DuPontSim.margin_973")}: %${margin}, ${t("DuPontSim.velocity_974")}: ${turnover}x)`
                             : "";
                           return [
                             `ROIC %${val}${extra}`,
-                            isEnglish ? "Return" : "Getiri",
+                            t("DuPontSim.return_975"),
                           ];
                         }}
                       />
@@ -372,7 +368,7 @@ export const DuPontSim: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                  {isEnglish ? "Strategic Archetype Diagnostic" : "Stratejik Model Teşhisi"}
+                  {t("DuPontSim.strategic_archetype_976")}
                 </span>
                 <h4 className="text-base sm:text-lg font-black text-slate-900 dark:text-slate-100">
                   {isEnglish ? archetype.titleEn : archetype.titleTr}
@@ -390,15 +386,15 @@ export const DuPontSim: React.FC = () => {
             <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs font-mono">
               <div className="p-2 rounded bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900 text-indigo-900 dark:text-indigo-200">
                 <span className="block text-[10px] text-slate-400 font-sans">
-                  {isEnglish ? "Profit Margin Engine" : "Kâr Marjı Katkısı"}
+                  {t("DuPontSim.profit_margin_engine_977")}
                 </span>
-                %{nopatMargin} {isEnglish ? "NOPAT / Revenue" : "NOPAT / Ciro"}
+                %{nopatMargin} {t("DuPontSim.nopat_revenue_978")}
               </div>
               <div className="p-2 rounded bg-emerald-50/50 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900 text-emerald-900 dark:text-emerald-200">
                 <span className="block text-[10px] text-slate-400 font-sans">
-                  {isEnglish ? "Capital Velocity Engine" : "Sermaye Hızı Katkısı"}
+                  {t("DuPontSim.capital_velocity_eng_979")}
                 </span>
-                {capitalTurnover.toFixed(1)}x {isEnglish ? "Revenue / Capital" : "Ciro / Sermaye"}
+                {capitalTurnover.toFixed(1)}x {t("DuPontSim.revenue_capital_980")}
               </div>
             </div>
           </div>
@@ -415,11 +411,11 @@ export const DuPontSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("DuPontSim.see_the_calculation_981")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("DuPontSim.hide_982")) : (t("DuPontSim.show_983"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -444,15 +440,11 @@ export const DuPontSim: React.FC = () => {
                     ROIC = NOPAT Marjı × Sermaye Devir Hızı = %{nopatMargin} × {capitalTurnover.toFixed(1)}x = %{calculatedRoic}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    {isEnglish
-                      ? `Calculation Proof: (NOPAT / Revenue) × (Revenue / Invested Capital) = (NOPAT / Invested Capital)`
-                      : `Matematiksel İspat: (NOPAT / Ciro) × (Ciro / Yatırılan Sermaye) = (NOPAT / Yatırılan Sermaye)`}
+                    {t("DuPontSim.calculation_proof_no_984")}
                   </div>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">
-                  {isEnglish
-                    ? `Two Distinct Competitive Strategies: Coca-Cola (26% margin × 0.6x turnover = 15.6% ROIC) and Costco (4% margin × 4.3x turnover = 17.2% ROIC) both achieve world-class capital returns via completely opposite operating engines.`
-                    : `İki Zıt Rekabet Stratejisi: Coca-Cola (%26 marj × 0.6x devir = %15.6 ROIC) ile Costco (%4 marj × 4.3x devir = %17.2 ROIC) tamamen zıt iki motorla aynı üstün sermaye getirisi liginde yarışır.`}
+                  {t("DuPontSim.two_distinct_competi_985")}
                 </p>
               </div>
 
@@ -460,20 +452,16 @@ export const DuPontSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
                   <Sparkles className="w-4 h-4 text-amber-500" />
-                  <span>{isEnglish ? "Pedagogical DuPont Experiments:" : "Terminal DuPont Deneyleri:"}</span>
+                  <span>{t("DuPontSim.pedagogical_dupont_e_986")}</span>
                 </div>
                 <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   <p>
-                    👉 <strong className="text-indigo-900 dark:text-indigo-300">{isEnglish ? "Luxury / Moat Experiment:" : "Lüks / Hendek Deneyi:"}</strong>{" "}
-                    {isEnglish
-                      ? "Raise NOPAT Margin to 28% while holding Turnover at 1.6x (Apple model). Observe how twin engines blast ROIC to 44.8%."
-                      : "NOPAT Marjını %28'e çıkarıp Devir Hızını 1.6x yapın (Apple modeli). Çifte motorun ROIC'yi nasıl %44.8'e fırlattığını izleyin."}
+                    👉 <strong className="text-indigo-900 dark:text-indigo-300">{t("DuPontSim.luxury_moat_experime_987")}</strong>{" "}
+                    {t("DuPontSim.raise_nopat_margin_t_988")}
                   </p>
                   <p>
-                    👉 <strong className="text-rose-900 dark:text-rose-300">{isEnglish ? "The Commodity Trap:" : "Emtia Tuzağı:"}</strong>{" "}
-                    {isEnglish
-                      ? "Set Margin to 6% and Turnover to 0.8x. ROIC drops to 4.8%, destroying shareholder value below the WACC hurdle rate."
-                      : "Marjı %6'ya ve Devri 0.8x'e indirin. ROIC %4.8'e düşerek %10'luk sermaye maliyetinin altında servet eritir."}
+                    👉 <strong className="text-rose-900 dark:text-rose-300">{t("DuPontSim.the_commodity_trap_989")}</strong>{" "}
+                    {t("DuPontSim.set_margin_to_6_and_990")}
                   </p>
                 </div>
               </div>

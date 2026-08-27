@@ -37,7 +37,7 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
   dossier,
   onAskAICoach,
 }) => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const fin = calculateFinancialOutputs(dossier.financials);
   const score = computeMoatScore(dossier);
 
@@ -45,39 +45,27 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
   const challenges: CommitteeChallenge[] = [
     {
       id: "challenge-1",
-      theme: isEnglish
-        ? "1. Skepticism: Mean Reversion Risk (ROIC Erosion)"
-        : "1. Şüphe: Kârlılığın Ortalamaya Dönüşü (Mean Reversion Risk)",
+      theme: t("InvestmentCommitteeModal.1_skepticism_mean_re_405"),
       question: isEnglish
         ? `${dossier.companyName}'s ROIC of ${fin.roicPercent}% is well above normal levels. In microeconomic theory, supernormal returns attract competitive capital like a magnet. What concrete barrier stops new entrants from discounting prices and driving ROIC down to ${dossier.financials.wacc}% within 3-5 years?`
         : `${dossier.companyName}'in %${fin.roicPercent} seviyesindeki ROIC oranı sektör ortalamasının çok üzerinde. Ekonomik teoride yüksek kârlar rakipleri bir mıknatıs gibi çeker. Yeni girenlerin fiyat kırarak bu kârı 3 yıl içinde %${dossier.financials.wacc} seviyesine indirmesini engelleyecek tek somut bariyer nedir?`,
-      skepticalReasoning: isEnglish
-        ? "Empirical market data shows over 80% of high-ROIC firms mean-revert toward the cost of capital within 5 years."
-        : "Tarihsel veriler şirketlerin %80'inin 5 yıl içinde ortalama getiriye gerilediğini göstermektedir.",
+      skepticalReasoning: t("InvestmentCommitteeModal.empirical_market_dat_406"),
     },
     {
       id: "challenge-2",
-      theme: isEnglish
-        ? "2. Skepticism: Pricing Power & WTP / AI Disruption"
-        : "2. Şüphe: Fiyatlama Gücü ve Tüketici İkamesi (WTP Erosion)",
+      theme: t("InvestmentCommitteeModal.2_skepticism_pricing_407"),
       question: isEnglish
         ? `Your thesis claims ${dossier.competitiveAdvantage.primaryType === "tüketici_avantajı" ? "consumer differentiation and high pricing power" : "low-cost scale leadership"}. Under inflationary pressure or cheap AI substitutes, why wouldn't price-sensitive buyers migrate to alternatives?`
         : `Analizinizde ${dossier.competitiveAdvantage.primaryType === "tüketici_avantajı" ? "tüketici avantajını ve fiyatlama gücünü" : "maliyet liderliğini"} öne sürmüşsünüz. Enflasyonist bir ortamda veya ucuz dijital/yapay zeka ikameleri ortaya çıktığında müşteriler neden %10-15 daha pahalıya bu şirketten almaya devam etsin?`,
-      skepticalReasoning: isEnglish
-        ? "Customer loyalty is frequently an illusion until a friction-free, 30% cheaper alternative hits the market."
-        : "Müşteri sadakati genellikle sadece daha ucuz bir alternatif çıkana kadar sürer.",
+      skepticalReasoning: t("InvestmentCommitteeModal.customer_loyalty_is_408"),
     },
     {
       id: "challenge-3",
-      theme: isEnglish
-        ? "3. Skepticism: Capital Allocation & CAP Period Integrity"
-        : "3. Şüphe: Sermaye Tahsisi & CAP Süresi Gerçekçiliği",
+      theme: t("InvestmentCommitteeModal.3_skepticism_capital_409"),
       question: isEnglish
         ? `You projected a ${dossier.sustainability.estimatedCapYears}-year Competitive Advantage Period (CAP). If management misallocates excess free cash flow into expensive acquisitions or empire building (Value Destruction), how is this moat defended?`
         : `${dossier.sustainability.estimatedCapYears} yıllık bir Rekabetçi Avantaj Dönemi (CAP) öngörmüşsünüz. Yönetim kurulu biriken serbest nakit akımını pahalı satın almalarla veya kârsız projelerle heba ederse (Değer Yıkımı) bu hendek nasıl korunacak?`,
-      skepticalReasoning: isEnglish
-        ? "More economic moats are destroyed by poor capital allocation (overpriced M&A) than by direct competitor entry."
-        : "Pek çok geniş hendekli şirket kötü sermaye dağıtımı (kötü M&A) yüzünden değer yok etmiştir.",
+      skepticalReasoning: t("InvestmentCommitteeModal.more_economic_moats_410"),
     },
   ];
 
@@ -164,14 +152,14 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-amber-50 dark:bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-500/30 flex items-center gap-1">
                     <ShieldAlert className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />{" "}
-                    {isEnglish ? "Investment Committee Simulation" : "Yatırım Komitesi Simülasyonu"}
+                    {t("InvestmentCommitteeModal.investment_committee_411")}
                   </span>
                   <span className="text-xs text-slate-500 dark:text-slate-300 font-mono">
                     {dossier.ticker} — {dossier.companyName}
                   </span>
                 </div>
                 <h2 className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-                  {isEnglish ? "Devil's Advocate: Defend Your Investment Thesis" : "Şeytanın Avukatı (Devil's Advocate): Tezinizi Savunun"}
+                  {t("InvestmentCommitteeModal.devil_s_advocate_def_412")}
                 </h2>
               </div>
 
@@ -186,10 +174,8 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
             {/* Modal Body */}
             <div className="p-6 overflow-y-auto space-y-6 flex-1 text-slate-800 dark:text-slate-200">
               <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 p-4 rounded-2xl text-xs text-amber-900 dark:text-amber-200 leading-relaxed">
-                <strong>{isEnglish ? "🏛️ Committee Notice:" : "🏛️ Komite Bildirisi:"}</strong>{" "}
-                {isEnglish
-                  ? "As an analyst, your duty is not to be a company cheerleader. Your rigorous defense against these 3 skeptical challenges will determine if this moat is genuinely durable."
-                  : "Bir analist olarak göreviniz sadece şirketi övmek değildir. Aşağıdaki 3 kuşkucu soruya vereceğiniz analitik yanıtlar, tezinizin sağlamlığını belirleyecektir."}
+                <strong>{t("InvestmentCommitteeModal.committee_notice_413")}</strong>{" "}
+                {t("InvestmentCommitteeModal.as_an_analyst_your_d_414")}
               </div>
 
               {/* 3 Challenge Boxes */}
@@ -207,7 +193,7 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
                         {c.question}
                       </p>
                       <p className="text-[11px] text-slate-500 dark:text-slate-400 italic">
-                        💡 <em>{isEnglish ? "Committee Rationale: " : "Komitenin Gerekçesi: "}{c.skepticalReasoning}</em>
+                        💡 <em>{t("InvestmentCommitteeModal.committee_rationale_415")}{c.skepticalReasoning}</em>
                       </p>
                     </div>
 
@@ -218,9 +204,7 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
                         value={responses[c.id]}
                         onChange={(e) => handleTextChange(c.id, e.target.value)}
                         placeholder={
-                          isEnglish
-                            ? "Type your analytical thesis and evidence here..."
-                            : "Tezinizi ve şirket içi somut savunma kanıtlarınızı buraya yazın..."
+                          t("InvestmentCommitteeModal.type_your_analytical_416")
                         }
                         className="w-full p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       />
@@ -235,7 +219,7 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
                   <div className="flex items-center justify-between">
                     <div>
                       <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400 block">
-                        {isEnglish ? "Committee Verdict" : "Komite Kararı"}
+                        {t("InvestmentCommitteeModal.committee_verdict_417")}
                       </span>
                       <h4 className="text-lg font-black text-slate-900 dark:text-slate-100 mt-0.5">
                         {evaluationResult.verdict}
@@ -248,7 +232,7 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
                         <span className="text-xs text-slate-400 font-normal">/100</span>
                       </div>
                       <span className="text-[10px] font-bold text-slate-500 uppercase">
-                        {isEnglish ? "Defense Strength" : "Savunma Gücü"}
+                        {t("InvestmentCommitteeModal.defense_strength_418")}
                       </span>
                     </div>
                   </div>
@@ -266,7 +250,7 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
                 onClick={onClose}
                 className="w-full sm:w-auto px-5 py-2.5 rounded-2xl bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 text-xs font-bold transition-colors cursor-pointer"
               >
-                {isEnglish ? "Close" : "Kapat"}
+                {t("InvestmentCommitteeModal.close_419")}
               </button>
 
               <button
@@ -277,12 +261,8 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
                 <Sparkles className="w-4 h-4 text-amber-300" />
                 <span>
                   {isEvaluating
-                    ? isEnglish
-                      ? "Evaluating..."
-                      : "Komite İnceliyor..."
-                    : isEnglish
-                    ? "Submit Defense to Committee & Score"
-                    : "Savunmayı Komiteye Sun & Puanla"}
+                    ? t("InvestmentCommitteeModal.evaluating_420")
+                    : t("InvestmentCommitteeModal.submit_defense_to_co_421")}
                 </span>
               </button>
             </div>

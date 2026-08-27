@@ -86,18 +86,18 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
     }
     onSelectDossier(MAUBOUSSIN_GUIDED_TEMPLATE.id, 1);
     onOpenAuditStudio();
-    showToast(isEnglish ? "Mauboussin 'Measuring the Moat' template opened." : "Mauboussin 'Measuring the Moat' rehberli vaka taslağı açıldı.");
+    showToast(t("MyWorkspacesView.mauboussin_measuring_617"));
   };
 
   const handleStartCustomFromTemplate = () => {
     onDuplicateDossier({
       ...MAUBOUSSIN_GUIDED_TEMPLATE,
-      companyName: isEnglish ? "My New Audit (Mauboussin Template)" : "Yeni Şirket Analizim (Mauboussin Şablonu)",
+      companyName: t("MyWorkspacesView.my_new_audit_maubous_618"),
       ticker: "NEW-AUDIT",
       isCustom: true
     });
     onOpenAuditStudio();
-    showToast(isEnglish ? "New custom audit initialized from template." : "Mauboussin taslağı üzerinden yeni özel çalışma başlatıldı.");
+    showToast(t("MyWorkspacesView.new_custom_audit_ini_619"));
   };
 
   // Calculate high-level portfolio statistics
@@ -148,7 +148,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
       return b.moat.scorePercent - a.moat.scorePercent;
     }
     if (sortBy === "name") {
-      return a.dossier.companyName.localeCompare(b.dossier.companyName, isEnglish ? "en" : "tr");
+      return a.dossier.companyName.localeCompare(b.dossier.companyName, t("MyWorkspacesView.en_620"));
     }
     return 0;
   });
@@ -198,11 +198,11 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
           onImportDossiers([parsed]);
           showToast(isEnglish ? `"${parsed.companyName}" study imported!` : `"${parsed.companyName}" analizi içe aktarıldı!`);
         } else {
-          showToast(isEnglish ? "Invalid format. Please select a valid Moat Analysis JSON file." : "Geçersiz dosya formatı. Lütfen geçerli bir Hendek Analizi JSON dosyası seçin.");
+          showToast(t("MyWorkspacesView.invalid_format_pleas_621"));
         }
       } catch (err) {
         console.error("Import error:", err);
-        showToast(isEnglish ? "Error reading file. Please check JSON syntax." : "Dosya okunurken bir hata oluştu. Lütfen JSON formatını kontrol edin.");
+        showToast(t("MyWorkspacesView.error_reading_file_p_622"));
       }
     };
 
@@ -256,7 +256,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
             <button
               onClick={() => fileInputRef.current?.click()}
               className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold flex items-center gap-2 transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
-              title={isEnglish ? "Import a previously exported JSON backup" : "Daha önce indirdiğiniz bir JSON analiz yedeğini yükleyin"}
+              title={t("MyWorkspacesView.import_a_previously_623")}
             >
               <Upload className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               {t("workspaces.uploadBackup", "Yedekten Yükle (.json)")}
@@ -265,7 +265,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
             <button
               onClick={handleExportAll}
               className="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs sm:text-sm font-semibold flex items-center gap-2 transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
-              title={isEnglish ? "Download all saved studies as a JSON file" : "Tüm kayıtlı analizleri tek dosya olarak bilgisayarınıza indirin"}
+              title={t("MyWorkspacesView.download_all_saved_s_624")}
             >
               <Download className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               {t("workspaces.backupAll", "Tümünü Yedekle")}
@@ -609,7 +609,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
                         showToast(isEnglish ? `Duplicate of "${dossier.companyName}" created.` : `"${dossier.companyName}" çalışmasının kopyası oluşturuldu.`);
                       }}
                       className="p-2 rounded-xl text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-                      title={isEnglish ? "Duplicate this audit as a template" : "Bu çalışmanın kopyasını oluştur (Şablon olarak kullan)"}
+                      title={t("MyWorkspacesView.duplicate_this_audit_625")}
                     >
                       <Copy className="w-4 h-4" />
                     </button>
@@ -618,7 +618,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
                     <button
                       onClick={() => handleExportSingle(dossier)}
                       className="p-2 rounded-xl text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
-                      title={isEnglish ? "Export as JSON" : "JSON Olarak Dışa Aktar"}
+                      title={t("MyWorkspacesView.export_as_json_626")}
                     >
                       <Download className="w-4 h-4" />
                     </button>
@@ -640,7 +640,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
                           ? "bg-rose-500 text-white animate-pulse"
                           : "text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40"
                       }`}
-                      title={deleteConfirmId === dossier.id ? (isEnglish ? "Click again to confirm delete" : "Silmek için tekrar tıkla") : (isEnglish ? "Delete Study" : "Çalışmayı Sil")}
+                      title={deleteConfirmId === dossier.id ? (t("MyWorkspacesView.click_again_to_confi_627")) : (t("MyWorkspacesView.delete_study_628"))}
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -669,15 +669,13 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
         <div className="flex items-center gap-2">
           <AlertCircle className="w-4 h-4 text-indigo-500 shrink-0" />
           <span>
-            {isEnglish
-              ? "All your research is stored securely in your browser's local storage. You can restore default preset benchmarks at any time."
-              : "Verileriniz tamamen tarayıcınızın yerel hafızasında saklanır. İsterseniz orijinal örnekleri geri yükleyebilirsiniz."}
+            {t("MyWorkspacesView.all_your_research_is_629")}
           </span>
         </div>
         <button
           onClick={() => {
             onResetToPresets();
-            showToast(isEnglish ? "Preset cases refreshed." : "Hazır vaka analizleri yenilendi.");
+            showToast(t("MyWorkspacesView.preset_cases_refresh_630"));
           }}
           className="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline flex items-center gap-1 cursor-pointer whitespace-nowrap"
         >

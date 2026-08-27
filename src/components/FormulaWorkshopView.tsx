@@ -36,7 +36,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
   onNavigateToModule,
   onNavigateToSim,
 }) => {
-  const { getFormulaGuides, isEnglish } = useLanguage();
+  const { getFormulaGuides, isEnglish, t, formatCurrency, formatPercent, formatNumber } = useLanguage();
   const formulaGuides = getFormulaGuides();
   const [activeId, setActiveId] = useState<string>(selectedFormulaId || "wacc");
 
@@ -139,50 +139,40 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
     switch (key) {
       case "--+":
         return {
-          stage: isEnglish ? "1. Introduction Stage (Introduction)" : "1. Giriş Evresi (Introduction)",
+          stage: t("FormulaWorkshopView.1_introduction_stage_294"),
           color: "text-amber-500",
           badgeBg: "bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300",
-          desc: isEnglish
-            ? "High cash burn, dependent on external debt and equity raises."
-            : "Nakit yakımı yüksek, dış sermayeye ve borca bağımlı başlangıç.",
+          desc: t("FormulaWorkshopView.high_cash_burn_depen_295"),
         };
       case "+-+":
         return {
-          stage: isEnglish ? "2. Growth Stage (Growth)" : "2. Büyüme Evresi (Growth)",
+          stage: t("FormulaWorkshopView.2_growth_stage_growt_296"),
           color: "text-indigo-500",
           badgeBg: "bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300",
-          desc: isEnglish
-            ? "Operating cash positive, aggressive expansion funded by reinvestment and leverage."
-            : "Operasyon kârda, yoğun yatırım ve borçlanma ile agresif genişleme.",
+          desc: t("FormulaWorkshopView.operating_cash_posit_297"),
         };
       case "+--":
         return {
-          stage: isEnglish ? "3. Maturity / Cash Cow Compounder (Mature)" : "3. Olgunluk / Nakit İneği (Mature)",
+          stage: t("FormulaWorkshopView.3_maturity_cash_cow_298"),
           color: "text-emerald-500",
           badgeBg: "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300",
-          desc: isEnglish
-            ? "Prime compounder! Abundant operating cash, self-funding with dividends and buybacks."
-            : "En güçlü evre! Devasa operasyonel nakit, sıfır dış borç ihtiyacı ve düzenli temettü.",
+          desc: t("FormulaWorkshopView.prime_compounder_abu_299"),
         };
       case "---":
       case "-+-":
       case "-++":
         return {
-          stage: isEnglish ? "4. Decline & Asset Divestment (Decline)" : "4. Düşüş & Varlık Satışı (Decline)",
+          stage: t("FormulaWorkshopView.4_decline_asset_dive_300"),
           color: "text-rose-500",
           badgeBg: "bg-rose-100 dark:bg-rose-950/60 text-rose-800 dark:text-rose-300",
-          desc: isEnglish
-            ? "Operating cash flow is burning, liquidating assets to stay afloat."
-            : "Operasyonlar nakit yakıyor, şirket fabrikalarını satarak ayakta kalıyor.",
+          desc: t("FormulaWorkshopView.operating_cash_flow_301"),
         };
       default:
         return {
-          stage: isEnglish ? "Shakeout / Restructuring (Shakeout)" : "Sarsıntı / Yeniden Yapılanma (Shakeout)",
+          stage: t("FormulaWorkshopView.shakeout_restructuri_302"),
           color: "text-purple-500",
           badgeBg: "bg-purple-100 dark:bg-purple-950/60 text-purple-800 dark:text-purple-300",
-          desc: isEnglish
-            ? "Volatile cash flows, industry consolidation, and turnaround restructuring."
-            : "Dengesiz nakit akışları, piyasa konsolidasyonu ve kriz yönetimi.",
+          desc: t("FormulaWorkshopView.volatile_cash_flows_303"),
         };
     }
   };
@@ -235,15 +225,13 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
           <div className="space-y-2 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-500/20 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-400/30 text-xs font-black uppercase tracking-wider">
               <Calculator className="w-3.5 h-3.5" />
-              <span>{isEnglish ? "Full-Screen Formula & Diagnostic Lab" : "Tam Ekran Formül & Röntgen Atölyesi"}</span>
+              <span>{t("FormulaWorkshopView.full_screen_formula_304")}</span>
             </div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
-              {isEnglish ? "Financial Math & Valuation Formulas" : "Finansal Matematik & Değerleme Formülleri"}
+              {t("FormulaWorkshopView.financial_math_valua_305")}
             </h1>
             <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              {isEnglish
-                ? "8 fundamental economic moat and corporate finance formulas used by Michael Mauboussin and Morgan Stanley. Test the formulas directly and observe real-time impacts on capital returns and stock valuation."
-                : "Michael Mauboussin ve Morgan Stanley analizlerinde kullanılan 8 temel ekonomik hendek formülü. Formülleri doğrudan test edin, sayıları değiştirerek sermaye getirisi ve hisse değerlemesi üzerindeki etkisini canlı izleyin."}
+              {t("FormulaWorkshopView.8_fundamental_econom_306")}
             </p>
           </div>
 
@@ -251,11 +239,11 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
           <div className="grid grid-cols-2 sm:grid-cols-2 gap-3 shrink-0">
             <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 backdrop-blur-xs">
               <div className="text-2xl font-black text-amber-600 dark:text-amber-400 font-mono">8</div>
-              <div className="text-[11px] font-bold text-slate-600 dark:text-slate-300 mt-0.5">{isEnglish ? "Corporate Formulas" : "Kurumsal Formül"}</div>
+              <div className="text-[11px] font-bold text-slate-600 dark:text-slate-300 mt-0.5">{t("FormulaWorkshopView.corporate_formulas_307")}</div>
             </div>
             <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 backdrop-blur-xs">
               <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono">100%</div>
-              <div className="text-[11px] font-bold text-slate-600 dark:text-slate-300 mt-0.5">{isEnglish ? "Interactive Sandbox" : "İnteraktif Simülatör"}</div>
+              <div className="text-[11px] font-bold text-slate-600 dark:text-slate-300 mt-0.5">{t("FormulaWorkshopView.interactive_sandbox_308")}</div>
             </div>
           </div>
         </div>
@@ -270,7 +258,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
               {isEnglish ? `Formulas (${ALL_FORMULA_KEYS.length})` : `Formül Seçimi (${ALL_FORMULA_KEYS.length})`}
             </span>
             <span className="text-[11px] text-indigo-600 dark:text-indigo-400 font-bold">
-              {isEnglish ? "Live Interactive" : "Canlı Hesaplamalı"}
+              {t("FormulaWorkshopView.live_interactive_309")}
             </span>
           </div>
 
@@ -358,7 +346,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
             {/* Core Equation Box */}
             <div className="space-y-1.5">
               <div className="text-[10px] font-black uppercase text-indigo-700 dark:text-amber-400 tracking-wider px-1">
-                {isEnglish ? "CORE MATHEMATICAL EQUATION" : "MATEMATİKSEL TEMEL EŞİTLİK"}
+                {t("FormulaWorkshopView.core_mathematical_eq_310")}
               </div>
               <MathFormula equation={currentGuide.coreEquation} size="lg" />
             </div>
@@ -377,12 +365,10 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-slate-900 dark:text-slate-100">
-                    {isEnglish ? "Live Interactive Calculator" : "Canlı İnteraktif Hesaplayıcı"}
+                    {t("FormulaWorkshopView.live_interactive_cal_311")}
                   </h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400">
-                    {isEnglish
-                      ? "Adjust values dynamically to observe formula sensitivity and outcome changes."
-                      : "Değerleri değiştirerek formülün anında nasıl tepki verdiğini ve sonucunu izleyin."}
+                    {t("FormulaWorkshopView.adjust_values_dynami_312")}
                   </p>
                 </div>
               </div>
@@ -394,9 +380,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Equity (E):" : "Özsermaye (E):"}</span>
+                      <span>{t("FormulaWorkshopView.equity_e_313")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {waccEquity}M {isEnglish ? "$" : "TL"} ({Math.round(weightE * 100)}%)
+                        {waccEquity}M {t("FormulaWorkshopView.text_314")} ({Math.round(weightE * 100)}%)
                       </span>
                     </div>
                     <input
@@ -412,9 +398,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Total Debt (D):" : "Toplam Borç (D):"}</span>
+                      <span>{t("FormulaWorkshopView.total_debt_d_315")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {waccDebt}M {isEnglish ? "$" : "TL"} ({Math.round(weightD * 100)}%)
+                        {waccDebt}M {t("FormulaWorkshopView.text_316")} ({Math.round(weightD * 100)}%)
                       </span>
                     </div>
                     <input
@@ -430,9 +416,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Equity Beta (β):" : "Hisse Betası (β):"}</span>
+                      <span>{t("FormulaWorkshopView.equity_beta_317")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {waccBeta.toFixed(2)}x (Ke = %{calculatedKe.toFixed(1)})
+                        {waccBeta.toFixed(2)}x (Ke = ${formatPercent(calculatedKe, 1)})
                       </span>
                     </div>
                     <input
@@ -448,9 +434,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Pre-tax Cost of Debt (Kd):" : "Brüt Kredi Faizi (Kd):"}</span>
+                      <span>{t("FormulaWorkshopView.pre_tax_cost_of_debt_318")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        %{waccKd}
+                        ${formatPercent(waccKd, 1)}
                       </span>
                     </div>
                     <input
@@ -466,9 +452,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Effective Tax Rate (t):" : "Vergi Oranı (t):"}</span>
+                      <span>{t("FormulaWorkshopView.effective_tax_rate_t_319")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        %{waccTax} ({isEnglish ? "After-tax Kd" : "Net Kd"}: %{netKd.toFixed(1)})
+                        ${formatPercent(waccTax, 1)} ({t("FormulaWorkshopView.after_tax_kd_320")}: ${formatPercent(netKd, 1)})
                       </span>
                     </div>
                     <input
@@ -484,9 +470,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Risk-Free Rate (Rf):" : "Risksiz Faiz (Rf):"}</span>
+                      <span>{t("FormulaWorkshopView.risk_free_rate_rf_321")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        %{waccRf}
+                        ${formatPercent(waccRf, 1)}
                       </span>
                     </div>
                     <input
@@ -504,10 +490,10 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="p-5 rounded-2xl bg-indigo-50 dark:bg-slate-800/90 text-slate-900 dark:text-white flex flex-col sm:flex-row items-center justify-between gap-4 border border-indigo-200 dark:border-indigo-800/80 shadow-xs">
                   <div>
                     <div className="text-xs text-indigo-700 dark:text-indigo-300 font-bold uppercase tracking-wider">
-                      {isEnglish ? "Calculated Cost of Capital (WACC)" : "Hesaplanan Sermaye Maliyeti (WACC)"}
+                      {t("FormulaWorkshopView.calculated_cost_of_c_322")}
                     </div>
                     <div className="text-3xl sm:text-4xl font-black text-indigo-600 dark:text-amber-300 font-mono mt-0.5">
-                      %{calculatedWacc.toFixed(2)}
+                      ${formatPercent(calculatedWacc, 2)}
                     </div>
                   </div>
                   <div className="text-xs text-slate-600 dark:text-indigo-200 leading-relaxed max-w-md text-right sm:text-left">
@@ -525,9 +511,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Operating Profit (EBIT):" : "Faaliyet Kârı (EBIT):"}</span>
+                      <span>{t("FormulaWorkshopView.operating_profit_ebi_323")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {roicEbit}M {isEnglish ? "$" : "TL"}
+                        {roicEbit}M {t("FormulaWorkshopView.text_324")}
                       </span>
                     </div>
                     <input
@@ -543,9 +529,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Tax Rate (t):" : "Vergi Oranı (t):"}</span>
+                      <span>{t("FormulaWorkshopView.tax_rate_t_325")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        %{roicTax}
+                        ${formatPercent(roicTax, 1)}
                       </span>
                     </div>
                     <input
@@ -561,9 +547,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Net Working Capital (NWC):" : "İşletme Sermayesi (NWC):"}</span>
+                      <span>{t("FormulaWorkshopView.net_working_capital_326")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {roicNwc}M {isEnglish ? "$" : "TL"}
+                        {roicNwc}M {t("FormulaWorkshopView.text_327")}
                       </span>
                     </div>
                     <input
@@ -579,9 +565,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Fixed Assets (PP&E):" : "Maddi Duran Varlık (PP&E):"}</span>
+                      <span>{t("FormulaWorkshopView.fixed_assets_pp_e_328")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {roicPpe}M {isEnglish ? "$" : "TL"}
+                        {roicPpe}M {t("FormulaWorkshopView.text_329")}
                       </span>
                     </div>
                     <input
@@ -599,15 +585,15 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="p-5 rounded-2xl bg-emerald-50 dark:bg-slate-800/90 text-slate-900 dark:text-white flex flex-col sm:flex-row items-center justify-between gap-4 border border-emerald-200 dark:border-emerald-800/80 shadow-xs">
                   <div>
                     <div className="text-xs text-emerald-700 dark:text-emerald-300 font-bold uppercase tracking-wider">
-                      {isEnglish ? "Calculated ROIC" : "Hesaplanan ROIC Getirisi"}
+                      {t("FormulaWorkshopView.calculated_roic_330")}
                     </div>
                     <div className="text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-400 font-mono mt-0.5">
-                      %{calculatedRoic.toFixed(2)}
+                      ${formatPercent(calculatedRoic, 2)}
                     </div>
                   </div>
                   <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-md text-right sm:text-left">
                     {isEnglish
-                      ? `NOPAT: $${calculatedNopat.toFixed(1)}M | Invested Capital: $${totalInvestedCapital}M. The firm generates $${calculatedRoic.toFixed(1)} of pure cash return per $100 of invested capital.`
+                      ? `NOPAT: $${calculatedNopat.toFixed(1)}M | Invested Capital: ${formatCurrency(totalInvestedCapital * 1000000)}. The firm generates $${calculatedRoic.toFixed(1)} of pure cash return per $100 of invested capital.`
                       : `Net Faaliyet Kârı (NOPAT): ${calculatedNopat.toFixed(1)}M TL | Bağlanan Sermaye: ${totalInvestedCapital}M TL. Şirket bağladığı her 100 TL ile net ${calculatedRoic.toFixed(1)} TL kâr üretmektedir.`}
                   </div>
                 </div>
@@ -620,9 +606,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Willingness to Pay (WTP):" : "Ödemeye İsteklilik (WTP):"}</span>
+                      <span>{t("FormulaWorkshopView.willingness_to_pay_w_331")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {vsWtp} {isEnglish ? "$" : "TL"}
+                        {vsWtp} {t("FormulaWorkshopView.text_332")}
                       </span>
                     </div>
                     <input
@@ -638,9 +624,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Selling Price (P):" : "Satış Fiyatı (P):"}</span>
+                      <span>{t("FormulaWorkshopView.selling_price_p_333")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {vsPrice} {isEnglish ? "$" : "TL"}
+                        {vsPrice} {t("FormulaWorkshopView.text_334")}
                       </span>
                     </div>
                     <input
@@ -656,9 +642,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Unit Cost (C):" : "Birim Maliyet (C):"}</span>
+                      <span>{t("FormulaWorkshopView.unit_cost_c_335")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {vsCost} {isEnglish ? "$" : "TL"}
+                        {vsCost} {t("FormulaWorkshopView.text_336")}
                       </span>
                     </div>
                     <input
@@ -674,9 +660,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Willingness to Sell (WTS):" : "Satmaya İsteklilik (WTS):"}</span>
+                      <span>{t("FormulaWorkshopView.willingness_to_sell_337")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {vsWts} {isEnglish ? "$" : "TL"}
+                        {vsWts} {t("FormulaWorkshopView.text_338")}
                       </span>
                     </div>
                     <input
@@ -703,19 +689,19 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                       style={{ width: `${(consumerSurplus / (totalValueCreated || 1)) * 100}%` }}
                       className="bg-indigo-500 truncate px-2"
                     >
-                      {isEnglish ? "Customer" : "Tüketici"}: {consumerSurplus} {isEnglish ? "$" : "TL"} ({Math.round((consumerSurplus / (totalValueCreated || 1)) * 100)}%)
+                      {t("FormulaWorkshopView.customer_339")}: {consumerSurplus} {t("FormulaWorkshopView.text_340")} ({Math.round((consumerSurplus / (totalValueCreated || 1)) * 100)}%)
                     </div>
                     <div
                       style={{ width: `${(firmMargin / (totalValueCreated || 1)) * 100}%` }}
                       className="bg-emerald-500 truncate px-2"
                     >
-                      {isEnglish ? "Firm Margin" : "Şirket Kârı"}: {firmMargin} {isEnglish ? "$" : "TL"} ({Math.round((firmMargin / (totalValueCreated || 1)) * 100)}%)
+                      {t("FormulaWorkshopView.firm_margin_341")}: {firmMargin} {t("FormulaWorkshopView.text_342")} ({Math.round((firmMargin / (totalValueCreated || 1)) * 100)}%)
                     </div>
                     <div
                       style={{ width: `${(supplierSurplus / (totalValueCreated || 1)) * 100}%` }}
                       className="bg-amber-500 truncate px-2"
                     >
-                      {isEnglish ? "Supplier" : "Tedarikçi"}: {supplierSurplus} {isEnglish ? "$" : "TL"} ({Math.round((supplierSurplus / (totalValueCreated || 1)) * 100)}%)
+                      {t("FormulaWorkshopView.supplier_343")}: {supplierSurplus} {t("FormulaWorkshopView.text_344")} ({Math.round((supplierSurplus / (totalValueCreated || 1)) * 100)}%)
                     </div>
                   </div>
                 </div>
@@ -728,7 +714,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                   <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-2">
                     <div className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                      {isEnglish ? "Operating Cash Flow (CFO)" : "Faaliyet Nakit Akışı (CFO)"}
+                      {t("FormulaWorkshopView.operating_cash_flow_345")}
                     </div>
                     <div className="flex gap-2">
                       <button
@@ -739,7 +725,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                             : "bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600"
                         }`}
                       >
-                        {isEnglish ? "Positive (+)" : "Pozitif (+)"}
+                        {t("FormulaWorkshopView.positive_346")}
                       </button>
                       <button
                         onClick={() => setDickCfo("-")}
@@ -749,14 +735,14 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                             : "bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600"
                         }`}
                       >
-                        {isEnglish ? "Negative (-)" : "Negatif (-)"}
+                        {t("FormulaWorkshopView.negative_347")}
                       </button>
                     </div>
                   </div>
 
                   <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-2">
                     <div className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                      {isEnglish ? "Investing Cash Flow (CFI)" : "Yatırım Nakit Akışı (CFI)"}
+                      {t("FormulaWorkshopView.investing_cash_flow_348")}
                     </div>
                     <div className="flex gap-2">
                       <button
@@ -767,7 +753,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                             : "bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600"
                         }`}
                       >
-                        {isEnglish ? "Positive (+) [Divest]" : "Pozitif (+) [Varlık Satışı]"}
+                        {t("FormulaWorkshopView.positive_divest_349")}
                       </button>
                       <button
                         onClick={() => setDickCfi("-")}
@@ -777,14 +763,14 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                             : "bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600"
                         }`}
                       >
-                        {isEnglish ? "Negative (-) [CapEx]" : "Negatif (-) [Yatırım]"}
+                        {t("FormulaWorkshopView.negative_capex_350")}
                       </button>
                     </div>
                   </div>
 
                   <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-2">
                     <div className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                      {isEnglish ? "Financing Cash Flow (CFF)" : "Finansman Nakit Akışı (CFF)"}
+                      {t("FormulaWorkshopView.financing_cash_flow_351")}
                     </div>
                     <div className="flex gap-2">
                       <button
@@ -795,7 +781,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                             : "bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600"
                         }`}
                       >
-                        {isEnglish ? "Positive (+) [Debt/Equity]" : "Pozitif (+) [Borçlanma]"}
+                        {t("FormulaWorkshopView.positive_debt_equity_352")}
                       </button>
                       <button
                         onClick={() => setDickCff("-")}
@@ -805,7 +791,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                             : "bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600"
                         }`}
                       >
-                        {isEnglish ? "Negative (-) [Dividend/Repay]" : "Negatif (-) [Temettü]"}
+                        {t("FormulaWorkshopView.negative_dividend_re_353")}
                       </button>
                     </div>
                   </div>
@@ -836,9 +822,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Segment Capital:" : "Segment Sermayesi:"}</span>
+                      <span>{t("FormulaWorkshopView.segment_capital_354")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {ppSegmentCap}M {isEnglish ? "$" : "TL"}
+                        {ppSegmentCap}M {t("FormulaWorkshopView.text_355")}
                       </span>
                     </div>
                     <input
@@ -854,9 +840,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Segment ROIC:" : "Segment ROIC:"}</span>
+                      <span>{t("FormulaWorkshopView.segment_roic_356")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        %{ppRoic}
+                        ${formatPercent(ppRoic, 1)}
                       </span>
                     </div>
                     <input
@@ -872,9 +858,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Cost of Capital (WACC):" : "Sermaye Maliyeti (WACC):"}</span>
+                      <span>{t("FormulaWorkshopView.cost_of_capital_wacc_357")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        %{ppWacc}
+                        ${formatPercent(ppWacc, 1)}
                       </span>
                     </div>
                     <input
@@ -892,10 +878,10 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="p-5 rounded-2xl bg-indigo-50 dark:bg-slate-800/90 text-slate-900 dark:text-white flex flex-col sm:flex-row items-center justify-between gap-4 border border-indigo-200 dark:border-indigo-800/80 shadow-xs">
                   <div>
                     <div className="text-xs text-indigo-700 dark:text-indigo-300 font-bold uppercase tracking-wider">
-                      {isEnglish ? "Segment Economic Profit (Box Area)" : "Segment Ekonomik Kârı (Kutu Alanı)"}
+                      {t("FormulaWorkshopView.segment_economic_pro_358")}
                     </div>
                     <div className="text-3xl sm:text-4xl font-black text-indigo-600 dark:text-amber-300 font-mono mt-0.5">
-                      {calculatedEconomicProfit > 0 ? "+" : ""}{calculatedEconomicProfit.toFixed(1)}M {isEnglish ? "$" : "TL"}
+                      {calculatedEconomicProfit > 0 ? "+" : ""}{calculatedEconomicProfit.toFixed(1)}M {t("FormulaWorkshopView.text_359")}
                     </div>
                   </div>
                   <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-md text-right sm:text-left">
@@ -913,9 +899,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Reported EBIT:" : "Raporlanan EBIT:"}</span>
+                      <span>{t("FormulaWorkshopView.reported_ebit_360")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {fnReportedEbit}M {isEnglish ? "$" : "TL"}
+                        {fnReportedEbit}M {t("FormulaWorkshopView.text_361")}
                       </span>
                     </div>
                     <input
@@ -931,9 +917,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Current R&D Expense:" : "Cari Ar-Ge Harcaması:"}</span>
+                      <span>{t("FormulaWorkshopView.current_r_d_expense_362")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {fnRdExpense}M {isEnglish ? "$" : "TL"}
+                        {fnRdExpense}M {t("FormulaWorkshopView.text_363")}
                       </span>
                     </div>
                     <input
@@ -949,9 +935,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Annual R&D Amortization:" : "Yıllık Ar-Ge İtfası:"}</span>
+                      <span>{t("FormulaWorkshopView.annual_r_d_amortizat_364")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {fnRdAmort}M {isEnglish ? "$" : "TL"}
+                        {fnRdAmort}M {t("FormulaWorkshopView.text_365")}
                       </span>
                     </div>
                     <input
@@ -967,9 +953,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Tax Rate (t):" : "Vergi Oranı (t):"}</span>
+                      <span>{t("FormulaWorkshopView.tax_rate_t_366")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        %{fnTax}
+                        ${formatPercent(fnTax, 1)}
                       </span>
                     </div>
                     <input
@@ -987,15 +973,15 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="p-5 rounded-2xl bg-purple-50 dark:bg-slate-800/90 text-slate-900 dark:text-white flex flex-col sm:flex-row items-center justify-between gap-4 border border-purple-200 dark:border-purple-800/80 shadow-xs">
                   <div>
                     <div className="text-xs text-purple-700 dark:text-purple-300 font-bold uppercase tracking-wider">
-                      {isEnglish ? "Adjusted Operating Profit (Adjusted NOPAT)" : "Düzeltilmiş Faaliyet Kârı (Adjusted NOPAT)"}
+                      {t("FormulaWorkshopView.adjusted_operating_p_367")}
                     </div>
                     <div className="text-3xl sm:text-4xl font-black text-purple-600 dark:text-purple-300 font-mono mt-0.5">
-                      {adjustedNopat.toFixed(1)}M {isEnglish ? "$" : "TL"}
+                      {adjustedNopat.toFixed(1)}M {t("FormulaWorkshopView.text_368")}
                     </div>
                   </div>
                   <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-md text-right sm:text-left">
                     {isEnglish
-                      ? `Reported EBIT: $${fnReportedEbit}M → Adjusted EBIT: $${adjustedEbit}M (+$${fnRdExpense - fnRdAmort}M net R&D capitalization impact).`
+                      ? `Reported EBIT: ${formatCurrency(fnReportedEbit * 1000000)} → Adjusted EBIT: ${formatCurrency(adjustedEbit * 1000000)} (+$${fnRdExpense - fnRdAmort}M net R&D capitalization impact).`
                       : `Raporlanan EBIT: ${fnReportedEbit}M TL → Düzeltilmiş EBIT: ${adjustedEbit}M TL (+${fnRdExpense - fnRdAmort}M TL net Ar-Ge aktifleştirme katkısı).`}
                   </div>
                 </div>
@@ -1008,9 +994,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Net Sales (Revenue):" : "Net Satışlar (Ciro):"}</span>
+                      <span>{t("FormulaWorkshopView.net_sales_revenue_369")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {dpRev}M {isEnglish ? "$" : "TL"}
+                        {dpRev}M {t("FormulaWorkshopView.text_370")}
                       </span>
                     </div>
                     <input
@@ -1026,9 +1012,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "NOPAT Profit:" : "NOPAT Kârı:"}</span>
+                      <span>{t("FormulaWorkshopView.nopat_profit_371")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {dpNopat}M {isEnglish ? "$" : "TL"}
+                        {dpNopat}M {t("FormulaWorkshopView.text_372")}
                       </span>
                     </div>
                     <input
@@ -1044,9 +1030,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Invested Capital:" : "Yatırılan Sermaye:"}</span>
+                      <span>{t("FormulaWorkshopView.invested_capital_373")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {dpCapital}M {isEnglish ? "$" : "TL"}
+                        {dpCapital}M {t("FormulaWorkshopView.text_374")}
                       </span>
                     </div>
                     <input
@@ -1063,14 +1049,14 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-around gap-4 text-center">
                   <div>
-                    <div className="text-[11px] font-bold text-slate-500 uppercase">{isEnglish ? "1. NOPAT Margin" : "1. NOPAT Marjı"}</div>
+                    <div className="text-[11px] font-bold text-slate-500 uppercase">{t("FormulaWorkshopView.1_nopat_margin_375")}</div>
                     <div className="text-xl font-black text-indigo-600 dark:text-indigo-400 font-mono">
-                      %{nopatMargin.toFixed(1)}
+                      ${formatPercent(nopatMargin, 1)}
                     </div>
                   </div>
                   <div className="text-slate-400 font-black">×</div>
                   <div>
-                    <div className="text-[11px] font-bold text-slate-500 uppercase">{isEnglish ? "2. Capital Turnover" : "2. Sermaye Devri"}</div>
+                    <div className="text-[11px] font-bold text-slate-500 uppercase">{t("FormulaWorkshopView.2_capital_turnover_376")}</div>
                     <div className="text-xl font-black text-indigo-600 dark:text-indigo-400 font-mono">
                       {capitalTurnover.toFixed(2)}x
                     </div>
@@ -1079,7 +1065,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   <div>
                     <div className="text-[11px] font-bold text-slate-500 uppercase">DuPont ROIC</div>
                     <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono">
-                      %{dupontRoic.toFixed(1)}
+                      ${formatPercent(dupontRoic, 1)}
                     </div>
                   </div>
                 </div>
@@ -1093,12 +1079,12 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   </div>
                   <div className="flex items-center justify-between gap-4">
                     <div className="text-2xl sm:text-3xl font-black text-indigo-600 dark:text-indigo-400 font-mono">
-                      {calculatedCcc} {isEnglish ? "Days" : "Gün"}
+                      {calculatedCcc} {t("FormulaWorkshopView.days_377")}
                     </div>
                     <div className="text-xs text-indigo-800 dark:text-indigo-300 leading-relaxed max-w-sm">
                       {calculatedCcc < 0
-                        ? (isEnglish ? "🚀 Negative CCC: Funded by suppliers' cash (Amazon model)!" : "🚀 Negatif CCC: Şirket tedarikçinin parasıyla büyüyor (Amazon modeli)!")
-                        : (isEnglish ? "⏳ Positive CCC: Working capital tied up in inventory & receivables." : "⏳ Pozitif CCC: Şirket stok ve alacakta nakit bağlıyor.")}
+                        ? (t("FormulaWorkshopView.negative_ccc_funded_378"))
+                        : (t("FormulaWorkshopView.positive_ccc_workin_379"))}
                     </div>
                   </div>
                 </div>
@@ -1111,9 +1097,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Current Stock Price:" : "Cari Hisse Fiyatı:"}</span>
+                      <span>{t("FormulaWorkshopView.current_stock_price_380")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {dcfPrice} {isEnglish ? "$" : "TL"}
+                        {dcfPrice} {t("FormulaWorkshopView.text_381")}
                       </span>
                     </div>
                     <input
@@ -1129,9 +1115,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "NOPAT per Share:" : "Hisse Başına NOPAT:"}</span>
+                      <span>{t("FormulaWorkshopView.nopat_per_share_382")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {dcfNopat} {isEnglish ? "$" : "TL"}
+                        {dcfNopat} {t("FormulaWorkshopView.text_383")}
                       </span>
                     </div>
                     <input
@@ -1147,9 +1133,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Cost of Capital (WACC):" : "Sermaye Maliyeti (WACC):"}</span>
+                      <span>{t("FormulaWorkshopView.cost_of_capital_wacc_384")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        %{dcfWacc}
+                        ${formatPercent(dcfWacc, 1)}
                       </span>
                     </div>
                     <input
@@ -1165,9 +1151,9 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
-                      <span>{isEnglish ? "Return on Capital (ROIC):" : "Sermaye Getirisi (ROIC):"}</span>
+                      <span>{t("FormulaWorkshopView.return_on_capital_ro_385")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        %{dcfRoic}
+                        ${formatPercent(dcfRoic, 1)}
                       </span>
                     </div>
                     <input
@@ -1185,10 +1171,10 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="p-5 rounded-2xl bg-amber-50 dark:bg-slate-800/90 text-slate-900 dark:text-white flex flex-col sm:flex-row items-center justify-between gap-4 border border-amber-200 dark:border-amber-800/80 shadow-xs">
                   <div>
                     <div className="text-xs text-amber-700 dark:text-amber-300 font-bold uppercase tracking-wider">
-                      {isEnglish ? "Market-Implied Competitive Advantage Period (CAP)" : "Piyasanın Fiyatladığı Hendek Süresi (İma Edilen CAP)"}
+                      {t("FormulaWorkshopView.market_implied_compe_386")}
                     </div>
                     <div className="text-3xl sm:text-4xl font-black text-amber-600 dark:text-amber-400 font-mono mt-0.5">
-                      ~{impliedCapYears} {isEnglish ? "Years" : "Yıl"}
+                      ~{impliedCapYears} {t("FormulaWorkshopView.years_387")}
                     </div>
                   </div>
                   <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-md text-right sm:text-left">
@@ -1205,7 +1191,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
           <div className="p-6 sm:p-7 rounded-3xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800/50 shadow-sm space-y-4">
             <div className="flex items-center gap-2 text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
               <Info className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              <span>{isEnglish ? "Formula Variables & Balance Sheet Extraction" : "Formül Değişkenleri & Bilançodan Çıkarılışı"}</span>
+              <span>{t("FormulaWorkshopView.formula_variables_ba_388")}</span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -1238,7 +1224,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
             <div className="flex items-center justify-between gap-3 border-b border-slate-100 dark:border-slate-800 pb-3">
               <div className="flex items-center gap-2 font-sans font-bold text-amber-600 dark:text-amber-400 text-xs uppercase tracking-wider">
                 <Calculator className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                <span>{isEnglish ? "Step-by-Step Numerical Procedure & Case Study" : "Adım Adım Hesaplama Prosedürü & Gerçek Şirket Örneği"}</span>
+                <span>{t("FormulaWorkshopView.step_by_step_numeric_389")}</span>
               </div>
               <span className="text-xs text-slate-600 dark:text-slate-400 font-mono px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
                 {currentGuide.realWorldExample.company}
@@ -1251,9 +1237,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 {currentGuide.realWorldExample.scenario}
               </div>
               <div className="text-[10px] text-slate-400 dark:text-slate-500 italic">
-                {isEnglish
-                  ? "Illustrative teaching scenario — figures are not current company estimates or investment views."
-                  : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
+                {t("FormulaWorkshopView.illustrative_teachin_390")}
               </div>
 
               {/* Step pills */}
@@ -1270,7 +1254,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
 
               {/* Result Interpretation */}
               <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 text-emerald-900 dark:text-emerald-300 text-xs leading-relaxed font-sans font-medium">
-                💡 <strong>{isEnglish ? "Analysis Takeaway:" : "Analiz Sonucu:"}</strong> {currentGuide.realWorldExample.resultInterpretation}
+                💡 <strong>{t("FormulaWorkshopView.analysis_takeaway_391")}</strong> {currentGuide.realWorldExample.resultInterpretation}
               </div>
             </div>
           </div>
@@ -1280,7 +1264,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
             <div className="p-5 rounded-3xl bg-emerald-50/80 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/50 space-y-2">
               <div className="flex items-center gap-2 text-emerald-800 dark:text-emerald-300 font-bold text-xs uppercase tracking-wider">
                 <Sparkles className="w-4 h-4" />
-                <span>{isEnglish ? "Why This Formula Exists" : "Neden Bu Formül Var?"}</span>
+                <span>{t("FormulaWorkshopView.why_this_formula_exi_392")}</span>
               </div>
               <p className="text-xs text-emerald-900 dark:text-emerald-200 leading-relaxed">
                 {currentGuide.whyThisFormulaExists}
@@ -1290,7 +1274,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
             <div className="p-5 rounded-3xl bg-amber-50/80 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900/50 space-y-2">
               <div className="flex items-center gap-2 text-amber-800 dark:text-amber-300 font-bold text-xs uppercase tracking-wider">
                 <AlertTriangle className="w-4 h-4" />
-                <span>{isEnglish ? "Common Traps & Pitfalls" : "Sık Yapılan Hatalar & Tuzaklar"}</span>
+                <span>{t("FormulaWorkshopView.common_traps_pitfall_393")}</span>
               </div>
               <ul className="text-xs text-amber-900 dark:text-amber-200 leading-relaxed space-y-1.5 list-disc list-inside">
                 {currentGuide.commonPitfalls.map((pitfall, pIdx) => (
@@ -1304,12 +1288,12 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
           <div className="p-5 rounded-3xl bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border border-slate-200/50 dark:border-slate-800/50 flex flex-wrap items-center justify-between gap-4">
             <div className="space-y-0.5">
               <div className="text-xs font-bold text-slate-900 dark:text-slate-100">
-                {isEnglish ? "Associated Academy Module" : "Bu Formülü İçeren Akademi Modülü"}
+                {t("FormulaWorkshopView.associated_academy_m_394")}
               </div>
               <div className="text-xs text-slate-500 dark:text-slate-400">
                 {FORMULA_TO_MODULE_MAP[activeId]
                   ? (isEnglish ? FORMULA_TO_MODULE_MAP[activeId].nameEn : FORMULA_TO_MODULE_MAP[activeId].nameTr)
-                  : (isEnglish ? "Related Theory & Case Study" : "İlgili Teori ve Vaka İncelemesi")}
+                  : (t("FormulaWorkshopView.related_theory_case_395"))}
               </div>
             </div>
 
@@ -1320,7 +1304,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   className="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition-all flex items-center gap-2 cursor-pointer shadow-md hover:scale-102"
                 >
                   <BookOpen className="w-4 h-4" />
-                  <span>{isEnglish ? "Read & Test Module" : "Modülü Oku & Test Et"}</span>
+                  <span>{t("FormulaWorkshopView.read_test_module_396")}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               )}

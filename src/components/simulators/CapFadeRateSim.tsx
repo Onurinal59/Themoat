@@ -92,7 +92,7 @@ const PRESETS: MoatPreset[] = [
 ];
 
 export const CapFadeRateSim: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t , formatPercent, formatCurrency } = useLanguage();
 
   const [initialRoic, setInitialRoic] = useState<number>(30);
   const [wacc, setWacc] = useState<number>(8.5);
@@ -102,15 +102,15 @@ export const CapFadeRateSim: React.FC = () => {
   const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   // Generate 20-year projection
-  const data = Array.from({ length: 21 }, (_, t) => {
-    // Empirical exponential decay toward WACC: ROIC(t) = WACC + (ROIC_0 - WACC) * exp(-fadeRate * t)
-    const roic_t = wacc + (initialRoic - wacc) * Math.exp(-fadeRate * t);
+  const data = Array.from({ length: 21 }, (_, yr) => {
+    // Empirical exponential decay toward WACC: ROIC(t) = WACC + (ROIC_0 - WACC) * exp(-fadeRate * yr)
+    const roic_t = wacc + (initialRoic - wacc) * Math.exp(-fadeRate * yr);
     const spread = Math.max(0, roic_t - wacc);
     const economicProfit = (investedCapital * (spread / 100));
 
     return {
-      year: t === 0 ? (isEnglish ? "Base" : "Baz") : `${t}. ${isEnglish ? "Yr" : "Yıl"}`,
-      yearNum: t,
+      year: yr === 0 ? (t("CapFadeRateSim.base_781")) : `${yr}. ${t("CapFadeRateSim.yr_782")}`,
+      yearNum: yr,
       roic: Number(roic_t.toFixed(1)),
       wacc: Number(wacc.toFixed(1)),
       spread: Number(spread.toFixed(1)),
@@ -138,15 +138,13 @@ export const CapFadeRateSim: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-black text-xs uppercase tracking-wider mb-3">
               <Clock className="w-3.5 h-3.5" />
-              {isEnglish ? "Empirical Fade Rate & CAP Engine" : "Ortalamaya Dönüş & CAP Simülatörü"}
+              {t("CapFadeRateSim.empirical_fade_rate_783")}
             </div>
             <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-              {isEnglish ? "Competitive Advantage Period & Mean Reversion" : "Rekabetçi Avantaj Dönemi (CAP) & Kâr Aşınması"}
+              {t("CapFadeRateSim.competitive_advantag_784")}
             </h2>
             <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 mt-2 max-w-3xl leading-relaxed">
-              {isEnglish
-                ? "In a capitalist system, excess returns attract competitive capital. Discover how fast ROIC regresses to WACC, and why total economic value equals the cumulative area under the fade curve."
-                : "Serbest piyasada yüksek kârlar rakipleri mıknatıs gibi çeker. ROIC'nin sermaye maliyetine (WACC) kaç yılda gerilediğini ve asıl servetin 'eğrinin altında kalan kümülatif alandan' doğduğunu keşfedin."}
+              {t("CapFadeRateSim.in_a_capitalist_syst_785")}
             </p>
           </div>
         </div>
@@ -177,7 +175,7 @@ export const CapFadeRateSim: React.FC = () => {
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-indigo-600 dark:text-indigo-400">
-              <span>{isEnglish ? "Load Preset" : "Şablonu Yükle"}</span>
+              <span>{t("CapFadeRateSim.load_preset_786")}</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>
           </button>
@@ -190,7 +188,7 @@ export const CapFadeRateSim: React.FC = () => {
         <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm">
           <div className="flex items-center gap-2 font-black text-slate-900 dark:text-white text-base border-b border-slate-100 dark:border-slate-800 pb-3">
             <Sliders className="w-5 h-5 text-emerald-500" />
-            {isEnglish ? "Model Parameters" : "Model Parametreleri"}
+            {t("CapFadeRateSim.model_parameters_787")}
           </div>
 
           {/* Initial ROIC */}
@@ -201,10 +199,10 @@ export const CapFadeRateSim: React.FC = () => {
                 htmlFor="cap-slider-initial-roic"
                 className="font-bold text-slate-700 dark:text-slate-300 cursor-pointer"
               >
-                {isEnglish ? "Initial ROIC" : "Başlangıç ROIC Oranı"}
+                {t("CapFadeRateSim.initial_roic_788")}
               </label>
               <span className="font-black text-emerald-600 dark:text-emerald-400 font-mono">
-                %{initialRoic}
+                ${initialRoic}
               </span>
             </div>
             <input
@@ -229,10 +227,10 @@ export const CapFadeRateSim: React.FC = () => {
                 htmlFor="cap-slider-wacc"
                 className="font-bold text-slate-700 dark:text-slate-300 cursor-pointer"
               >
-                {isEnglish ? "Cost of Capital (WACC)" : "Sermaye Maliyeti (WACC)"}
+                {t("CapFadeRateSim.cost_of_capital_wacc_789")}
               </label>
               <span className="font-black text-rose-500 font-mono">
-                %{wacc}
+                ${wacc}
               </span>
             </div>
             <input
@@ -257,14 +255,14 @@ export const CapFadeRateSim: React.FC = () => {
                 htmlFor="cap-slider-fade-rate"
                 className="font-bold text-slate-700 dark:text-slate-300 cursor-pointer"
               >
-                {isEnglish ? "Fade Rate (Decay Velocity)" : "Aşınma Hızı (Fade Rate)"}
+                {t("CapFadeRateSim.fade_rate_decay_velo_790")}
               </label>
               <span className="font-black text-indigo-500 font-mono">
                 {fadeRate < 0.06
-                  ? isEnglish ? "Very Slow (Wide)" : "Çok Yavaş (Geniş)"
+                  ? t("CapFadeRateSim.very_slow_wide_791")
                   : fadeRate < 0.18
-                  ? isEnglish ? "Moderate (Narrow)" : "Orta (Dar)"
-                  : isEnglish ? "Rapid (No Moat)" : "Hızlı (Hendeksiz)"}
+                  ? t("CapFadeRateSim.moderate_narrow_792")
+                  : t("CapFadeRateSim.rapid_no_moat_793")}
               </span>
             </div>
             <input
@@ -281,9 +279,7 @@ export const CapFadeRateSim: React.FC = () => {
               className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"
             />
             <p id="cap-slider-fade-rate-desc" className="text-[11px] text-slate-500">
-              {isEnglish
-                ? "Lower fade rate = stronger barriers to entry protecting high returns."
-                : "Düşük aşınma hızı = rakipleri dışarıda tutan güçlü giriş engelleri."}
+              {t("CapFadeRateSim.lower_fade_rate_stro_794")}
             </p>
           </div>
 
@@ -295,7 +291,7 @@ export const CapFadeRateSim: React.FC = () => {
                 htmlFor="cap-slider-invested-capital"
                 className="font-bold text-slate-700 dark:text-slate-300 cursor-pointer"
               >
-                {isEnglish ? "Invested Capital" : "Yatırılan Sermaye"}
+                {t("CapFadeRateSim.invested_capital_795")}
               </label>
               <span className="font-black text-slate-900 dark:text-white font-mono">
                 ${investedCapital}M
@@ -321,10 +317,10 @@ export const CapFadeRateSim: React.FC = () => {
           <div className="flex items-center justify-between">
             <div>
               <h3 className="font-black text-slate-900 dark:text-white text-base">
-                {isEnglish ? "20-Year ROIC Mean Reversion Curve" : "20 Yıllık ROIC Ortalamaya Dönüş Eğrisi"}
+                {t("CapFadeRateSim.20_year_roic_mean_re_796")}
               </h3>
               <p className="text-xs text-slate-500">
-                {isEnglish ? "Area between ROIC and WACC = Economic Profit (True Wealth Creation)" : "Yeşil Alan = Yaratılan Kümülatif Hissedar Serveti"}
+                {t("CapFadeRateSim.area_between_roic_an_797")}
               </p>
             </div>
             <div className="flex items-center gap-3">
@@ -378,16 +374,16 @@ export const CapFadeRateSim: React.FC = () => {
           <div role="status" aria-live="polite" className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
             <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
               <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block">
-                {isEnglish ? "Calculated CAP (Years)" : "İma Edilen CAP Süresi"}
+                {t("CapFadeRateSim.calculated_cap_years_798")}
               </span>
               <span className="text-xl font-black text-slate-900 dark:text-white">
-                {capDuration} {isEnglish ? "Years" : "Yıl"}
+                {capDuration} {t("CapFadeRateSim.years_799")}
               </span>
             </div>
 
             <div className="p-3.5 rounded-2xl bg-indigo-500/10 border border-indigo-500/20">
               <span className="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider block">
-                {isEnglish ? "20-Yr Cumulative Wealth" : "20 Yıllık Toplam Refah"}
+                {t("CapFadeRateSim.20_yr_cumulative_wea_800")}
               </span>
               <span className="text-xl font-black text-slate-900 dark:text-white font-mono">
                 ${totalCumulativeEP.toLocaleString(undefined, { maximumFractionDigits: 0 })}M
@@ -396,14 +392,14 @@ export const CapFadeRateSim: React.FC = () => {
 
             <div className="col-span-2 sm:col-span-1 p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20">
               <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider block">
-                {isEnglish ? "Moat Longevity Assessment" : "Hendek Süresi Değerlendirmesi"}
+                {t("CapFadeRateSim.moat_longevity_asses_801")}
               </span>
               <span className="text-sm font-black text-slate-900 dark:text-white">
                 {capDuration >= 15
-                  ? isEnglish ? "Wide Moat (Elite)" : "Geniş Hendek"
+                  ? t("CapFadeRateSim.wide_moat_elite_802")
                   : capDuration >= 7
-                  ? isEnglish ? "Narrow Moat" : "Dar Hendek"
-                  : isEnglish ? "No Moat (Rapid Fade)" : "Hendeksiz"}
+                  ? t("CapFadeRateSim.narrow_moat_803")
+                  : t("CapFadeRateSim.no_moat_rapid_fade_804")}
               </span>
             </div>
           </div>
@@ -420,11 +416,11 @@ export const CapFadeRateSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("CapFadeRateSim.see_the_calculation_805")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("CapFadeRateSim.hide_806")) : (t("CapFadeRateSim.show_807"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -455,9 +451,7 @@ export const CapFadeRateSim: React.FC = () => {
                   </div>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-emerald-200/50 dark:border-emerald-800/50">
-                  {isEnglish
-                    ? `Mauboussin / Miller-Modigliani CAP Core Theorem: A stock's intrinsic value is not determined by current high ROIC alone, but by the integral (area under the curve) of excess returns over WACC before mean reversion inevitably completes.`
-                    : `Mauboussin / Miller-Modigliani CAP Teoremi: Bir hissenin içsel değeri sadece bugünkü yüksek ROIC'sine değil; kâr aşınması (mean reversion) tamamlanana kadar WACC üzerindeki kümülatif eğrinin alanına (CAP süresine) bağlıdır.`}
+                  {t("CapFadeRateSim.mauboussin_miller_mo_808")}
                 </p>
               </div>
 
@@ -465,20 +459,16 @@ export const CapFadeRateSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
                   <Sparkles className="w-4 h-4 text-amber-500" />
-                  <span>{isEnglish ? "Pedagogical CAP Experiments:" : "Terminal CAP Deneyleri:"}</span>
+                  <span>{t("CapFadeRateSim.pedagogical_cap_expe_809")}</span>
                 </div>
                 <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   <p>
-                    👉 <strong className="text-emerald-900 dark:text-emerald-300">{isEnglish ? "Wide Moat (TSMC / Hermès):" : "Geniş Hendek (TSMC / Hermès):"}</strong>{" "}
-                    {isEnglish
-                      ? "Set Fade Rate to 0.04 (slow erosion). The company sustains excess returns for 20+ years, generating massive cumulative shareholder wealth."
-                      : "Aşınma Hızını 0.04'e (çok yavaş) ayarlayın. Şirket 20+ yıl boyunca WACC üzerinde kalarak devasa kümülatif refah üretir."}
+                    👉 <strong className="text-emerald-900 dark:text-emerald-300">{t("CapFadeRateSim.wide_moat_tsmc_herm_810")}</strong>{" "}
+                    {t("CapFadeRateSim.set_fade_rate_to_0_0_811")}
                   </p>
                   <p>
-                    👉 <strong className="text-rose-900 dark:text-rose-300">{isEnglish ? "Hyper-Competitive Commodity (Ocean Shipping):" : "Acımasız Emtia Rekabeti (Deniz Taşımacılığı):"}</strong>{" "}
-                    {isEnglish
-                      ? "Set Fade Rate to 0.35. High ROIC evaporates to WACC within 3 years as aggressive competitor capital enters the market."
-                      : "Aşınma Hızını 0.35'e çıkarın. Piyasa yeni kapasiteyle dolup taştığı için yüksek kârlar 3 yıl içinde WACC seviyesine çöker."}
+                    👉 <strong className="text-rose-900 dark:text-rose-300">{t("CapFadeRateSim.hyper_competitive_co_812")}</strong>{" "}
+                    {t("CapFadeRateSim.set_fade_rate_to_0_3_813")}
                   </p>
                 </div>
               </div>

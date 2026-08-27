@@ -70,7 +70,7 @@ const PRESET_COMPANIES: CompanyProfile[] = [
 ];
 
 export const MoatChecklistSim: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const checklistItems = getChecklistItems(isEnglish);
 
   const [checkedState, setCheckedState] = useState<Record<string, boolean>>({});
@@ -78,7 +78,7 @@ export const MoatChecklistSim: React.FC = () => {
   const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   const categories = [
-    { id: "all", label: isEnglish ? "All Items" : "Tüm Maddeler" },
+    { id: "all", label: t("MoatChecklistSim.all_items_1101") },
     ...Array.from(new Set(checklistItems.map((item) => item.category))).map((cat) => ({
       id: cat,
       label: cat,
@@ -89,14 +89,14 @@ export const MoatChecklistSim: React.FC = () => {
   const checkedCount = Object.values(checkedState).filter(Boolean).length;
   const scorePercent = Math.round((checkedCount / totalItems) * 100);
 
-  let moatVerdict = isEnglish ? "Weak / Undetermined Moat Profile" : "Zayıf veya Belirsiz Hendek Profili";
+  let moatVerdict = t("MoatChecklistSim.weak_undetermined_mo_1102");
   let verdictBadge = "bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border-rose-300 dark:border-rose-800";
 
   if (scorePercent >= 70) {
-    moatVerdict = isEnglish ? "Strong Moat Profile (High Sustainability Indicators)" : "Güçlü Hendek Profili (Yüksek Sürdürülebilirlik Göstergesi)";
+    moatVerdict = t("MoatChecklistSim.strong_moat_profile_1103");
     verdictBadge = "bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border-emerald-300 dark:border-emerald-800";
   } else if (scorePercent >= 45) {
-    moatVerdict = isEnglish ? "Moderate Moat Profile (Selective Advantages)" : "Orta Düzey Hendek Profili (Kısmi Avantajlar)";
+    moatVerdict = t("MoatChecklistSim.moderate_moat_profil_1104");
     verdictBadge = "bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border-amber-300 dark:border-amber-800";
   }
 
@@ -141,19 +141,17 @@ export const MoatChecklistSim: React.FC = () => {
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-1">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50">
-              {isEnglish ? "Module 1-8 Comprehensive Diagnostic" : "Modül 1-8 Kapsamlı Hendek Testi"}
+              {t("MoatChecklistSim.module_1_8_comprehen_1105")}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {isEnglish ? "Sustainable Value Creation Checklist (Adapted from Mauboussin & Callahan 2024)" : "Sürdürülebilir Değer Yaratımı Kontrol Listesi (Mauboussin & Callahan 2024 Raporundan Uyarlanmıştır)"}
+              {t("MoatChecklistSim.sustainable_value_cr_1106")}
             </span>
           </div>
           <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {isEnglish ? "Sustainable Value Creation Checklist" : "Sürdürülebilir Değer Yaratımı Kontrol Listesi"}
+            {t("MoatChecklistSim.sustainable_value_cr_1107")}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-            {isEnglish
-              ? "22 education-focused working criteria, adapted from the report’s broader 75 questions and sub-items. This is a focused study tool, not a full reproduction of the source checklist."
-              : "Bu araç, rapordaki daha kapsamlı 75 soru ve alt maddeden öğrencilerin uygulama yapabilmesi için sadeleştirilmiş 22 eğitim odaklı çalışma kriteri içerir. Kaynak checklistin tam kopyası değildir."}
+            {t("MoatChecklistSim.22_education_focused_1108")}
           </p>
         </div>
 
@@ -161,14 +159,14 @@ export const MoatChecklistSim: React.FC = () => {
           onClick={handleReset}
           className="self-start md:self-auto flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors cursor-pointer"
         >
-          <RotateCcw className="w-3.5 h-3.5" /> {isEnglish ? "Clear All" : "Temizle"}
+          <RotateCcw className="w-3.5 h-3.5" /> {t("MoatChecklistSim.clear_all_1109")}
         </button>
       </div>
 
       {/* Preset Corporate Cases */}
       <div>
         <label className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-2">
-          {isEnglish ? "Preset Corporate Benchmarks:" : "Örnek Şirket Denetimleri:"}
+          {t("MoatChecklistSim.preset_corporate_ben_1110")}
         </label>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
           {PRESET_COMPANIES.map((p, idx) => (
@@ -193,7 +191,7 @@ export const MoatChecklistSim: React.FC = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
               <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
                 <CheckSquare className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
-                <span>{isEnglish ? "Sustainable Value Creation Checklist" : "Sürdürülebilir Değer Yaratımı Kontrol Listesi"}</span>
+                <span>{t("MoatChecklistSim.sustainable_value_cr_1111")}</span>
               </h3>
               <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 inline-flex items-center self-start sm:self-auto shrink-0">
                 {isEnglish
@@ -202,9 +200,7 @@ export const MoatChecklistSim: React.FC = () => {
               </span>
             </div>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
-              {isEnglish
-                ? "22 education-focused working criteria, adapted from the report’s broader 75 questions and sub-items. This is a focused study tool, not a full reproduction of the source checklist."
-                : "Bu araç, rapordaki daha kapsamlı 75 soru ve alt maddeden öğrencilerin uygulama yapabilmesi için sadeleştirilmiş 22 eğitim odaklı çalışma kriteri içerir. Kaynak checklistin tam kopyası değildir."}
+              {t("MoatChecklistSim.22_education_focused_1112")}
             </p>
           </div>
 
@@ -276,11 +272,11 @@ export const MoatChecklistSim: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <BarChart3 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  {isEnglish ? "Moat Score by Strategic Dimension (%)" : "Stratejik Boyut Bazında Hendek Skoru (%)"}
+                  {t("MoatChecklistSim.moat_score_by_strate_1113")}
                 </span>
               </div>
               <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">
-                {isEnglish ? "Overall Score: %" : "Genel Skor: %"}{scorePercent}
+                {t("MoatChecklistSim.overall_score_1114")}{scorePercent}
               </span>
             </div>
 
@@ -295,7 +291,7 @@ export const MoatChecklistSim: React.FC = () => {
                       <CustomChartTooltip
                         valueFormatter={(val) => [
                           `%${val}`,
-                          isEnglish ? "Moat Factor Score" : "Hendek Gücü Skoru",
+                          t("MoatChecklistSim.moat_factor_score_1115"),
                         ]}
                       />
                     }
@@ -315,29 +311,23 @@ export const MoatChecklistSim: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                  {isEnglish ? "Economic Moat Assessment" : "Ekonomik Hendek Değerlendirmesi"}
+                  {t("MoatChecklistSim.economic_moat_assess_1116")}
                 </span>
                 <h4 className="text-base sm:text-lg font-black text-slate-900 dark:text-slate-100">
                   {moatVerdict}
                 </h4>
               </div>
               <span className={`px-3 py-1 rounded-full text-xs font-bold border ${verdictBadge}`}>
-                %{scorePercent} {isEnglish ? "Score" : "Skor"}
+                %{scorePercent} {t("MoatChecklistSim.score_1117")}
               </span>
             </div>
 
             <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
               {scorePercent >= 70
-                ? isEnglish
-                  ? "Fortress Moat: The business satisfies critical hurdles across network effects, pricing power, switching costs, and capital velocity. Exceptional compounder capability."
-                  : "Kale Hendek: Şirket ağ etkisi, fiyatlama gücü, geçiş maliyetleri ve sermaye hızı boyutlarında kritik eşikleri başarıyla geçti. 20+ yıl boyunca sermaye maliyetinin üzerinde getiri üretme potansiyeline sahiptir."
+                ? t("MoatChecklistSim.fortress_moat_the_bu_1118")
                 : scorePercent >= 45
-                ? isEnglish
-                  ? "Vulnerable / Narrow Moat: Decent position in select segments, but high competitive threat could erode economic profits in 5-10 years."
-                  : "Kısmi / Dar Hendek: Bazı segmentlerde avantajlı olsa da, yoğun rekabet tehdidi 5-10 yıl içinde kâr marjlarını ve ROIC'i aşındırma riski taşımaktadır."
-                : isEnglish
-                ? "No Moat / Capital Destruction: Absence of structural barriers exposes this business to ruthless price wars and perpetual capital destruction."
-                : "Hendeği Yok / Sermaye Yıkımı: Yapısal giriş engellerinin yokluğu şirketi acımasız fiyat savaşlarına maruz bırakır ve uzun vadede sermaye maliyetinin altında ezilmesine neden olur."}
+                ? t("MoatChecklistSim.vulnerable_narrow_mo_1119")
+                : t("MoatChecklistSim.no_moat_capital_dest_1120")}
             </p>
           </div>
         </div>
@@ -353,11 +343,11 @@ export const MoatChecklistSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("MoatChecklistSim.see_the_calculation_1121")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("MoatChecklistSim.hide_1122")) : (t("MoatChecklistSim.show_1123"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -380,39 +370,39 @@ export const MoatChecklistSim: React.FC = () => {
               <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
                   <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                  <span>{isEnglish ? "Weighted Checklist Scoring & Robustness Formula" : "Ağırlıklı Hendek Kontrol Listesi Puanlama Formülü"}</span>
+                  <span>{t("MoatChecklistSim.weighted_checklist_s_1124")}</span>
                 </div>
                 <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
-                  <span>{isEnglish ? "Total Moat Score (%) = (Σ Validated Moat Factor Weights / Total Maximum Factor Weights) × 100" : "Toplam Hendek Skoru (%) = (Doğrulanan Hendek Ağırlıkları Toplamı / Maksimum Olası Puan) × 100"}</span>
+                  <span>{t("MoatChecklistSim.total_moat_score_val_1125")}</span>
                   <br />
-                  <span>{isEnglish ? "Fortress Moat: Score >= 70% | Narrow Moat: 45% - 69% | No Moat: < 45%" : "Kale Hendek: Skor >= %70 | Dar Hendek: %45 - %69 | Hendeksiz: < %45"}</span>
+                  <span>{t("MoatChecklistSim.fortress_moat_score_1126")}</span>
                 </div>
               </div>
 
               {/* Step-by-Step Diagnostic Breakdown */}
               <div className="space-y-3">
                 <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  {isEnglish ? "Active Scoring Diagnostic Breakdown" : "Mevcut Puanlama Röntgeni"}
+                  {t("MoatChecklistSim.active_scoring_diagn_1127")}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-indigo-600 dark:text-indigo-400 block font-bold mb-1">
-                      {isEnglish ? "Validated Items Count" : "Onaylanan Madde Sayısı"}
+                      {t("MoatChecklistSim.validated_items_coun_1128")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
-                      {Object.values(checkedState).filter(Boolean).length} / {checklistItems.length} {isEnglish ? "criteria satisfied" : "kriter sağlandı"} ({scorePercent}%)
+                      {Object.values(checkedState).filter(Boolean).length} / {checklistItems.length} {t("MoatChecklistSim.criteria_satisfied_1129")} ({scorePercent}%)
                     </p>
                   </div>
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-emerald-600 dark:text-emerald-400 block font-bold mb-1">
-                      {isEnglish ? "Competitive Advantage Period (CAP) Implication" : "Rekabet Avantajı Süresi (CAP) Çıkarımı"}
+                      {t("MoatChecklistSim.competitive_advantag_1130")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {scorePercent >= 70
-                        ? (isEnglish ? "Estimated CAP: 15-25+ years" : "Tahmini CAP: 15-25+ yıl")
+                        ? (t("MoatChecklistSim.estimated_cap_15_25_1131"))
                         : scorePercent >= 45
-                        ? (isEnglish ? "Estimated CAP: 5-10 years" : "Tahmini CAP: 5-10 yıl")
-                        : (isEnglish ? "Estimated CAP: 0-3 years" : "Tahmini CAP: 0-3 yıl")}
+                        ? (t("MoatChecklistSim.estimated_cap_5_10_y_1132"))
+                        : (t("MoatChecklistSim.estimated_cap_0_3_ye_1133"))}
                     </p>
                   </div>
                 </div>

@@ -50,7 +50,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
   onNavigateTab,
   onStartFirstModule
 }) => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const contentBodyRef = useRef<HTMLDivElement>(null);
 
@@ -388,7 +388,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
             <div>
               <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-black tracking-widest uppercase text-[10px] mb-1">
                 <Sparkles className="w-3.5 h-3.5" />
-                {isEnglish ? "Platform Tour" : "Platform Turu"}
+                {t("OnboardingGuideModal.platform_tour_673")}
               </div>
               <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                 Moat Academy
@@ -480,7 +480,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
                         <div className="space-y-4">
                             <h3 className="text-xs font-black tracking-widest uppercase text-slate-500 dark:text-slate-400 flex items-center gap-2">
                                 <Target className="w-4 h-4 text-indigo-500 dark:text-indigo-400" />
-                                {isEnglish ? "Core Competencies Mastered Here" : "Bu Adımda Kazanılacak Yetkinlikler"}
+                                {t("OnboardingGuideModal.core_competencies_ma_674")}
                             </h3>
                             
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -500,7 +500,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
                             </div>
                             <div>
                                 <h4 className="text-xs font-bold text-amber-700 dark:text-amber-400 uppercase tracking-widest mb-1">
-                                    {isEnglish ? "Recommended Immediate Action" : "Önerilen Hızlı Eylem"}
+                                    {t("OnboardingGuideModal.recommended_immediat_675")}
                                 </h4>
                                 <p className="text-sm font-medium text-amber-800 dark:text-amber-200/80">
                                     {currentStep.recommendedAction}
@@ -535,7 +535,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
                                 : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-700 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer shadow-sm dark:shadow-lg"
                         }`}
                     >
-                        {isEnglish ? "Next Step" : "Sıradaki"}
+                        {t("OnboardingGuideModal.next_step_676")}
                         <ArrowRight className="w-4 h-4" />
                     </button>
                 </div>

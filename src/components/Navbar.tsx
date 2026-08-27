@@ -165,17 +165,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   }[] = [
     {
       id: "roadmap",
-      label: t("nav.academy", isEnglish ? "Academy" : "Akademi"),
+      label: t("nav.academy", t("Navbar.academy_631")),
       icon: Compass,
     },
     {
       id: "formulas",
-      label: t("nav.formulas", isEnglish ? "Formulas" : "Formüller"),
+      label: t("nav.formulas", t("Navbar.formulas_632")),
       icon: Calculator,
     },
     {
       id: "simulators",
-      label: t("nav.lab", isEnglish ? "Laboratory" : "Laboratuvar"),
+      label: t("nav.lab", t("Navbar.laboratory_633")),
       icon: FlaskConical,
     },
   ];
@@ -190,22 +190,22 @@ export const Navbar: React.FC<NavbarProps> = ({
   }[] = [
     {
       id: "company-audit",
-      label: isEnglish ? "Company Diagnostic Audit" : "Şirket Röntgeni & Bilanço",
-      desc: isEnglish ? "5-step Mauboussin financial diagnostic" : "5 adımlı Mauboussin bilanço & hendek teşhis masası",
-      badge: isEnglish ? "5-Step" : "5 Adım",
+      label: t("Navbar.company_diagnostic_a_634"),
+      desc: t("Navbar.5_step_mauboussin_fi_635"),
+      badge: t("Navbar.5_step_636"),
       icon: Building2,
     },
     {
       id: "moat-duel",
-      label: isEnglish ? "Moat Duel Arena" : "Hendek Düellosu",
-      desc: isEnglish ? "1v1 competitive moat matrix showdown" : "İki şirketi karşılaştırmalı hendek arenasında kapıştır",
+      label: t("Navbar.moat_duel_arena_637"),
+      desc: t("Navbar.1v1_competitive_moat_638"),
       badge: "1v1",
       icon: Swords,
     },
     {
       id: "spaced-repetition",
-      label: isEnglish ? "Spaced Repetition Flashcards" : "Aralıklı Tekrar & Hafıza",
-      desc: isEnglish ? "Leitner algorithm memory retention system" : "Leitner algoritmalı kalıcı bilgi pekiştirme kartları",
+      label: t("Navbar.spaced_repetition_fl_639"),
+      desc: t("Navbar.leitner_algorithm_me_640"),
       badge: "SM-2",
       icon: Repeat,
     },
@@ -237,8 +237,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               id="nav-brand-logo"
               className="flex items-center gap-2 sm:gap-2.5 cursor-pointer select-none shrink-0 min-w-[44px] min-h-[44px] p-1 text-left rounded-xl"
               onClick={() => handleTabClick("roadmap")}
-              aria-label={isEnglish ? "Economic Moat Academy Home" : "Ekonomik Hendek Akademisi Ana Sayfa"}
-              title={isEnglish ? "Economic Moat" : "Ekonomik Hendek"}
+              aria-label={t("Navbar.economic_moat_academ_641")}
+              title={t("Navbar.economic_moat_642")}
             >
               <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-sm shadow-indigo-500/20 ring-1 ring-white/20 shrink-0">
                 <Compass className="w-5 h-5" />
@@ -246,7 +246,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="hidden min-[480px]:flex flex-col min-w-0">
                 <div className="flex items-center gap-1.5">
                   <span className="font-extrabold text-sm sm:text-base tracking-tight text-slate-900 dark:text-slate-100 font-display truncate">
-                    {isEnglish ? "Economic Moat" : "Ekonomik Hendek"}
+                    {t("Navbar.economic_moat_643")}
                   </span>
                   <span className="hidden sm:inline-flex px-1.5 py-0.2 text-[9px] font-black uppercase tracking-wider rounded bg-indigo-50 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 border border-indigo-200/70 dark:border-indigo-800/70 shrink-0">
                     Mauboussin
@@ -309,7 +309,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   aria-haspopup="true"
                   aria-expanded={isToolsMenuOpen}
                   aria-controls="tools-duel-menu"
-                  aria-label={isEnglish ? "Tools and Duel" : "Uygulama ve Düello"}
+                  aria-label={t("Navbar.tools_and_duel_644")}
                   className={`relative min-h-[44px] flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer select-none whitespace-nowrap z-10 ${
                     isToolsActive
                       ? "text-indigo-950 dark:text-white"
@@ -333,7 +333,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   <span>
                     {isToolsActive && activeToolItem
                       ? activeToolItem.label.split("&")[0].trim()
-                      : isEnglish ? "Tools & Duel" : "Uygulama & Düello"}
+                      : t("Navbar.tools_duel_645")}
                   </span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-200 ${
@@ -354,7 +354,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       className="absolute left-0 mt-2 w-80 p-2 rounded-2xl bg-white/98 dark:bg-slate-900/98 backdrop-blur-xl border border-slate-200 dark:border-slate-800 shadow-xl z-50 space-y-1"
                     >
                       <div className="px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                        {isEnglish ? "Interactive Analysis & Practice" : "İleri Düzey Analiz & Pratik"}
+                        {t("Navbar.interactive_analysis_646")}
                       </div>
                       {TOOLS_ITEMS.map((tool) => {
                         const ToolIcon = tool.icon;
@@ -413,7 +413,21 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Right: Streak + Single Unified "Utilities / More" Hub */}
             <div className="flex items-center gap-2 shrink-0">
               
-              {/* Daily Learning Streak Capsule (Visible on >= 640px in header; also inside Tools dropdown) */}
+              
+            {/* Language Switcher */}
+            <div className="hidden sm:flex items-center">
+              <select
+                aria-label={t("nav.switchLanguage", t("Navbar.language_dil_647"))}
+                value={language}
+                onChange={(e) => setLanguage(e.target.value as "en" | "tr")}
+                className="bg-transparent text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-1 py-1"
+              >
+                <option value="en" className="text-slate-900">EN</option>
+                <option value="tr" className="text-slate-900">TR</option>
+              </select>
+            </div>
+
+            {/* Daily Learning Streak Capsule (Visible on >= 640px in header; also inside Tools dropdown) */}
               <div
                 id="user-learning-streak-badge"
                 className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-300 text-xs font-black shadow-2xs select-none min-h-[38px] shrink-0 whitespace-nowrap"
@@ -422,9 +436,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <Flame className={`w-4 h-4 text-amber-500 shrink-0 ${userState.currentStreak > 0 ? "fill-amber-500 animate-pulse" : "fill-none opacity-50"}`} />
                 <span>
                   {(!userState.currentStreak || userState.currentStreak === 0)
-                    ? (isEnglish ? "Start your streak" : "Seriye başla")
+                    ? (t("Navbar.start_your_streak_648"))
                     : userState.currentStreak === 1
-                    ? (isEnglish ? "Day 1 streak" : "1. gün serisi")
+                    ? (t("Navbar.day_1_streak_649"))
                     : (isEnglish ? `${userState.currentStreak}-day streak` : `${userState.currentStreak} günlük seri`)}
                 </span>
               </div>
@@ -445,8 +459,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   aria-haspopup="true"
                   aria-expanded={isUtilitiesOpen}
                   aria-controls="tools-menu-dropdown"
-                  aria-label={isEnglish ? "Tools" : "Araçlar"}
-                  title={isEnglish ? "Tools" : "Araçlar"}
+                  aria-label={t("Navbar.tools_650")}
+                  title={t("Navbar.tools_651")}
                   className={`min-h-[44px] min-w-[44px] shrink-0 flex items-center justify-center gap-1.5 px-2.5 min-[480px]:px-3.5 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer whitespace-nowrap select-none focus:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 ${
                     isUtilitiesOpen
                       ? "bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-800 shadow-2xs ring-2 ring-indigo-500/20"
@@ -455,7 +469,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 >
                   <SlidersHorizontal className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
                   <span className="hidden min-[480px]:inline font-bold">
-                    {isEnglish ? "Tools" : "Araçlar"}
+                    {t("Navbar.tools_652")}
                   </span>
                   <ChevronDown
                     className={`hidden min-[480px]:inline w-3.5 h-3.5 transition-transform duration-200 ${
@@ -486,18 +500,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                           </div>
                           <div>
                             <span className="text-xs font-bold text-slate-900 dark:text-slate-100 block">
-                              {isEnglish ? "Active Learning Streak" : "Aktif Öğrenme Serisi"}
+                              {t("Navbar.active_learning_stre_653")}
                             </span>
                             <span className="text-[10px] text-slate-500 dark:text-slate-400">
-                              {isEnglish ? "Consecutive study days" : "Kesintisiz çalışma günü"}
+                              {t("Navbar.consecutive_study_da_654")}
                             </span>
                           </div>
                         </div>
                         <span className="text-xs font-black px-2 py-0.5 rounded-md bg-amber-500 text-white shadow-2xs whitespace-nowrap">
                           {(!userState.currentStreak || userState.currentStreak === 0)
-                            ? (isEnglish ? "Start your streak" : "Seriye başla")
+                            ? (t("Navbar.start_your_streak_655"))
                             : userState.currentStreak === 1
-                            ? (isEnglish ? "Day 1 streak" : "1. gün serisi")
+                            ? (t("Navbar.day_1_streak_656"))
                             : (isEnglish ? `${userState.currentStreak}-day streak` : `${userState.currentStreak} günlük seri`)}
                         </span>
                       </div>
@@ -517,10 +531,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                           </div>
                           <div className="text-left">
                             <div className="text-xs font-black">
-                              {isEnglish ? "AI Coach" : "AI Koç"}
+                              {t("Navbar.ai_coach_657")}
                             </div>
                             <div className="text-[10px] text-indigo-100 font-medium">
-                              {isEnglish ? "Socratic financial guidance & questions" : "Sokratik finans rehberliği & soru sor"}
+                              {t("Navbar.socratic_financial_g_658")}
                             </div>
                           </div>
                         </div>
@@ -530,7 +544,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                       {/* 2. Resources (Glossary & Study Guide / Tour) */}
                       <div className="space-y-1 pt-1 border-t border-slate-100 dark:border-slate-800">
                         <div className="px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                          {isEnglish ? "Resources" : "Kaynaklar"}
+                          {t("Navbar.resources_659")}
                         </div>
                         <button
                           id="menu-item-resources-glossary"
@@ -546,10 +560,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                             </div>
                             <div className="text-left">
                               <span className="text-xs font-bold block">
-                                {isEnglish ? "Glossary & Terminology" : "Sözlük & Terminoloji"}
+                                {t("Navbar.glossary_terminology_660")}
                               </span>
                               <span className="text-[10px] text-slate-500 dark:text-slate-400">
-                                {isEnglish ? "ROIC, WACC, NOPAT formulas & terms" : "Formüller, kısaltmalar ve tanımlar"}
+                                {t("Navbar.roic_wacc_nopat_form_661")}
                               </span>
                             </div>
                           </div>
@@ -570,10 +584,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                               </div>
                               <div className="text-left">
                                 <span className="text-xs font-bold block">
-                                  {isEnglish ? "Platform Tour & Methodology" : "Platform Turu & Metodoloji"}
+                                  {t("Navbar.platform_tour_method_662")}
                                 </span>
                                 <span className="text-[10px] text-slate-500 dark:text-slate-400">
-                                  {isEnglish ? "7-stop interactive mastery tour" : "7 duraklı interaktif ustalık turu"}
+                                  {t("Navbar.7_stop_interactive_m_663")}
                                 </span>
                               </div>
                             </div>
@@ -596,15 +610,15 @@ export const Navbar: React.FC<NavbarProps> = ({
                             </div>
                             <div className="text-left">
                               <span className="text-xs font-bold block">
-                                {isEnglish ? "Toggle Theme" : "Tema Değiştir"}
+                                {t("Navbar.toggle_theme_664")}
                               </span>
                               <span className="text-[10px] text-slate-500 dark:text-slate-400">
-                                {isDarkMode ? (isEnglish ? "Switch to light theme" : "Aydınlık temaya geç") : (isEnglish ? "Switch to dark theme" : "Karanlık temaya geç")}
+                                {isDarkMode ? (t("Navbar.switch_to_light_them_665")) : (t("Navbar.switch_to_dark_theme_666"))}
                               </span>
                             </div>
                           </div>
                           <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-                            {isDarkMode ? (isEnglish ? "Dark" : "Koyu") : (isEnglish ? "Light" : "Açık")}
+                            {isDarkMode ? (t("Navbar.dark_667")) : (t("Navbar.light_668"))}
                           </span>
                         </button>
                       </div>
@@ -614,7 +628,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
                           <span className="flex items-center gap-1">
                             <Globe className="w-3 h-3 text-indigo-500" />
-                            {isEnglish ? "Language / Dil" : "Dil: Türkçe / English"}
+                            {t("Navbar.language_dil_669")}
                           </span>
                         </div>
                         <div className="grid grid-cols-2 gap-1.5">
@@ -688,7 +702,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Primary Nav Links */}
               <nav aria-label="Mobile Primary Navigation" className="space-y-1">
                 <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2">
-                  {isEnglish ? "Main Navigation" : "Ana Görevler"}
+                  {t("Navbar.main_navigation_670")}
                 </div>
                 {PRIMARY_NAV_ITEMS.map((item) => {
                   const Icon = item.icon;
@@ -714,7 +728,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Tools Section */}
               <div className="space-y-1">
                 <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2">
-                  {isEnglish ? "Tools & Duel" : "Uygulama & Düello"}
+                  {t("Navbar.tools_duel_671")}
                 </div>
                 {TOOLS_ITEMS.map((tool) => {
                   const ToolIcon = tool.icon;
@@ -747,7 +761,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 text-white text-sm font-extrabold shadow-md min-h-[46px] cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-amber-300" />
-                <span>{isEnglish ? "Ask Socratic AI Coach" : "Sokratik AI Koçuna Soru Sor"}</span>
+                <span>{t("Navbar.ask_socratic_ai_coac_672")}</span>
               </button>
             </motion.div>
           )}

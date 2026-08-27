@@ -91,10 +91,10 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
             </div>
             <div>
               <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">
-                {isEnglish ? "Finance & Moat Terminology Glossary" : "Sıfırdan Başlayanlar İçin Terimler Sözlüğü & Can Simidi"}
+                {t("GlossaryModal.finance_moat_termino_397")}
               </h2>
               <p className="text-xs text-slate-600 dark:text-slate-400 hidden sm:block">
-                {isEnglish ? "Plain-language definitions with intuitive everyday real-world analogies" : "Makaledeki tüm teknik terimlerin günlük hayat analojileriyle sade açıklamaları"}
+                {t("GlossaryModal.plain_language_defin_398")}
               </p>
             </div>
           </div>
@@ -112,7 +112,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
             <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              placeholder={isEnglish ? "Search terms, concepts or analogies (e.g. ROIC, WTP, Moat, Lemonade)..." : "Terim, kavram veya analoji ara (Örn: ROIC, WTP, Hendek, Limonata)..."}
+              placeholder={t("GlossaryModal.search_terms_concept_399")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-500 shadow-xs"
@@ -143,7 +143,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
           <div className="md:col-span-5 border-r border-slate-200 dark:border-slate-800 overflow-y-auto p-3 space-y-1.5 max-h-[300px] md:max-h-[500px] bg-slate-50/30 dark:bg-slate-950/40">
             {filteredTerms.length === 0 ? (
               <div className="text-center py-12 text-xs text-slate-500 dark:text-slate-400">
-                {isEnglish ? "No matching terms found." : "Aradığınız kriterlere uygun terim bulunamadı."}
+                {t("GlossaryModal.no_matching_terms_fo_400")}
               </div>
             ) : (
               filteredTerms.map((term) => {
@@ -189,7 +189,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
 
                 <div className="space-y-2">
                   <div className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                    {isEnglish ? "Detailed Explanation" : "Detaylı Açıklama"}
+                    {t("GlossaryModal.detailed_explanation_401")}
                   </div>
                   <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800">
                     {currentActiveTerm.detailedExplanation}
@@ -199,7 +199,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
                 <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 text-amber-900 dark:text-amber-200">
                   <div className="flex items-center gap-2 text-xs font-bold text-amber-800 dark:text-amber-300 mb-1.5">
                     <Sparkles className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-                    {isEnglish ? "Zero-Knowledge Everyday Analogy" : "Sıfır Bilgi Günlük Hayat Analojisi"}
+                    {t("GlossaryModal.zero_knowledge_every_402")}
                   </div>
                   <p className="text-xs text-amber-950 dark:text-amber-100 leading-relaxed">
                     {currentActiveTerm.realWorldAnalogy}
@@ -208,7 +208,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
               </>
             ) : (
               <div className="text-center py-16 text-slate-500 dark:text-slate-400 text-xs">
-                {isEnglish ? "Select a term from the list on the left to examine." : "İncelemek istediğiniz bir terimi soldaki listeden seçin."}
+                {t("GlossaryModal.select_a_term_from_t_403")}
               </div>
             )}
           </div>
@@ -223,7 +223,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
             onClick={onClose}
             className="px-4 py-2 bg-slate-900 hover:bg-slate-800 dark:bg-slate-100 dark:hover:bg-white text-white dark:text-slate-900 font-semibold rounded-xl transition-colors cursor-pointer"
           >
-            {isEnglish ? "Close" : "Kapat"}
+            {t("GlossaryModal.close_404")}
           </button>
         </div>
       </motion.div>

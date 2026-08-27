@@ -52,20 +52,20 @@ export const Footer: React.FC<FooterProps> = ({
               <button
                 type="button"
                 onClick={onOpenGuide}
-                aria-label={isEnglish ? "Open Academy Guide" : "Akademi Rehberini Aç"}
+                aria-label={t("Footer.open_academy_guide_189")}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-colors cursor-pointer min-h-[44px]"
               >
                 <HelpCircle className="w-4 h-4" />
-                <span>{isEnglish ? "Academy Guide" : "Akademi Rehberi"}</span>
+                <span>{t("Footer.academy_guide_190")}</span>
               </button>
               <button
                 type="button"
                 onClick={onOpenAICoach}
-                aria-label={isEnglish ? "Open Socratic AI Coach" : "Sokratik AI Koçunu Aç"}
+                aria-label={t("Footer.open_socratic_ai_coa_191")}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/60 border border-purple-200/80 dark:border-purple-800/60 hover:bg-purple-100 dark:hover:bg-purple-900/60 transition-colors cursor-pointer min-h-[44px]"
               >
                 <Sparkles className="w-4 h-4 text-purple-500" />
-                <span>{isEnglish ? "Socratic AI Coach" : "Sokratik AI Koçu"}</span>
+                <span>{t("Footer.socratic_ai_coach_192")}</span>
               </button>
             </div>
           </div>
@@ -83,10 +83,10 @@ export const Footer: React.FC<FooterProps> = ({
               </div>
               <div>
                 <span className="font-extrabold text-base text-slate-900 dark:text-slate-100 tracking-tight block">
-                  {isEnglish ? "Economic Moat Academy" : "Ekonomik Hendek Akademisi"}
+                  {t("Footer.economic_moat_academ_193")}
                 </span>
                 <span className="text-xs text-indigo-600 dark:text-indigo-400 font-medium block">
-                  {isEnglish ? "Balance Sheet X-Ray & Valuation Studio" : "Bilanço Röntgeni & Değerleme Stüdyosu"}
+                  {t("Footer.balance_sheet_x_ray_194")}
                 </span>
               </div>
             </div>
@@ -148,7 +148,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 text-left cursor-pointer min-h-[44px] py-2 w-full"
                 >
                   <BookOpen className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                  <span>{isEnglish ? "8-Step Learning Roadmap" : "8 Aşamalı Öğrenim Yol Haritası"}</span>
+                  <span>{t("Footer.8_step_learning_road_195")}</span>
                 </button>
               </li>
               <li>
@@ -158,7 +158,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 text-left cursor-pointer min-h-[44px] py-2 w-full"
                 >
                   <Calculator className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                  <span>{isEnglish ? "Formula & X-Ray Workshop" : "Formül & Röntgen Atölyesi"}</span>
+                  <span>{t("Footer.formula_x_ray_worksh_196")}</span>
                 </button>
               </li>
               <li>
@@ -168,7 +168,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 text-left cursor-pointer min-h-[44px] py-2 w-full"
                 >
                   <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                  <span>{isEnglish ? "Company Audit Studio (10-K & SEC)" : "Şirket Analiz Stüdyosu (10-K & KAP)"}</span>
+                  <span>{t("Footer.company_audit_studio_197")}</span>
                 </button>
               </li>
               <li>
@@ -178,7 +178,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 text-left cursor-pointer min-h-[44px] py-2 w-full"
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                  <span>{isEnglish ? "Company Moat Duel" : "Şirket Hendek Düellosu"}</span>
+                  <span>{t("Footer.company_moat_duel_198")}</span>
                 </button>
               </li>
             </ul>
@@ -196,7 +196,7 @@ export const Footer: React.FC<FooterProps> = ({
                 onClick={() => onNavigateTab("simulators")}
                 className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/60 dark:hover:bg-indigo-950/40 border border-slate-200 dark:border-slate-700/60 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-left cursor-pointer flex flex-col justify-center gap-0.5 min-h-[48px]"
               >
-                <span className="font-bold text-slate-800 dark:text-slate-200">{isEnglish ? "11 Interactive Simulators" : "11 İnteraktif Simülatör"}</span>
+                <span className="font-bold text-slate-800 dark:text-slate-200">{t("Footer.11_interactive_simul_199")}</span>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400">ROIC, DuPont, CCC, DCF</span>
               </button>
 
@@ -205,7 +205,7 @@ export const Footer: React.FC<FooterProps> = ({
                 onClick={() => onNavigateTab("spaced-repetition")}
                 className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/60 dark:hover:bg-indigo-950/40 border border-slate-200 dark:border-slate-700/60 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-left cursor-pointer flex flex-col justify-center gap-0.5 min-h-[48px]"
               >
-                <span className="font-bold text-slate-800 dark:text-slate-200">{isEnglish ? "Spaced Repetition" : "Aralıklı Tekrarlama"}</span>
+                <span className="font-bold text-slate-800 dark:text-slate-200">{t("Footer.spaced_repetition_200")}</span>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400">SuperMemo-2</span>
               </button>
 
@@ -214,8 +214,8 @@ export const Footer: React.FC<FooterProps> = ({
                 onClick={onOpenGlossary}
                 className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/60 dark:hover:bg-indigo-950/40 border border-slate-200 dark:border-slate-700/60 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-left cursor-pointer flex flex-col justify-center gap-0.5 min-h-[48px]"
               >
-                <span className="font-bold text-slate-800 dark:text-slate-200">{isEnglish ? "Glossary" : "Kapsamlı Sözlük"}</span>
-                <span className="text-[11px] text-slate-500 dark:text-slate-400">{isEnglish ? "Finance & Strategy Terms" : "Finans & Strateji Terimleri"}</span>
+                <span className="font-bold text-slate-800 dark:text-slate-200">{t("Footer.glossary_201")}</span>
+                <span className="text-[11px] text-slate-500 dark:text-slate-400">{t("Footer.finance_strategy_ter_202")}</span>
               </button>
 
               <button
@@ -225,9 +225,9 @@ export const Footer: React.FC<FooterProps> = ({
               >
                 <span className="font-bold text-purple-900 dark:text-purple-200 flex items-center gap-1">
                   <Sparkles className="w-3 h-3 text-purple-600 dark:text-purple-400" />
-                  {isEnglish ? "Socratic AI Coach" : "Sokratik AI Koçu"}
+                  {t("Footer.socratic_ai_coach_203")}
                 </span>
-                <span className="text-[11px] text-purple-700 dark:text-purple-300">{isEnglish ? "Tailored Mentorship" : "Özelleştirilmiş Mentorluk"}</span>
+                <span className="text-[11px] text-purple-700 dark:text-purple-300">{t("Footer.tailored_mentorship_204")}</span>
               </button>
             </div>
           </div>
@@ -239,7 +239,7 @@ export const Footer: React.FC<FooterProps> = ({
             <span>{t("footer.copyright", "© 2026 Ekonomik Hendek Akademisi")}</span>
             <span>•</span>
             <span className="inline-flex items-center">
-              {isEnglish ? "Author: " : "Yapımcı: "}
+              {t("Footer.author_205")}
               <a
                 href="https://www.linkedin.com/in/onurınal"
                 target="_blank"
@@ -251,7 +251,7 @@ export const Footer: React.FC<FooterProps> = ({
               </a>
             </span>
             <span>•</span>
-            <span className="text-[11px]">{isEnglish ? "Open Educational Finance Platform" : "Açık Kaynaklı Eğitsel Finans Platformu"}</span>
+            <span className="text-[11px]">{t("Footer.open_educational_fin_206")}</span>
           </div>
 
           <div className="text-[11px] text-center md:text-right text-slate-400 dark:text-slate-500 max-w-lg">

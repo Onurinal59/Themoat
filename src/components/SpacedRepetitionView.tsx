@@ -190,9 +190,7 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
                 {isEnglish ? `Targeted Concept Review for Step 0${targetedModuleId} — ` : `Adım 0${targetedModuleId} İçin Hedefli Kavram Tekrarı — `}
               </span>
               <span className="text-purple-800 dark:text-purple-300">
-                {isEnglish
-                  ? "Study the flashcard for the concept you missed, then return to retake the quiz."
-                  : "Kaçırdığınız kavramın flashcard'ını inceleyin, ardından teste dönüp quizi tekrar çözün."}
+                {t("SpacedRepetitionView.study_the_flashcard_722")}
               </span>
             </div>
           </div>
@@ -212,45 +210,43 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
         <div className="flex flex-wrap items-center gap-2 mb-2">
           <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-purple-50 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300 border border-purple-100 dark:border-purple-900/50 flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-purple-600 dark:text-purple-400" />
-            {isEnglish ? "SuperMemo SM-2 Spaced Repetition Engine" : "SuperMemo SM-2 Algoritması ile Aralıklı Tekrar"}
+            {t("SpacedRepetitionView.supermemo_sm_2_space_723")}
           </span>
         </div>
 
         <h1 className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-          {isEnglish ? "Cognitive Memory & Mastery Flashcards" : "Bilişsel Hafıza & Ustalık Kartları"}
+          {t("SpacedRepetitionView.cognitive_memory_mas_724")}
         </h1>
 
         <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-          {isEnglish
-            ? "Lock critical formulas, Mauboussin principles, and financial statement forensic adjustments into long-term memory. The SM-2 algorithm schedules optimal recall intervals based on your difficulty feedback."
-            : "Kritik formülleri, Mauboussin ilkelerini ve bilanço tuzaklarını aralıklı tekrar yöntemiyle unutulmaz hale getirin. Hatırlama zorluğunuza göre algoritma bir sonraki tekrar zamanını otomatik ayarlar."}
+          {t("SpacedRepetitionView.lock_critical_formul_725")}
         </p>
 
         {/* Stats Row */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
           <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 text-center">
-            <div className="text-xs text-slate-500 dark:text-slate-400">{isEnglish ? "Total Cards" : "Toplam Kart"}</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400">{t("SpacedRepetitionView.total_cards_726")}</div>
             <div className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-0.5">
               {cardsList.length}
             </div>
           </div>
 
           <div className="p-3.5 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/60 text-center">
-            <div className="text-xs text-blue-800 dark:text-blue-300">{isEnglish ? "New Concepts" : "Yeni Kavramlar"}</div>
+            <div className="text-xs text-blue-800 dark:text-blue-300">{t("SpacedRepetitionView.new_concepts_727")}</div>
             <div className="text-lg font-bold text-blue-900 dark:text-blue-100 mt-0.5">
               {newCards.length}
             </div>
           </div>
 
           <div className="p-3.5 rounded-2xl bg-purple-50/70 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800/60 text-center">
-            <div className="text-xs text-purple-800 dark:text-purple-300">{isEnglish ? "Due for Review" : "Tekrarı Gelen"}</div>
+            <div className="text-xs text-purple-800 dark:text-purple-300">{t("SpacedRepetitionView.due_for_review_728")}</div>
             <div className="text-lg font-bold text-purple-900 dark:text-purple-100 mt-0.5">
               {dueCards.length}
             </div>
           </div>
 
           <div className="p-3.5 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 text-center">
-            <div className="text-xs text-emerald-800 dark:text-emerald-300">{isEnglish ? "Mastered Cards" : "Ustalaşılan Kartlar"}</div>
+            <div className="text-xs text-emerald-800 dark:text-emerald-300">{t("SpacedRepetitionView.mastered_cards_729")}</div>
             <div className="text-lg font-bold text-emerald-900 dark:text-emerald-100 mt-0.5">
               {userState.masteredCardsCount || 0}
             </div>
@@ -285,9 +281,7 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
         {/* Filter contextual hint */}
         {activeModuleFilter === "new" && (
           <div className="text-xs text-blue-700 dark:text-blue-300 bg-blue-50/70 dark:bg-blue-950/30 px-3.5 py-2 rounded-xl border border-blue-200/70 dark:border-blue-900/40">
-            {isEnglish
-              ? "Explore these cards when you are ready; they are not due for review yet."
-              : "Bu kartları hazır olduğunuzda keşfedin; henüz tekrar zamanları gelmedi."}
+            {t("SpacedRepetitionView.explore_these_cards_730")}
           </div>
         )}
       </div>
@@ -319,7 +313,7 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
                 {currentCard.term}
               </span>
               <span className="text-xs text-indigo-600 dark:text-indigo-400 flex items-center gap-1 font-medium group-hover:text-indigo-700 dark:group-hover:text-indigo-300">
-                <Repeat className="w-3.5 h-3.5" /> {isEnglish ? "Click to flip card" : "Çevirmek için tıkla"}
+                <Repeat className="w-3.5 h-3.5" /> {t("SpacedRepetitionView.click_to_flip_card_731")}
               </span>
             </div>
 
@@ -336,7 +330,7 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
                     className="space-y-2"
                   >
                     <div className="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                      {isEnglish ? "Question / Problem" : "Soru / Problem"}
+                      {t("SpacedRepetitionView.question_problem_732")}
                     </div>
                     <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-slate-100 leading-relaxed max-w-xl mx-auto">
                       {currentCard.question}
@@ -352,13 +346,13 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
                     className="space-y-4"
                   >
                     <div className="text-xs font-semibold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
-                      {isEnglish ? "Answer & Explanation" : "Cevap & Açıklama"}
+                      {t("SpacedRepetitionView.answer_explanation_733")}
                     </div>
                     <p className="text-sm sm:text-base font-semibold text-slate-800 dark:text-slate-200 leading-relaxed max-w-xl mx-auto">
                       {currentCard.answer}
                     </p>
                     <div className="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 text-xs text-amber-900 dark:text-amber-200 max-w-xl mx-auto leading-relaxed text-left">
-                      💡 <strong>{isEnglish ? "Concrete Analogy:" : "Somut Analoji:"}</strong> {currentCard.analogy}
+                      💡 <strong>{t("SpacedRepetitionView.concrete_analogy_734")}</strong> {currentCard.analogy}
                     </div>
                   </motion.div>
                 )}
@@ -368,8 +362,8 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
             {/* Bottom Tip */}
             <div className="text-center text-[11px] text-slate-400 dark:text-slate-500">
               {!isFlipped
-                ? isEnglish ? "Visualize your answer, then flip the card" : "Cevabı zihninizde canlandırın ve ardından kartı çevirin"
-                : isEnglish ? "Now evaluate your recall accuracy:" : "Şimdi cevabınızı değerlendirin"}
+                ? t("SpacedRepetitionView.visualize_your_answe_735")
+                : t("SpacedRepetitionView.now_evaluate_your_re_736")}
             </div>
           </motion.div>
 
@@ -377,7 +371,7 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
           {isFlipped ? (
             <div className="space-y-2 animate-in fade-in duration-200">
               <div className="text-center text-xs font-bold text-slate-600 dark:text-slate-300">
-                {isEnglish ? "How accurately did you recall this principle?" : "Bu bilgiyi ne kadar rahat hatırladınız?"}
+                {t("SpacedRepetitionView.how_accurately_did_y_737")}
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 <motion.button
@@ -386,9 +380,9 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
                   onClick={() => handleRate(1)}
                   className="p-3 rounded-2xl bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 border border-rose-200 dark:border-rose-900/60 text-rose-800 dark:text-rose-200 text-xs font-bold transition-colors flex flex-col items-center gap-1 cursor-pointer"
                 >
-                  <span>{isEnglish ? "1. Forgot (Reset)" : "1. Unuttum (Yeniden)"}</span>
+                  <span>{t("SpacedRepetitionView.1_forgot_reset_738")}</span>
                   <span className="text-[10px] font-normal text-rose-600 dark:text-rose-400">
-                    {isEnglish ? "Review tomorrow" : "Yarın tekrar sor"}
+                    {t("SpacedRepetitionView.review_tomorrow_739")}
                   </span>
                 </motion.button>
                 <motion.button
@@ -397,9 +391,9 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
                   onClick={() => handleRate(2)}
                   className="p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-900/50 border border-amber-200 dark:border-amber-900/60 text-amber-800 dark:text-amber-200 text-xs font-bold transition-colors flex flex-col items-center gap-1 cursor-pointer"
                 >
-                  <span>{isEnglish ? "2. Hard Recall" : "2. Zor Hatırladım"}</span>
+                  <span>{t("SpacedRepetitionView.2_hard_recall_740")}</span>
                   <span className="text-[10px] font-normal text-amber-600 dark:text-amber-400">
-                    {isEnglish ? "2-3 days later" : "2-3 gün sonra"}
+                    {t("SpacedRepetitionView.2_3_days_later_741")}
                   </span>
                 </motion.button>
                 <motion.button
@@ -408,9 +402,9 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
                   onClick={() => handleRate(3)}
                   className="p-3 rounded-2xl bg-sky-50 dark:bg-sky-950/40 hover:bg-sky-100 dark:hover:bg-sky-900/50 border border-sky-200 dark:border-sky-900/60 text-sky-800 dark:text-sky-200 text-xs font-bold transition-colors flex flex-col items-center gap-1 cursor-pointer"
                 >
-                  <span>{isEnglish ? "3. Good Recall" : "3. İyi Bildim"}</span>
+                  <span>{t("SpacedRepetitionView.3_good_recall_742")}</span>
                   <span className="text-[10px] font-normal text-sky-600 dark:text-sky-400">
-                    {isEnglish ? "5-7 days later" : "5-7 gün sonra"}
+                    {t("SpacedRepetitionView.5_7_days_later_743")}
                   </span>
                 </motion.button>
                 <motion.button
@@ -419,9 +413,9 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
                   onClick={() => handleRate(4)}
                   className="p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 border border-emerald-200 dark:border-emerald-900/60 text-emerald-800 dark:text-emerald-200 text-xs font-bold transition-colors flex flex-col items-center gap-1 cursor-pointer"
                 >
-                  <span>{isEnglish ? "4. Perfect (Easy)" : "4. Mükemmel (Çok Kolay)"}</span>
+                  <span>{t("SpacedRepetitionView.4_perfect_easy_744")}</span>
                   <span className="text-[10px] font-normal text-emerald-600 dark:text-emerald-400">
-                    {isEnglish ? "14+ days later" : "14+ gün sonra"}
+                    {t("SpacedRepetitionView.14_days_later_745")}
                   </span>
                 </motion.button>
               </div>
@@ -434,14 +428,14 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
                 onClick={() => setIsFlipped(true)}
                 className="px-6 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-700 font-bold text-white text-xs transition-all shadow-xs cursor-pointer"
               >
-                {isEnglish ? "Show Answer" : "Cevabı Göster"}
+                {t("SpacedRepetitionView.show_answer_746")}
               </motion.button>
             </div>
           )}
         </div>
       ) : (
         <div className="text-center py-12 text-slate-500 dark:text-slate-400 text-xs">
-          {isEnglish ? "No flashcards found for this filter." : "Bu modüle ait kart bulunamadı."}
+          {t("SpacedRepetitionView.no_flashcards_found_747")}
         </div>
       )}
     </motion.div>

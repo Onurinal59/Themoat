@@ -180,7 +180,7 @@ const ALL_STAGES_CHART_DATA = [
 ];
 
 export const DickinsonLifecycleSim: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const [operatingSign, setOperatingSign] = useState<Sign>("+");
   const [investingSign, setInvestingSign] = useState<Sign>("-");
   const [financingSign, setFinancingSign] = useState<Sign>("-");
@@ -216,19 +216,19 @@ export const DickinsonLifecycleSim: React.FC = () => {
   // Recharts data for the active 3 cash flow vectors
   const cashFlowsChartData = [
     {
-      name: isEnglish ? "CFO (Operations)" : "CFO (Faaliyet)",
+      name: t("DickinsonLifecycleSim.cfo_operations_905"),
       value: currentStage.typicalCashFlows.cfo,
       fill: currentStage.typicalCashFlows.cfo >= 0 ? "#10B981" : "#F43F5E",
       sign: operatingSign,
     },
     {
-      name: isEnglish ? "CFI (Investing)" : "CFI (Yatırım)",
+      name: t("DickinsonLifecycleSim.cfi_investing_906"),
       value: currentStage.typicalCashFlows.cfi,
       fill: currentStage.typicalCashFlows.cfi < 0 ? "#6366F1" : "#F59E0B",
       sign: investingSign,
     },
     {
-      name: isEnglish ? "CFF (Financing)" : "CFF (Finansman)",
+      name: t("DickinsonLifecycleSim.cff_financing_907"),
       value: currentStage.typicalCashFlows.cff,
       fill: currentStage.typicalCashFlows.cff >= 0 ? "#8B5CF6" : "#06B6D4",
       sign: financingSign,
@@ -242,19 +242,17 @@ export const DickinsonLifecycleSim: React.FC = () => {
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-900/50">
-              {isEnglish ? "Step 2 Interactive Terminal" : "2. Adım İnteraktif Terminal"}
+              {t("DickinsonLifecycleSim.step_2_interactive_t_908")}
             </span>
             <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {isEnglish ? "Victoria Dickinson Model" : "Victoria Dickinson Modeli"}
+              {t("DickinsonLifecycleSim.victoria_dickinson_m_909")}
             </span>
           </div>
           <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 mt-1">
-            {isEnglish ? "Corporate Lifecycle Diagnostic: 3-Vector Cash Flow X-Ray" : "Şirket Yaşam Döngüsü: 3 Vektörlü Nakit Akış Röntgeni"}
+            {t("DickinsonLifecycleSim.corporate_lifecycle_910")}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1">
-            {isEnglish
-              ? "Change the 3 cash flow levers on the left; watch the vector dynamics and economic diagnostic update immediately in the visual terminal on the right."
-              : "Soldaki 3 nakit akış yönünü değiştirin; sağdaki görsel terminalde nakit vektörlerinin ve ekonomik evre teşhisinin anında nasıl dönüştüğünü izleyin."}
+            {t("DickinsonLifecycleSim.change_the_3_cash_fl_911")}
           </p>
         </div>
 
@@ -262,14 +260,14 @@ export const DickinsonLifecycleSim: React.FC = () => {
           onClick={() => handleApplyPresetStage("+", "-", "-")}
           className="self-start md:self-auto flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors cursor-pointer"
         >
-          <RotateCcw className="w-3.5 h-3.5" /> {isEnglish ? "Reset (Maturity)" : "Sıfırla (Olgunluk)"}
+          <RotateCcw className="w-3.5 h-3.5" /> {t("DickinsonLifecycleSim.reset_maturity_912")}
         </button>
       </div>
 
       {/* Preset Stage Buttons */}
       <div>
         <label className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-2">
-          {isEnglish ? "Quick Stage Presets:" : "Hızlı Evre Şablonları:"}
+          {t("DickinsonLifecycleSim.quick_stage_presets_913")}
         </label>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           <button
@@ -281,7 +279,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
             }`}
           >
             <span className="block text-[10px] text-slate-400 font-mono">[- - +]</span>
-            🌱 {isEnglish ? "1. Introduction" : "1. Giriş Evresi"}
+            🌱 {t("DickinsonLifecycleSim.1_introduction_914")}
           </button>
 
           <button
@@ -293,7 +291,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
             }`}
           >
             <span className="block text-[10px] text-slate-400 font-mono">[+ - +]</span>
-            🚀 {isEnglish ? "2. Growth" : "2. Büyüme Evresi"}
+            🚀 {t("DickinsonLifecycleSim.2_growth_915")}
           </button>
 
           <button
@@ -305,7 +303,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
             }`}
           >
             <span className="block text-[10px] text-slate-400 font-mono">[+ - -]</span>
-            👑 {isEnglish ? "3. Maturity (Compounder)" : "3. Olgunluk (Nakit İneği)"}
+            👑 {t("DickinsonLifecycleSim.3_maturity_compounde_916")}
           </button>
 
           <button
@@ -317,7 +315,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
             }`}
           >
             <span className="block text-[10px] text-slate-400 font-mono">[- + +]</span>
-            📉 {isEnglish ? "5. Decline / Distress" : "5. Düşüş / Çöküş"}
+            📉 {t("DickinsonLifecycleSim.5_decline_distress_917")}
           </button>
         </div>
       </div>
@@ -329,7 +327,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
               <Activity className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              {isEnglish ? "Cash Flow Controls:" : "Nakit Akış Kontrolleri:"}
+              {t("DickinsonLifecycleSim.cash_flow_controls_918")}
             </h3>
             <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300">
               [{patternKey}]
@@ -340,13 +338,13 @@ export const DickinsonLifecycleSim: React.FC = () => {
           <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-2 shadow-2xs">
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-slate-900 dark:text-slate-100">
-                {isEnglish ? "1. Operating Cash Flow (CFO)" : "1. Faaliyet Nakit Akışı (CFO)"}
+                {t("DickinsonLifecycleSim.1_operating_cash_flo_919")}
               </span>
               <span className={`font-mono font-bold text-xs px-2 py-0.5 rounded ${operatingSign === "+" ? "bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300" : "bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300"}`}>
-                {operatingSign === "+" ? (isEnglish ? "+ Inflow" : "+ Giriş") : (isEnglish ? "- Outflow" : "- Çıkış")}
+                {operatingSign === "+" ? (t("DickinsonLifecycleSim.inflow_920")) : (t("DickinsonLifecycleSim.outflow_921"))}
               </span>
             </div>
-            <div className="flex gap-2 pt-1" role="group" aria-label={isEnglish ? "Operating Cash Flow Sign" : "Faaliyet Nakit Akışı Yönü"}>
+            <div className="flex gap-2 pt-1" role="group" aria-label={t("DickinsonLifecycleSim.operating_cash_flow_922")}>
               <button
                 type="button"
                 aria-pressed={operatingSign === "+"}
@@ -357,7 +355,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                 }`}
               >
-                {isEnglish ? "+ Generates Cash" : "+ Nakit Üretiyor"}
+                {t("DickinsonLifecycleSim.generates_cash_923")}
               </button>
               <button
                 type="button"
@@ -369,7 +367,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                 }`}
               >
-                {isEnglish ? "- Burns Cash" : "- Nakit Yakıyor"}
+                {t("DickinsonLifecycleSim.burns_cash_924")}
               </button>
             </div>
           </div>
@@ -378,13 +376,13 @@ export const DickinsonLifecycleSim: React.FC = () => {
           <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-2 shadow-2xs">
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-slate-900 dark:text-slate-100">
-                {isEnglish ? "2. Investing Cash Flow (CFI)" : "2. Yatırım Nakit Akışı (CFI)"}
+                {t("DickinsonLifecycleSim.2_investing_cash_flo_925")}
               </span>
               <span className={`font-mono font-bold text-xs px-2 py-0.5 rounded ${investingSign === "-" ? "bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300" : "bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300"}`}>
-                {investingSign === "-" ? (isEnglish ? "- CapEx" : "- Yatırım") : (isEnglish ? "+ Divest" : "+ Satış")}
+                {investingSign === "-" ? (t("DickinsonLifecycleSim.capex_926")) : (t("DickinsonLifecycleSim.divest_927"))}
               </span>
             </div>
-            <div className="flex gap-2 pt-1" role="group" aria-label={isEnglish ? "Investing Cash Flow Sign" : "Yatırım Nakit Akışı Yönü"}>
+            <div className="flex gap-2 pt-1" role="group" aria-label={t("DickinsonLifecycleSim.investing_cash_flow_928")}>
               <button
                 type="button"
                 aria-pressed={investingSign === "-"}
@@ -395,7 +393,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                 }`}
               >
-                {isEnglish ? "- CapEx Reinvest" : "- Yatırım Yapıyor"}
+                {t("DickinsonLifecycleSim.capex_reinvest_929")}
               </button>
               <button
                 type="button"
@@ -407,7 +405,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                 }`}
               >
-                {isEnglish ? "+ Selling Assets" : "+ Varlık Satıyor"}
+                {t("DickinsonLifecycleSim.selling_assets_930")}
               </button>
             </div>
           </div>
@@ -416,13 +414,13 @@ export const DickinsonLifecycleSim: React.FC = () => {
           <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-2 shadow-2xs">
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-slate-900 dark:text-slate-100">
-                {isEnglish ? "3. Financing Cash Flow (CFF)" : "3. Finansman Nakit Akışı (CFF)"}
+                {t("DickinsonLifecycleSim.3_financing_cash_flo_931")}
               </span>
               <span className={`font-mono font-bold text-xs px-2 py-0.5 rounded ${financingSign === "-" ? "bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300" : "bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300"}`}>
-                {financingSign === "-" ? (isEnglish ? "- Dividend/Debt" : "- Geri Ödeme") : (isEnglish ? "+ Capital Raise" : "+ Borçlanma")}
+                {financingSign === "-" ? (t("DickinsonLifecycleSim.dividend_debt_932")) : (t("DickinsonLifecycleSim.capital_raise_933"))}
               </span>
             </div>
-            <div className="flex gap-2 pt-1" role="group" aria-label={isEnglish ? "Financing Cash Flow Sign" : "Finansman Nakit Akışı Yönü"}>
+            <div className="flex gap-2 pt-1" role="group" aria-label={t("DickinsonLifecycleSim.financing_cash_flow_934")}>
               <button
                 type="button"
                 aria-pressed={financingSign === "+"}
@@ -433,7 +431,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                 }`}
               >
-                {isEnglish ? "+ Raising Debt/Equity" : "+ Dış Kaynak Çekiyor"}
+                {t("DickinsonLifecycleSim.raising_debt_equity_935")}
               </button>
               <button
                 type="button"
@@ -445,7 +443,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
                     : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
                 }`}
               >
-                {isEnglish ? "- Dividends & Paydown" : "- Temettü / Borç Ödüyor"}
+                {t("DickinsonLifecycleSim.dividends_paydown_936")}
               </button>
             </div>
           </div>
@@ -453,11 +451,9 @@ export const DickinsonLifecycleSim: React.FC = () => {
           {/* Action-Oriented Pedagogical Directive */}
           <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-900 dark:text-amber-200">
             <strong className="block font-bold text-amber-800 dark:text-amber-300 mb-1">
-              💡 {isEnglish ? "Action-Oriented Diagnostic:" : "Eyleme Dönük Teşhis Yönergesi:"}
+              💡 {t("DickinsonLifecycleSim.action_oriented_diag_937")}
             </strong>
-            {isEnglish
-              ? "Toggle CFO to (-) and CFF to (+); observe how the company immediately drops into Introduction or Distress, where survival depends entirely on external capital market lifelines."
-              : "CFO butonunu (-) ve CFF butonunu (+) yapın; sağdaki grafikte şirketin nasıl bir anda dış kaynak bağımlısı Giriş veya Düşüş evresine yuvarlandığını canlı izleyin."}
+            {t("DickinsonLifecycleSim.toggle_cfo_to_and_cf_938")}
           </div>
         </div>
 
@@ -469,7 +465,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <BarChart3 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  {isEnglish ? "Interactive Lifecycle Visualizer" : "İnteraktif Yaşam Döngüsü Grafiği"}
+                  {t("DickinsonLifecycleSim.interactive_lifecycl_939")}
                 </span>
               </div>
               <div className="flex gap-1">
@@ -481,7 +477,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
                       : "text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
-                  {isEnglish ? "3-Vector Dynamics" : "3-Vektör Nakit Akışı"}
+                  {t("DickinsonLifecycleSim.3_vector_dynamics_940")}
                 </button>
                 <button
                   onClick={() => setActiveChartTab("distribution")}
@@ -491,7 +487,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
                       : "text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700"
                   }`}
                 >
-                  {isEnglish ? "Market Stage Spread" : "Piyasa Dağılımı"}
+                  {t("DickinsonLifecycleSim.market_stage_spread_941")}
                 </button>
               </div>
             </div>
@@ -509,7 +505,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
                         <CustomChartTooltip
                           unit="M"
                           prefix="$"
-                          valueFormatter={(val) => `$${val}M (${val >= 0 ? (isEnglish ? "Inflow" : "Giriş") : (isEnglish ? "Outflow" : "Çıkış")})`}
+                          valueFormatter={(val) => `$${val}M (${val >= 0 ? (t("DickinsonLifecycleSim.inflow_942")) : (t("DickinsonLifecycleSim.outflow_943"))})`}
                         />
                       }
                     />
@@ -523,13 +519,13 @@ export const DickinsonLifecycleSim: React.FC = () => {
                 ) : (
                   <BarChart data={ALL_STAGES_CHART_DATA} margin={{ top: 10, right: 15, left: -20, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
-                    <XAxis dataKey={isEnglish ? "nameEn" : "nameTr"} tick={{ fontSize: 10, fill: "#94A3B8" }} />
+                    <XAxis dataKey={t("DickinsonLifecycleSim.nameen_944")} tick={{ fontSize: 10, fill: "#94A3B8" }} />
                     <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} unit="%" />
                     <Tooltip
                       content={
                         <CustomChartTooltip
                           unit="%"
-                          valueFormatter={(val, name) => `${val}% (${name === "share" ? (isEnglish ? "Market Share" : "Piyasa Payı") : "ROIC"})`}
+                          valueFormatter={(val, name) => `${val}% (${name === "share" ? (t("DickinsonLifecycleSim.market_share_945")) : "ROIC"})`}
                         />
                       }
                     />
@@ -558,7 +554,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider opacity-80 block">
-                  {isEnglish ? "Dickinson Lifecycle Diagnostic Result" : "Dickinson Yaşam Döngüsü Teşhis Sonucu"}
+                  {t("DickinsonLifecycleSim.dickinson_lifecycle_946")}
                 </span>
                 <h3 className="text-lg sm:text-xl font-black mt-0.5">
                   {isEnglish ? currentStage.stage : currentStage.stageTr}
@@ -573,7 +569,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
             <div className="grid grid-cols-2 gap-2.5 p-3 rounded-xl bg-white/85 dark:bg-slate-900/85 border border-current/15 text-slate-900 dark:text-slate-100">
               <div>
                 <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">
-                  {isEnglish ? "Historical Average ROIC" : "Tarihsel Ortalama ROIC"}
+                  {t("DickinsonLifecycleSim.historical_average_r_947")}
                 </span>
                 <span className={`text-lg font-black font-mono ${currentStage.avgRoic >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
                   %{currentStage.avgRoic > 0 ? `+${currentStage.avgRoic}` : currentStage.avgRoic}
@@ -581,7 +577,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
               </div>
               <div>
                 <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400 block">
-                  {isEnglish ? "ROIC Spread Range" : "ROIC Yayılım Aralığı"}
+                  {t("DickinsonLifecycleSim.roic_spread_range_948")}
                 </span>
                 <span className="text-xs font-bold font-mono text-slate-700 dark:text-slate-300 mt-1 block">
                   {isEnglish ? currentStage.roicSpread.replace(/\bile\b/g, "to") : currentStage.roicSpread}
@@ -596,7 +592,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
             {/* Real World Examples */}
             <div className="pt-2 border-t border-current/15 space-y-1 text-xs">
               <div className="flex flex-wrap items-center gap-1.5">
-                <span className="font-bold mr-1">{isEnglish ? "Typical Firms:" : "Örnekler:"}</span>
+                <span className="font-bold mr-1">{t("DickinsonLifecycleSim.typical_firms_949")}</span>
                 {(isEnglish ? currentStage.examplesEn : currentStage.examplesTr).map((ex, i) => (
                   <span key={i} className="px-2 py-0.5 rounded-md bg-white/90 dark:bg-slate-800/90 border border-current/20 font-medium">
                     {ex}
@@ -604,9 +600,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
                 ))}
               </div>
               <p className="text-[10px] opacity-75 italic">
-                {isEnglish
-                  ? "Illustrative teaching scenario — figures are not current company estimates or investment views."
-                  : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
+                {t("DickinsonLifecycleSim.illustrative_teachin_950")}
               </p>
             </div>
           </div>
@@ -623,11 +617,11 @@ export const DickinsonLifecycleSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("DickinsonLifecycleSim.see_the_calculation_951")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("DickinsonLifecycleSim.hide_952")) : (t("DickinsonLifecycleSim.show_953"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -659,9 +653,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
                   </div>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">
-                  {isEnglish
-                    ? `Victoria Dickinson's Research Finding: Cash flow patterns classify firm lifecycle stages far more accurately than firm age or sales growth. Companies in Mature [+ - -] and Growth [+ - +] stages generate the highest sustained economic value and moat resilience.`
-                    : `Victoria Dickinson Araştırması: Nakit akış kombinasyonları, şirketlerin yaşam döngüsü evresini şirket yaşı veya ciro büyümesinden çok daha kusursuz sınıflandırır. Olgun [+ - -] ve Büyüme [+ - +] evresindeki şirketler en yüksek ROIC ve hendek dayanıklılığını sergiler.`}
+                  {t("DickinsonLifecycleSim.victoria_dickinson_s_954")}
                 </p>
               </div>
 
@@ -669,20 +661,16 @@ export const DickinsonLifecycleSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
                   <Sparkles className="w-4 h-4 text-amber-500" />
-                  <span>{isEnglish ? "Pedagogical Lifecycle Experiments:" : "Terminal Döngü Deneyleri:"}</span>
+                  <span>{t("DickinsonLifecycleSim.pedagogical_lifecycl_955")}</span>
                 </div>
                 <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   <p>
-                    👉 <strong className="text-emerald-900 dark:text-emerald-300">{isEnglish ? "Maturity / Free Cash Flow Power (+ - -):" : "Olgunluk / Serbest Nakit Akışı Gücü (+ - -):"}</strong>{" "}
-                    {isEnglish
-                      ? "CFO is heavily positive, CapEx (CFI) is disciplined, and CFF is negative via share buybacks and dividends. Average ROIC reaches 11.2%."
-                      : "Faaliyet nakdi pozitiftir, yatırım harcaması disiplinlidir ve finansman nakdi temettü ve hisse geri alımlarıyla negatiftir. Ortalama ROIC %11.2'ye ulaşır."}
+                    👉 <strong className="text-emerald-900 dark:text-emerald-300">{t("DickinsonLifecycleSim.maturity_free_cash_f_956")}</strong>{" "}
+                    {t("DickinsonLifecycleSim.cfo_is_heavily_posit_957")}
                   </p>
                   <p>
-                    👉 <strong className="text-rose-900 dark:text-rose-300">{isEnglish ? "Terminal Decline Distress (- + +):" : "Düşüş & Finansal Sıkıntı (- + +):"}</strong>{" "}
-                    {isEnglish
-                      ? "Operating cash flow is negative (-), the firm sells assets (+) and raises desperate rescue financing (+). Average ROIC plunges to -12.0%."
-                      : "Faaliyet nakdi negatiftir (-), şirket varlıklarını ve fabrikalarını satar (+) ve acil kurtarma borçlanması yapar (+). Ortalama ROIC -%12.0'ye çakılır."}
+                    👉 <strong className="text-rose-900 dark:text-rose-300">{t("DickinsonLifecycleSim.terminal_decline_dis_958")}</strong>{" "}
+                    {t("DickinsonLifecycleSim.operating_cash_flow_959")}
                   </p>
                 </div>
               </div>

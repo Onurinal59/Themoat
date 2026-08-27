@@ -29,7 +29,7 @@ import {
 import { useLanguage } from "../../context/LanguageContext";
 
 export const ReinvestmentRunwaySim: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
 
   // Company A: High ROIC, Low Reinvestment (e.g. See's Candies / Pure Cash Cow)
   const [compARoic, setCompARoic] = useState<number>(45);
@@ -67,7 +67,7 @@ export const ReinvestmentRunwaySim: React.FC = () => {
     capB += reinvestedB;
 
     simulationData.push({
-      year: `${yr}. ${isEnglish ? "Yr" : "Yıl"}`,
+      year: `${yr}. ${t("ReinvestmentRunwaySim.yr_1206")}`,
       yearNum: yr,
       nopatA: Number(nopatA.toFixed(1)),
       nopatB: Number(nopatB.toFixed(1)),
@@ -88,15 +88,13 @@ export const ReinvestmentRunwaySim: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 font-black text-xs uppercase tracking-wider mb-3">
               <TrendingUp className="w-3.5 h-3.5" />
-              {isEnglish ? "The Triad: Spread × Reinvestment Runway" : "Bileşik Büyüme: Yayılım × Yeniden Yatırım Pisti"}
+              {t("ReinvestmentRunwaySim.the_triad_spread_rei_1207")}
             </div>
             <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-              {isEnglish ? "High ROIC Cash Cow vs. Reinvestment Compounding Engine" : "Yüksek ROIC Nakit İneği vs. Yeniden Yatırım Makinesi"}
+              {t("ReinvestmentRunwaySim.high_roic_cash_cow_v_1208")}
             </h2>
             <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 mt-2 max-w-3xl leading-relaxed">
-              {isEnglish
-                ? "Michael Mauboussin emphasizes that value is created not just by ROIC, but by the volume of capital reinvested at high returns. See how a moderate ROIC company with massive reinvestment runway eclipses a static high-ROIC cash cow."
-                : "Michael Mauboussin'in altını çizdiği gibi; zenginlik sadece ROIC yüzdesinden değil, o getiriyle yeniden yatırılabilen sermaye hacminden (Reinvestment Runway) doğar. %18 ROIC ile kârının %80'ini yatıran şirketin, %45 ROIC'li durağan bir şirketi nasıl katladığını görün."}
+              {t("ReinvestmentRunwaySim.michael_mauboussin_e_1209")}
             </p>
           </div>
         </div>
@@ -109,7 +107,7 @@ export const ReinvestmentRunwaySim: React.FC = () => {
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
             <h3 className="font-black text-slate-900 dark:text-white text-base flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-rose-500 inline-block" />
-              {isEnglish ? "Company A (High ROIC, Low Runway)" : "Şirket A (Yüksek ROIC, Düşük Pist)"}
+              {t("ReinvestmentRunwaySim.company_a_high_roic_1210")}
             </h3>
             <span className="text-xs font-bold text-slate-500">Örn: See's Candies</span>
           </div>
@@ -132,7 +130,7 @@ export const ReinvestmentRunwaySim: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span className="font-bold text-slate-700 dark:text-slate-300">
-                {isEnglish ? "Reinvestment Rate (%)" : "Yeniden Yatırım Oranı (%)"}
+                {t("ReinvestmentRunwaySim.reinvestment_rate_1211")}
               </span>
               <span className="font-black text-slate-900 dark:text-white font-mono">%{compAReinvest}</span>
             </div>
@@ -152,7 +150,7 @@ export const ReinvestmentRunwaySim: React.FC = () => {
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
             <h3 className="font-black text-slate-900 dark:text-white text-base flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
-              {isEnglish ? "Company B (Moderate ROIC, Huge Runway)" : "Şirket B (Orta ROIC, Devasa Pist)"}
+              {t("ReinvestmentRunwaySim.company_b_moderate_r_1212")}
             </h3>
             <span className="text-xs font-bold text-slate-500">Örn: Costco / Walmart 1990</span>
           </div>
@@ -175,7 +173,7 @@ export const ReinvestmentRunwaySim: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span className="font-bold text-slate-700 dark:text-slate-300">
-                {isEnglish ? "Reinvestment Rate (%)" : "Yeniden Yatırım Oranı (%)"}
+                {t("ReinvestmentRunwaySim.reinvestment_rate_1213")}
               </span>
               <span className="font-black text-slate-900 dark:text-white font-mono">%{compBReinvest}</span>
             </div>
@@ -196,20 +194,20 @@ export const ReinvestmentRunwaySim: React.FC = () => {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h3 className="font-black text-slate-900 dark:text-white text-base">
-              {isEnglish ? "15-Year Annual Net Operating Profit (NOPAT) Comparison" : "15 Yıllık Yıllık Net Faaliyet Kârı (NOPAT) Yarışı"}
+              {t("ReinvestmentRunwaySim.15_year_annual_net_o_1214")}
             </h3>
             <p className="text-xs text-slate-500">
-              {isEnglish ? "Observe where Company B's reinvestment compounding crosses and overtakes Company A" : "Şirket B'nin bileşik sermaye büyümesiyle Şirket A'yı ne zaman geçtiğini izleyin"}
+              {t("ReinvestmentRunwaySim.observe_where_compan_1215")}
             </p>
           </div>
           <div className="flex items-center gap-4 text-xs font-bold">
             <span className="flex items-center gap-1.5 text-rose-500">
               <span className="w-3 h-3 rounded-sm bg-rose-500" />
-              {isEnglish ? "Company A NOPAT ($M)" : "Şirket A Kârı ($M)"}
+              {t("ReinvestmentRunwaySim.company_a_nopat_m_1216")}
             </span>
             <span className="flex items-center gap-1.5 text-emerald-500">
               <span className="w-3 h-3 rounded-sm bg-emerald-500" />
-              {isEnglish ? "Company B NOPAT ($M)" : "Şirket B Kârı ($M)"}
+              {t("ReinvestmentRunwaySim.company_b_nopat_m_1217")}
             </span>
           </div>
         </div>
@@ -249,7 +247,7 @@ export const ReinvestmentRunwaySim: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider block mb-1">
-                {isEnglish ? "15-Year NOPAT Outcome" : "15. Yılın Sonunda Kâr Hacmi"}
+                {t("ReinvestmentRunwaySim.15_year_nopat_outcom_1218")}
               </span>
               <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
                 {isEnglish
@@ -259,19 +257,15 @@ export const ReinvestmentRunwaySim: React.FC = () => {
             </div>
             <div>
               <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block mb-1">
-                {isEnglish ? "Key Moat Takeaway" : "Temel Hendek Çıkarımı"}
+                {t("ReinvestmentRunwaySim.key_moat_takeaway_1219")}
               </span>
               <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
-                {isEnglish
-                  ? "Reinvestment runway is the multiplier of a moat. Never settle for high ROIC alone if there is nowhere to put the capital."
-                  : "Yeniden yatırım pisti, hendeğin çarpanıdır. Parayı büyütecek yer olmadıkça tek başına yüksek ROIC dev bir servet yaratamaz."}
+                {t("ReinvestmentRunwaySim.reinvestment_runway_1220")}
               </p>
             </div>
           </div>
           <p className="text-[10px] text-slate-400 dark:text-slate-500 italic pt-1 border-t border-indigo-500/10">
-            {isEnglish
-              ? "Illustrative teaching scenario — figures are not current company estimates or investment views."
-              : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
+            {t("ReinvestmentRunwaySim.illustrative_teachin_1221")}
           </p>
         </div>
       </div>
@@ -286,11 +280,11 @@ export const ReinvestmentRunwaySim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("ReinvestmentRunwaySim.see_the_calculation_1222")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("ReinvestmentRunwaySim.hide_1223")) : (t("ReinvestmentRunwaySim.show_1224"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -313,21 +307,21 @@ export const ReinvestmentRunwaySim: React.FC = () => {
               <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
                   <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                  <span>{isEnglish ? "Reinvestment Compounding & Growth Formula" : "Yeniden Yatırım Bileşik Büyüme ve Kâr Formülü"}</span>
+                  <span>{t("ReinvestmentRunwaySim.reinvestment_compoun_1225")}</span>
                 </div>
                 <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
-                  <span>{isEnglish ? "Fundamental Growth (g) = ROIC × Reinvestment Rate (b)" : "Temel Büyüme (g) = ROIC × Yeniden Yatırım Oranı (b)"}</span>
+                  <span>{t("ReinvestmentRunwaySim.fundamental_growth_g_1226")}</span>
                   <br />
-                  <span>{isEnglish ? "Invested Capital (t+1) = Capital (t) + [NOPAT (t) × b]" : "Yatırılan Sermaye (t+1) = Sermaye (t) + [NOPAT (t) × b]"}</span>
+                  <span>{t("ReinvestmentRunwaySim.invested_capital_t_1_1227")}</span>
                   <br />
-                  <span>{isEnglish ? "Economic Profit = Invested Capital × (ROIC - WACC)" : "Ekonomik Kâr = Yatırılan Sermaye × (ROIC - WACC)"}</span>
+                  <span>{t("ReinvestmentRunwaySim.economic_profit_inve_1228")}</span>
                 </div>
               </div>
 
               {/* Step-by-Step Diagnostic Breakdown */}
               <div className="space-y-3">
                 <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  {isEnglish ? "Step-by-Step Numerical Proof" : "Adım Adım Sayısal İspat"}
+                  {t("ReinvestmentRunwaySim.step_by_step_numeric_1229")}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-1">

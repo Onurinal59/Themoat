@@ -104,7 +104,7 @@ const PRESET_COMPANIES: PresetCompany[] = [
 ];
 
 export const RoicWaccSim: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const [investedCapital, setInvestedCapital] = useState<number>(50000); // Milyon $
   const [nopat, setNopat] = useState<number>(10000); // Milyon $ Net Operating Profit
   const [wacc, setWacc] = useState<number>(8.5); // Cost of capital %
@@ -121,22 +121,22 @@ export const RoicWaccSim: React.FC = () => {
   // Rate Comparison Chart Data for Recharts
   const rateChartData = [
     {
-      name: isEnglish ? "ROIC (Return on Capital)" : "ROIC (Sermaye Getirisi)",
+      name: t("RoicWaccSim.roic_return_on_capit_1276"),
       shortName: "ROIC",
       value: Number(roic.toFixed(1)),
       fillColor: "#6366F1", // Indigo
       type: "return",
     },
     {
-      name: isEnglish ? "WACC (Cost of Capital)" : "WACC (Sermaye Maliyeti)",
+      name: t("RoicWaccSim.wacc_cost_of_capital_1277"),
       shortName: "WACC",
       value: Number(wacc.toFixed(1)),
       fillColor: "#94A3B8", // Slate
       type: "cost",
     },
     {
-      name: isEnglish ? "Economic Spread (ROIC - WACC)" : "Ekonomik Yayılım (Spread)",
-      shortName: isEnglish ? "Spread" : "Yayılım",
+      name: t("RoicWaccSim.economic_spread_roic_1278"),
+      shortName: t("RoicWaccSim.spread_1279"),
       value: Number(spread.toFixed(1)),
       fillColor: isValueCreating ? "#10B981" : "#F43F5E", // Emerald vs Rose
       type: "spread",
@@ -184,18 +184,14 @@ export const RoicWaccSim: React.FC = () => {
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-black uppercase tracking-wider bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
-              {isEnglish ? "Module 1 & 2 Laboratory" : "Modül 1 & 2 Laboratuvarı"}
+              {t("RoicWaccSim.module_1_2_laborator_1280")}
             </span>
           </div>
           <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {isEnglish
-              ? "ROIC vs WACC: Value Creation & Economic Moat Terminal"
-              : "ROIC vs WACC: Değer Yaratma & Şato Hendeği Terminali"}
+            {t("RoicWaccSim.roic_vs_wacc_value_c_1281")}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
-            {isEnglish
-              ? "Adjust left-hand levers and observe the real-time response. A firm creates true economic wealth only when Return on Capital (ROIC) exceeds Cost of Capital (WACC)."
-              : "Soldaki parametreleri değiştirin ve sağdaki terminalin canlı tepkisini izleyin. Bir şirket yalnızca Sermaye Getirisi (ROIC), Sermaye Maliyetini (WACC) aştığı zaman ekonomik değer yaratır."}
+            {t("RoicWaccSim.adjust_left_hand_lev_1282")}
           </p>
         </div>
 
@@ -204,7 +200,7 @@ export const RoicWaccSim: React.FC = () => {
           className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-all cursor-pointer self-start sm:self-center shrink-0 border border-slate-200 dark:border-slate-700 min-h-[40px]"
         >
           <RotateCcw className="w-3.5 h-3.5" />
-          <span>{isEnglish ? "Reset" : "Sıfırla"}</span>
+          <span>{t("RoicWaccSim.reset_1283")}</span>
         </button>
       </div>
 
@@ -212,7 +208,7 @@ export const RoicWaccSim: React.FC = () => {
       <div className="space-y-2">
         <div className="text-xs font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
           <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-          <span>{isEnglish ? "Select Benchmark Scenario:" : "Örnek Senaryo Şablonu Seçin:"}</span>
+          <span>{t("RoicWaccSim.select_benchmark_sce_1284")}</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
           {PRESET_COMPANIES.map((p, idx) => {
@@ -252,7 +248,7 @@ export const RoicWaccSim: React.FC = () => {
             <div className="flex items-center gap-2">
               <Sliders className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
-                {isEnglish ? "Core Levers" : "Temel 3 Sürgü"}
+                {t("RoicWaccSim.core_levers_1285")}
               </h3>
             </div>
             <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">Live Sync</span>
@@ -267,10 +263,10 @@ export const RoicWaccSim: React.FC = () => {
                   htmlFor="roic-slider-invested-capital"
                   className="text-xs font-bold text-slate-800 dark:text-slate-200 block cursor-pointer"
                 >
-                  {isEnglish ? "1. Invested Capital ($M):" : "1. Yatırılan Sermaye ($M):"}
+                  {t("RoicWaccSim.1_invested_capital_m_1286")}
                 </label>
                 <span id="roic-slider-invested-capital-desc" className="text-[11px] text-slate-500 dark:text-slate-400">
-                  {isEnglish ? "Net Working Capital + Net Fixed Assets" : "Net İşletme Sermayesi + Net Duran Varlıklar"}
+                  {t("RoicWaccSim.net_working_capital_1287")}
                 </span>
               </div>
               <div className="flex items-center gap-1">
@@ -279,7 +275,7 @@ export const RoicWaccSim: React.FC = () => {
                   onClick={() => setInvestedCapital((v) => Math.max(500, v - 2500))}
                   className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
                   title="-2500"
-                  aria-label={isEnglish ? "Decrease Invested Capital by 2500 million" : "Yatırılan Sermayeyi 2500 milyon azalt"}
+                  aria-label={t("RoicWaccSim.decrease_invested_ca_1288")}
                 >
                   <Minus className="w-3 h-3" />
                 </button>
@@ -291,7 +287,7 @@ export const RoicWaccSim: React.FC = () => {
                   onClick={() => setInvestedCapital((v) => Math.min(150000, v + 2500))}
                   className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
                   title="+2500"
-                  aria-label={isEnglish ? "Increase Invested Capital by 2500 million" : "Yatırılan Sermayeyi 2500 milyon artır"}
+                  aria-label={t("RoicWaccSim.increase_invested_ca_1289")}
                 >
                   <Plus className="w-3 h-3" />
                 </button>
@@ -326,10 +322,10 @@ export const RoicWaccSim: React.FC = () => {
                   htmlFor="roic-slider-nopat"
                   className="text-xs font-bold text-slate-800 dark:text-slate-200 block cursor-pointer"
                 >
-                  {isEnglish ? "2. Annual NOPAT ($M):" : "2. Yıllık NOPAT ($M):"}
+                  {t("RoicWaccSim.2_annual_nopat_m_1290")}
                 </label>
                 <span id="roic-slider-nopat-desc" className="text-[11px] text-slate-500 dark:text-slate-400">
-                  {isEnglish ? "EBIT × (1 - t) Net Operating Profit" : "Vergi Sonrası Net Faaliyet Kârı"}
+                  {t("RoicWaccSim.ebit_1_t_net_operati_1291")}
                 </span>
               </div>
               <div className="flex items-center gap-1">
@@ -338,7 +334,7 @@ export const RoicWaccSim: React.FC = () => {
                   onClick={() => setNopat((v) => Math.max(100, v - 500))}
                   className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
                   title="-500"
-                  aria-label={isEnglish ? "Decrease NOPAT by 500 million" : "NOPAT'ı 500 milyon azalt"}
+                  aria-label={t("RoicWaccSim.decrease_nopat_by_50_1292")}
                 >
                   <Minus className="w-3 h-3" />
                 </button>
@@ -350,7 +346,7 @@ export const RoicWaccSim: React.FC = () => {
                   onClick={() => setNopat((v) => Math.min(40000, v + 500))}
                   className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
                   title="+500"
-                  aria-label={isEnglish ? "Increase NOPAT by 500 million" : "NOPAT'ı 500 milyon artır"}
+                  aria-label={t("RoicWaccSim.increase_nopat_by_50_1293")}
                 >
                   <Plus className="w-3 h-3" />
                 </button>
@@ -385,10 +381,10 @@ export const RoicWaccSim: React.FC = () => {
                   htmlFor="roic-slider-wacc"
                   className="text-xs font-bold text-slate-800 dark:text-slate-200 block cursor-pointer"
                 >
-                  {isEnglish ? "3. Cost of Capital (WACC %):" : "3. Sermaye Maliyeti (WACC %):"}
+                  {t("RoicWaccSim.3_cost_of_capital_wa_1294")}
                 </label>
                 <span id="roic-slider-wacc-desc" className="text-[11px] text-slate-500 dark:text-slate-400">
-                  {isEnglish ? "Blended Cost of Equity + After-Tax Debt" : "Özsermaye ve Net Borçlanma Ağırlıklı Ortalaması"}
+                  {t("RoicWaccSim.blended_cost_of_equi_1295")}
                 </span>
               </div>
               <div className="flex items-center gap-1">
@@ -397,7 +393,7 @@ export const RoicWaccSim: React.FC = () => {
                   onClick={() => setWacc((v) => Math.max(4.0, Number((v - 0.5).toFixed(1))))}
                   className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
                   title="-0.5%"
-                  aria-label={isEnglish ? "Decrease WACC by 0.5 percent" : "WACC'yi yüzde 0.5 azalt"}
+                  aria-label={t("RoicWaccSim.decrease_wacc_by_0_5_1296")}
                 >
                   <Minus className="w-3 h-3" />
                 </button>
@@ -409,7 +405,7 @@ export const RoicWaccSim: React.FC = () => {
                   onClick={() => setWacc((v) => Math.min(22.0, Number((v + 0.5).toFixed(1))))}
                   className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
                   title="+0.5%"
-                  aria-label={isEnglish ? "Increase WACC by 0.5 percent" : "WACC'yi yüzde 0.5 artır"}
+                  aria-label={t("RoicWaccSim.increase_wacc_by_0_5_1297")}
                 >
                   <Plus className="w-3 h-3" />
                 </button>
@@ -442,7 +438,7 @@ export const RoicWaccSim: React.FC = () => {
             <div className="flex items-center gap-2">
               <BarChart3 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
-                {isEnglish ? "Live Spread Result" : "Canlı Yayılım Sonucu"}
+                {t("RoicWaccSim.live_spread_result_1298")}
               </h3>
             </div>
 
@@ -457,7 +453,7 @@ export const RoicWaccSim: React.FC = () => {
                     : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
                 }`}
               >
-                {isEnglish ? "ROIC vs WACC" : "Oran"}
+                {t("RoicWaccSim.roic_vs_wacc_1299")}
               </button>
               <button
                 type="button"
@@ -468,7 +464,7 @@ export const RoicWaccSim: React.FC = () => {
                     : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
                 }`}
               >
-                {isEnglish ? "10-Yr Decay" : "10 Yıllık"}
+                {t("RoicWaccSim.10_yr_decay_1300")}
               </button>
             </div>
           </div>
@@ -504,8 +500,8 @@ export const RoicWaccSim: React.FC = () => {
                     }`}
                   >
                     {isValueCreating
-                      ? isEnglish ? "✓ VALUE CREATOR (Wide/Narrow Moat)" : "✓ DEĞER YARATICI (Pozitif Hendek)"
-                      : isEnglish ? "✗ VALUE DESTROYER (Capital Drain)" : "✗ DEĞER YOK EDİCİ (Sermaye Tüketimi)"}
+                      ? t("RoicWaccSim.value_creator_wide_1301")
+                      : t("RoicWaccSim.value_destroyer_cap_1302")}
                   </span>
                 </div>
                 <h4 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-slate-100 leading-snug">
@@ -588,11 +584,11 @@ export const RoicWaccSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("RoicWaccSim.see_the_calculation_1303")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("RoicWaccSim.hide_1304")) : (t("RoicWaccSim.show_1305"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -617,7 +613,7 @@ export const RoicWaccSim: React.FC = () => {
                     Spread = %{roic.toFixed(1)} (ROIC) - %{wacc.toFixed(1)} (WACC) = {spread >= 0 ? `+${spread.toFixed(1)}%` : `${spread.toFixed(1)}%`}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    {isEnglish ? "Economic Profit" : "Ekonomik Kâr"} = ${investedCapital.toLocaleString()}M × {spread.toFixed(1)}% = ${Math.round(economicProfit).toLocaleString()}M
+                    {t("RoicWaccSim.economic_profit_1306")} = ${investedCapital.toLocaleString()}M × {spread.toFixed(1)}% = ${Math.round(economicProfit).toLocaleString()}M
                   </div>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">
@@ -635,20 +631,16 @@ export const RoicWaccSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
                   <Sparkles className="w-4 h-4 text-amber-500" />
-                  <span>{isEnglish ? "Pedagogical Terminal Guidance:" : "Terminal Deney Yönergesi:"}</span>
+                  <span>{t("RoicWaccSim.pedagogical_terminal_1307")}</span>
                 </div>
                 <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   <p>
-                    👉 <strong className="text-indigo-900 dark:text-indigo-300">{isEnglish ? "Step A (Expand the Moat):" : "A Adımı (Hendeği Genişletin):"}</strong>{" "}
-                    {isEnglish
-                      ? "Increase NOPAT while holding capital flat. Notice how the green Economic Spread bar and annual dollar compounding expand immediately."
-                      : "Yatırılan sermayeyi sabit tutup NOPAT sürgüsünü artırın. Sağdaki grafikte yeşil Ekonomik Yayılım (Spread) çubuğunun ve yıllık dolar refahının nasıl anında fırladığını görün."}
+                    👉 <strong className="text-indigo-900 dark:text-indigo-300">{t("RoicWaccSim.step_a_expand_the_mo_1308")}</strong>{" "}
+                    {t("RoicWaccSim.increase_nopat_while_1309")}
                   </p>
                   <p>
-                    👉 <strong className="text-rose-900 dark:text-rose-300">{isEnglish ? "Step B (The Capital Trap):" : "B Adımı (Sermaye Tuzağı):"}</strong>{" "}
-                    {isEnglish
-                      ? "Push WACC above ROIC. Even if NOPAT is positive ($4,000M), the spread turns Crimson Red—proving accounting profits do not equal value creation!"
-                      : "WACC sürgüsünü ROIC'nin üzerine çıkarın. Şirket 4.000M $ muhasebe kârı açıklasa bile sağdaki çubuğun Kırmızıya döndüğünü ve servet yok edildiğini izleyin!"}
+                    👉 <strong className="text-rose-900 dark:text-rose-300">{t("RoicWaccSim.step_b_the_capital_t_1310")}</strong>{" "}
+                    {t("RoicWaccSim.push_wacc_above_roic_1311")}
                   </p>
                 </div>
               </div>

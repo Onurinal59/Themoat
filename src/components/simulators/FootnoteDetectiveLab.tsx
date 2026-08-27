@@ -438,14 +438,14 @@ export const FootnoteDetectiveLab: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-900/50">
-              {isEnglish ? "Module 5 Lab" : "Modül 5 Laboratuvarı"}
+              {t("FootnoteDetectiveLab.module_5_lab_991")}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 flex items-center gap-1.5">
               <Search className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
-              {isEnglish ? "10-K & Financial Footnotes Detective" : "10-K & KAP Dipnot Dedektifi"}
+              {t("FootnoteDetectiveLab.10_k_financial_footn_992")}
             </span>
             <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {isEnglish ? "Applied Balance Sheet & Income Statement Audit" : "Uygulamalı Bilanço ve Gelir Tablosu Çözümlemesi"}
+              {t("FootnoteDetectiveLab.applied_balance_shee_993")}
             </span>
           </div>
 
@@ -458,14 +458,14 @@ export const FootnoteDetectiveLab: React.FC = () => {
               }}
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-lg transition-colors cursor-pointer"
             >
-              <RotateCcw className="w-3.5 h-3.5" /> {isEnglish ? "Reset Adjustments" : "Sıfırla"}
+              <RotateCcw className="w-3.5 h-3.5" /> {t("FootnoteDetectiveLab.reset_adjustments_994")}
             </button>
           </div>
         </div>
 
         {/* Quick Case Switcher */}
         <div className="flex flex-wrap items-center gap-1.5 pb-2">
-          <span className="text-xs text-slate-400 font-semibold shrink-0">{isEnglish ? "Select Case:" : "Vaka Seçin:"}</span>
+          <span className="text-xs text-slate-400 font-semibold shrink-0">{t("FootnoteDetectiveLab.select_case_995")}</span>
           {DETECTIVE_CASES.map((c) => (
             <button
               key={c.id}
@@ -496,9 +496,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
             {isEnglish ? currentCase.scenarioDescriptionEn : currentCase.scenarioDescriptionTr}
           </p>
           <p className="text-[11px] text-slate-400 dark:text-slate-500 italic mt-1">
-            {isEnglish
-              ? "Illustrative teaching scenario — figures are not current company estimates or investment views."
-              : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
+            {t("FootnoteDetectiveLab.illustrative_teachin_996")}
           </p>
         </div>
       </div>
@@ -507,7 +505,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-5 rounded-2xl bg-white dark:bg-gradient-to-r dark:from-slate-900 dark:via-indigo-950 dark:to-slate-900 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-800 shadow-sm dark:shadow-md">
         {/* Metric 1: NOPAT */}
         <div className="space-y-1">
-          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">{isEnglish ? "Net Operating Profit (NOPAT)" : "Net Faaliyet Kârı (NOPAT)"}</span>
+          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">{t("FootnoteDetectiveLab.net_operating_profit_997")}</span>
           <div className="flex items-baseline gap-2">
             <span className="text-xl font-extrabold text-slate-900 dark:text-white">
               {Math.round(adjNopat).toLocaleString()} {currencyLabel}
@@ -518,12 +516,12 @@ export const FootnoteDetectiveLab: React.FC = () => {
               </span>
             )}
           </div>
-          <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{isEnglish ? "Raw Accounting: " : "Ham Muhasebe: "}{Math.round(rawNopat).toLocaleString()}</span>
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{t("FootnoteDetectiveLab.raw_accounting_998")}{Math.round(rawNopat).toLocaleString()}</span>
         </div>
 
         {/* Metric 2: Invested Capital */}
         <div className="space-y-1">
-          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">{isEnglish ? "Invested Capital (IC)" : "Yatırılan Sermaye (IC)"}</span>
+          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">{t("FootnoteDetectiveLab.invested_capital_ic_999")}</span>
           <div className="flex items-baseline gap-2">
             <span className="text-xl font-extrabold text-slate-900 dark:text-white">
               {Math.round(adjInvestedCapital).toLocaleString()} {currencyLabel}
@@ -534,12 +532,12 @@ export const FootnoteDetectiveLab: React.FC = () => {
               </span>
             )}
           </div>
-          <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{isEnglish ? "Raw Balance Sheet: " : "Ham Bilanço: "}{Math.round(rawInvestedCapital).toLocaleString()}</span>
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{t("FootnoteDetectiveLab.raw_balance_sheet_1000")}{Math.round(rawInvestedCapital).toLocaleString()}</span>
         </div>
 
         {/* Metric 3: ROIC & WACC */}
         <div className="space-y-1">
-          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">{isEnglish ? "Adjusted ROIC vs WACC" : "Düzeltilmiş ROIC vs WACC"}</span>
+          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">{t("FootnoteDetectiveLab.adjusted_roic_vs_wac_1001")}</span>
           <div className="flex items-baseline gap-2">
             <span className="text-2xl font-black text-amber-600 dark:text-amber-300">
               %{adjRoic.toFixed(1)}
@@ -548,21 +546,21 @@ export const FootnoteDetectiveLab: React.FC = () => {
               / WACC %{adjWacc.toFixed(1)}
             </span>
           </div>
-          <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{isEnglish ? "Raw ROIC: %" : "Ham ROIC: %"}{rawRoic.toFixed(1)}</span>
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{t("FootnoteDetectiveLab.raw_roic_1002")}{rawRoic.toFixed(1)}</span>
         </div>
 
         {/* Metric 4: Economic Moat Spread */}
         <div className="space-y-1">
-          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">{isEnglish ? "Moat Spread (ROIC - WACC)" : "Hendek Yayılımı (ROIC - WACC)"}</span>
+          <span className="text-[10px] uppercase font-bold text-slate-500 dark:text-slate-400">{t("FootnoteDetectiveLab.moat_spread_roic_wac_1003")}</span>
           <div className="flex items-baseline gap-2">
             <span className={`text-2xl font-black ${adjSpread >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
               {adjSpread >= 0 ? `+%{${adjSpread.toFixed(1)}}` : `%{${adjSpread.toFixed(1)}}`}
             </span>
             <span className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
-              {adjSpread > 5 ? (isEnglish ? "Wide Moat" : "Geniş Hendek") : adjSpread > 0 ? (isEnglish ? "Narrow Moat" : "Dar Hendek") : (isEnglish ? "Value Destroyer" : "Değer Yıkımı")}
+              {adjSpread > 5 ? (t("FootnoteDetectiveLab.wide_moat_1004")) : adjSpread > 0 ? (t("FootnoteDetectiveLab.narrow_moat_1005")) : (t("FootnoteDetectiveLab.value_destroyer_1006"))}
             </span>
           </div>
-          <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{isEnglish ? "Raw Spread: %" : "Ham Yayılım: %"}{rawSpread.toFixed(1)}</span>
+          <span className="text-[11px] text-slate-500 dark:text-slate-400 block">{t("FootnoteDetectiveLab.raw_spread_1007")}{rawSpread.toFixed(1)}</span>
         </div>
       </div>
 
@@ -577,7 +575,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
           }`}
         >
           <Layers className="w-3.5 h-3.5" />
-          {isEnglish ? "Balance Sheet & Invested Capital" : "Bilanço & Yatırılan Sermaye Analizi"}
+          {t("FootnoteDetectiveLab.balance_sheet_invest_1008")}
         </button>
 
         <button
@@ -589,7 +587,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
           }`}
         >
           <FileText className="w-3.5 h-3.5" />
-          {isEnglish ? "Income Statement & NOPAT Adjustments" : "Gelir Tablosu & NOPAT Düzeltmesi"}
+          {t("FootnoteDetectiveLab.income_statement_nop_1009")}
         </button>
 
         <button
@@ -601,7 +599,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
           }`}
         >
           <Percent className="w-3.5 h-3.5" />
-          {isEnglish ? "WACC Cost of Capital Breakdown" : "WACC Sermaye Maliyeti Röntgeni"}
+          {t("FootnoteDetectiveLab.wacc_cost_of_capital_1010")}
         </button>
 
         <button
@@ -613,7 +611,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
           }`}
         >
           <Calculator className="w-3.5 h-3.5" />
-          {isEnglish ? "Quiz Yourself (ROIC / WACC Guess)" : "Kendini Test Et (ROIC / WACC Tahmini)"}
+          {t("FootnoteDetectiveLab.quiz_yourself_roic_w_1011")}
         </button>
       </div>
 
@@ -623,10 +621,10 @@ export const FootnoteDetectiveLab: React.FC = () => {
           <div className="lg:col-span-7 space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-sm font-extrabold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
-                {isEnglish ? "Economic Balance Sheet Items (10-K / Audit)" : "Ekonomik Bilanço Kalemleri (10-K Raporu)"}
+                {t("FootnoteDetectiveLab.economic_balance_she_1012")}
               </h3>
               <span className="text-xs text-indigo-600 dark:text-indigo-400 font-semibold">
-                {isEnglish ? "Click footnote buttons to inspect 🔍" : "Dipnot ikonuna tıklayarak inceleyin 🔍"}
+                {t("FootnoteDetectiveLab.click_footnote_butto_1013")}
               </span>
             </div>
 
@@ -634,25 +632,25 @@ export const FootnoteDetectiveLab: React.FC = () => {
               <table className="w-full min-w-[480px] text-left">
                 <thead className="bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 font-bold border-b border-slate-200 dark:border-slate-700">
                   <tr>
-                    <th className="p-3">{isEnglish ? "Balance Sheet Line" : "Bilanço Kalemi"}</th>
-                    <th className="p-3 text-right">{isEnglish ? "Reported" : "Raporlanan"}</th>
-                    <th className="p-3 text-center">{isEnglish ? "Footnote" : "Dipnot"}</th>
-                    <th className="p-3 text-right">{isEnglish ? "Adjustment Action" : "Düzeltme"}</th>
+                    <th className="p-3">{t("FootnoteDetectiveLab.balance_sheet_line_1014")}</th>
+                    <th className="p-3 text-right">{t("FootnoteDetectiveLab.reported_1015")}</th>
+                    <th className="p-3 text-center">{t("FootnoteDetectiveLab.footnote_1016")}</th>
+                    <th className="p-3 text-right">{t("FootnoteDetectiveLab.adjustment_action_1017")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-slate-800 dark:text-slate-200">
                   {/* Total Assets */}
                   <tr className="bg-slate-50/50 dark:bg-slate-900/50">
-                    <td className="p-3 font-bold">{isEnglish ? "Total Assets" : "Toplam Varlıklar (Total Assets)"}</td>
+                    <td className="p-3 font-bold">{t("FootnoteDetectiveLab.total_assets_1018")}</td>
                     <td className="p-3 text-right font-mono font-bold">{currentCase.reportedTotalAssets.toLocaleString()}</td>
                     <td className="p-3 text-center">-</td>
-                    <td className="p-3 text-right text-slate-400">{isEnglish ? "Raw Base" : "Ham Taban"}</td>
+                    <td className="p-3 text-right text-slate-400">{t("FootnoteDetectiveLab.raw_base_1019")}</td>
                   </tr>
 
                   {/* Excess Cash */}
                   <tr className={appliedAdjustments["excess-cash-item"] ? "bg-emerald-50/40 dark:bg-emerald-950/20" : ""}>
                     <td className="p-3 pl-6 flex items-center gap-1.5">
-                      <span>{isEnglish ? "↳ Cash & Marketable Securities (Treasury Bills)" : "↳ Nakit ve Vadeli Hazine Bonoları"}</span>
+                      <span>{t("FootnoteDetectiveLab.cash_marketable_sec_1020")}</span>
                     </td>
                     <td className="p-3 text-right font-mono">{currentCase.reportedCashAndEquivalents.toLocaleString()}</td>
                     <td className="p-3 text-center">
@@ -660,7 +658,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
                         onClick={() => setSelectedFootnoteId("excess-cash-item")}
                         className="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 font-bold text-[10px] hover:scale-105 transition-transform cursor-pointer"
                       >
-                        {isEnglish ? "Note 4" : "Dipnot 4"}
+                        {t("FootnoteDetectiveLab.note_4_1021")}
                       </button>
                     </td>
                     <td className="p-3 text-right">
@@ -675,7 +673,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
                         >
                           {appliedAdjustments["excess-cash-item"]
                             ? (isEnglish ? `✓ Deducted (-${currentCase.reportedNonOperatingCash.toLocaleString()})` : `✓ Düşüldü (-${currentCase.reportedNonOperatingCash.toLocaleString()})`)
-                            : (isEnglish ? "Deduct Excess Cash" : "Atıl Nakdi Çıkar")}
+                            : (t("FootnoteDetectiveLab.deduct_excess_cash_1022"))}
                         </button>
                       )}
                     </td>
@@ -685,15 +683,15 @@ export const FootnoteDetectiveLab: React.FC = () => {
                   {currentCase.id === "retail-leases-capitalization" && (
                     <tr className={appliedAdjustments["operating-leases-item"] ? "bg-emerald-50/40 dark:bg-emerald-950/20" : ""}>
                       <td className="p-3 pl-6 font-semibold text-indigo-700 dark:text-indigo-300">
-                        {isEnglish ? "↳ Capitalized Right-of-Use Asset (Store Leases)" : "↳ Kullanım Hakkı Varlığı (Mağaza Kiraları)"}
+                        {t("FootnoteDetectiveLab.capitalized_right_o_1023")}
                       </td>
-                      <td className="p-3 text-right font-mono text-slate-400">{isEnglish ? "0 (Historical GAAP)" : "0 (Eski US GAAP)"}</td>
+                      <td className="p-3 text-right font-mono text-slate-400">{t("FootnoteDetectiveLab.0_historical_gaap_1024")}</td>
                       <td className="p-3 text-center">
                         <button
                           onClick={() => setSelectedFootnoteId("operating-leases-item")}
                           className="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 font-bold text-[10px] hover:scale-105 transition-transform cursor-pointer"
                         >
-                          {isEnglish ? "Note 21" : "Dipnot 21"}
+                          {t("FootnoteDetectiveLab.note_21_1025")}
                         </button>
                       </td>
                       <td className="p-3 text-right">
@@ -705,7 +703,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
                               : "bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800"
                           }`}
                         >
-                          {appliedAdjustments["operating-leases-item"] ? (isEnglish ? "✓ Added (+16,500)" : "✓ Eklendi (+16.500)") : (isEnglish ? "Capitalize Leases" : "Kirayı Aktifleştir")}
+                          {appliedAdjustments["operating-leases-item"] ? (t("FootnoteDetectiveLab.added_16_500_1026")) : (t("FootnoteDetectiveLab.capitalize_leases_1027"))}
                         </button>
                       </td>
                     </tr>
@@ -715,15 +713,15 @@ export const FootnoteDetectiveLab: React.FC = () => {
                   {currentCase.id === "tech-cloud-rnd" && (
                     <tr className={appliedAdjustments["rnd-expense"] ? "bg-emerald-50/40 dark:bg-emerald-950/20" : ""}>
                       <td className="p-3 pl-6 font-semibold text-indigo-700 dark:text-indigo-300">
-                        {isEnglish ? "↳ Capitalized Net R&D Software Asset" : "↳ Birikmiş Ar-Ge Yazılım Varlığı (Capitalized R&D)"}
+                        {t("FootnoteDetectiveLab.capitalized_net_r_d_1028")}
                       </td>
-                      <td className="p-3 text-right font-mono text-slate-400">{isEnglish ? "0 (Expensed under GAAP)" : "0 (Gider Yazıldı)"}</td>
+                      <td className="p-3 text-right font-mono text-slate-400">{t("FootnoteDetectiveLab.0_expensed_under_gaa_1029")}</td>
                       <td className="p-3 text-center">
                         <button
                           onClick={() => setSelectedFootnoteId("rnd-expense")}
                           className="px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 font-bold text-[10px] hover:scale-105 transition-transform cursor-pointer"
                         >
-                          {isEnglish ? "Note 14" : "Dipnot 14"}
+                          {t("FootnoteDetectiveLab.note_14_1030")}
                         </button>
                       </td>
                       <td className="p-3 text-right">
@@ -735,7 +733,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
                               : "bg-indigo-50 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800"
                           }`}
                         >
-                          {appliedAdjustments["rnd-expense"] ? (isEnglish ? "✓ Added (+7,200)" : "✓ Eklendi (+7.200)") : (isEnglish ? "Capitalize R&D" : "Ar-Ge'yi Aktifleştir")}
+                          {appliedAdjustments["rnd-expense"] ? (t("FootnoteDetectiveLab.added_7_200_1031")) : (t("FootnoteDetectiveLab.capitalize_r_d_1032"))}
                         </button>
                       </td>
                     </tr>
@@ -744,26 +742,26 @@ export const FootnoteDetectiveLab: React.FC = () => {
                   {/* Current Liabilities */}
                   <tr>
                     <td className="p-3 font-semibold text-rose-600 dark:text-rose-400">
-                      {isEnglish ? "(-) Non-Interest Bearing Current Liabilities (NIBCL)" : "(-) Kısa Vadeli Ticari & Faizsiz Borçlar (NIBCL)"}
+                      {t("FootnoteDetectiveLab.non_interest_bearin_1033")}
                     </td>
                     <td className="p-3 text-right font-mono font-bold text-rose-600">
                       -{currentCase.reportedCurrentLiabilities.toLocaleString()}
                     </td>
                     <td className="p-3 text-center">-</td>
-                    <td className="p-3 text-right text-slate-400">{isEnglish ? "Auto Deducted" : "Otomatik İndirilir"}</td>
+                    <td className="p-3 text-right text-slate-400">{t("FootnoteDetectiveLab.auto_deducted_1034")}</td>
                   </tr>
 
                   {/* Result: Invested Capital */}
                   <tr className="bg-indigo-50 dark:bg-indigo-950/60 font-bold text-slate-900 dark:text-slate-100">
-                    <td className="p-3">{isEnglish ? "ADJUSTED INVESTED CAPITAL (IC)" : "DÜZELTİLMİŞ YATIRILAN SERMAYE (Invested Capital)"}</td>
+                    <td className="p-3">{t("FootnoteDetectiveLab.adjusted_invested_ca_1035")}</td>
                     <td className="p-3 text-right font-mono font-bold text-indigo-600 dark:text-indigo-400 text-sm">
                       {Math.round(adjInvestedCapital).toLocaleString()} {currencyLabel}
                     </td>
                     <td className="p-3 text-center">-</td>
                     <td className="p-3 text-right font-mono text-emerald-600 dark:text-emerald-400">
                       {adjInvestedCapital !== rawInvestedCapital
-                        ? `${isEnglish ? "Delta: " : "Fark: "}${(adjInvestedCapital - rawInvestedCapital > 0 ? "+" : "") + (adjInvestedCapital - rawInvestedCapital).toLocaleString()}`
-                        : (isEnglish ? "No Adjustments" : "Düzeltme Yok")}
+                        ? `${t("FootnoteDetectiveLab.delta_1036")}${(adjInvestedCapital - rawInvestedCapital > 0 ? "+" : "") + (adjInvestedCapital - rawInvestedCapital).toLocaleString()}`
+                        : (t("FootnoteDetectiveLab.no_adjustments_1037"))}
                     </td>
                   </tr>
                 </tbody>
@@ -772,12 +770,10 @@ export const FootnoteDetectiveLab: React.FC = () => {
 
             <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs text-slate-600 dark:text-slate-300 space-y-1">
               <strong className="text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
-                <BookOpen className="w-4 h-4 text-indigo-600" /> {isEnglish ? "Mauboussin Invested Capital (IC) Equation:" : "Mauboussin Yatırılan Sermaye (IC) Formülü:"}
+                <BookOpen className="w-4 h-4 text-indigo-600" /> {t("FootnoteDetectiveLab.mauboussin_invested_1038")}
               </strong>
               <p className="font-mono text-[11px] text-indigo-700 dark:text-indigo-300">
-                {isEnglish
-                  ? "Invested Capital = Total Assets - Non-Operating Excess Cash + Capitalized Intangibles & Leases - NIBCL"
-                  : "Invested Capital = Toplam Varlıklar - Operasyon Dışı Atıl Nakit + Aktifleştirilen Ar-Ge & Kiralar - Faizsiz Kısa Vadeli Borçlar"}
+                {t("FootnoteDetectiveLab.invested_capital_tot_1039")}
               </p>
             </div>
           </div>
@@ -786,7 +782,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
           <div className="lg:col-span-5 space-y-4">
             <h3 className="text-sm font-extrabold text-slate-900 dark:text-slate-100 uppercase tracking-wider flex items-center gap-2">
               <FileText className="w-4 h-4 text-amber-500" />
-              {isEnglish ? "Footnote Inspector Window" : "Dipnot İnceleme Penceresi"}
+              {t("FootnoteDetectiveLab.footnote_inspector_w_1040")}
             </h3>
 
             {activeFootnote ? (
@@ -806,7 +802,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
 
                 <div className="font-sans space-y-2 pt-2 border-t border-amber-200 dark:border-slate-700">
                   <span className="text-xs font-bold text-indigo-700 dark:text-indigo-300 block">
-                    {isEnglish ? "🔍 Forensic Accounting Audit Note:" : "🔍 Mauboussin Ekonomik Analiz Notu:"}
+                    {t("FootnoteDetectiveLab.forensic_accounting_1041")}
                   </span>
                   <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
                     {isEnglish ? activeFootnote.auditAdjustmentNoteEn : activeFootnote.auditAdjustmentNoteTr}
@@ -825,12 +821,12 @@ export const FootnoteDetectiveLab: React.FC = () => {
                     {appliedAdjustments[activeFootnote.id] ? (
                       <>
                         <CheckCircle2 className="w-4 h-4" />
-                        <span>{isEnglish ? "Adjustment Active (Click to Revert)" : "Düzeltme Aktif (Geri Almak İçin Tıkla)"}</span>
+                        <span>{t("FootnoteDetectiveLab.adjustment_active_cl_1042")}</span>
                       </>
                     ) : (
                       <>
                         <Sparkles className="w-4 h-4 text-amber-300" />
-                        <span>{isEnglish ? "Apply Forensic Adjustment to Model" : "Bu Düzeltmeyi Modele Uygula"}</span>
+                        <span>{t("FootnoteDetectiveLab.apply_forensic_adjus_1043")}</span>
                       </>
                     )}
                   </button>
@@ -840,9 +836,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
               <div className="p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/40 border border-dashed border-slate-300 dark:border-slate-700 text-center space-y-3">
                 <Search className="w-8 h-8 text-slate-400 mx-auto" />
                 <p className="text-xs text-slate-500 max-w-xs mx-auto">
-                  {isEnglish
-                    ? "Click on any Note button in the table on the left to reveal hidden accounting disclosures."
-                    : "Sol taraftaki tablodan Dipnot butonlarına tıklayarak şirketin gizli mali gerçeklerini açığa çıkarın."}
+                  {t("FootnoteDetectiveLab.click_on_any_note_bu_1044")}
                 </p>
               </div>
             )}
@@ -855,22 +849,22 @@ export const FootnoteDetectiveLab: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-7 space-y-4">
             <h3 className="text-sm font-extrabold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
-              {isEnglish ? "Income Statement & NOPAT Derivation" : "Gelir Tablosu ve NOPAT Türetimi"}
+              {t("FootnoteDetectiveLab.income_statement_nop_1045")}
             </h3>
 
             <div className="border border-slate-200 dark:border-slate-700 rounded-2xl overflow-x-auto text-xs">
               <table className="w-full min-w-[500px] text-left">
                 <thead className="bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 font-bold border-b border-slate-200 dark:border-slate-700">
                   <tr>
-                    <th className="p-3">{isEnglish ? "Line Item" : "Gelir Tablosu Kalemi"}</th>
-                    <th className="p-3 text-right">{isEnglish ? "Reported" : "Raporlanan"}</th>
-                    <th className="p-3 text-right">{isEnglish ? "Audit Adjustment" : "Ekonomik Düzeltme"}</th>
-                    <th className="p-3 text-right">{isEnglish ? "Adjusted" : "Düzeltilmiş"}</th>
+                    <th className="p-3">{t("FootnoteDetectiveLab.line_item_1046")}</th>
+                    <th className="p-3 text-right">{t("FootnoteDetectiveLab.reported_1047")}</th>
+                    <th className="p-3 text-right">{t("FootnoteDetectiveLab.audit_adjustment_1048")}</th>
+                    <th className="p-3 text-right">{t("FootnoteDetectiveLab.adjusted_1049")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-slate-800 dark:text-slate-200">
                   <tr>
-                    <td className="p-3 font-bold">{isEnglish ? "Net Revenues" : "Net Satışlar / Hasılat (Revenue)"}</td>
+                    <td className="p-3 font-bold">{t("FootnoteDetectiveLab.net_revenues_1050")}</td>
                     <td className="p-3 text-right font-mono">{rawRevenue.toLocaleString()}</td>
                     <td className="p-3 text-right text-slate-400">-</td>
                     <td className="p-3 text-right font-mono font-bold">{rawRevenue.toLocaleString()}</td>
@@ -880,11 +874,11 @@ export const FootnoteDetectiveLab: React.FC = () => {
                   {currentCase.id === "tech-cloud-rnd" && (
                     <tr className={appliedAdjustments["rnd-expense"] ? "bg-emerald-50/40 dark:bg-emerald-950/20" : ""}>
                       <td className="p-3 pl-6 text-indigo-700 dark:text-indigo-300">
-                        {isEnglish ? "(+) R&D Expense Add-Back (Net of Economic Amortization)" : "(+) Ar-Ge Gideri Geri İadesi (Net Amortisman Düşülmüş)"}
+                        {t("FootnoteDetectiveLab.r_d_expense_add_bac_1051")}
                       </td>
-                      <td className="p-3 text-right text-slate-400">{isEnglish ? "-3,500 (Expensed)" : "-3.500 (Gider)"}</td>
+                      <td className="p-3 text-right text-slate-400">{t("FootnoteDetectiveLab.3_500_expensed_1052")}</td>
                       <td className="p-3 text-right text-emerald-600 font-bold">
-                        {appliedAdjustments["rnd-expense"] ? `+1,100 ${currencyLabel}` : (isEnglish ? "0 (Not applied)" : "0 (Uygulanmadı)")}
+                        {appliedAdjustments["rnd-expense"] ? `+1,100 ${currencyLabel}` : (t("FootnoteDetectiveLab.0_not_applied_1053"))}
                       </td>
                       <td className="p-3 text-right font-mono">
                         {appliedAdjustments["rnd-expense"] ? "+1,100" : "0"}
@@ -896,9 +890,9 @@ export const FootnoteDetectiveLab: React.FC = () => {
                   {currentCase.id === "industrial-restructuring-pension" && (
                     <tr className={appliedAdjustments["one-off-restructuring"] ? "bg-emerald-50/40 dark:bg-emerald-950/20" : ""}>
                       <td className="p-3 pl-6 text-indigo-700 dark:text-indigo-300">
-                        {isEnglish ? "(+) One-Off Restructuring Penalty Add-Back" : "(+) Tek Seferlik Fabrika Kapatma Cezası İadesi"}
+                        {t("FootnoteDetectiveLab.one_off_restructuri_1054")}
                       </td>
-                      <td className="p-3 text-right text-slate-400">{isEnglish ? "-1,200 (One-off)" : "-1.200 (Ceza)"}</td>
+                      <td className="p-3 text-right text-slate-400">{t("FootnoteDetectiveLab.1_200_one_off_1055")}</td>
                       <td className="p-3 text-right text-emerald-600 font-bold">
                         {appliedAdjustments["one-off-restructuring"] ? `+1,200 ${currencyLabel}` : "0"}
                       </td>
@@ -912,9 +906,9 @@ export const FootnoteDetectiveLab: React.FC = () => {
                   {currentCase.id === "retail-leases-capitalization" && (
                     <tr className={appliedAdjustments["operating-leases-item"] ? "bg-emerald-50/40 dark:bg-emerald-950/20" : ""}>
                       <td className="p-3 pl-6 text-indigo-700 dark:text-indigo-300">
-                        {isEnglish ? "(+) Reclassification of Imputed Lease Interest from SG&A" : "(+) Kira Gideri İçindeki Zımni Faiz Payının İadesi"}
+                        {t("FootnoteDetectiveLab.reclassification_of_1056")}
                       </td>
-                      <td className="p-3 text-right text-slate-400">{isEnglish ? "In SG&A" : "Faaliyet Giderinde"}</td>
+                      <td className="p-3 text-right text-slate-400">{t("FootnoteDetectiveLab.in_sg_a_1057")}</td>
                       <td className="p-3 text-right text-emerald-600 font-bold">
                         {appliedAdjustments["operating-leases-item"] ? `+1,200 ${currencyLabel}` : "0"}
                       </td>
@@ -926,7 +920,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
 
                   {/* EBIT */}
                   <tr className="bg-slate-50 dark:bg-slate-900/60 font-bold">
-                    <td className="p-3">{isEnglish ? "OPERATING PROFIT (EBIT)" : "FAALİYET KÂRI (EBIT)"}</td>
+                    <td className="p-3">{t("FootnoteDetectiveLab.operating_profit_ebi_1058")}</td>
                     <td className="p-3 text-right font-mono">{rawEbit.toLocaleString()}</td>
                     <td className="p-3 text-right text-emerald-600 font-mono">+{deltaEbit.toLocaleString()}</td>
                     <td className="p-3 text-right font-mono text-indigo-600 dark:text-indigo-400 font-extrabold">
@@ -944,7 +938,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
 
                   {/* NOPAT */}
                   <tr className="bg-indigo-50 dark:bg-indigo-950/80 font-bold text-slate-900 dark:text-slate-100">
-                    <td className="p-3">{isEnglish ? "ADJUSTED NOPAT (Net Operating Profit After Tax)" : "DÜZELTİLMİŞ NOPAT (Net Operating Profit After Tax)"}</td>
+                    <td className="p-3">{t("FootnoteDetectiveLab.adjusted_nopat_net_o_1059")}</td>
                     <td className="p-3 text-right font-mono">{Math.round(rawNopat).toLocaleString()}</td>
                     <td className="p-3 text-right text-emerald-600 font-mono font-bold">+{Math.round(deltaNopat).toLocaleString()}</td>
                     <td className="p-3 text-right font-mono font-black text-indigo-600 dark:text-indigo-400 text-sm">
@@ -959,15 +953,13 @@ export const FootnoteDetectiveLab: React.FC = () => {
           <div className="lg:col-span-5 space-y-4">
             <div className="p-5 rounded-3xl bg-indigo-50 dark:bg-slate-800 border border-indigo-200 dark:border-slate-700 space-y-3">
               <h4 className="text-xs font-bold uppercase tracking-wider text-indigo-700 dark:text-indigo-300 flex items-center gap-1.5">
-                <Sparkles className="w-4 h-4 text-amber-500" /> {isEnglish ? "Why NOPAT Outperforms Net Income:" : "NOPAT Neden Net Kârdan (Net Income) Üstündür?"}
+                <Sparkles className="w-4 h-4 text-amber-500" /> {t("FootnoteDetectiveLab.why_nopat_outperform_1060")}
               </h4>
               <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
-                {isEnglish
-                  ? "Net Income is distorted by debt leverage and capital structure. Two identical factories—one 100% debt-financed and one 100% equity-financed—will show wildly different Net Income. NOPAT measures pure operational economic yield regardless of financing choices."
-                  : "Net Kâr (Net Income), şirketin borç faizlerini ve finansman yapısını içerir. İki özdeş fabrikadan biri %100 krediyle, diğeri %100 özkaynakla kurulduysa Net Kârları bambaşka çıkar. NOPAT ise sermaye yapısından bağımsız olarak fabrikanın salt ekonomik getirisini ölçer."}
+                {t("FootnoteDetectiveLab.net_income_is_distor_1061")}
               </p>
               <div className="p-3 rounded-xl bg-white/80 dark:bg-slate-900/80 border border-indigo-100 dark:border-slate-700 font-mono text-[11px] text-indigo-800 dark:text-indigo-300">
-                NOPAT = EBIT × (1 - {isEnglish ? "Effective Tax Rate" : "Efektif Vergi Oranı"})
+                NOPAT = EBIT × (1 - {t("FootnoteDetectiveLab.effective_tax_rate_1062")})
               </div>
             </div>
           </div>
@@ -979,37 +971,37 @@ export const FootnoteDetectiveLab: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           <div className="lg:col-span-7 space-y-4">
             <h3 className="text-sm font-extrabold text-slate-900 dark:text-slate-100 uppercase tracking-wider">
-              {isEnglish ? "Weighted Average Cost of Capital (WACC) Calculation" : "Ağırlıklı Ortalama Sermaye Maliyeti (WACC) Hesabı"}
+              {t("FootnoteDetectiveLab.weighted_average_cos_1063")}
             </h3>
 
             <div className="border border-slate-200 dark:border-slate-700 rounded-2xl overflow-x-auto text-xs">
               <table className="w-full min-w-[500px] text-left">
                 <thead className="bg-slate-100 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 font-bold border-b border-slate-200 dark:border-slate-700">
                   <tr>
-                    <th className="p-3">{isEnglish ? "Capital Component" : "Sermaye Unsuru"}</th>
+                    <th className="p-3">{t("FootnoteDetectiveLab.capital_component_1064")}</th>
                     <th className="p-3 text-right">{isEnglish ? `Amount (${currencyLabel})` : `Tutar (${currencyLabel})`}</th>
-                    <th className="p-3 text-right">{isEnglish ? "Weight (%)" : "Ağırlık (%)"}</th>
-                    <th className="p-3 text-right">{isEnglish ? "Cost (After-Tax)" : "Maliyet (Vergi Sonrası)"}</th>
-                    <th className="p-3 text-right">{isEnglish ? "Contribution" : "Katkı"}</th>
+                    <th className="p-3 text-right">{t("FootnoteDetectiveLab.weight_1065")}</th>
+                    <th className="p-3 text-right">{t("FootnoteDetectiveLab.cost_after_tax_1066")}</th>
+                    <th className="p-3 text-right">{t("FootnoteDetectiveLab.contribution_1067")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-slate-800 dark:text-slate-200">
                   <tr>
-                    <td className="p-3 font-semibold">{isEnglish ? "Shareholders' Equity (Market Value)" : "Özkaynak (Equity - Piyasa Değeri)"}</td>
+                    <td className="p-3 font-semibold">{t("FootnoteDetectiveLab.shareholders_equity_1068")}</td>
                     <td className="p-3 text-right font-mono">{currentCase.reportedShareholdersEquity.toLocaleString()}</td>
                     <td className="p-3 text-right font-mono">%{(weightEquityAdj * 100).toFixed(1)}</td>
                     <td className="p-3 text-right font-mono font-bold text-indigo-600">%{currentCase.costOfEquity.toFixed(1)} (Ke)</td>
                     <td className="p-3 text-right font-mono font-bold">{((weightEquityAdj * currentCase.costOfEquity)).toFixed(2)}%</td>
                   </tr>
                   <tr>
-                    <td className="p-3 font-semibold">{isEnglish ? "Financial Debt + Debt Equivalents" : "Finansal Borç + Ek Yükümlülükler"}</td>
+                    <td className="p-3 font-semibold">{t("FootnoteDetectiveLab.financial_debt_debt_1069")}</td>
                     <td className="p-3 text-right font-mono">{totalAdjDebt.toLocaleString()}</td>
                     <td className="p-3 text-right font-mono">%{(weightDebtAdj * 100).toFixed(1)}</td>
                     <td className="p-3 text-right font-mono font-bold text-amber-600">%{costOfDebtAfterTaxRaw.toFixed(1)} (Kd × [1-t])</td>
                     <td className="p-3 text-right font-mono font-bold">{((weightDebtAdj * costOfDebtAfterTaxRaw)).toFixed(2)}%</td>
                   </tr>
                   <tr className="bg-indigo-50 dark:bg-indigo-950/80 font-bold text-slate-900 dark:text-slate-100">
-                    <td className="p-3" colSpan={4}>{isEnglish ? "WEIGHTED AVERAGE COST OF CAPITAL (WACC)" : "AĞIRLIKLI SERMAYE MALİYETİ (WACC)"}</td>
+                    <td className="p-3" colSpan={4}>{t("FootnoteDetectiveLab.weighted_average_cos_1070")}</td>
                     <td className="p-3 text-right font-mono text-indigo-600 dark:text-indigo-400 text-sm font-black">
                       %{adjWacc.toFixed(2)}
                     </td>
@@ -1019,7 +1011,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
             </div>
 
             <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-900 text-xs text-amber-900 dark:text-amber-200 space-y-1">
-              <strong>{isEnglish ? "💡 WACC Hurdle Rule:" : "💡 WACC Eşiği Kuralı:"}</strong>{" "}
+              <strong>{t("FootnoteDetectiveLab.wacc_hurdle_rule_1071")}</strong>{" "}
               {isEnglish
                 ? `As long as the company earns ROIC above %${adjWacc.toFixed(1)}, each reinvested dollar creates positive economic value. If ROIC falls below WACC, growth destroys shareholder value!`
                 : `Şirket yeni yatırımlardan %${adjWacc.toFixed(1)}'in üzerinde getiri (ROIC) ürettiği sürece hissedar değeri yaratır. ROIC %${adjWacc.toFixed(1)}'in altına düştüğü an şirket büyüdükçe değer yok eder!`}
@@ -1029,20 +1021,16 @@ export const FootnoteDetectiveLab: React.FC = () => {
           <div className="lg:col-span-5 space-y-4">
             <div className="p-5 rounded-3xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 space-y-3">
               <h4 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                {isEnglish ? "Understanding WACC Components" : "WACC Bileşenlerinin Anlamı"}
+                {t("FootnoteDetectiveLab.understanding_wacc_c_1072")}
               </h4>
               <ul className="text-xs space-y-2 text-slate-600 dark:text-slate-300">
                 <li>
-                  <strong className="text-slate-900 dark:text-slate-100">{isEnglish ? "Ke (Cost of Equity):" : "Ke (Özkaynak Maliyeti):"}</strong>{" "}
-                  {isEnglish
-                    ? "The minimum expected return demanded by equity holders for bearing equity risk (derived via CAPM: Rf + Beta × ERP)."
-                    : "Hissedarların üstlendikleri hisse senedi riski karşılığında talep ettiği asgari getiri beklentisidir (CAPM modeli)."}
+                  <strong className="text-slate-900 dark:text-slate-100">{t("FootnoteDetectiveLab.ke_cost_of_equity_1073")}</strong>{" "}
+                  {t("FootnoteDetectiveLab.the_minimum_expected_1074")}
                 </li>
                 <li>
-                  <strong className="text-slate-900 dark:text-slate-100">{isEnglish ? "Kd (Cost of Debt):" : "Kd (Borçlanma Maliyeti):"}</strong>{" "}
-                  {isEnglish
-                    ? "The effective borrowing interest rate. Since interest is tax-deductible, it is shielded by (1 - Tax Rate)."
-                    : "Şirketin banka kredisi ve tahvil faizidir. Faiz gideri vergiden düşüldüğü için (1 - Vergi Oranı) ile vergi kalkanı sağlanır."}
+                  <strong className="text-slate-900 dark:text-slate-100">{t("FootnoteDetectiveLab.kd_cost_of_debt_1075")}</strong>{" "}
+                  {t("FootnoteDetectiveLab.the_effective_borrow_1076")}
                 </li>
               </ul>
             </div>
@@ -1056,24 +1044,22 @@ export const FootnoteDetectiveLab: React.FC = () => {
           <div className="space-y-1">
             <h3 className="text-base font-extrabold text-slate-900 dark:text-slate-100 flex items-center gap-2">
               <Award className="w-5 h-5 text-amber-500" />
-              {isEnglish ? "Detective Challenge: Guess This Company's Adjusted ROIC & WACC" : "Dedektif Görevi: Bu Şirketin Düzeltilmiş ROIC ve WACC Oranını Tahmin Edin"}
+              {t("FootnoteDetectiveLab.detective_challenge_1077")}
             </h3>
             <p className="text-xs text-slate-600 dark:text-slate-400">
-              {isEnglish
-                ? "Based on your forensic adjustments, enter your calculated ROIC and WACC percentages to test your calibration."
-                : "Yaptığınız dipnot düzeltmeleri neticesinde şirketin nihai ROIC ve WACC oranlarını kutucuklara yazın ve kontrol edin."}
+              {t("FootnoteDetectiveLab.based_on_your_forens_1078")}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl">
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                {isEnglish ? "Adjusted ROIC Guess (%):" : "Düzeltilmiş ROIC Tahmininiz (%):"}
+                {t("FootnoteDetectiveLab.adjusted_roic_guess_1079")}
               </label>
               <input
                 type="number"
                 step="0.1"
-                placeholder={isEnglish ? "e.g. 24.5" : "Örn: 24.5"}
+                placeholder={t("FootnoteDetectiveLab.e_g_24_5_1080")}
                 value={userRoicGuess}
                 onChange={(e) => setUserRoicGuess(e.target.value)}
                 className="w-full p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm font-bold text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
@@ -1082,12 +1068,12 @@ export const FootnoteDetectiveLab: React.FC = () => {
 
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-slate-700 dark:text-slate-300">
-                {isEnglish ? "Adjusted WACC Guess (%):" : "Düzeltilmiş WACC Tahmininiz (%):"}
+                {t("FootnoteDetectiveLab.adjusted_wacc_guess_1081")}
               </label>
               <input
                 type="number"
                 step="0.1"
-                placeholder={isEnglish ? "e.g. 9.2" : "Örn: 9.2"}
+                placeholder={t("FootnoteDetectiveLab.e_g_9_2_1082")}
                 value={userWaccGuess}
                 onChange={(e) => setUserWaccGuess(e.target.value)}
                 className="w-full p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-sm font-bold text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none"
@@ -1101,7 +1087,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
               className="px-6 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-2 cursor-pointer shadow-xs transition-all"
             >
               <CheckCircle2 className="w-4 h-4 text-emerald-300" />
-              <span>{isEnglish ? "Verify Guess" : "Tahmini Kontrol Et"}</span>
+              <span>{t("FootnoteDetectiveLab.verify_guess_1083")}</span>
             </button>
           </div>
 
@@ -1109,26 +1095,26 @@ export const FootnoteDetectiveLab: React.FC = () => {
             <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-indigo-200 dark:border-indigo-800 space-y-3 animate-in fade-in">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase">
-                  {isEnglish ? "Audit Verification Report" : "Kontrol Raporu"}
+                  {t("FootnoteDetectiveLab.audit_verification_r_1084")}
                 </span>
                 <span className="text-xs font-mono font-bold text-slate-500">
-                  {isEnglish ? "Target Values: " : "Gerçek Değerler: "}ROIC %{adjRoic.toFixed(1)} | WACC %{adjWacc.toFixed(1)}
+                  {t("FootnoteDetectiveLab.target_values_1085")}ROIC %{adjRoic.toFixed(1)} | WACC %{adjWacc.toFixed(1)}
                 </span>
               </div>
 
               <div className="text-xs space-y-2 text-slate-700 dark:text-slate-300">
                 <p>
-                  <strong>{isEnglish ? "ROIC Accuracy:" : "ROIC Durumu:"}</strong>{" "}
+                  <strong>{t("FootnoteDetectiveLab.roic_accuracy_1086")}</strong>{" "}
                   {Math.abs(parseFloat(userRoicGuess || "0") - adjRoic) <= 1.0
-                    ? (isEnglish ? "🎯 Excellent! You calculated the exact economic ROIC." : "🎯 Harika! ROIC değerini neredeyse birebir doğru hesapladınız.")
+                    ? (t("FootnoteDetectiveLab.excellent_you_calcu_1087"))
                     : (isEnglish
                         ? `Close. Adjusted NOPAT (${Math.round(adjNopat).toLocaleString()}) / Adjusted Capital (${Math.round(adjInvestedCapital).toLocaleString()}) = %${adjRoic.toFixed(1)}.`
                         : `Yaklaştınız. Düzeltilmiş NOPAT (${Math.round(adjNopat).toLocaleString()}) / Düzeltilmiş Sermaye (${Math.round(adjInvestedCapital).toLocaleString()}) = %${adjRoic.toFixed(1)}.`)}
                 </p>
                 <p>
-                  <strong>{isEnglish ? "WACC Accuracy:" : "WACC Durumu:"}</strong>{" "}
+                  <strong>{t("FootnoteDetectiveLab.wacc_accuracy_1088")}</strong>{" "}
                   {Math.abs(parseFloat(userWaccGuess || "0") - adjWacc) <= 0.5
-                    ? (isEnglish ? "🎯 Spot on! Your cost of capital calculation is perfectly accurate." : "🎯 Kusursuz! Ağırlıklı sermaye maliyetini tam tutturdunuz.")
+                    ? (t("FootnoteDetectiveLab.spot_on_your_cost_o_1089"))
                     : (isEnglish
                         ? `The weighted average cost of capital evaluates to %${adjWacc.toFixed(1)}.`
                         : `Ağırlıklı sermaye maliyeti %${adjWacc.toFixed(1)} olarak gerçekleşti.`)}
@@ -1144,7 +1130,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
         <CheckCircle2 className="w-5 h-5 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
         <div className="space-y-1 text-xs sm:text-sm text-indigo-950 dark:text-indigo-200 leading-relaxed">
           <strong className="font-bold text-indigo-900 dark:text-indigo-300 block">
-            {isEnglish ? "Michael Mauboussin Footnote Forensic Principle:" : "Michael Mauboussin Dipnot Analizi İlkesi:"}
+            {t("FootnoteDetectiveLab.michael_mauboussin_f_1090")}
           </strong>
           {isEnglish ? currentCase.takeawayEn : currentCase.takeawayTr}
         </div>
@@ -1160,11 +1146,11 @@ export const FootnoteDetectiveLab: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("FootnoteDetectiveLab.see_the_calculation_1091")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("FootnoteDetectiveLab.hide_1092")) : (t("FootnoteDetectiveLab.show_1093"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -1187,26 +1173,26 @@ export const FootnoteDetectiveLab: React.FC = () => {
               <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
                   <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                  <span>{isEnglish ? "Forensic Economic Adjustments Blueprint" : "Adli Muhasebe ve Ekonomik Düzeltme Formülleri"}</span>
+                  <span>{t("FootnoteDetectiveLab.forensic_economic_ad_1094")}</span>
                 </div>
                 <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
-                  <span>{isEnglish ? "Adjusted NOPAT = (Reported EBIT + R&D Expense - R&D Amortization ± One-Offs) × (1 - t)" : "Düzeltilmiş NOPAT = (EBIT + Ar-Ge Gideri - Ekonomik Amortisman ± Tek Seferlikler) × (1 - t)"}</span>
+                  <span>{t("FootnoteDetectiveLab.adjusted_nopat_repor_1095")}</span>
                   <br />
-                  <span>{isEnglish ? "Adjusted Invested Capital = Reported Net Assets + Capitalized R&D Asset + Operating Lease Asset - Excess Cash" : "Düzeltilmiş Sermaye = Raporlanan Net Varlıklar + Aktifleştirilen Ar-Ge + Faaliyet Kiralaması Varlığı - Fazla Nakit"}</span>
+                  <span>{t("FootnoteDetectiveLab.adjusted_invested_ca_1096")}</span>
                   <br />
-                  <span>{isEnglish ? "Adjusted ROIC = Adjusted NOPAT / Adjusted Invested Capital" : "Düzeltilmiş ROIC = Düzeltilmiş NOPAT / Düzeltilmiş Yatırılan Sermaye"}</span>
+                  <span>{t("FootnoteDetectiveLab.adjusted_roic_adjust_1097")}</span>
                 </div>
               </div>
 
               {/* Step-by-Step Diagnostic Breakdown */}
               <div className="space-y-3">
                 <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  {isEnglish ? "Current Scenario Adjustments Audit" : "Mevcut Senaryo Düzeltme Röntgeni"}
+                  {t("FootnoteDetectiveLab.current_scenario_adj_1098")}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-indigo-600 dark:text-indigo-400 block font-bold mb-1">
-                      {isEnglish ? "Reported vs Adjusted Metrics" : "Raporlanan vs Düzeltilmiş Değerler"}
+                      {t("FootnoteDetectiveLab.reported_vs_adjusted_1099")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {isEnglish
@@ -1216,7 +1202,7 @@ export const FootnoteDetectiveLab: React.FC = () => {
                   </div>
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-emerald-600 dark:text-emerald-400 block font-bold mb-1">
-                      {isEnglish ? "Cost of Capital Impact" : "Sermaye Maliyeti Etkisi"}
+                      {t("FootnoteDetectiveLab.cost_of_capital_impa_1100")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {isEnglish

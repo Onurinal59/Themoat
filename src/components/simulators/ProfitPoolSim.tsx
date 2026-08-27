@@ -180,7 +180,7 @@ const INDUSTRY_POOLS: IndustryPool[] = [
 ];
 
 export const ProfitPoolSim: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const [selectedIndustryIdx, setSelectedIndustryIdx] = useState<number>(0);
   const [selectedSegmentIdx, setSelectedSegmentIdx] = useState<number>(0);
   const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
@@ -206,19 +206,17 @@ export const ProfitPoolSim: React.FC = () => {
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-1">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50">
-              {isEnglish ? "Step 4 Interactive Terminal" : "4. Adım İnteraktif Terminal"}
+              {t("ProfitPoolSim.step_4_interactive_t_1175")}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {isEnglish ? "Michael Porter & McKinsey Profit Pool" : "Michael Porter & McKinsey Kâr Havuzu"}
+              {t("ProfitPoolSim.michael_porter_mckin_1176")}
             </span>
           </div>
           <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {isEnglish ? "Industry Value Chain Profit Pool Diagnostic" : "Sektör Değer Zinciri Kâr Havuzu (Profit Pool) Röntgeni"}
+            {t("ProfitPoolSim.industry_value_chain_1177")}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-            {isEnglish
-              ? "Compare capital tied up vs economic profit captured across value chain nodes. Spot the bottlenecks harvesting massive ROIC with tiny capital requirements."
-              : "Değer zincirindeki halkaların bağladığı sermaye ile kaptığı kârı karşılaştırın. Sıfır sermaye ile kâr havuzunu süpüren tekel darboğazlarını anında tespit edin."}
+            {t("ProfitPoolSim.compare_capital_tied_1178")}
           </p>
         </div>
 
@@ -250,10 +248,10 @@ export const ProfitPoolSim: React.FC = () => {
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
               <Layers className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              {isEnglish ? "Select Value Chain Node:" : "Değer Zinciri Halkası Seçin:"}
+              {t("ProfitPoolSim.select_value_chain_n_1179")}
             </h3>
             <span className="text-[11px] font-semibold text-slate-400">
-              {activeIndustry.segments.length} {isEnglish ? "Nodes" : "Halka"}
+              {activeIndustry.segments.length} {t("ProfitPoolSim.nodes_1180")}
             </span>
           </div>
 
@@ -288,10 +286,10 @@ export const ProfitPoolSim: React.FC = () => {
 
                   <div className="grid grid-cols-2 gap-2 mt-2 text-[11px] text-slate-500 dark:text-slate-400 font-mono">
                     <div>
-                      {isEnglish ? "Profit Share: " : "Kâr Payı: "}%{seg.profitShare}
+                      {t("ProfitPoolSim.profit_share_1181")}%{seg.profitShare}
                     </div>
                     <div>
-                      {isEnglish ? "Capital Tied: " : "Bağlanan Sermaye: "}%{seg.capitalShare}
+                      {t("ProfitPoolSim.capital_tied_1182")}%{seg.capitalShare}
                     </div>
                   </div>
                 </button>
@@ -302,11 +300,9 @@ export const ProfitPoolSim: React.FC = () => {
           {/* Action-Oriented Pedagogical Directive */}
           <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-900 dark:text-amber-200">
             <strong className="block font-bold text-amber-800 dark:text-amber-300 mb-1">
-              💡 {isEnglish ? "Action-Oriented Insight:" : "Eyleme Dönük Kâr Havuzu Teşhisi:"}
+              💡 {t("ProfitPoolSim.action_oriented_insi_1183")}
             </strong>
-            {isEnglish
-              ? "Click on 'Airline Passenger Carriers'. Look at the right chart: see how it consumes 58% of capital but captures only 12% profit (ROIC 4.8% < WACC 9.5%). Then click 'GDS Booking Software' to witness how zero capital generates 38.5% ROIC!"
-              : "Soldan 'Havayolu Taşıyıcıları'na tıklayın. Sağdaki grafikte sermayenin %58'ini bağlamasına rağmen kârın sadece %12'sini alabildiğini ve ROIC'sinin (%4.8) WACC'nin (%9.5) altında kalarak değer yok ettiğini görün. Ardından 'GDS Rezervasyon' halkasına tıklayarak sıfır sermayeyle %38.5 ROIC'nin nasıl toplandığını inceleyin!"}
+            {t("ProfitPoolSim.click_on_airline_pas_1184")}
           </div>
         </div>
 
@@ -318,11 +314,11 @@ export const ProfitPoolSim: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <BarChart3 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  {isEnglish ? "Capital Tied vs Profit Captured (%)" : "Bağlanan Sermaye vs Alınan Kâr Payı (%)"}
+                  {t("ProfitPoolSim.capital_tied_vs_prof_1185")}
                 </span>
               </div>
               <span className="text-[11px] font-mono text-slate-500">
-                {isEnglish ? "Higher Profit with Lower Capital = High Moat" : "Düşük Sermaye + Yüksek Kâr = Hendek"}
+                {t("ProfitPoolSim.higher_profit_with_l_1186")}
               </span>
             </div>
 
@@ -338,12 +334,8 @@ export const ProfitPoolSim: React.FC = () => {
                         valueFormatter={(val, name) => [
                           `%${val}`,
                           name === "profitShare"
-                            ? isEnglish
-                              ? "Profit Pool Share"
-                              : "Kâr Havuzu Payı"
-                            : isEnglish
-                            ? "Capital Invested Share"
-                            : "Bağlanan Sermaye Payı",
+                            ? t("ProfitPoolSim.profit_pool_share_1187")
+                            : t("ProfitPoolSim.capital_invested_sha_1188"),
                         ]}
                       />
                     }
@@ -352,12 +344,8 @@ export const ProfitPoolSim: React.FC = () => {
                     wrapperStyle={{ fontSize: "11px", paddingTop: "8px" }}
                     formatter={(value) =>
                       value === "profitShare"
-                        ? isEnglish
-                          ? "Kâr Payı (Profit Share)"
-                          : "Kâr Payı (Profit %)"
-                        : isEnglish
-                        ? "Sermaye Payı (Capital Share)"
-                        : "Sermaye Payı (Capital %)"
+                        ? t("ProfitPoolSim.k_r_pay_profit_share_1189")
+                        : t("ProfitPoolSim.sermaye_pay_capital_1190")
                     }
                   />
                   <Bar dataKey="profitShare" fill="#10B981" radius={[4, 4, 0, 0]} />
@@ -372,7 +360,7 @@ export const ProfitPoolSim: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                  {isEnglish ? "Active Value Chain Analysis" : "Seçili Değer Zinciri İncelemesi"}
+                  {t("ProfitPoolSim.active_value_chain_a_1191")}
                 </span>
                 <h4 className="text-base sm:text-lg font-black text-slate-900 dark:text-slate-100">
                   {isEnglish ? activeSegment.nameEn : activeSegment.nameTr}
@@ -415,9 +403,7 @@ export const ProfitPoolSim: React.FC = () => {
               {isEnglish ? activeSegment.descEn : activeSegment.descTr}
             </p>
             <p className="text-[10px] text-slate-400 dark:text-slate-500 italic pt-1 border-t border-slate-200/60 dark:border-slate-800/60">
-              {isEnglish
-                ? "Illustrative teaching scenario — figures are not current company estimates or investment views."
-                : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
+              {t("ProfitPoolSim.illustrative_teachin_1192")}
             </p>
           </div>
         </div>
@@ -433,11 +419,11 @@ export const ProfitPoolSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("ProfitPoolSim.see_the_calculation_1193")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("ProfitPoolSim.hide_1194")) : (t("ProfitPoolSim.show_1195"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -460,26 +446,26 @@ export const ProfitPoolSim: React.FC = () => {
               <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
                   <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                  <span>{isEnglish ? "Profit Pool Asymmetry & Economic Spread Formula" : "Kâr Havuzu Asimetrisi ve Ekonomik Yayılım Formülü"}</span>
+                  <span>{t("ProfitPoolSim.profit_pool_asymmetr_1196")}</span>
                 </div>
                 <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
-                  <span>{isEnglish ? "Economic Spread = ROIC - WACC" : "Ekonomik Yayılım (Spread) = ROIC - WACC"}</span>
+                  <span>{t("ProfitPoolSim.economic_spread_roic_1197")}</span>
                   <br />
-                  <span>{isEnglish ? "Profit Pool Capture Index = Profit Share (%) / Capital Share (%)" : "Kâr Havuzu Çekim Endeksi = Kâr Payı (%) / Sermaye Payı (%)"}</span>
+                  <span>{t("ProfitPoolSim.profit_pool_capture_1198")}</span>
                   <br />
-                  <span>{isEnglish ? "Value Creation = Spread > 0 & Capture Index > 1.0" : "Değer Yaratma = Yayılım > 0 & Çekim Endeksi > 1.0"}</span>
+                  <span>{t("ProfitPoolSim.value_creation_sprea_1199")}</span>
                 </div>
               </div>
 
               {/* Step-by-Step Diagnostic Breakdown */}
               <div className="space-y-3">
                 <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  {isEnglish ? "Active Value Chain Step-by-Step Diagnostic" : "Seçili Değer Zinciri Adım Adım Teşhis Röntgeni"}
+                  {t("ProfitPoolSim.active_value_chain_s_1200")}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 block font-bold mb-1">
-                      {isEnglish ? "1. Capital vs Profit Ratio" : "1. Sermaye vs Kâr Oranı"}
+                      {t("ProfitPoolSim.1_capital_vs_profit_1201")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {isEnglish
@@ -489,7 +475,7 @@ export const ProfitPoolSim: React.FC = () => {
                   </div>
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 block font-bold mb-1">
-                      {isEnglish ? "2. Spread & Hurdle Rate" : "2. Yayılım ve Sermaye Maliyeti"}
+                      {t("ProfitPoolSim.2_spread_hurdle_rate_1202")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {isEnglish
@@ -499,16 +485,12 @@ export const ProfitPoolSim: React.FC = () => {
                   </div>
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 block font-bold mb-1">
-                      {isEnglish ? "3. Strategic Moat Verdict" : "3. Stratejik Hendek Kararı"}
+                      {t("ProfitPoolSim.3_strategic_moat_ver_1203")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {activeSegment.roic >= activeSegment.wacc
-                        ? isEnglish
-                          ? "Value compounder! Generates high returns above cost of capital."
-                          : "Değer üreteci! Sermaye maliyetinin üzerinde net ekonomik refah yaratır."
-                        : isEnglish
-                          ? "Value destroyer / capital trap. Destroys capital despite high physical presence."
-                          : "Sermaye tuzağı / değer yok edici. Fiziksel varlığına rağmen sermaye eritir."}
+                        ? t("ProfitPoolSim.value_compounder_gen_1204")
+                        : t("ProfitPoolSim.value_destroyer_capi_1205")}
                     </p>
                   </div>
                 </div>

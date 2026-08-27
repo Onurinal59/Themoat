@@ -206,6 +206,8 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
   onOpenFormulaWorkshop,
   onReviewMissedInFlashcards,
 }) => {
+  const { t, formatPercent, formatCurrency } = useLanguage();
+
   const { isEnglish, getFormulaGuides } = useLanguage();
   const formulaGuidesMap = getFormulaGuides();
   const [selectedAnswers, setSelectedAnswers] = useState<Record<string, number>>({});
@@ -347,7 +349,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
           className="flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-200 shadow-xs transition-colors cursor-pointer"
         >
           <ArrowLeft className="w-4 h-4" />
-          <span>{isEnglish ? "Back to Roadmap" : "Yol Haritasına Dön"}</span>
+          <span>{t("ModuleReader.back_to_roadmap_495")}</span>
         </motion.button>
 
         <div className="flex items-center gap-2">
@@ -357,11 +359,11 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               whileTap={{ scale: 0.97 }}
               onClick={() => onOpenLabSim(labConfig.simId)}
               className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/60 dark:hover:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 text-xs font-bold transition-all shadow-xs cursor-pointer"
-              title={isEnglish ? "Open this module's simulator in the lab" : "Bu modülün simülatörünü laboratuvarda aç"}
+              title={t("ModuleReader.open_this_module_s_s_496")}
             >
               <FlaskConical className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-              <span className="hidden sm:inline">{isEnglish ? "Try in Lab" : "Laboratuvarda Dene"}</span>
-              <span className="sm:hidden">{isEnglish ? "Lab" : "Laboratuvar"}</span>
+              <span className="hidden sm:inline">{t("ModuleReader.try_in_lab_497")}</span>
+              <span className="sm:hidden">{t("ModuleReader.lab_498")}</span>
             </motion.button>
           )}
 
@@ -372,7 +374,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-800 text-xs font-semibold shadow-xs cursor-pointer"
           >
             <BookOpen className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-            <span>{isEnglish ? "Glossary" : "Sözlük"}</span>
+            <span>{t("ModuleReader.glossary_499")}</span>
           </motion.button>
 
           <motion.button
@@ -382,7 +384,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 text-xs font-semibold shadow-xs cursor-pointer"
           >
             <MessageSquare className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-            <span>{isEnglish ? "Ask Coach" : "Koça Sor"}</span>
+            <span>{t("ModuleReader.ask_coach_500")}</span>
           </motion.button>
         </div>
       </div>
@@ -400,7 +402,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             </div>
             <div className="text-xs sm:text-sm leading-relaxed">
               <span className="font-extrabold text-amber-900 dark:text-amber-200">
-                {isEnglish ? "Preview mode — " : "Önizleme modu — "}
+                {t("ModuleReader.preview_mode_501")}
               </span>
               <span className="text-amber-800 dark:text-amber-300">
                 {isEnglish
@@ -448,7 +450,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
           <Sparkles className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
           <div className="space-y-1 text-sm text-amber-950 dark:text-amber-100">
             <strong className="block font-bold text-amber-950 dark:text-amber-50 text-sm">
-              {isEnglish ? "💡 Core Intuition & Real-Life Analogy" : "💡 Temel Sezgi & Günlük Hayat Analojisi"}
+              {t("ModuleReader.core_intuition_real_502")}
             </strong>
             <p className="leading-relaxed text-sm text-amber-900 dark:text-amber-200">{module.zeroKnowledgeSummary}</p>
           </div>
@@ -459,7 +461,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
           <div className="p-4 sm:p-5 rounded-2xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/60 space-y-2.5">
             <div className="flex items-center gap-2 text-xs font-bold text-indigo-900 dark:text-indigo-300">
               <Compass className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              <span>{isEnglish ? "🧭 Learning Bridge & Why This Step?" : "🧭 Öğrenme Köprüsü & Neden Bu Adım?"}</span>
+              <span>{t("ModuleReader.learning_bridge_why_503")}</span>
             </div>
             
             {module.moduleBridge.takeawayFromPrev && (
@@ -467,7 +469,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 <span className="font-semibold text-slate-900 dark:text-slate-100">
                   {module.moduleBridge.prevTitle
                     ? isEnglish ? `Previous Step (${module.moduleBridge.prevTitle}): ` : `Önceki Adım (${module.moduleBridge.prevTitle}): `
-                    : isEnglish ? "Previous Step: " : "Önceki Adım: "}
+                    : t("ModuleReader.previous_step_504")}
                 </span>
                 {module.moduleBridge.takeawayFromPrev}
               </div>
@@ -475,7 +477,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
 
             <div className="text-xs sm:text-sm text-indigo-950 dark:text-indigo-200 font-medium bg-white/80 dark:bg-slate-900/70 p-3 rounded-xl border border-indigo-100 dark:border-indigo-900/60 flex items-start gap-2">
               <span className="text-indigo-600 dark:text-indigo-400 font-bold shrink-0">
-                {isEnglish ? "🎯 Target Question to Solve:" : "🎯 Çözeceğimiz Soru:"}
+                {t("ModuleReader.target_question_to_505")}
               </span>
               <span>{module.moduleBridge.transitionQuestion}</span>
             </div>
@@ -487,16 +489,16 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80 space-y-2.5">
             <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
               <FileText className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
-              <span>{isEnglish ? "Academic Sources & Analytical Scope" : "Akademik Kaynak & Metodolojik Kapsam"}</span>
+              <span>{t("ModuleReader.academic_sources_ana_506")}</span>
             </div>
             <div className="flex flex-wrap gap-x-5 gap-y-1.5 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
               <div>
-                <span className="font-bold text-slate-900 dark:text-slate-100">{isEnglish ? "Primary Source: " : "Ana Kaynak: "}</span>
+                <span className="font-bold text-slate-900 dark:text-slate-100">{t("ModuleReader.primary_source_507")}</span>
                 <span>{module.sourceAndAssumption.primarySource}</span>
               </div>
               {module.sourceAndAssumption.secondarySource && (
                 <div>
-                  <span className="font-bold text-slate-900 dark:text-slate-100">{isEnglish ? "Secondary: " : "İkincil: "}</span>
+                  <span className="font-bold text-slate-900 dark:text-slate-100">{t("ModuleReader.secondary_508")}</span>
                   <span>{module.sourceAndAssumption.secondarySource}</span>
                 </div>
               )}
@@ -514,7 +516,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 hover:underline cursor-pointer min-h-[36px]"
               >
                 <ExternalLink className="w-3.5 h-3.5" />
-                <span>{isEnglish ? "Official Morgan Stanley \"Measuring the Moat\" (2024) PDF" : "Resmi Morgan Stanley \"Measuring the Moat\" (2024) PDF Raporu"}</span>
+                <span>{t("ModuleReader.official_morgan_stan_509")}</span>
               </a>
             </div>
           </div>
@@ -543,7 +545,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 <div className="flex items-center gap-2 text-xs font-bold text-indigo-900 dark:text-indigo-300">
                   <Layers className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                   <span>
-                    {section.analogyBox?.title || (isEnglish ? "Everyday Analogy: Understand from Scratch" : "Sıfırdan Analoji: Günlük Hayattan Bir Örnekle Anlayalım")}
+                    {section.analogyBox?.title || (t("ModuleReader.everyday_analogy_und_510"))}
                   </span>
                 </div>
                 <p className="text-xs sm:text-sm text-indigo-950 dark:text-indigo-200 leading-relaxed">
@@ -559,7 +561,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 <div className="px-4 sm:px-5 py-3 bg-slate-100 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between gap-3">
                   <div className="flex items-center gap-2">
                     <span className="px-2 py-0.5 rounded-md bg-amber-500/10 dark:bg-amber-400/20 text-amber-700 dark:text-amber-300 font-mono text-[10px] font-black uppercase tracking-wider border border-amber-500/20 dark:border-amber-400/30">
-                      📐 {isEnglish ? "CORE EQUATION" : "TEMEL EŞİTLİK"}
+                      📐 {t("ModuleReader.core_equation_511")}
                     </span>
                     <span className="text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200">
                       {section.formulaBox.title}
@@ -571,7 +573,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                       className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-indigo-700 dark:text-indigo-300 border border-slate-300 dark:border-slate-700 text-[11px] font-bold transition-all cursor-pointer shadow-xs"
                     >
                       <Calculator className="w-3.5 h-3.5" />
-                      <span>{isEnglish ? "Calculate in Workshop" : "Formül Sayfasında Hesapla"}</span>
+                      <span>{t("ModuleReader.calculate_in_worksho_512")}</span>
                     </button>
                   )}
                 </div>
@@ -584,7 +586,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                   {section.formulaBox.variables && section.formulaBox.variables.length > 0 && (
                     <div className="space-y-1.5">
                       <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
-                        {isEnglish ? "Variables & Parameters" : "Değişkenler & Parametre Açıklamaları"}
+                        {t("ModuleReader.variables_parameters_513")}
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                         {section.formulaBox.variables.map((v, vIdx) => (
@@ -610,7 +612,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                     <div className="p-3.5 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/60 border border-indigo-100 dark:border-indigo-800/60 space-y-1.5">
                       <div className="flex items-center gap-1.5 text-[11px] font-bold text-indigo-800 dark:text-indigo-300 uppercase tracking-wider">
                         <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-                        <span>{isEnglish ? "Numerical Proof & Example" : "Sayısal Örnek Sağlaması"}</span>
+                        <span>{t("ModuleReader.numerical_proof_exam_514")}</span>
                       </div>
                       <pre className="font-mono text-xs text-indigo-900 dark:text-indigo-200 whitespace-pre-wrap leading-relaxed overflow-x-auto">
                         {section.formulaBox.exampleCalculation}
@@ -626,7 +628,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-800 space-y-3 font-mono text-xs shadow-xs">
                 <div className="flex items-center gap-2 font-sans font-bold text-indigo-700 dark:text-amber-400 text-xs uppercase tracking-wider">
                   <Calculator className="w-4 h-4 text-indigo-600 dark:text-amber-400" />
-                  <span>{isEnglish ? "Step-by-Step Diagnostic Breakdown" : "Adım Adım Hesaplama Röntgeni"}</span>
+                  <span>{t("ModuleReader.step_by_step_diagnos_515")}</span>
                 </div>
                 <div className="space-y-2">
                   {section.stepByStepMath.split("\n").map((stepLine, sIdx) => {
@@ -707,7 +709,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                           </span>
                           {isMaturity && (
                             <span className="px-2 py-0.5 rounded-md bg-amber-400/30 text-amber-900 dark:text-amber-200 text-[10px] font-black border border-amber-400/50">
-                              {isEnglish ? "🏆 IDEAL MOAT STAGE" : "🏆 İDEAL HENDEK EVRESİ"}
+                              {t("ModuleReader.ideal_moat_stage_516")}
                             </span>
                           )}
                         </div>
@@ -722,7 +724,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                       {/* Cash flow pills */}
                       <div className="flex flex-wrap items-center gap-1.5 font-mono text-xs">
                         <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
-                          {isEnglish ? "Cash Flow Directions:" : "Nakit Akış Yönleri:"}
+                          {t("ModuleReader.cash_flow_directions_517")}
                         </span>
                         {cashFlows.split(",").map((cf, cIdx) => {
                           const isPos = cf.includes("(+)");
@@ -806,7 +808,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             {section.interactiveWidgetId && (
               <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/60">
                 <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5" /> {isEnglish ? "Live Interactive Simulation" : "Canlı Etkileşimli Simülasyon"}
+                  <Sparkles className="w-3.5 h-3.5" /> {t("ModuleReader.live_interactive_sim_518")}
                 </div>
                 {renderWidget(section.interactiveWidgetId)}
               </div>
@@ -831,10 +833,10 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 <div className="space-y-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black bg-indigo-600 text-white uppercase tracking-wider">
-                      🧮 {isEnglish ? "Formula Workshop" : "Formül & Hesaplama Atölyesi"}
+                      🧮 {t("ModuleReader.formula_workshop_519")}
                     </span>
                     <span className="text-[11px] font-bold text-indigo-700 dark:text-indigo-300">
-                      {isEnglish ? "How to calculate step by step?" : "Adım Adım Nasıl Hesaplanır?"}
+                      {t("ModuleReader.how_to_calculate_ste_520")}
                     </span>
                   </div>
                   <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-slate-100">
@@ -851,7 +853,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                   className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-all shadow-xs shrink-0 cursor-pointer"
                 >
                   <Calculator className="w-4 h-4" />
-                  <span>{isEnglish ? "Inspect & Calculate" : "Formülü İncele & Hesapla"}</span>
+                  <span>{t("ModuleReader.inspect_calculate_521")}</span>
                 </motion.button>
               </div>
             )}
@@ -861,7 +863,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
               <div className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                 <strong className="text-slate-900 dark:text-slate-100">
-                  {isEnglish ? "Core Takeaway Principle:" : "Akılda Kalacak İlke:"}
+                  {t("ModuleReader.core_takeaway_princi_522")}
                 </strong>{" "}
                 {section.keyTakeaway}
               </div>
@@ -879,7 +881,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 🧪 {labConfig.badge}
               </span>
               <span className="text-xs text-indigo-200 dark:text-indigo-300 font-medium">
-                {isEnglish ? "Hands-On Lab" : "Uygulamalı Atölye"}
+                {t("ModuleReader.hands_on_lab_523")}
               </span>
             </div>
             <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
@@ -897,7 +899,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-white text-indigo-900 hover:bg-indigo-50 font-black text-xs transition-all shadow-md cursor-pointer shrink-0"
           >
             <Play className="w-4 h-4 text-indigo-600 fill-indigo-600" />
-            <span>{isEnglish ? "Try for Yourself" : "Kendin Dene"}</span>
+            <span>{t("ModuleReader.try_for_yourself_524")}</span>
           </motion.button>
         </div>
       )}
@@ -918,7 +920,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
           </p>
           {module.moduleBridge.previewQuestion && (
             <div className="p-3 rounded-xl bg-indigo-50 dark:bg-indigo-900/50 border border-indigo-200 dark:border-indigo-400/30 text-xs font-semibold text-indigo-900 dark:text-indigo-200 flex items-start gap-2">
-              <span className="text-amber-600 dark:text-amber-400 font-bold">{isEnglish ? "❓ Key Question Ahead:" : "❓ Sıradaki Merak Sorusu:"}</span>
+              <span className="text-amber-600 dark:text-amber-400 font-bold">{t("ModuleReader.key_question_ahead_525")}</span>
               <span>{module.moduleBridge.previewQuestion}</span>
             </div>
           )}
@@ -930,7 +932,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
         <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-200 dark:border-slate-800">
           <div>
             <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
-              {isEnglish ? "Comprehension & Mastery Test" : "Kavrama & Ustalık Testi"}
+              {t("ModuleReader.comprehension_master_526")}
             </div>
             <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">
               {isEnglish
@@ -945,7 +947,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               onClick={handleResetQuiz}
               className="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors cursor-pointer min-h-[40px]"
             >
-              <RotateCcw className="w-3.5 h-3.5" /> {isEnglish ? "Retry Quiz" : "Tekrar Dene"}
+              <RotateCcw className="w-3.5 h-3.5" /> {t("ModuleReader.retry_quiz_527")}
             </motion.button>
           )}
         </div>
@@ -962,7 +964,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                   {qIdx + 1}. {q.question}
                 </legend>
 
-                <div className="space-y-2.5" role="radiogroup" aria-label={`${isEnglish ? "Question" : "Soru"} ${qIdx + 1}`}>
+                <div className="space-y-2.5" role="radiogroup" aria-label={`${t("ModuleReader.question_528")} ${qIdx + 1}`}>
                   {q.options.map((opt, optIdx) => {
                     const isSelected = selectedOpt === optIdx;
                     let optStyle = "bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 hover:border-indigo-300 text-slate-700 dark:text-slate-300";
@@ -1014,7 +1016,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 {isQuizSubmitted && (
                   <motion.div
                     role="region"
-                    aria-label={isCorrect ? (isEnglish ? "Correct answer explanation" : "Doğru cevap açıklaması") : (isEnglish ? "Explanation and solution" : "Açıklama ve çözüm")}
+                    aria-label={isCorrect ? (t("ModuleReader.correct_answer_expla_529")) : (t("ModuleReader.explanation_and_solu_530"))}
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     className={`p-4 rounded-xl text-xs sm:text-sm leading-relaxed border ${
@@ -1025,8 +1027,8 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                   >
                     <strong className="block mb-1 font-bold">
                       {isCorrect
-                        ? isEnglish ? "✅ Excellent, Correct Answer!" : "✅ Harika, Doğru Cevap!"
-                        : isEnglish ? "💡 Explanation & Solution:" : "💡 Açıklama ve Çözüm:"}
+                        ? t("ModuleReader.excellent_correct_a_531")
+                        : t("ModuleReader.explanation_solutio_532")}
                     </strong>
                     {q.explanation}
                   </motion.div>
@@ -1083,18 +1085,14 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                       }`}
                     >
                       {isCurrentQuizPassed
-                        ? isEnglish ? "Mastery Achieved (≥80%)" : "Ustalık Sağlandı (≥%80)"
-                        : isEnglish ? "80% Required to Complete" : "Tamamlamak İçin En Az %80 Gerekir"}
+                        ? t("ModuleReader.mastery_achieved_80_533")
+                        : t("ModuleReader.80_required_to_compl_534")}
                     </span>
                   </div>
                   <p className="text-xs sm:text-sm leading-relaxed opacity-90">
                     {isCurrentQuizPassed
-                      ? isEnglish
-                        ? "Outstanding work! You have satisfied the mastery criteria and unlocked the next module in your learning roadmap."
-                        : "Harika iş! Ustalık kriterini başarıyla sağladınız ve yol haritanızdaki sonraki adımın kilidini açtınız."
-                      : isEnglish
-                      ? "To count this module as completed and save your progress, review the key concepts you missed and retake the quiz. You can also explore subsequent lessons in preview mode anytime."
-                      : "Bu modülü tamamlandı saymak ve ilerlemenizi kaydetmek için kaçırdığınız kavramları gözden geçirin ve testi tekrar çözün. Dilerseniz sonraki dersleri önizleme modunda incelemeye devam edebilirsiniz."}
+                      ? t("ModuleReader.outstanding_work_you_535")
+                      : t("ModuleReader.to_count_this_module_536")}
                   </p>
                 </div>
               </div>
@@ -1108,9 +1106,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             {isPreviewMode ? (
               <span className="text-amber-700 dark:text-amber-300 font-semibold flex items-center gap-1.5">
                 <Info className="w-4 h-4 shrink-0" />
-                {isEnglish
-                  ? "To save this quiz score, complete the previous module first."
-                  : "Bu quiz’i kaydetmek için önce önceki modülü tamamla."}
+                {t("ModuleReader.to_save_this_quiz_sc_537")}
               </span>
             ) : isQuizSubmitted ? (
               <span className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
@@ -1120,7 +1116,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                   : `Başarı Puanınız: %${quizScore} (${isCurrentQuizPassed ? "Geçtiniz 🎉" : "Henüz ustalaşılmadı — en az %80 gerekli"})`}
               </span>
             ) : (
-              <span>{isEnglish ? "Select your answers and submit to verify." : "Cevaplarınızı seçtikten sonra sonucu kontrol edin."}</span>
+              <span>{t("ModuleReader.select_your_answers_538")}</span>
             )}
           </div>
 
@@ -1133,7 +1129,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 aria-describedby="quiz-status-instruction"
                 className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-sm font-bold opacity-75 cursor-not-allowed min-h-[44px] select-none"
               >
-                {isEnglish ? "Complete Test & Save Score" : "Testi Tamamla & Puanı Kaydet"}
+                {t("ModuleReader.complete_test_save_s_539")}
               </button>
             </div>
           ) : !isQuizSubmitted ? (
@@ -1146,7 +1142,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               onClick={handleSubmitQuiz}
               className="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-bold shadow-xs transition-all cursor-pointer min-h-[44px]"
             >
-              {isEnglish ? "Complete Test & Save Score" : "Testi Tamamla & Puanı Kaydet"}
+              {t("ModuleReader.complete_test_save_s_540")}
             </motion.button>
           ) : (
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 ml-auto">
@@ -1157,7 +1153,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                   whileTap={{ scale: 0.98 }}
                   onClick={() => onReviewMissedInFlashcards(module.id, missedFlashcardIds)}
                   className="w-full sm:w-auto px-4 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs sm:text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
-                  title={isEnglish ? "Study missed concepts in flashcards" : "Kaçırılan kavramları flashcard'larda tekrar et"}
+                  title={t("ModuleReader.study_missed_concept_541")}
                 >
                   <BookOpen className="w-4 h-4 shrink-0" />
                   <span>
@@ -1176,7 +1172,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 className="w-full sm:w-auto px-5 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
               >
                 <RotateCcw className="w-4 h-4 shrink-0" />
-                <span>{isEnglish ? "Retry Quiz" : "Testi Tekrar Çöz"}</span>
+                <span>{t("ModuleReader.retry_quiz_542")}</span>
               </motion.button>
 
               <motion.button
@@ -1187,7 +1183,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 className="w-full sm:w-auto px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs sm:text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
               >
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>{isEnglish ? "Back to Roadmap" : "Müfredata Dön"}</span>
+                <span>{t("ModuleReader.back_to_roadmap_543")}</span>
               </motion.button>
 
               {isNextModuleNormalLearning && !nextModule && (
@@ -1199,7 +1195,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                   className="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
                 >
                   <CheckCircle2 className="w-4 h-4 shrink-0" />
-                  <span>{isEnglish ? "Academy Completed! View Roadmap" : "Akademi Tamamlandı! Müfredatı Gör"}</span>
+                  <span>{t("ModuleReader.academy_completed_vi_544")}</span>
                 </motion.button>
               )}
             </div>

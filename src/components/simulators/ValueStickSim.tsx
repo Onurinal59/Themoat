@@ -82,7 +82,7 @@ const PRESET_SCENARIOS: Scenario[] = [
 ];
 
 export const ValueStickSim: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const [wtp, setWtp] = useState<number>(1400);
   const [price, setPrice] = useState<number>(1099);
   const [cost, setCost] = useState<number>(520);
@@ -111,10 +111,10 @@ export const ValueStickSim: React.FC = () => {
   };
 
   const levelsChartData = [
-    { name: isEnglish ? "WTP (Customer Ceiling)" : "WTP (Müşteri Tavanı)", value: wtp, fill: "#6366F1" },
-    { name: isEnglish ? "Price (Market Price)" : "Fiyat (Satış Fiyatı)", value: price, fill: "#10B981" },
-    { name: isEnglish ? "Cost (Unit Cost)" : "Maliyet (Birim Maliyet)", value: cost, fill: "#F59E0B" },
-    { name: isEnglish ? "WTS (Supplier Floor)" : "WTS (Tedarikçi Tabanı)", value: wts, fill: "#EC4899" },
+    { name: t("ValueStickSim.wtp_customer_ceiling_1312"), value: wtp, fill: "#6366F1" },
+    { name: t("ValueStickSim.price_market_price_1313"), value: price, fill: "#10B981" },
+    { name: t("ValueStickSim.cost_unit_cost_1314"), value: cost, fill: "#F59E0B" },
+    { name: t("ValueStickSim.wts_supplier_floor_1315"), value: wts, fill: "#EC4899" },
   ];
 
   return (
@@ -124,19 +124,17 @@ export const ValueStickSim: React.FC = () => {
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-1">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50">
-              {isEnglish ? "Step 3 Interactive Terminal" : "3. Adım İnteraktif Terminal"}
+              {t("ValueStickSim.step_3_interactive_t_1316")}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {isEnglish ? "Harvard / Oberholzer-Gee Value Stick" : "Harvard / Oberholzer-Gee Değer Çubuğu"}
+              {t("ValueStickSim.harvard_oberholzer_g_1317")}
             </span>
           </div>
           <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {isEnglish ? "Value Stick: WTP vs Price vs Cost vs WTS" : "Etkileşimli Değer Çubuğu: WTP, Fiyat, Maliyet, WTS"}
+            {t("ValueStickSim.value_stick_wtp_vs_p_1318")}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-            {isEnglish
-              ? "Move the 4 value levers on the left. Observe on the right how total value (WTP - WTS) is partitioned among Customer, Firm, and Supplier."
-              : "Soldaki 4 değer kolunu kaydırın. Sağdaki görsel terminalde yaratılan toplam değerin (WTP - WTS) müşteri, şirket ve tedarikçi arasında nasıl bölüşüldüğünü canlı izleyin."}
+            {t("ValueStickSim.move_the_4_value_lev_1319")}
           </p>
         </div>
 
@@ -144,14 +142,14 @@ export const ValueStickSim: React.FC = () => {
           onClick={handleReset}
           className="self-start md:self-auto flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors cursor-pointer"
         >
-          <RotateCcw className="w-3.5 h-3.5" /> {isEnglish ? "Reset (Apple)" : "Sıfırla (Apple)"}
+          <RotateCcw className="w-3.5 h-3.5" /> {t("ValueStickSim.reset_apple_1320")}
         </button>
       </div>
 
       {/* Preset Scenarios */}
       <div>
         <label className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-2">
-          {isEnglish ? "Preset Corporate Archetypes:" : "Kurumsal Strateji Şablonları:"}
+          {t("ValueStickSim.preset_corporate_arc_1321")}
         </label>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {PRESET_SCENARIOS.map((sc, idx) => (
@@ -178,7 +176,7 @@ export const ValueStickSim: React.FC = () => {
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
               <Layers className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              {isEnglish ? "4 Value Levers:" : "4 Stratejik Değer Kolu:"}
+              {t("ValueStickSim.4_value_levers_1322")}
             </h3>
             <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
               Total: ${totalValueCreated}
@@ -193,13 +191,13 @@ export const ValueStickSim: React.FC = () => {
                 htmlFor="valuestick-slider-wtp"
                 className="font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 cursor-pointer"
               >
-                {isEnglish ? "WTP (Willingness to Pay)" : "WTP (Müşteri Ödeme İsteği)"}
+                {t("ValueStickSim.wtp_willingness_to_p_1323")}
               </label>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
                   type="button"
                   onClick={() => setWtp(Math.max(price, wtp - 50))}
-                  aria-label={isEnglish ? "Decrease WTP by 50" : "WTP değerini 50 azalt"}
+                  aria-label={t("ValueStickSim.decrease_wtp_by_50_1324")}
                   className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   -
@@ -208,7 +206,7 @@ export const ValueStickSim: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setWtp(wtp + 50)}
-                  aria-label={isEnglish ? "Increase WTP by 50" : "WTP değerini 50 artır"}
+                  aria-label={t("ValueStickSim.increase_wtp_by_50_1325")}
                   className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   +
@@ -237,13 +235,13 @@ export const ValueStickSim: React.FC = () => {
                 htmlFor="valuestick-slider-price"
                 className="font-bold text-emerald-600 dark:text-emerald-400 cursor-pointer"
               >
-                {isEnglish ? "Price (Selling Price)" : "Fiyat (Satış Fiyatı)"}
+                {t("ValueStickSim.price_selling_price_1326")}
               </label>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
                   type="button"
                   onClick={() => setPrice(Math.max(cost, price - 50))}
-                  aria-label={isEnglish ? "Decrease Price by 50" : "Fiyatı 50 azalt"}
+                  aria-label={t("ValueStickSim.decrease_price_by_50_1327")}
                   className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   -
@@ -252,7 +250,7 @@ export const ValueStickSim: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setPrice(Math.min(wtp, price + 50))}
-                  aria-label={isEnglish ? "Increase Price by 50" : "Fiyatı 50 artır"}
+                  aria-label={t("ValueStickSim.increase_price_by_50_1328")}
                   className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   +
@@ -281,13 +279,13 @@ export const ValueStickSim: React.FC = () => {
                 htmlFor="valuestick-slider-cost"
                 className="font-bold text-amber-600 dark:text-amber-400 cursor-pointer"
               >
-                {isEnglish ? "Cost (Unit Production Cost)" : "Maliyet (Birim Maliyet)"}
+                {t("ValueStickSim.cost_unit_production_1329")}
               </label>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
                   type="button"
                   onClick={() => setCost(Math.max(wts, cost - 25))}
-                  aria-label={isEnglish ? "Decrease Cost by 25" : "Maliyeti 25 azalt"}
+                  aria-label={t("ValueStickSim.decrease_cost_by_25_1330")}
                   className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   -
@@ -296,7 +294,7 @@ export const ValueStickSim: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setCost(Math.min(price, cost + 25))}
-                  aria-label={isEnglish ? "Increase Cost by 25" : "Maliyeti 25 artır"}
+                  aria-label={t("ValueStickSim.increase_cost_by_25_1331")}
                   className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   +
@@ -325,13 +323,13 @@ export const ValueStickSim: React.FC = () => {
                 htmlFor="valuestick-slider-wts"
                 className="font-bold text-pink-600 dark:text-pink-400 cursor-pointer"
               >
-                {isEnglish ? "WTS (Supplier Opportunity Cost)" : "WTS (Tedarikçi Satış Tabanı)"}
+                {t("ValueStickSim.wts_supplier_opportu_1332")}
               </label>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
                   type="button"
                   onClick={() => setWts(Math.max(0, wts - 25))}
-                  aria-label={isEnglish ? "Decrease WTS by 25" : "WTS değerini 25 azalt"}
+                  aria-label={t("ValueStickSim.decrease_wts_by_25_1333")}
                   className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   -
@@ -340,7 +338,7 @@ export const ValueStickSim: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setWts(Math.min(cost, wts + 25))}
-                  aria-label={isEnglish ? "Increase WTS by 25" : "WTS değerini 25 artır"}
+                  aria-label={t("ValueStickSim.increase_wts_by_25_1334")}
                   className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   +
@@ -364,11 +362,9 @@ export const ValueStickSim: React.FC = () => {
           {/* Action-Oriented Pedagogical Directive */}
           <div className="p-3.5 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200/80 dark:border-indigo-800/60 text-xs text-indigo-950 dark:text-indigo-200">
             <strong className="block font-bold text-indigo-900 dark:text-indigo-300 mb-1">
-              💡 {isEnglish ? "Action-Oriented Experiment:" : "Eyleme Dönük Değer Deneyi:"}
+              💡 {t("ValueStickSim.action_oriented_expe_1335")}
             </strong>
-            {isEnglish
-              ? "Drag the WTP lever higher; see how Customer Delight surges without shrinking firm profit. Now raise Cost toward Price; see how Firm Margin vanishes instantly into Supplier Surplus."
-              : "WTP sürgüsünü yukarı çekin; sağdaki grafikte mavi Müşteri Rantının şirket kârını ezmeden nasıl devasa büyüdüğünü görün. Ardından Maliyet sürgüsünü Fiyata yaklaştırın; yeşil Firma Kârının nasıl sıfıra indiğini anında teşhis edin."}
+            {t("ValueStickSim.drag_the_wtp_lever_h_1336")}
           </div>
         </div>
 
@@ -380,7 +376,7 @@ export const ValueStickSim: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <TrendingUp className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  {isEnglish ? "Economic Surplus Breakdown (Oberholzer-Gee)" : "Ekonomik Değer Paylaşımı (Harvard Value Stick)"}
+                  {t("ValueStickSim.economic_surplus_bre_1337")}
                 </span>
               </div>
               <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">
@@ -408,46 +404,46 @@ export const ValueStickSim: React.FC = () => {
           {/* Dynamic 3-Way Surplus Allocation Card */}
           <div role="status" aria-live="polite" className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
-              {isEnglish ? "Surplus Allocation Distribution:" : "3 Taraflı Refah Dağılımı:"}
+              {t("ValueStickSim.surplus_allocation_d_1338")}
             </h4>
 
             <div className="grid grid-cols-3 gap-2.5">
               {/* Customer Surplus */}
               <div className="p-3 rounded-xl bg-indigo-50/80 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-800 space-y-1">
                 <span className="text-[10px] font-bold text-indigo-700 dark:text-indigo-300 block">
-                  {isEnglish ? "Customer Delight" : "Müşteri Rantı"}
+                  {t("ValueStickSim.customer_delight_1339")}
                 </span>
                 <div className="font-mono font-black text-base sm:text-lg text-indigo-900 dark:text-indigo-100">
                   ${customerDelight}
                 </div>
                 <span className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 block">
-                  %{customerShare.toFixed(1)} {isEnglish ? "share" : "pay"}
+                  %{customerShare.toFixed(1)} {t("ValueStickSim.share_1340")}
                 </span>
               </div>
 
               {/* Firm Margin */}
               <div className="p-3 rounded-xl bg-emerald-50/80 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 space-y-1">
                 <span className="text-[10px] font-bold text-emerald-700 dark:text-emerald-300 block">
-                  {isEnglish ? "Firm Margin" : "Şirket Kârı"}
+                  {t("ValueStickSim.firm_margin_1341")}
                 </span>
                 <div className="font-mono font-black text-base sm:text-lg text-emerald-900 dark:text-emerald-100">
                   ${firmProfit}
                 </div>
                 <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 block">
-                  %{firmShare.toFixed(1)} {isEnglish ? "share" : "pay"}
+                  %{firmShare.toFixed(1)} {t("ValueStickSim.share_1342")}
                 </span>
               </div>
 
               {/* Supplier Surplus */}
               <div className="p-3 rounded-xl bg-amber-50/80 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 space-y-1">
                 <span className="text-[10px] font-bold text-amber-700 dark:text-amber-300 block">
-                  {isEnglish ? "Supplier Surplus" : "Tedarikçi Payı"}
+                  {t("ValueStickSim.supplier_surplus_1343")}
                 </span>
                 <div className="font-mono font-black text-base sm:text-lg text-amber-900 dark:text-amber-100">
                   ${supplierSurplus}
                 </div>
                 <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 block">
-                  %{supplierShare.toFixed(1)} {isEnglish ? "share" : "pay"}
+                  %{supplierShare.toFixed(1)} {t("ValueStickSim.share_1344")}
                 </span>
               </div>
             </div>
@@ -457,16 +453,10 @@ export const ValueStickSim: React.FC = () => {
               <Shield className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
               <span>
                 {firmShare > 50
-                  ? isEnglish
-                    ? "Exceptional Pricing Power: The firm captures over 50% of the entire economic value created (Monopoly / High Moat)."
-                    : "Üst Düzey Fiyatlama Gücü: Şirket yaratılan toplam refahın %50'sinden fazlasını tek başına kasasına çekiyor (Yüksek Hendek)."
+                  ? t("ValueStickSim.exceptional_pricing_1345")
                   : customerShare > 50
-                  ? isEnglish
-                    ? "Customer Surplus Focus: Costco-like architecture where high value is passed to customers to lock in massive retention and volume."
-                    : "Müşteri Odaklı Strateji: Costco benzeri model; değerin çoğunluğu müşteriye aktarılarak yüksek sadakat ve devasa hacim kilitleniyor."
-                  : isEnglish
-                  ? "Balanced Ecosystem: Value is proportionally distributed across customer satisfaction, healthy supplier partnerships, and enterprise earnings."
-                  : "Dengeli Ekosistem: Yaratılan değer müşteri memnuniyeti, tedarikçi kârlılığı ve şirket kârı arasında adil biçimde paylaşılıyor."}
+                  ? t("ValueStickSim.customer_surplus_foc_1346")
+                  : t("ValueStickSim.balanced_ecosystem_v_1347")}
               </span>
             </div>
           </div>
@@ -483,11 +473,11 @@ export const ValueStickSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("ValueStickSim.see_the_calculation_1348")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("ValueStickSim.hide_1349")) : (t("ValueStickSim.show_1350"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -522,9 +512,7 @@ export const ValueStickSim: React.FC = () => {
                   </div>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">
-                  {isEnglish
-                    ? `Oberholzer-Gee Value Stick Insight: Sustainable competitive advantage requires widening the total stick (WTP - WTS). Moving price alone only transfers value between the customer and firm without creating new economic surplus.`
-                    : `Oberholzer-Gee Değer Çubuğu İlkesi: Sürdürülebilir bir ekonomik hendek toplam çubuğun (WTP - WTS) genişletilmesiyle inşa edilir. Sadece fiyatı artırmak veya indirmek yeni bir değer yaratmaz, yalnızca mevcut refahı müşteriyle şirket arasında kaydırır.`}
+                  {t("ValueStickSim.oberholzer_gee_value_1351")}
                 </p>
               </div>
 
@@ -532,20 +520,16 @@ export const ValueStickSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
                   <Sparkles className="w-4 h-4 text-amber-500" />
-                  <span>{isEnglish ? "Pedagogical Lever Experiments:" : "Terminal Değer Deneyleri:"}</span>
+                  <span>{t("ValueStickSim.pedagogical_lever_ex_1352")}</span>
                 </div>
                 <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   <p>
-                    👉 <strong className="text-indigo-900 dark:text-indigo-300">{isEnglish ? "WTP Expansion (Differentiation):" : "WTP Genişlemesi (Farklılaşma):"}</strong>{" "}
-                    {isEnglish
-                      ? "Increase WTP through branding, premium UX, or network effects. Customer delight expands dramatically without sacrificing firm margin."
-                      : "Marka, benzersiz kullanıcı deneyimi veya ağ etkisiyle WTP'yi yükseltin. Müşteri memnuniyeti tavan yaparken şirketin kâr marjı da korunur."}
+                    👉 <strong className="text-indigo-900 dark:text-indigo-300">{t("ValueStickSim.wtp_expansion_differ_1353")}</strong>{" "}
+                    {t("ValueStickSim.increase_wtp_through_1354")}
                   </p>
                   <p>
-                    👉 <strong className="text-pink-900 dark:text-pink-300">{isEnglish ? "WTS Compression (Supplier Delight):" : "WTS Daralması (Tedarikçi Refahı):"}</strong>{" "}
-                    {isEnglish
-                      ? "Lower supplier willingness-to-sell through scale and predictable volumes, expanding overall economic surplus from the bottom."
-                      : "Ölçek ve yüksek sipariş öngörülebilirliği ile tedarikçinin asgari kabul tabanını (WTS) aşağı çekin; toplam refah tabandan genişlesin."}
+                    👉 <strong className="text-pink-900 dark:text-pink-300">{t("ValueStickSim.wts_compression_supp_1355")}</strong>{" "}
+                    {t("ValueStickSim.lower_supplier_willi_1356")}
                   </p>
                 </div>
               </div>

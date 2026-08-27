@@ -92,7 +92,7 @@ const BRAND_PRESETS: BrandPreset[] = [
 ];
 
 export const BrandAcidTestSim: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
 
   const [price, setPrice] = useState<number>(500);
   const [cogs, setCogs] = useState<number>(180);
@@ -138,15 +138,13 @@ export const BrandAcidTestSim: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/20 text-pink-600 dark:text-pink-400 font-black text-xs uppercase tracking-wider mb-3">
               <Award className="w-3.5 h-3.5" />
-              {isEnglish ? "The Brand Acid Test" : "Marka Hendek Asit Testi"}
+              {t("BrandAcidTestSim.the_brand_acid_test_748")}
             </div>
             <h2 className="text-2xl md:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
-              {isEnglish ? "When is a Brand a Moat vs. an Advertising Expense?" : "Marka Ne Zaman Bir Hendektir, Ne Zaman Reklam Masrafıdır?"}
+              {t("BrandAcidTestSim.when_is_a_brand_a_mo_749")}
             </h2>
             <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 mt-2 max-w-3xl leading-relaxed">
-              {isEnglish
-                ? "A famous brand is not automatically a moat. A brand creates economic value ONLY if it delivers pricing power (low price elasticity) or lower customer acquisition costs without requiring exorbitant advertising to defend market share."
-                : "Bilinir olmak tek başına bir hendek değildir. Bir marka ancak fiyatlama gücü (düşük esneklik) yaratarak ya da müşteri edinme maliyetini (CAC) düşürerek gelir tablosunda somut kâra dönüştüğünde hendek sayılır."}
+              {t("BrandAcidTestSim.a_famous_brand_is_no_750")}
             </p>
           </div>
         </div>
@@ -177,7 +175,7 @@ export const BrandAcidTestSim: React.FC = () => {
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-bold text-pink-600 dark:text-pink-400">
-              <span>{isEnglish ? "Test Archetype" : "Profili Yükle"}</span>
+              <span>{t("BrandAcidTestSim.test_archetype_751")}</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>
           </button>
@@ -189,17 +187,17 @@ export const BrandAcidTestSim: React.FC = () => {
         <div className="p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-5 shadow-sm">
           <div className="flex items-center gap-2 font-black text-slate-900 dark:text-white text-base border-b border-slate-100 dark:border-slate-800 pb-3">
             <Sliders className="w-5 h-5 text-pink-500" />
-            {isEnglish ? "Brand Economics" : "Marka Finansal Parametreleri"}
+            {t("BrandAcidTestSim.brand_economics_752")}
           </div>
 
           {/* Price Elasticity */}
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span className="font-bold text-slate-700 dark:text-slate-300">
-                {isEnglish ? "Price Elasticity of Demand" : "Fiyat Talep Esnekliği (e)"}
+                {t("BrandAcidTestSim.price_elasticity_of_753")}
               </span>
               <span className="font-black text-pink-500 font-mono">
-                {elasticity} {elasticity < 1 ? (isEnglish ? "(Inelastic - Pricing Power)" : "(Fiyatlama Gücü)") : (isEnglish ? "(Elastic - Fragile)" : "(Hassas)")}
+                {elasticity} {elasticity < 1 ? (t("BrandAcidTestSim.inelastic_pricing_p_754")) : (t("BrandAcidTestSim.elastic_fragile_755"))}
               </span>
             </div>
             <input
@@ -217,7 +215,7 @@ export const BrandAcidTestSim: React.FC = () => {
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
               <span className="font-bold text-slate-700 dark:text-slate-300">
-                {isEnglish ? "Ad / Brand Maintenance (% Rev)" : "Reklam & Marka Savunma Bütçesi"}
+                {t("BrandAcidTestSim.ad_brand_maintenance_756")}
               </span>
               <span className="font-black text-slate-900 dark:text-white font-mono">
                 %{adSpendPercent}
@@ -238,7 +236,7 @@ export const BrandAcidTestSim: React.FC = () => {
           <div className="space-y-2 pt-2 border-t border-slate-100 dark:border-slate-800">
             <div className="flex justify-between text-sm">
               <span className="font-bold text-slate-700 dark:text-slate-300">
-                {isEnglish ? "Test Price Hike (% Increase)" : "Simüle Edilen Fiyat Zammı"}
+                {t("BrandAcidTestSim.test_price_hike_incr_757")}
               </span>
               <span className="font-black text-emerald-600 dark:text-emerald-400 font-mono">
                 +%{priceHikePercent}
@@ -260,12 +258,10 @@ export const BrandAcidTestSim: React.FC = () => {
         <div className="lg:col-span-2 p-6 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-6 shadow-sm flex flex-col justify-between">
           <div>
             <h3 className="font-black text-slate-900 dark:text-white text-base">
-              {isEnglish ? "Price Hike Economic Reaction Shock" : "Fiyat Zammı Sonrası Net Kâr Tepkisi"}
+              {t("BrandAcidTestSim.price_hike_economic_758")}
             </h3>
             <p className="text-xs text-slate-500 mt-0.5">
-              {isEnglish
-                ? "Comparing pre-hike vs post-hike total operating profit across 100 customer base"
-                : "100 birimlik müşteri tabanında zam öncesi ve sonrası toplam faaliyet kârı değişimi"}
+              {t("BrandAcidTestSim.comparing_pre_hike_v_759")}
             </p>
           </div>
 
@@ -273,19 +269,19 @@ export const BrandAcidTestSim: React.FC = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
               <span className="text-xs text-slate-500 font-bold block">
-                {isEnglish ? "Volume Impact" : "Satış Hacmi Değişimi"}
+                {t("BrandAcidTestSim.volume_impact_760")}
               </span>
               <span className={`text-xl font-black font-mono ${volumeChangePercent >= 0 ? "text-slate-900 dark:text-white" : "text-rose-500"}`}>
                 {volumeChangePercent.toFixed(1)}%
               </span>
               <p className="text-[11px] text-slate-400 mt-1">
-                {isEnglish ? "Drop in unit volume sold" : "Kayıp müşteri / adet oranı"}
+                {t("BrandAcidTestSim.drop_in_unit_volume_761")}
               </p>
             </div>
 
             <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
               <span className="text-xs text-slate-500 font-bold block">
-                {isEnglish ? "Per-Unit Margin" : "Birim Faaliyet Marjı"}
+                {t("BrandAcidTestSim.per_unit_margin_762")}
               </span>
               <span className="text-xl font-black font-mono text-emerald-500">
                 %{((newOperatingProfitPerUnit / newPrice) * 100).toFixed(1)}
@@ -297,15 +293,15 @@ export const BrandAcidTestSim: React.FC = () => {
 
             <div className={`p-4 rounded-2xl border ${profitChangePercent >= 0 ? "bg-emerald-500/10 border-emerald-500/20 text-emerald-600 dark:text-emerald-400" : "bg-rose-500/10 border-rose-500/20 text-rose-500"}`}>
               <span className="text-xs font-bold block">
-                {isEnglish ? "Total Profit Change" : "Toplam Kâr Değişimi"}
+                {t("BrandAcidTestSim.total_profit_change_763")}
               </span>
               <span className="text-xl font-black font-mono">
                 {profitChangePercent >= 0 ? "+" : ""}{profitChangePercent.toFixed(1)}%
               </span>
               <p className="text-[11px] mt-1 opacity-80">
                 {profitChangePercent >= 0
-                  ? isEnglish ? "Pricing power creates wealth!" : "Fiyatlama gücü kârı artırdı!"
-                  : isEnglish ? "Volume loss destroyed profit!" : "Müşteri kaybı kârı eritti!"}
+                  ? t("BrandAcidTestSim.pricing_power_create_764")
+                  : t("BrandAcidTestSim.volume_loss_destroye_765")}
               </p>
             </div>
           </div>
@@ -318,17 +314,13 @@ export const BrandAcidTestSim: React.FC = () => {
             <div>
               <h4 className="font-black text-slate-900 dark:text-white text-sm">
                 {elasticity < 0.8
-                  ? isEnglish ? "Durable Brand Moat Profile" : "Güçlü Marka Hendeği Profili"
-                  : isEnglish ? "Vulnerable / Cosmetic Brand" : "Kırılgan / Yalnızca Kozmetik Marka"}
+                  ? t("BrandAcidTestSim.durable_brand_moat_p_766")
+                  : t("BrandAcidTestSim.vulnerable_cosmetic_767")}
               </h4>
               <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
                 {elasticity < 0.8
-                  ? isEnglish
-                    ? "Because elasticity is low, the price hike immediately flows straight to the bottom line without causing customer churn. The brand acts as an authentic pricing power shield."
-                    : "Müşteri esnekliği düşük olduğu için yapılan zam doğrudan net kâra yansır ve pazar payı kaybına yol açmaz. Bu marka gerçek bir ekonomik hendektir."
-                  : isEnglish
-                    ? "Warning: When prices rise, customers rapidly defect to competitors or private labels. The brand requires continuous high advertising spend just to stay alive."
-                    : "Uyarı: Fiyat yükseldiğinde müşteriler hızla muadillere kaçmaktadır. Bu şirketin markası bir hendek değil; sadece ayakta kalmak için ödenen yüksek bir reklam masrafıdır."}
+                  ? t("BrandAcidTestSim.because_elasticity_i_768")
+                  : t("BrandAcidTestSim.warning_when_prices_769")}
               </p>
             </div>
           </div>
@@ -345,11 +337,11 @@ export const BrandAcidTestSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("BrandAcidTestSim.see_the_calculation_770")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("BrandAcidTestSim.hide_771")) : (t("BrandAcidTestSim.show_772"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -372,26 +364,26 @@ export const BrandAcidTestSim: React.FC = () => {
               <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
                   <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                  <span>{isEnglish ? "Brand Pricing Power & Elasticity Formula" : "Marka Fiyatlama Gücü ve Talep Esnekliği Formülü"}</span>
+                  <span>{t("BrandAcidTestSim.brand_pricing_power_773")}</span>
                 </div>
                 <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
-                  <span>{isEnglish ? "Volume Change = - (Price Hike % × Elasticity ε)" : "Hacim Değişimi % = - (Fiyat Zammı % × Talep Esnekliği ε)"}</span>
+                  <span>{t("BrandAcidTestSim.volume_change_price_774")}</span>
                   <br />
-                  <span>{isEnglish ? "Unit Margin = (New Price - COGS - Ad Spend - CAC)" : "Birim Kâr = (Yeni Fiyat - COGS - Reklam Gideri - CAC)"}</span>
+                  <span>{t("BrandAcidTestSim.unit_margin_new_pric_775")}</span>
                   <br />
-                  <span>{isEnglish ? "Total Profit = New Customer Volume × New Unit Margin" : "Toplam Kâr = Yeni Müşteri Hacmi × Yeni Birim Kâr"}</span>
+                  <span>{t("BrandAcidTestSim.total_profit_new_cus_776")}</span>
                 </div>
               </div>
 
               {/* Step-by-Step Diagnostic Breakdown */}
               <div className="space-y-3">
                 <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
-                  {isEnglish ? "Step-by-Step Numerical Breakdown" : "Adım Adım Sayısal Hesaplama"}
+                  {t("BrandAcidTestSim.step_by_step_numeric_777")}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 block font-bold mb-1">
-                      {isEnglish ? "1. Baseline Unit Economics" : "1. Başlangıç Birim Ekonomisi"}
+                      {t("BrandAcidTestSim.1_baseline_unit_econ_778")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {isEnglish
@@ -401,7 +393,7 @@ export const BrandAcidTestSim: React.FC = () => {
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 block font-bold mb-1">
-                      {isEnglish ? "2. Price Shock (+%" + priceHikePercent + ")" : "2. Fiyat Şoku (+%" + priceHikePercent + ")"}
+                      {t("BrandAcidTestSim.2_price_shock_priceh_779") + priceHikePercent + ")"}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {isEnglish
@@ -411,7 +403,7 @@ export const BrandAcidTestSim: React.FC = () => {
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 block font-bold mb-1">
-                      {isEnglish ? "3. Net Operating Profit" : "3. Net Faaliyet Kârı"}
+                      {t("BrandAcidTestSim.3_net_operating_prof_780")}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {isEnglish

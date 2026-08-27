@@ -77,7 +77,7 @@ const PRESET_CYCLES: PresetCycle[] = [
 ];
 
 export const CashConversionSim: React.FC = () => {
-  const { isEnglish } = useLanguage();
+  const { isEnglish, t } = useLanguage();
   const [dio, setDio] = useState<number>(29);
   const [dso, setDso] = useState<number>(2);
   const [dpo, setDpo] = useState<number>(60);
@@ -100,22 +100,22 @@ export const CashConversionSim: React.FC = () => {
   // Recharts Waterfall-like Data
   const chartData = [
     {
-      name: isEnglish ? "1. DIO (Inventory)" : "1. DIO (Stok)",
+      name: t("CashConversionSim.1_dio_inventory_814"),
       days: dio,
       fill: "#6366F1",
     },
     {
-      name: isEnglish ? "2. DSO (Receivables)" : "2. DSO (Alacak)",
+      name: t("CashConversionSim.2_dso_receivables_815"),
       days: dso,
       fill: "#10B981",
     },
     {
-      name: isEnglish ? "3. DPO (Payables)" : "3. DPO (Tedarikçi Borcu)",
+      name: t("CashConversionSim.3_dpo_payables_816"),
       days: -dpo,
       fill: "#F59E0B",
     },
     {
-      name: isEnglish ? "Net CCC (Cash Cycle)" : "Net CCC (Nakit Döngüsü)",
+      name: t("CashConversionSim.net_ccc_cash_cycle_817"),
       days: ccc,
       fill: isNegative ? "#06B6D4" : "#F43F5E",
     },
@@ -128,19 +128,17 @@ export const CashConversionSim: React.FC = () => {
         <div>
           <div className="flex flex-wrap items-center gap-2 mb-1">
             <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50">
-              {isEnglish ? "Step 5 Interactive Terminal" : "5. Adım İnteraktif Terminal"}
+              {t("CashConversionSim.step_5_interactive_t_818")}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {isEnglish ? "Cash Conversion Cycle (CCC)" : "Nakit Dönüşüm Süresi (CCC)"}
+              {t("CashConversionSim.cash_conversion_cycl_819")}
             </span>
           </div>
           <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {isEnglish ? "Cash Conversion Cycle: DIO + DSO - DPO" : "Nakit Dönüşüm Süresi & İşletme Sermayesi Motoru"}
+            {t("CashConversionSim.cash_conversion_cycl_820")}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
-            {isEnglish
-              ? "CCC = DIO (Days Inventory) + DSO (Days Receivables) - DPO (Days Payables). Discover how negative working capital turns growth into a free funding machine."
-              : "CCC = Stok Bekleme (DIO) + Alacak Tahsil (DSO) - Tedarikçi Ödeme (DPO). Negatif işletme sermayesinin şirketi nasıl faizsiz büyüme makinesine dönüştürdüğünü deneyimleyin."}
+            {t("CashConversionSim.ccc_dio_days_invento_821")}
           </p>
         </div>
 
@@ -148,14 +146,14 @@ export const CashConversionSim: React.FC = () => {
           onClick={handleReset}
           className="self-start md:self-auto flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold text-slate-700 dark:text-slate-200 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-full transition-colors cursor-pointer"
         >
-          <RotateCcw className="w-3.5 h-3.5" /> {isEnglish ? "Reset (Amazon Float)" : "Sıfırla (Amazon Float)"}
+          <RotateCcw className="w-3.5 h-3.5" /> {t("CashConversionSim.reset_amazon_float_822")}
         </button>
       </div>
 
       {/* Preset Cycles */}
       <div>
         <label className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 block mb-2">
-          {isEnglish ? "Preset Industry Working Capital Profiles:" : "Sektörel Nakit Döngü Profilleri:"}
+          {t("CashConversionSim.preset_industry_work_823")}
         </label>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
           {PRESET_CYCLES.map((p, idx) => (
@@ -182,7 +180,7 @@ export const CashConversionSim: React.FC = () => {
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
               <Clock className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              {isEnglish ? "3 Working Capital Levers:" : "3 İşletme Sermayesi Kolu:"}
+              {t("CashConversionSim.3_working_capital_le_824")}
             </h3>
             <span
               className={`text-xs font-mono font-bold px-2 py-0.5 rounded ${
@@ -191,7 +189,7 @@ export const CashConversionSim: React.FC = () => {
                   : "bg-rose-100 dark:bg-rose-950 text-rose-700 dark:text-rose-300"
               }`}
             >
-              CCC: {ccc} {isEnglish ? "Days" : "Gün"}
+              CCC: {ccc} {t("CashConversionSim.days_825")}
             </span>
           </div>
 
@@ -199,7 +197,7 @@ export const CashConversionSim: React.FC = () => {
           <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-2 shadow-2xs">
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-indigo-600 dark:text-indigo-400">
-                {isEnglish ? "1. DIO (Days Inventory Outstanding)" : "1. DIO (Stokta Kalma Süresi)"}
+                {t("CashConversionSim.1_dio_days_inventory_826")}
               </span>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
@@ -208,7 +206,7 @@ export const CashConversionSim: React.FC = () => {
                 >
                   -
                 </button>
-                <span>{dio} {isEnglish ? "Days" : "Gün"}</span>
+                <span>{dio} {t("CashConversionSim.days_827")}</span>
                 <button
                   onClick={() => setDio(Math.min(180, dio + 5))}
                   className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200"
@@ -218,7 +216,7 @@ export const CashConversionSim: React.FC = () => {
               </div>
             </div>
             <p className="text-[11px] text-slate-500 dark:text-slate-400">
-              {isEnglish ? "Days inventory sits in warehouse before being sold" : "Ürünün depoda satılana kadar rafta beklediği gün sayısı"}
+              {t("CashConversionSim.days_inventory_sits_828")}
             </p>
             <input
               type="range"
@@ -235,7 +233,7 @@ export const CashConversionSim: React.FC = () => {
           <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-2 shadow-2xs">
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-emerald-600 dark:text-emerald-400">
-                {isEnglish ? "2. DSO (Days Sales Outstanding)" : "2. DSO (Alacak Tahsil Süresi)"}
+                {t("CashConversionSim.2_dso_days_sales_out_829")}
               </span>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
@@ -244,7 +242,7 @@ export const CashConversionSim: React.FC = () => {
                 >
                   -
                 </button>
-                <span>{dso} {isEnglish ? "Days" : "Gün"}</span>
+                <span>{dso} {t("CashConversionSim.days_830")}</span>
                 <button
                   onClick={() => setDso(Math.min(90, dso + 2))}
                   className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200"
@@ -254,7 +252,7 @@ export const CashConversionSim: React.FC = () => {
               </div>
             </div>
             <p className="text-[11px] text-slate-500 dark:text-slate-400">
-              {isEnglish ? "Days to collect cash from customers after sale" : "Satış yapıldıktan sonra müşteriden nakdin tahsil edilme süresi"}
+              {t("CashConversionSim.days_to_collect_cash_831")}
             </p>
             <input
               type="range"
@@ -271,7 +269,7 @@ export const CashConversionSim: React.FC = () => {
           <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-2 shadow-2xs">
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-amber-600 dark:text-amber-400">
-                {isEnglish ? "3. DPO (Days Payables Outstanding)" : "3. DPO (Tedarikçi Borç Ödeme)"}
+                {t("CashConversionSim.3_dpo_days_payables_832")}
               </span>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
@@ -280,7 +278,7 @@ export const CashConversionSim: React.FC = () => {
                 >
                   -
                 </button>
-                <span>{dpo} {isEnglish ? "Days" : "Gün"}</span>
+                <span>{dpo} {t("CashConversionSim.days_833")}</span>
                 <button
                   onClick={() => setDpo(Math.min(180, dpo + 5))}
                   className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200"
@@ -290,7 +288,7 @@ export const CashConversionSim: React.FC = () => {
               </div>
             </div>
             <p className="text-[11px] text-slate-500 dark:text-slate-400">
-              {isEnglish ? "Days before you must pay supplier invoices" : "Hammadde/ürün tedarikçisine fatura bedelini ödeme vadesi"}
+              {t("CashConversionSim.days_before_you_must_834")}
             </p>
             <input
               type="range"
@@ -306,11 +304,9 @@ export const CashConversionSim: React.FC = () => {
           {/* Action-Oriented Pedagogical Directive */}
           <div className="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-xs text-amber-900 dark:text-amber-200">
             <strong className="block font-bold text-amber-800 dark:text-amber-300 mb-1">
-              💡 {isEnglish ? "Action-Oriented Float Experiment:" : "Eyleme Dönük Float Deneyi:"}
+              💡 {t("CashConversionSim.action_oriented_floa_835")}
             </strong>
-            {isEnglish
-              ? "Slide DPO to 60 days, and reduce DIO to 29 and DSO to 2. Observe the right chart: CCC turns into a negative -29 days! Amazon literally runs its business on free supplier credit."
-              : "DPO sürgüsünü 60 güne çıkarın; DIO'yu 29 ve DSO'yu 2 güne indirin. Sağdaki grafikte CCC'nin -29 güne düştüğünü görün! Şirket banka kredisi yerine tedarikçinin parasıyla faizsiz büyüme makinesine dönüşür."}
+            {t("CashConversionSim.slide_dpo_to_60_days_836")}
           </div>
         </div>
 
@@ -322,11 +318,11 @@ export const CashConversionSim: React.FC = () => {
               <div className="flex items-center gap-1.5">
                 <TrendingUp className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                  {isEnglish ? "Cash Cycle Waterfall (Days)" : "Nakit Döngü Bileşenleri (Gün)"}
+                  {t("CashConversionSim.cash_cycle_waterfall_837")}
                 </span>
               </div>
               <span className="text-xs font-mono font-bold text-slate-500">
-                {isEnglish ? "Formula" : "Formül"}: {dio} + {dso} - {dpo} = {ccc} {isEnglish ? "Days" : "Gün"}
+                {t("CashConversionSim.formula_838")}: {dio} + {dso} - {dpo} = {ccc} {t("CashConversionSim.days_839")}
               </span>
             </div>
 
@@ -335,11 +331,11 @@ export const CashConversionSim: React.FC = () => {
                 <BarChart data={chartData} margin={{ top: 10, right: 15, left: -20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                   <XAxis dataKey="name" tick={{ fontSize: 10, fill: "#94A3B8" }} />
-                  <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} unit={isEnglish ? " d" : " gün"} />
+                  <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} unit={t("CashConversionSim.d_840")} />
                   <Tooltip
                     content={
                       <CustomChartTooltip
-                        unit={isEnglish ? " Days" : " Gün"}
+                        unit={t("CashConversionSim.days_841")}
                         valueFormatter={(val) => `${val}`}
                       />
                     }
@@ -360,16 +356,12 @@ export const CashConversionSim: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                  {isEnglish ? "Working Capital Diagnostic" : "İşletme Sermayesi Teşhisi"}
+                  {t("CashConversionSim.working_capital_diag_842")}
                 </span>
                 <h4 className="text-base sm:text-lg font-black text-slate-900 dark:text-slate-100">
                   {isNegative
-                    ? isEnglish
-                      ? "⚡ Negative Working Capital (Float Machine)"
-                      : "⚡ Negatif İşletme Sermayesi (Float Makinesi)"
-                    : isEnglish
-                    ? "⚠️ Positive Working Capital (Trapped Liquidity)"
-                    : "⚠️ Pozitif İşletme Sermayesi (Kilitli Nakit)"}
+                    ? t("CashConversionSim.negative_working_ca_843")
+                    : t("CashConversionSim.positive_working_ca_844")}
                 </h4>
               </div>
               <span
@@ -380,12 +372,8 @@ export const CashConversionSim: React.FC = () => {
                 }`}
               >
                 {isNegative
-                  ? isEnglish
-                    ? "Superstar Float"
-                    : "Süperstar Float"
-                  : isEnglish
-                  ? "Capital Drain"
-                  : "Sermaye Emici"}
+                  ? t("CashConversionSim.superstar_float_845")
+                  : t("CashConversionSim.capital_drain_846")}
               </span>
             </div>
 
@@ -412,11 +400,11 @@ export const CashConversionSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish ? "See the calculation" : "Hesabı gör"}
+              {t("CashConversionSim.see_the_calculation_847")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
-            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <span>{showCalculationDetails ? (t("CashConversionSim.hide_848")) : (t("CashConversionSim.show_849"))}</span>
             <ChevronDown
               className={`w-4 h-4 transition-transform duration-200 ${
                 showCalculationDetails ? "rotate-180" : ""
@@ -451,9 +439,7 @@ export const CashConversionSim: React.FC = () => {
                   </div>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">
-                  {isEnglish
-                    ? `Working Capital Moat (Warren Buffett & Jeff Bezos): A negative CCC is the ultimate liquidity moat. While competitors borrow money to stock inventory, the negative-float firm generates fresh cash on every sale before its supplier bills are due.`
-                    : `İşletme Sermayesi Hendeği (Buffett & Bezos): Negatif CCC en güçlü likidite hendeklerinden biridir. Rakipler stok tutmak için kredi faizi öderken, negatif float'a sahip şirket her satışta tedarikçiye ödeme günü gelene kadar taze nakit biriktirir.`}
+                  {t("CashConversionSim.working_capital_moat_850")}
                 </p>
               </div>
 
@@ -461,20 +447,16 @@ export const CashConversionSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700 space-y-2">
                 <div className="flex items-center gap-2 text-xs font-bold text-slate-800 dark:text-slate-200">
                   <Sparkles className="w-4 h-4 text-amber-500" />
-                  <span>{isEnglish ? "Pedagogical Float Experiments:" : "Terminal Float Deneyleri:"}</span>
+                  <span>{t("CashConversionSim.pedagogical_float_ex_851")}</span>
                 </div>
                 <div className="space-y-1.5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   <p>
-                    👉 <strong className="text-cyan-900 dark:text-cyan-300">{isEnglish ? "Amazon / E-Commerce Float:" : "Amazon / E-Ticaret Float Modeli:"}</strong>{" "}
-                    {isEnglish
-                      ? "Set DIO to 29, DSO to 2, and DPO to 60. The net cycle falls to -29 days, converting sales growth into self-funding cash."
-                      : "DIO'yu 29, DSO'yu 2 ve DPO'yu 60 yapın. Net döngü -29 güne düşerek ciro büyümesini sıfır maliyetli iç finansmana çevirir."}
+                    👉 <strong className="text-cyan-900 dark:text-cyan-300">{t("CashConversionSim.amazon_e_commerce_fl_852")}</strong>{" "}
+                    {t("CashConversionSim.set_dio_to_29_dso_to_853")}
                   </p>
                   <p>
-                    👉 <strong className="text-rose-900 dark:text-rose-300">{isEnglish ? "Heavy Manufacturing Trap:" : "Ağır Sanayi Sermaye Tuzağı:"}</strong>{" "}
-                    {isEnglish
-                      ? "Set DIO to 80, DSO to 60, and DPO to 50. Working capital is locked for +90 days, draining cash flow during market expansions."
-                      : "DIO'yu 80, DSO'yu 60 ve DPO'yu 50 yapın. Nakit +90 gün kilitlenerek büyüme evrelerinde işletme sermayesi açığı üretir."}
+                    👉 <strong className="text-rose-900 dark:text-rose-300">{t("CashConversionSim.heavy_manufacturing_854")}</strong>{" "}
+                    {t("CashConversionSim.set_dio_to_80_dso_to_855")}
                   </p>
                 </div>
               </div>
