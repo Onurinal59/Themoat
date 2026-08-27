@@ -57,6 +57,7 @@ interface ModuleReaderProps {
   onBackToRoadmap: () => void;
   onSelectModule: (m: LearningModule) => void;
   onCompleteModule: (moduleId: number, score: number) => void;
+  onQuizFailed?: (moduleId: number, score: number, missedCardIds: string[]) => void;
   onOpenAICoach: () => void;
   onOpenGlossary: (termId?: string) => void;
   onOpenLabSim?: (simId: SimTab) => void;
@@ -198,6 +199,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
   onBackToRoadmap,
   onSelectModule,
   onCompleteModule,
+  onQuizFailed,
   onOpenAICoach,
   onOpenGlossary,
   onOpenLabSim,
@@ -260,9 +262,16 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
     setQuizScore(score);
     setIsQuizSubmitted(true);
 
+    const missed = module.quiz.filter((q) => selectedAnswers[q.id] !== q.correctAnswerIndex);
+    const missedCardIds = Array.from(
+      new Set(missed.map((q) => q.flashcardId).filter(Boolean))
+    ) as string[];
+
     // Only mark module complete and unlock next step if passed (>= 80%)
     if (score >= PASSING_SCORE_THRESHOLD || module.quiz.length === 0) {
       onCompleteModule(module.id, score);
+    } else {
+      onQuizFailed?.(module.id, score, missedCardIds);
     }
 
     // Trigger confetti if mastery achieved

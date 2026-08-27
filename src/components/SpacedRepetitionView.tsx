@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Flashcard, UserLearningState } from "../types";
-import { calculateSM2, saveUserLearningState, getDueFlashcards } from "../utils/spacedRepetition";
+import { calculateSM2, saveUserLearningState, getDueFlashcards, getNewFlashcards } from "../utils/spacedRepetition";
 import {
   RotateCcw,
   Sparkles,
@@ -24,7 +24,7 @@ interface SpacedRepetitionViewProps {
   setUserState: React.Dispatch<React.SetStateAction<UserLearningState>>;
   onOpenGlossary: (termId?: string) => void;
   onOpenAICoach: () => void;
-  initialFilter?: number | "all" | "due" | "missed";
+  initialFilter?: number | "all" | "due" | "missed" | "new";
   targetedCardIds?: string[];
   targetedModuleId?: number | null;
   onBackToModule?: (moduleId: number) => void;
@@ -43,7 +43,7 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
   const { isEnglish, getFlashcards, t } = useLanguage();
   const baseFlashcards = getFlashcards();
 
-  const [activeModuleFilter, setActiveModuleFilter] = useState<number | "all" | "due" | "missed">(initialFilter);
+  const [activeModuleFilter, setActiveModuleFilter] = useState<number | "all" | "due" | "missed" | "new">(initialFilter);
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
 
@@ -62,10 +62,13 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
   });
 
   const dueCards = getDueFlashcards(userState, baseFlashcards);
+  const newCards = getNewFlashcards(userState, baseFlashcards);
 
   let filteredCards: Flashcard[] = cardsList;
   if (activeModuleFilter === "due") {
-    filteredCards = dueCards.length > 0 ? dueCards : cardsList;
+    filteredCards = dueCards;
+  } else if (activeModuleFilter === "new") {
+    filteredCards = newCards;
   } else if (activeModuleFilter === "missed" && targetedCardIds && targetedCardIds.length > 0) {
     filteredCards = cardsList.filter((c) => targetedCardIds.includes(c.id));
     if (filteredCards.length === 0 && targetedModuleId) {
@@ -121,7 +124,10 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
   const baseFilters = isEnglish
     ? [
         { id: "all", label: "All Cards" },
-        { id: "due", label: `Due for Review (${dueCards.length})` },
+        ...(dueCards.length > 0
+          ? [{ id: "due", label: `Due for Review (${dueCards.length})` }]
+          : []),
+        { id: "new", label: `New Concepts (${newCards.length})` },
         { id: 1, label: "Module 1: ROIC vs WACC" },
         { id: 2, label: "Module 2: Dickinson Life Cycle" },
         { id: 3, label: "Module 3: Value Stick" },
@@ -133,7 +139,10 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
       ]
     : [
         { id: "all", label: "Tüm Kartlar" },
-        { id: "due", label: `Tekrarı Gelenler (${dueCards.length})` },
+        ...(dueCards.length > 0
+          ? [{ id: "due", label: `Tekrarı Gelenler (${dueCards.length})` }]
+          : []),
+        { id: "new", label: `Yeni Kavramlar (${newCards.length})` },
         { id: 1, label: "Modül 1: ROIC vs WACC" },
         { id: 2, label: "Modül 2: Dickinson Yaşam" },
         { id: 3, label: "Modül 3: Değer Çubuğu" },
@@ -218,11 +227,25 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
         </p>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-6">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6">
           <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 text-center">
             <div className="text-xs text-slate-500 dark:text-slate-400">{isEnglish ? "Total Cards" : "Toplam Kart"}</div>
             <div className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-0.5">
               {cardsList.length}
+            </div>
+          </div>
+
+          <div className="p-3.5 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-800/60 text-center">
+            <div className="text-xs text-blue-800 dark:text-blue-300">{isEnglish ? "New Concepts" : "Yeni Kavramlar"}</div>
+            <div className="text-lg font-bold text-blue-900 dark:text-blue-100 mt-0.5">
+              {newCards.length}
+            </div>
+          </div>
+
+          <div className="p-3.5 rounded-2xl bg-purple-50/70 dark:bg-purple-950/40 border border-purple-200 dark:border-purple-800/60 text-center">
+            <div className="text-xs text-purple-800 dark:text-purple-300">{isEnglish ? "Due for Review" : "Tekrarı Gelen"}</div>
+            <div className="text-lg font-bold text-purple-900 dark:text-purple-100 mt-0.5">
+              {dueCards.length}
             </div>
           </div>
 
@@ -232,37 +255,41 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
               {userState.masteredCardsCount || 0}
             </div>
           </div>
-
-          <div className="col-span-2 sm:col-span-1 p-3.5 rounded-2xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-800/60 text-center flex flex-col justify-center">
-            <div className="text-xs text-indigo-800 dark:text-indigo-300">{isEnglish ? "Due for Review" : "Tekrar Bekleyen"}</div>
-            <div className="text-lg font-bold text-indigo-900 dark:text-indigo-100 mt-0.5">
-              {dueCards.length}
-            </div>
-          </div>
         </div>
       </div>
 
       {/* Module Filter Tabs */}
-      <div className="flex flex-wrap gap-2 pb-3 border-b border-slate-200/80 dark:border-slate-800/80 py-1">
-        {filters.map((f) => (
-          <motion.button
-            key={f.id}
-            whileHover={{ scale: 1.02, y: -1 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => {
-              setActiveModuleFilter(f.id as number | "all");
-              setCurrentCardIndex(0);
-              setIsFlipped(false);
-            }}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer shrink-0 ${
-              activeModuleFilter === f.id
-                ? "bg-indigo-600 text-white shadow-sm shadow-indigo-500/20 font-bold"
-                : "bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/60 border border-transparent hover:border-slate-200 dark:hover:border-slate-700/50"
-            }`}
-          >
-            {f.label}
-          </motion.button>
-        ))}
+      <div className="space-y-2">
+        <div className="flex flex-wrap gap-2 pb-3 border-b border-slate-200/80 dark:border-slate-800/80 py-1">
+          {filters.map((f) => (
+            <motion.button
+              key={f.id}
+              whileHover={{ scale: 1.02, y: -1 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => {
+                setActiveModuleFilter(f.id as any);
+                setCurrentCardIndex(0);
+                setIsFlipped(false);
+              }}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer shrink-0 ${
+                activeModuleFilter === f.id
+                  ? "bg-indigo-600 text-white shadow-sm shadow-indigo-500/20 font-bold"
+                  : "bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100 hover:bg-slate-100 dark:hover:bg-slate-800/60 border border-transparent hover:border-slate-200 dark:hover:border-slate-700/50"
+              }`}
+            >
+              {f.label}
+            </motion.button>
+          ))}
+        </div>
+
+        {/* Filter contextual hint */}
+        {activeModuleFilter === "new" && (
+          <div className="text-xs text-blue-700 dark:text-blue-300 bg-blue-50/70 dark:bg-blue-950/30 px-3.5 py-2 rounded-xl border border-blue-200/70 dark:border-blue-900/40">
+            {isEnglish
+              ? "Explore these cards when you are ready; they are not due for review yet."
+              : "Bu kartları hazır olduğunuzda keşfedin; henüz tekrar zamanları gelmedi."}
+          </div>
+        )}
       </div>
 
       {/* The Interactive Flip Card */}

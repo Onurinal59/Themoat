@@ -89,6 +89,8 @@ export interface Flashcard {
   easeFactor: number;
   nextReviewDate: string; // ISO string
   lastReviewedDate?: string;
+  hasBeenReviewed?: boolean;
+  firstReviewedAt?: string;
 }
 
 export interface FormulaStep {
@@ -132,6 +134,10 @@ export interface UserLearningState {
   lastActiveDate: string;
   masteredCardsCount: number;
   bookmarkedTerms: string[];
+  missedQuizCards?: {
+    moduleId: number;
+    cardIds: string[];
+  } | null;
 }
 
 export interface ChecklistItem {

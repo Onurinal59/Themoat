@@ -72,7 +72,7 @@ export default function App() {
   const [selectedGlossaryTermId, setSelectedGlossaryTermId] = useState<string | null>(null);
 
   // Spaced Repetition flashcard targeted review state
-  const [flashcardFilter, setFlashcardFilter] = useState<number | "all" | "due" | "missed">("all");
+  const [flashcardFilter, setFlashcardFilter] = useState<number | "all" | "due" | "missed" | "new">("all");
   const [targetedFlashcardIds, setTargetedFlashcardIds] = useState<string[] | undefined>(undefined);
   const [targetedFlashcardModuleId, setTargetedFlashcardModuleId] = useState<number | null>(null);
 
@@ -191,10 +191,34 @@ export default function App() {
         [moduleId]: score,
       };
 
-      const updated = {
+      const updated: UserLearningState = {
         ...prev,
         completedModules: completed,
         quizScores: newScores,
+        missedQuizCards: prev.missedQuizCards?.moduleId === moduleId ? null : prev.missedQuizCards,
+      };
+      saveUserLearningState(updated);
+      return updated;
+    });
+
+    // Clear targeted flashcards if they belonged to this module
+    if (targetedFlashcardModuleId === moduleId) {
+      setTargetedFlashcardIds(undefined);
+      setTargetedFlashcardModuleId(null);
+    }
+  };
+
+  const handleQuizFailed = (moduleId: number, score: number, missedCardIds: string[]) => {
+    setUserState((prev) => {
+      const newScores = {
+        ...prev.quizScores,
+        [moduleId]: score,
+      };
+
+      const updated: UserLearningState = {
+        ...prev,
+        quizScores: newScores,
+        missedQuizCards: missedCardIds.length > 0 ? { moduleId, cardIds: missedCardIds } : null,
       };
       saveUserLearningState(updated);
       return updated;
@@ -262,6 +286,7 @@ export default function App() {
                 onBackToRoadmap={handleBackToRoadmap}
                 onSelectModule={handleSelectModule}
                 onCompleteModule={handleCompleteModule}
+                onQuizFailed={handleQuizFailed}
                 onOpenAICoach={() => setIsAICoachOpen(true)}
                 onOpenGlossary={handleOpenGlossary}
                 onOpenLabSim={(simId) => {
@@ -303,10 +328,15 @@ export default function App() {
                     setAiCoachPrompt(undefined);
                     setIsAICoachOpen(true);
                   }}
-                  onNavigateTab={(tab, sim, filter) => {
+                  onNavigateTab={(tab, sim, filter, targetCardIds, targetModuleId) => {
                     if (sim) setSelectedSim(sim);
                     if (filter) {
                       setFlashcardFilter(filter);
+                    }
+                    if (targetCardIds && targetCardIds.length > 0) {
+                      setTargetedFlashcardIds(targetCardIds);
+                      setTargetedFlashcardModuleId(targetModuleId ?? null);
+                    } else {
                       setTargetedFlashcardIds(undefined);
                       setTargetedFlashcardModuleId(null);
                     }

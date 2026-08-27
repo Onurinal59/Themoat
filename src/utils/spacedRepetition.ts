@@ -18,6 +18,28 @@ export function loadUserLearningState(): UserLearningState {
           return score !== undefined ? score >= PASSING_SCORE_THRESHOLD : true;
         });
       }
+
+      // Backward-compatible migration for hasBeenReviewed flag:
+      // If card was previously reviewed (repetitions > 0 or has lastReviewedDate), mark as reviewed.
+      // Otherwise mark as hasBeenReviewed: false (New Concept).
+      if (parsed.flashcardStates && typeof parsed.flashcardStates === "object") {
+        Object.keys(parsed.flashcardStates).forEach((cardId) => {
+          const card = parsed.flashcardStates[cardId];
+          if (card && typeof card.hasBeenReviewed === "undefined") {
+            if ((card.repetitions && card.repetitions > 0) || card.lastReviewedDate) {
+              card.hasBeenReviewed = true;
+              card.firstReviewedAt = card.lastReviewedDate || new Date().toISOString();
+            } else {
+              card.hasBeenReviewed = false;
+            }
+          }
+        });
+      }
+
+      if (typeof parsed.missedQuizCards === "undefined") {
+        parsed.missedQuizCards = null;
+      }
+
       return parsed;
     }
   } catch (e) {
@@ -27,7 +49,10 @@ export function loadUserLearningState(): UserLearningState {
   // Initial default state
   const initialCardsMap: Record<string, Flashcard> = {};
   INITIAL_FLASHCARDS.forEach((card) => {
-    initialCardsMap[card.id] = { ...card };
+    initialCardsMap[card.id] = {
+      ...card,
+      hasBeenReviewed: false,
+    };
   });
 
   return {
@@ -38,6 +63,7 @@ export function loadUserLearningState(): UserLearningState {
     lastActiveDate: new Date().toISOString().split("T")[0],
     masteredCardsCount: 0,
     bookmarkedTerms: [],
+    missedQuizCards: null,
   };
 }
 
@@ -105,6 +131,8 @@ export function calculateSM2(
     difficulty,
     nextReviewDate: nextDate.toISOString(),
     lastReviewedDate: now.toISOString(),
+    hasBeenReviewed: true,
+    firstReviewedAt: card.firstReviewedAt || now.toISOString(),
   };
 }
 
@@ -137,7 +165,9 @@ export function checkAndUpdateStreak(state: UserLearningState): UserLearningStat
 }
 
 /**
- * Returns all flashcards that are due for review based on SM-2 schedule.
+ * Returns all flashcards that are genuinely due for spaced review.
+ * Only cards that have already been reviewed at least once (hasBeenReviewed === true)
+ * AND whose nextReviewDate is <= now qualify as "due".
  */
 export function getDueFlashcards(
   userState: UserLearningState,
@@ -147,7 +177,20 @@ export function getDueFlashcards(
   return baseFlashcards
     .map((card) => userState.flashcardStates[card.id] || card)
     .filter((card) => {
-      if (!card.nextReviewDate) return true;
+      if (!card.hasBeenReviewed) return false;
+      if (!card.nextReviewDate) return false;
       return new Date(card.nextReviewDate).getTime() <= now;
     });
+}
+
+/**
+ * Returns all flashcards that have never been reviewed yet ("New Concepts").
+ */
+export function getNewFlashcards(
+  userState: UserLearningState,
+  baseFlashcards: Flashcard[]
+): Flashcard[] {
+  return baseFlashcards
+    .map((card) => userState.flashcardStates[card.id] || card)
+    .filter((card) => !card.hasBeenReviewed);
 }

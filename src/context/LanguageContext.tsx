@@ -440,7 +440,11 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   };
 
   const getFlashcards = (): Flashcard[] => {
-    return language === "en" ? INITIAL_FLASHCARDS_EN : INITIAL_FLASHCARDS;
+    const raw = language === "en" ? INITIAL_FLASHCARDS_EN : INITIAL_FLASHCARDS;
+    return raw.map((c) => ({
+      ...c,
+      hasBeenReviewed: c.hasBeenReviewed ?? false,
+    }));
   };
 
   const getStepMethodologyGuides = (): Record<number, StepMethodologyGuide> => {
