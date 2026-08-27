@@ -34,10 +34,24 @@ export default function App() {
   const currentModules = getModules();
 
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
-    const saved = localStorage.getItem("theme");
+    const saved = localStorage.getItem("theme") || localStorage.getItem("economicMoatTheme");
     if (saved) return saved === "dark";
     return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
   });
+
+  useEffect(() => {
+    if (window.matchMedia) {
+      const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+      const handleChange = (e: MediaQueryListEvent) => {
+        const currentlySaved = localStorage.getItem("theme") || localStorage.getItem("economicMoatTheme");
+        if (!currentlySaved) {
+          setIsDarkMode(e.matches);
+        }
+      };
+      mediaQuery.addEventListener("change", handleChange);
+      return () => mediaQuery.removeEventListener("change", handleChange);
+    }
+  }, []);
 
   const [userState, setUserState] = useState<UserLearningState>(() => {
     const loaded = loadUserLearningState();
@@ -131,6 +145,7 @@ export default function App() {
   const toggleDarkMode = (e?: React.MouseEvent) => {
     const newTheme = !isDarkMode ? "dark" : "light";
     localStorage.setItem("theme", newTheme);
+    localStorage.setItem("economicMoatTheme", newTheme);
     
     // Fallback if View Transitions API is not supported or no event is passed
     if (!document.startViewTransition || !e) {

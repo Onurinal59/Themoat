@@ -2870,7 +2870,12 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [language, setLanguageState] = useState<Language>(() => {
     const saved = localStorage.getItem("economicMoatLocale");
     if (saved === "tr" || saved === "en") return saved;
-    if (typeof navigator !== "undefined" && navigator.language.startsWith("tr")) return "tr";
+    if (typeof navigator !== "undefined") {
+      const langs = navigator.languages || [navigator.language];
+      for (const l of langs) {
+        if (l && l.toLowerCase().startsWith("tr")) return "tr";
+      }
+    }
     return "en";
   });
 

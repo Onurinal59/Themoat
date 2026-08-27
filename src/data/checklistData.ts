@@ -4,7 +4,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   // 1. Giriş ve Temel Getiri
   {
     id: "chk-1",
-    category: "1. Giriş & Getiri (Introduction)",
+    category: "1. Giriş & Getiri",
     question: "Şirket WACC (Sermaye Maliyeti) üzerinde bir ROIC (Sermaye Getirisi) elde ediyor mu?",
     explanation: "Şirketin yatırdığı paradan elde ettiği getiri, para maliyetinden yüksek olmalıdır (ROIC > WACC).",
     highScoreIndicator: "ROIC belirgin şekilde WACC'ın üzerinde (%15+ vs %8 WACC)",
@@ -12,7 +12,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   },
   {
     id: "chk-2",
-    category: "1. Giriş & Getiri (Introduction)",
+    category: "1. Giriş & Getiri",
     question: "ROIC oranı artıyor mu, düşüyor mu yoksa istikrarlı mı?",
     explanation: "Yıllar içinde ROIC'in korunabilmesi rekabet avantajının kalıcılığını gösterir.",
     highScoreIndicator: "10+ yıldır istikrarlı veya yükselen yüksek ROIC",
@@ -20,7 +20,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   },
   {
     id: "chk-3",
-    category: "1. Giriş & Getiri (Introduction)",
+    category: "1. Giriş & Getiri",
     question: "Hisse fiyatının ne kadarı gelecekte yaratılacak yeni değeri yansıtıyor?",
     explanation: "Piyasanın şirketten aşırı agresif büyüme bekleyip beklemediğinin ölçümü.",
     highScoreIndicator: "Makul oranda (Fiyatın <%40'ı gelecek değer)",
@@ -30,7 +30,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   // 2. Sektör Yapısı ve Haritası (Lay of the Land)
   {
     id: "chk-4",
-    category: "2. Sektör Haritası (Lay of the Land)",
+    category: "2. Sektör Haritası",
     question: "Sektördeki toplam ekonomik kâr (Profit Pool) nasıl dağılıyor ve şirket nerede?",
     explanation: "Kâr havuzunda şirket kârın büyük kısmını üreten kolda mı yoksa sermaye yutan kısımda mı?",
     highScoreIndicator: "Kâr havuzunun en yüksek getirili diliminde konumlanmış",
@@ -38,7 +38,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   },
   {
     id: "chk-5",
-    category: "2. Sektör Haritası (Lay of the Land)",
+    category: "2. Sektör Haritası",
     question: "Sektördeki 5 yıllık pazar payı değişimi ne kadar istikrarlı?",
     explanation: "Greenwald kuralı: 5 yıllık ortalama pazar payı değişimi ≤ %2 ise istikrarlıdır.",
     highScoreIndicator: "Pazar payları çok stabil (Ortalama değişim < %2)",
@@ -46,7 +46,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   },
   {
     id: "chk-6",
-    category: "2. Sektör Haritası (Lay of the Land)",
+    category: "2. Sektör Haritası",
     question: "Sektör yoğunlaşması (HHI / C4) nasıl bir seyir izliyor?",
     explanation: "İlk 4 şirketin pazar payı toplamı ve pazar liderlerinin gücü.",
     highScoreIndicator: "Oligopol yapı, az sayıda rasyonel büyük oyuncu",
@@ -79,10 +79,10 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
     lowScoreIndicator: "Hızlı tren veya görüntülü görüşme gibi güçlü ikameler mevcut",
   },
 
-  // 4. Giriş Engelleri (Barriers to Entry)
+  // 4. Giriş Engelleri
   {
     id: "chk-10",
-    category: "4. Giriş Engelleri (Barriers to Entry)",
+    category: "4. Giriş Engelleri",
     question: "Asgari Verimli Ölçek (MES) toplam pazarın büyük bir kısmını mı oluşturuyor?",
     explanation: "Yeni bir rakibin kârlı olabilmesi için devasa pazar payı kapması gerekiyor mu?",
     highScoreIndicator: "MES çok yüksek, küçük kalan rakipler birim maliyetten batar",
@@ -90,7 +90,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   },
   {
     id: "chk-11",
-    category: "4. Giriş Engelleri (Barriers to Entry)",
+    category: "4. Giriş Engelleri",
     question: "Şirket güçlü doğrudan veya dolaylı Ağ Etkilerine (Network Effects) sahip mi?",
     explanation: "Kullanıcı sayısı arttıkça platformun değeri katlanarak büyüyor mu?",
     highScoreIndicator: "Kullanıcılar platformu terk edemiyor çünkü herkes orada (Uber, Visa, Apple)",
@@ -98,7 +98,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   },
   {
     id: "chk-12",
-    category: "4. Giriş Engelleri (Barriers to Entry)",
+    category: "4. Giriş Engelleri",
     question: "Müşteri geçiş maliyetleri (Switching Costs / Lock-in) yüksek mi?",
     explanation: "Veri taşıma, yeniden öğrenme veya sözleşme cezaları müşteriyi tutuyor mu?",
     highScoreIndicator: "Geçiş maliyeti aşırı yüksek (Tüm kurumsal veriler ve alışkanlıklar bağlı)",
@@ -106,7 +106,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   },
   {
     id: "chk-13",
-    category: "4. Giriş Engelleri (Barriers to Entry)",
+    category: "4. Giriş Engelleri",
     question: "Şirket Wright Yasası (Öğrenme Eğrisi) sayesinde maliyet avantajına sahip mi?",
     explanation: "Yılların üretim birikimi ve tecrübesi birim maliyetleri rakiplerin erişemeyeceği yere çekti mi?",
     highScoreIndicator: "Kümülatif üretim devasa, birim maliyette rakipsiz lider",
@@ -114,7 +114,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   },
   {
     id: "chk-14",
-    category: "4. Giriş Engelleri (Barriers to Entry)",
+    category: "4. Giriş Engelleri",
     question: "Devlet regülasyonları, patentler ve lisanslar şirketi koruyor mu?",
     explanation: "'Regülasyon mevcut liderin dostudur' (Bill Gurley).",
     highScoreIndicator: "20 yıllık güçlü patentler, zorlu lisanslar ve mevzuat koruması",
@@ -124,7 +124,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   // 5. Yıkıcı İnovasyon ve Sektör Çözülmesi
   {
     id: "chk-15",
-    category: "5. Yıkım ve Çözülme (Disruption)",
+    category: "5. Yıkım ve Çözülme",
     question: "Sektör alt segmentten gelebilecek yıkıcı bir iş modeline açık mı?",
     explanation: "Liderler en pahalı müşteriye odaklanıp pazarın altını boş bıraktı mı (Overshooting)?",
     highScoreIndicator: "Şirket alt segmenti de kapsayan çok esnek ve verimli bir modele sahip",
@@ -132,7 +132,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   },
   {
     id: "chk-16",
-    category: "5. Yıkım ve Çözülme (Disruption)",
+    category: "5. Yıkım ve Çözülme",
     question: "Sektör dikey entegrasyondan yatay modüler yapıya dönüştü mü?",
     explanation: "Sektör standartlaştı mı yoksa hala tek çatı altında sıkı koordinasyon mu gerektiriyor?",
     highScoreIndicator: "Şirket sektörün ihtiyaç duyduğu doğru mimariyi (Dikey/Modüler) yönetiyor",
@@ -142,7 +142,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   // 6. Şirket İçi Analiz & Değer Çubuğu
   {
     id: "chk-17",
-    category: "6. Şirket Analizi (Value Creation)",
+    category: "6. Şirket Analizi ve Değer Yaratımı",
     question: "Şirket müşterinin Ödemeye İstekliliğini (WTP) yukarı taşımayı başardı mı?",
     explanation: "Sadece fiyata zam yapmak yerine prestij, kalite veya zaman tasarrufu yarattı mı?",
     highScoreIndicator: "Müşteriler gönüllü olarak yüksek prim ödemeye razı",
@@ -150,7 +150,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   },
   {
     id: "chk-18",
-    category: "6. Şirket Analizi (Value Creation)",
+    category: "6. Şirket Analizi ve Değer Yaratımı",
     question: "Şirket tedarikçi ve çalışanların WTS'ini düşüren verimlilik ve kültüre sahip mi?",
     explanation: "Veri paylaşımı (Walmart-P&G) veya çalışan özerkliği (Costco/Lehman) ile maliyet tabanı indi mi?",
     highScoreIndicator: "Tedarikçiler ve çalışanlar şirketle çalışmaktan mutlu ve daha verimli",
@@ -158,7 +158,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   },
   {
     id: "chk-19",
-    category: "6. Şirket Analizi (Value Creation)",
+    category: "6. Şirket Analizi ve Değer Yaratımı",
     question: "DuPont ROIC ayrıştırmasında şirket hangi net avantaja sahip?",
     explanation: "Farklılaşma (Yüksek NOPAT Marjı) mı yoksa Maliyet Liderliği (Yüksek Sermaye Devri) mi?",
     highScoreIndicator: "Net ve tutarlı bir strateji (Ya Apple gibi devasa marj ya Costco gibi devasa devir hızı)",
@@ -166,7 +166,7 @@ export const CHECKLIST_ITEMS_TR: ChecklistItem[] = [
   },
   {
     id: "chk-20",
-    category: "6. Şirket Analizi (Value Creation)",
+    category: "6. Şirket Analizi ve Değer Yaratımı",
     question: "Nakit Dönüşüm Süresi (CCC) ve işletme sermayesi verimli mi?",
     explanation: "Şirket parasını stoklara mı bağlıyor yoksa Amazon gibi negatif CCC ile mi büyüyor?",
     highScoreIndicator: "Negatif veya çok düşük CCC (Parayı peşin alıp tedarikçiyi vadeli öder)",

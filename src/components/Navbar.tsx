@@ -413,20 +413,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Right: Streak + Single Unified "Utilities / More" Hub */}
             <div className="flex items-center gap-2 shrink-0">
               
-              
-            {/* Language Switcher */}
-            <div className="hidden sm:flex items-center">
-              <select
-                aria-label={t("nav.switchLanguage", t("Navbar.language_dil_647"))}
-                value={language}
-                onChange={(e) => setLanguage(e.target.value as "en" | "tr")}
-                className="bg-transparent text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-indigo-600 dark:hover:text-indigo-400 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 rounded-md px-1 py-1"
-              >
-                <option value="en" className="text-slate-900">EN</option>
-                <option value="tr" className="text-slate-900">TR</option>
-              </select>
-            </div>
-
             {/* Daily Learning Streak Capsule (Visible on >= 640px in header; also inside Tools dropdown) */}
               <div
                 id="user-learning-streak-badge"

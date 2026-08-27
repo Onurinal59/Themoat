@@ -407,7 +407,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               <span className="text-amber-800 dark:text-amber-300">
                 {isEnglish
                   ? `You can explore this lesson. To record progress and complete the module, first pass the Step 0${prevModule ? prevModule.id : module.id - 1} quiz.`
-                  : `Bu dersi inceleyebilirsin. İlerlemeyi kaydetmek ve modülü tamamlamak için önce Step 0${prevModule ? prevModule.id : module.id - 1} quizini geç.`}
+                  : `Bu dersi inceleyebilirsin. İlerlemeyi kaydetmek ve modülü tamamlamak için önce Adım 0${prevModule ? prevModule.id : module.id - 1} testini geç.`}
               </span>
             </div>
           </div>
@@ -417,7 +417,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               onClick={() => onSelectModule(prevModule)}
               className="shrink-0 self-end sm:self-auto px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer min-h-[36px] active:scale-98"
             >
-              {isEnglish ? `Go to Step 0${prevModule.id}` : `Step 0${prevModule.id}’e Git`}
+              {isEnglish ? `Go to Step 0${prevModule.id}` : `Adım 0${prevModule.id}'ye Git`}
             </button>
           )}
         </motion.div>
@@ -1238,7 +1238,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                   : `Sonraki Adıma Geç (Adım 0${nextModule.id})`
                 : isEnglish
                 ? `Preview Step 0${nextModule.id}`
-                : `Step 0${nextModule.id} Önizle`}
+                : `Adım 0${nextModule.id}'ü Önizle`}
             </span>
             <ArrowRight className="w-4 h-4 shrink-0" />
           </motion.button>

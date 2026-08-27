@@ -95,7 +95,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
               <span>
                 {isNextModuleUnlocked
                   ? t("MobileBottomNav.next_step_493")
-                  : isEnglish ? `Preview Step 0${activeModule ? activeModule.id + 1 : ""}` : `Adım 0${activeModule ? activeModule.id + 1 : ""} Önizle`}
+                  : isEnglish ? `Preview Step 0${activeModule ? activeModule.id + 1 : ""}` : `Adım 0${activeModule ? activeModule.id + 1 : ""}'ü Önizle`}
               </span>
               <ChevronRight className="w-4 h-4 shrink-0" />
             </button>
