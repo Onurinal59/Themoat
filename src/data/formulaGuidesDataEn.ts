@@ -354,7 +354,7 @@ export const FORMULA_GUIDES_DATA_EN: Record<string, FormulaGuide> = {
     subtitle: "The Gap Between Capital Deployed and Economic Rent Across Value Chain Segments",
     coreEquation: "Economic Profit = Invested Capital × (ROIC - WACC)",
     plainLanguageSummary:
-      "A Profit Pool maps where invested capital is tied up and where true economic profit (spread × capital) accumulates across an entire industry value chain.",
+      "A Profit Pool maps where invested capital is tied up and where economic profit (spread × capital) accumulates across an entire industry value chain.",
     whyThisFormulaExists:
       "People often assume the segment with the highest revenue or largest physical assets earns the most profit. In reality, airlines tie up 65% of capital for 0% economic profit, while booking software providers (GDS) tie up 2% capital and harvest 40% of the profits.",
     variables: [
@@ -427,10 +427,10 @@ export const FORMULA_GUIDES_DATA_EN: Record<string, FormulaGuide> = {
     id: "footnote",
     title: "10-K Footnote Forensic Adjustments (R&D & Leases)",
     badge: "MODULE 5: FORENSIC ACCOUNTING",
-    subtitle: "Capitalizing R&D and Operating Leases to Expose True Economic Capital",
+    subtitle: "Capitalizing R&D and Operating Leases to Expose Adjusted Invested Capital",
     coreEquation: "Adjusted NOPAT = EBIT + Current R&D - R&D Amortization",
     plainLanguageSummary:
-      "Standard accounting rules (GAAP/IFRS) expense multi-year R&D and intangible investments immediately as if they were utility bills. Forensic adjustments capitalize these investments over their useful lives, revealing true economic NOPAT and capital efficiency.",
+      "Standard accounting rules (GAAP/IFRS) expense multi-year R&D and intangible investments immediately as if they were utility bills. Forensic adjustments capitalize these investments over their useful lives, revealing adjusted NOPAT and capital efficiency.",
     whyThisFormulaExists:
       "R&D is not a consumable expense—it builds durable intellectual property. Treating it as a long-term asset amortized over 3-7 years reveals whether innovative companies are actually lucrative compounders.",
     variables: [

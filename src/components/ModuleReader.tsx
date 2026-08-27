@@ -43,6 +43,7 @@ import {
   Compass,
   Milestone,
   FileText,
+  ExternalLink,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 
@@ -101,7 +102,7 @@ const MODULE_LAB_MAPPINGS_TR: Record<number, ModuleLabConfig> = {
     simId: "footnote-detective",
     title: "10-K Dipnot Dedektifi & Bilanço Düzeltmeleri",
     badge: "MODÜL 5 İLE İLİŞKİLİ",
-    description: "Faaliyet kiralamalarını borca dönüştürün, Ar-Ge giderlerini aktifleştirin; gerçek NOPAT ve Düzeltilmiş ROIC'i adım adım hesaplayın.",
+    description: "Faaliyet kiralamalarını borca dönüştürün, Ar-Ge giderlerini aktifleştirin; düzeltilmiş NOPAT ve Düzeltilmiş ROIC'i adım adım hesaplayın.",
     buttonLabel: "10-K Dipnot Dedektifinde Kendin Dene",
   },
   6: {
@@ -160,7 +161,7 @@ const MODULE_LAB_MAPPINGS_EN: Record<number, ModuleLabConfig> = {
     simId: "footnote-detective",
     title: "10-K Footnote Detective & Forensic Adjustments",
     badge: "LINKED TO MODULE 5",
-    description: "Capitalize operating leases, amortize R&D expenses, and recalculate true NOPAT and Adjusted Invested Capital.",
+    description: "Capitalize operating leases, amortize R&D expenses, and recalculate adjusted NOPAT and Adjusted Invested Capital.",
     buttonLabel: "Try in 10-K Footnote Detective",
   },
   6: {
@@ -437,6 +438,17 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 {module.sourceAndAssumption.scopeNote}
               </p>
             )}
+            <div className="pt-1 flex items-center justify-between gap-2 flex-wrap">
+              <a
+                href="https://www.morganstanley.com/content/dam/im/assets/publication/thought-leadership/consilient-observer/article_measuringthemoat.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 hover:underline cursor-pointer"
+              >
+                <ExternalLink className="w-3 h-3" />
+                <span>{isEnglish ? "Official Morgan Stanley \"Measuring the Moat\" (2024) PDF" : "Resmi Morgan Stanley \"Measuring the Moat\" (2024) PDF Raporu"}</span>
+              </a>
+            </div>
           </div>
         )}
       </div>

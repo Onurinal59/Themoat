@@ -364,7 +364,7 @@ export const CapFadeRateSim: React.FC = () => {
 
             <div className="col-span-2 sm:col-span-1 p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20">
               <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider block">
-                {isEnglish ? "Moat Longevity Verdict" : "Hendek Hükmü"}
+                {isEnglish ? "Moat Longevity Assessment" : "Hendek Süresi Değerlendirmesi"}
               </span>
               <span className="text-sm font-black text-slate-900 dark:text-white">
                 {capDuration >= 15

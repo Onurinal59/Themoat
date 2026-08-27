@@ -409,6 +409,11 @@ export const ProfitPoolSim: React.FC = () => {
             <p className="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
               {isEnglish ? activeSegment.descEn : activeSegment.descTr}
             </p>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 italic pt-1 border-t border-slate-200/60 dark:border-slate-800/60">
+              {isEnglish
+                ? "Illustrative teaching scenario — figures are not current company estimates or investment views."
+                : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
+            </p>
           </div>
         </div>
       </div>

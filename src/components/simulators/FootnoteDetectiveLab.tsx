@@ -110,8 +110,8 @@ export const DETECTIVE_CASES: DetectiveCase[] = [
     reportedShareholdersEquity: 34000,
     costOfEquity: 10.5,
     costOfDebtPreTax: 5.5,
-    takeawayTr: "Ar-Ge harcamalarını aktifleştirip faydalı ömrüne (3-5 yıl) itfa etmek ve operasyon dışı atıl nakdi bilançodan ayıklamak, şirketin gerçek ekonomik NOPAT ve Yatırılan Sermaye (Invested Capital) gücünü açığa çıkarır.",
-    takeawayEn: "Capitalizing R&D expenditures with economic amortization (3-5 years) and carving out non-operating idle cash reveals the genuine economic NOPAT and true Invested Capital productivity.",
+    takeawayTr: "Ar-Ge harcamalarını aktifleştirip faydalı ömrüne (3-5 yıl) itfa etmek ve operasyon dışı atıl nakdi bilançodan ayıklamak, şirketin düzeltilmiş NOPAT ve Yatırılan Sermaye (Invested Capital) gücünü açığa çıkarır.",
+    takeawayEn: "Capitalizing R&D expenditures with economic amortization (3-5 years) and carving out non-operating idle cash reveals the adjusted NOPAT and analytical Invested Capital productivity.",
     lineItems: [
       {
         id: "rnd-expense",
@@ -214,8 +214,8 @@ export const DETECTIVE_CASES: DetectiveCase[] = [
     reportedShareholdersEquity: 8500,
     costOfEquity: 18.0,
     costOfDebtPreTax: 24.0,
-    takeawayTr: "Mağaza kiralayan perakendecide kira taahhütlerini iskonto edip sermayeye ve borca eklemek (Kullanım Hakkı Varlığı), şirketin gerçek borçluluğunu, WACC ağırlığını ve sermaye yoğunluğunu ortaya koyar.",
-    takeawayEn: "Capitalizing non-cancellable operating leases into Right-of-Use assets and debt liabilities reveals true capital intensity, realistic debt weights for WACC, and genuine ROIC.",
+    takeawayTr: "Mağaza kiralayan perakendecide kira taahhütlerini iskonto edip sermayeye ve borca eklemek (Kullanım Hakkı Varlığı), şirketin düzeltilmiş borçluluğunu, WACC ağırlığını ve sermaye yoğunluğunu ortaya koyar.",
+    takeawayEn: "Capitalizing non-cancellable operating leases into Right-of-Use assets and debt liabilities reveals adjusted capital intensity, realistic debt weights for WACC, and adjusted ROIC.",
     lineItems: [
       {
         id: "operating-leases-item",
@@ -491,6 +491,11 @@ export const FootnoteDetectiveLab: React.FC = () => {
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed max-w-4xl">
             {isEnglish ? currentCase.scenarioDescriptionEn : currentCase.scenarioDescriptionTr}
+          </p>
+          <p className="text-[11px] text-slate-400 dark:text-slate-500 italic mt-1">
+            {isEnglish
+              ? "Illustrative teaching scenario — figures are not current company estimates or investment views."
+              : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
           </p>
         </div>
       </div>

@@ -159,13 +159,13 @@ const UI_TRANSLATIONS: Record<Language, Record<string, string>> = {
 
     // Company Audit
     "audit.title": "Şirket Analiz Stüdyosu (10-K & KAP Röntgeni)",
-    "audit.subtitle": "Bilanço ve gelir tablosu verilerini girerek gerçek NOPAT, Yatırılan Sermaye, ROIC ve 5 Adımlı Hendek Değerlendirmesini çıkarın.",
+    "audit.subtitle": "Bilanço ve gelir tablosu verilerini girerek düzeltilmiş NOPAT, Yatırılan Sermaye, ROIC ve 5 Adımlı Hendek Değerlendirmesini çıkarın.",
     "audit.selectSample": "Örnek Şirket Seçin",
     "audit.customCompany": "Özel Şirket Analizi",
     "audit.balanceSheet": "Bilanço & Gelir Tablosu Girdileri",
     "audit.forensicAdjustments": "Adli Muhasebe & Düzeltmeler",
     "audit.results": "Analiz Röntgen Sonuçları",
-    "audit.verdict": "Nihai Hendek Hükmü",
+    "audit.verdict": "Nihai Hendek Değerlendirmesi",
 
     // Moat Duel
     "duel.title": "Şirket Hendek Düellosu",
@@ -324,13 +324,13 @@ const UI_TRANSLATIONS: Record<Language, Record<string, string>> = {
 
     // Company Audit
     "audit.title": "Company Audit Studio (10-K & SEC Röntgen)",
-    "audit.subtitle": "Input balance sheet and income statement items to compute unadulterated NOPAT, Invested Capital, ROIC, and 5-Step Moat Evaluation.",
+    "audit.subtitle": "Input balance sheet and income statement items to compute adjusted NOPAT, Invested Capital, ROIC, and 5-Step Moat Evaluation.",
     "audit.selectSample": "Select Sample Case",
     "audit.customCompany": "Custom Audit",
     "audit.balanceSheet": "Balance Sheet & Income Statement Inputs",
     "audit.forensicAdjustments": "Forensic Accounting & Adjustments",
     "audit.results": "Audit Röntgen Results",
-    "audit.verdict": "Final Moat Verdict",
+    "audit.verdict": "Final Moat Assessment",
 
     // Moat Duel
     "duel.title": "Company Moat Duel",

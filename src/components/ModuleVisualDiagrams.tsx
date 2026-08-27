@@ -522,9 +522,14 @@ export const ValueStickVisual: React.FC = () => {
             )}
             {strategyMode === "cost" && (
               <p>
-                ⚡ <strong>{isEnglish ? "Cost Leadership (Costco, Amazon):" : "Maliyet Liderliği (Costco, Amazon):"}</strong> {isEnglish ? "Supplier efficiency lowers the WTS floor. Low prices draw massive volume and generate superior ROIC via capital velocity." : "Tedarikçilerin verimliliği artırılarak WTS tabanı düşürülür, etiket fiyatı 50 TL'ye çekilir. Müşteri akın eder ve şirket yüksek devir hızıyla devasa bir toplam refah üretir."}
+                ⚡ <strong>{isEnglish ? "Cost Leadership (Costco, Amazon Model):" : "Maliyet Liderliği (Costco, Amazon Modeli):"}</strong> {isEnglish ? "Supplier efficiency lowers the WTS floor. Low prices draw volume and generate returns via capital velocity." : "Tedarikçilerin verimliliği artırılarak WTS tabanı düşürülür, etiket fiyatı 50 TL'ye çekilir. Müşteri akın eder ve şirket yüksek devir hızıyla toplam refah üretir."}
               </p>
             )}
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 italic pt-1 border-t border-slate-200 dark:border-slate-800">
+              {isEnglish
+                ? "Illustrative teaching scenario — figures are not current company estimates or investment views."
+                : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
+            </p>
           </div>
         </div>
       </div>

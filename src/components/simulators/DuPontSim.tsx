@@ -44,8 +44,8 @@ const BENCHMARKS: CompanyBenchmark[] = [
     margin: 26,
     turnover: 0.6,
     roic: 15.6,
-    descTr: "Güçlü marka ve gizli formül ile %26 NOPAT marjı üretir.",
-    descEn: "Generates a 26% NOPAT margin via pricing power and brand equity.",
+    descTr: "Güçlü marka ve gizli formül ile %26 NOPAT marjı üretir. Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir.",
+    descEn: "Generates a 26% NOPAT margin via pricing power and brand equity. Illustrative teaching scenario — figures are not current company estimates or investment views.",
   },
   {
     name: "Costco Wholesale",
@@ -54,8 +54,8 @@ const BENCHMARKS: CompanyBenchmark[] = [
     margin: 4,
     turnover: 4.3,
     roic: 17.2,
-    descTr: "Yalnızca %4 ince kâr marjıyla çalışır ama depodaki sermayeyi 4.3 kat hızla döndürür.",
-    descEn: "Operates with a lean 4% operating margin but turns over invested capital 4.3x annually.",
+    descTr: "Yalnızca %4 ince kâr marjıyla çalışır ama depodaki sermayeyi 4.3 kat hızla döndürür. Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir.",
+    descEn: "Operates with a lean 4% operating margin but turns over invested capital 4.3x annually. Illustrative teaching scenario — figures are not current company estimates or investment views.",
   },
   {
     name: "Apple Inc.",
@@ -64,8 +64,8 @@ const BENCHMARKS: CompanyBenchmark[] = [
     margin: 28,
     turnover: 1.6,
     roic: 44.8,
-    descTr: "Hem %28'lik devasa bir lüks marjına hem de 1.6x yüksek sermaye dönüşüm hızına sahiptir.",
-    descEn: "Commands both luxury 28% NOPAT margins and a high 1.6x capital velocity.",
+    descTr: "Hem %28'lik devasa bir lüks marjına hem de 1.6x yüksek sermaye dönüşüm hızına sahiptir. Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir.",
+    descEn: "Commands both luxury 28% NOPAT margins and a high 1.6x capital velocity. Illustrative teaching scenario — figures are not current company estimates or investment views.",
   },
   {
     name: "Marathon Petroleum",
@@ -74,8 +74,8 @@ const BENCHMARKS: CompanyBenchmark[] = [
     margin: 8,
     turnover: 2.3,
     roic: 18.4,
-    descTr: "Rafineri ölçeği ve yüksek varlık verimliliği ile 2.3x devir hızına ulaşır.",
-    descEn: "Reaches 2.3x asset velocity driven by refinery scale and operational throughput.",
+    descTr: "Rafineri ölçeği ve yüksek varlık verimliliği ile 2.3x devir hızına ulaşır. Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir.",
+    descEn: "Reaches 2.3x asset velocity driven by refinery scale and operational throughput. Illustrative teaching scenario — figures are not current company estimates or investment views.",
   },
   {
     name: "Standart Emtia Şirketi",
@@ -84,8 +84,8 @@ const BENCHMARKS: CompanyBenchmark[] = [
     margin: 6,
     turnover: 0.8,
     roic: 4.8,
-    descTr: "Ne fiyatlama gücü vardır ne de sermaye hızı; sermaye maliyetinin altında kalır.",
-    descEn: "Neither commands pricing power nor asset velocity; falls below WACC.",
+    descTr: "Ne fiyatlama gücü vardır ne de sermaye hızı; sermaye maliyetinin altında kalır. Öğretim senaryosudur; gerçek sonuçlar ve hendek süresi değişebilir.",
+    descEn: "Neither commands pricing power nor asset velocity; falls below WACC. Illustrative scenario; actual outcomes and moat duration vary.",
   },
 ];
 

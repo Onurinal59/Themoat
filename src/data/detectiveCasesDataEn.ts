@@ -20,7 +20,7 @@ export const DETECTIVE_CASES_EN: DetectiveCase[] = [
     reportedShareholdersEquity: 34000,
     costOfEquity: 10.5,
     costOfDebtPreTax: 5.5,
-    takeaway: "Capitalizing R&D expenses over their useful economic life (3–5 years) and stripping non-operating excess cash from the balance sheet reveals the company's true economic NOPAT and genuine Invested Capital return power.",
+    takeaway: "Capitalizing R&D expenses over their useful economic life (3–5 years) and stripping non-operating excess cash from the balance sheet reveals the company's adjusted NOPAT and Invested Capital return power.",
     lineItems: [
       {
         id: "rnd-expense",

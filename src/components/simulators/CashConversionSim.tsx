@@ -35,13 +35,13 @@ interface PresetCycle {
 
 const PRESET_CYCLES: PresetCycle[] = [
   {
-    nameTr: "⚡ Negatif Float (Amazon / Apple)",
-    nameEn: "⚡ Negative Float (Amazon / Apple)",
+    nameTr: "⚡ Negatif Float (Amazon / Apple Modeli)",
+    nameEn: "⚡ Negative Float (Amazon / Apple Model)",
     dio: 29,
     dso: 2,
     dpo: 60,
-    descTr: "Müşteriden peşin tahsilat (DSO=2), tedarikçiye 60 gün sonra ödeme (DPO=60). Şirket büyüdükçe faizsiz nakit basar!",
-    descEn: "Collects cash instantly (DSO=2) while paying suppliers in 60 days (DPO=60). Negative CCC generates interest-free cash flow as sales expand!",
+    descTr: "Müşteriden peşin tahsilat (DSO=2), tedarikçiye 60 gün sonra ödeme (DPO=60). Negatif CCC sermaye üretir. Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir.",
+    descEn: "Collects cash instantly (DSO=2) while paying suppliers in 60 days (DPO=60). Negative CCC generates cash. Illustrative teaching scenario — figures are not current company estimates or investment views.",
   },
   {
     nameTr: "🏭 Standart İmalatçı (Pozitif CCC)",
@@ -49,17 +49,17 @@ const PRESET_CYCLES: PresetCycle[] = [
     dio: 65,
     dso: 45,
     dpo: 35,
-    descTr: "Hammadde depoda bekler, müşteriye vadeli satılır. +75 gün boyunca işletme sermayesi banka kredisiyle finanse edilir.",
-    descEn: "Long inventory cycle and customer receivables create a +75-day cash gap funded by bank debt or equity.",
+    descTr: "Hammadde depoda bekler, müşteriye vadeli satılır. +75 gün boyunca işletme sermayesi banka kredisiyle finanse edilir. Öğretim senaryosudur; gerçek sonuçlar değişebilir.",
+    descEn: "Long inventory cycle and customer receivables create a +75-day cash gap funded by bank debt or equity. Illustrative scenario; actual outcomes vary.",
   },
   {
-    nameTr: "🛒 Costco Toptancı Perakende",
-    nameEn: "🛒 Costco Wholesale Retail",
+    nameTr: "🛒 Costco Toptancı Perakende Modeli",
+    nameEn: "🛒 Costco Wholesale Retail Model",
     dio: 31,
     dso: 4,
     dpo: 33,
-    descTr: "Mükemmel sıfıra yakın nakit döngüsü. Raftaki mallar tedarikçinin vadesi dolmadan satılıp nakde döner.",
-    descEn: "Near-zero cash conversion cycle. Goods turn over on shelves before supplier invoices mature.",
+    descTr: "Mükemmel sıfıra yakın nakit döngüsü. Raftaki mallar tedarikçinin vadesi dolmadan satılıp nakde döner. Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir.",
+    descEn: "Near-zero cash conversion cycle. Goods turn over on shelves before supplier invoices mature. Illustrative teaching scenario — figures are not current company estimates or investment views.",
   },
   {
     nameTr: "🚗 Ağır Sanayi / Otomotiv",
@@ -67,8 +67,8 @@ const PRESET_CYCLES: PresetCycle[] = [
     dio: 80,
     dso: 60,
     dpo: 50,
-    descTr: "Kompleks tedarik zincirleri ve bayi finansmanı yüzünden yüksek nakit kilitlenmesi yaşar.",
-    descEn: "Complex global supply chains and dealer financing lock up working capital for 90 days.",
+    descTr: "Kompleks tedarik zincirleri ve bayi finansmanı yüzünden yüksek nakit kilitlenmesi yaşar. Öğretim senaryosudur; gerçek sonuçlar değişebilir.",
+    descEn: "Complex global supply chains and dealer financing lock up working capital for 90 days. Illustrative scenario; actual outcomes vary.",
   },
 ];
 

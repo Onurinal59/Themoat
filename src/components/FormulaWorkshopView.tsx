@@ -1250,6 +1250,11 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
               <div className="text-xs font-semibold text-slate-700 dark:text-slate-300 leading-relaxed">
                 {currentGuide.realWorldExample.scenario}
               </div>
+              <div className="text-[10px] text-slate-400 dark:text-slate-500 italic">
+                {isEnglish
+                  ? "Illustrative teaching scenario — figures are not current company estimates or investment views."
+                  : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
+              </div>
 
               {/* Step pills */}
               <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-slate-700/80">

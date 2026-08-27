@@ -301,7 +301,7 @@ export const MoatChecklistSim: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 block">
-                  {isEnglish ? "Economic Moat Verdict" : "Ekonomik Hendek Hükmü"}
+                  {isEnglish ? "Economic Moat Assessment" : "Ekonomik Hendek Değerlendirmesi"}
                 </span>
                 <h4 className="text-base sm:text-lg font-black text-slate-900 dark:text-slate-100">
                   {moatVerdict}

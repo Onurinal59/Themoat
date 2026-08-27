@@ -106,7 +106,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
       icon: Search,
       iconColor: "text-cyan-600 dark:text-cyan-400",
       iconBg: "from-cyan-500/10 to-teal-500/10 border-cyan-500/20 dark:from-cyan-500/20 dark:to-teal-500/20 dark:border-cyan-500/30",
-      summary: "Standart muhasebe rakamları gerçek kârlılığı gizler. Şirketlerin 10-K ve KAP dipnotlarına inerek gerçek ROIC ve WACC hesaplamalarını keşfedin.",
+      summary: "Standart muhasebe rakamları ekonomik kârlılığı maskeleyebilir. Şirketlerin 10-K ve KAP dipnotlarına inerek düzeltilmiş ROIC ve WACC hesaplamalarını keşfedin.",
       whatYouWillLearn: [
         "Ar-Ge harcamalarını aktifleştirme (R&D Capitalization)",
         "Bilançodaki devasa hazine bonolarını ayıklama",
@@ -246,7 +246,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
       icon: Search,
       iconColor: "text-cyan-600 dark:text-cyan-400",
       iconBg: "from-cyan-500/10 to-teal-500/10 border-cyan-500/20 dark:from-cyan-500/20 dark:to-teal-500/20 dark:border-cyan-500/30",
-      summary: "Standard accounting masks true economic profitability. Dive into 10-K footnotes to calculate Adjusted Invested Capital.",
+      summary: "Standard accounting can mask economic profitability. Dive into 10-K footnotes to calculate Adjusted Invested Capital.",
       whatYouWillLearn: [
         "Capitalizing R&D expenses as assets",
         "Excluding non-operating cash and treasury bills",

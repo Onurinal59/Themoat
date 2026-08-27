@@ -44,8 +44,8 @@ const PRESET_VALUATIONS: Record<string, PresetScenario> = {
     currentFCF: 4000,
     nearTermGrowth: 15,
     wacc: 8.5,
-    descTr: "Piyasa 15+ yıllık kesintisiz büyüme ve tekel hakimiyeti fiyatlıyor (Yüksek CAP beklentisi).",
-    descEn: "Market prices in 15+ years of sustained excess returns and monopoly dominance (High implied CAP).",
+    descTr: "Piyasa 15+ yıllık kesintisiz büyüme ve tekel hakimiyeti fiyatlıyor (Yüksek CAP beklentisi). Öğretim senaryosudur; gerçek sonuçlar ve hendek süresi değişebilir.",
+    descEn: "Market prices in 15+ years of sustained excess returns and monopoly dominance (High implied CAP). Illustrative scenario; actual outcomes and moat duration vary.",
   },
   retail: {
     nameTr: "🛒 Olgun Maliyet Lideri Perakendeci",
@@ -54,8 +54,8 @@ const PRESET_VALUATIONS: Record<string, PresetScenario> = {
     currentFCF: 3500,
     nearTermGrowth: 8,
     wacc: 8.0,
-    descTr: "İstikrarlı nakit akışı ve makul bir 6-8 yıllık hendek süresi fiyatlaması.",
-    descEn: "Steady cash flows and balanced 6-8 year implied competitive advantage period.",
+    descTr: "İstikrarlı nakit akışı ve makul bir 6-8 yıllık hendek süresi fiyatlaması. Öğretim senaryosudur; gerçek sonuçlar ve hendek süresi değişebilir.",
+    descEn: "Steady cash flows and balanced 6-8 year implied competitive advantage period. Illustrative scenario; actual outcomes and moat duration vary.",
   },
   cyclical: {
     nameTr: "🏭 Döngüsel Emtia Üreticisi",
@@ -64,8 +64,8 @@ const PRESET_VALUATIONS: Record<string, PresetScenario> = {
     currentFCF: 3000,
     nearTermGrowth: 4,
     wacc: 11.0,
-    descTr: "Piyasa şirkete sıfıra yakın hendek süresi biçmiş; değerin %80'i mevcut somut nakitten gelir.",
-    descEn: "Market prices minimal moat longevity; 80%+ of value rests on tangible steady-state cash.",
+    descTr: "Piyasa şirkete sıfıra yakın hendek süresi biçmiş; değerin %80'i mevcut somut nakitten gelir. Öğretim senaryosudur; gerçek sonuçlar ve hendek süresi değişebilir.",
+    descEn: "Market prices minimal moat longevity; 80%+ of value rests on tangible steady-state cash. Illustrative scenario; actual outcomes and moat duration vary.",
   },
 };
 

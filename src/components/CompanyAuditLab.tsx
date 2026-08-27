@@ -347,7 +347,7 @@ ${isEnglish ? "Date" : "Tarih"}: ${currentDossier.updatedAt}
 - Price War Risk: ${currentDossier.interactionAndDiscipline.priceWarRisk}
 - Capital Allocation: ${currentDossier.interactionAndDiscipline.managementCapitalAllocation}
 
-5. ${isEnglish ? "FINAL VERDICT & SUSTAINABILITY" : "SONUÇ & SÜRDÜRÜLEBİLİRLİK"}
+5. ${isEnglish ? "FINAL ASSESSMENT & SUSTAINABILITY" : "DEĞERLENDİRME & SÜRDÜRÜLEBİLİRLİK"}
 - Diagnosed Moat: ${moatScore.diagnosedMoat}
 - Moat Score: %${moatScore.scorePercent} / 100
 - Estimated CAP: ${currentDossier.sustainability.estimatedCapYears} ${isEnglish ? "Years" : "Yıl"}
@@ -639,7 +639,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                   { step: 2, title: isEnglish ? "2. Industry & Profit Pool" : "2. Sektör & Kâr Havuzu", icon: Layers },
                   { step: 3, title: isEnglish ? "3. Value Stick & Moat" : "3. Değer Çubuğu & Hendek", icon: Shield },
                   { step: 4, title: isEnglish ? "4. Game Theory & Capital" : "4. Oyun Teorisi & Sermaye", icon: Zap },
-                  { step: 5, title: isEnglish ? "5. Verdict & Diagnosis" : "5. Sonuç & Teşhis Raporu", icon: Award }
+                  { step: 5, title: isEnglish ? "5. Assessment & Diagnosis" : "5. Değerlendirme & Teşhis Raporu", icon: Award }
                 ].map((st) => {
                   const IconComp = st.icon;
                   const isActive = activeStep === st.step;

@@ -314,7 +314,7 @@ export const BrandAcidTestSim: React.FC = () => {
             <div>
               <h4 className="font-black text-slate-900 dark:text-white text-sm">
                 {elasticity < 0.8
-                  ? isEnglish ? "True Economic Brand Moat" : "Hakiki Ekonomik Marka Hendeği"
+                  ? isEnglish ? "Durable Brand Moat Profile" : "Güçlü Marka Hendeği Profili"
                   : isEnglish ? "Vulnerable / Cosmetic Brand" : "Kırılgan / Yalnızca Kozmetik Marka"}
               </h4>
               <p className="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">

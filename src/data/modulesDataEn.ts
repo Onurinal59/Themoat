@@ -4,7 +4,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
   {
     id: 1,
     slug: "moat-and-value-creation",
-    title: "Step 1: The Castle, Crocodile Moat & True Value Creation",
+    title: "Step 1: The Castle, Crocodile Moat & Economic Value Creation",
     subtitle: "Zero Knowledge Start: When Does a Business Truly Create Wealth?",
     estimatedMinutes: 14,
     iconName: "Shield",
@@ -48,7 +48,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "m1-s2",
-        title: "2. ROIC and WACC: The Mathematics of True Value Creation & Terminal Lab",
+        title: "2. ROIC and WACC: The Mathematics of Economic Value Creation & Terminal Lab",
         summary: "When ROIC > WACC, a company creates real economic value. Otherwise, growth destroys shareholder wealth.",
         content: [
           "ROIC (Return on Invested Capital): How much net operating profit after tax (NOPAT) a business generates for every $100 tied up in working capital, equipment, and stores.",
@@ -171,7 +171,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       ]
     },
     moduleBridge: {
-      prevTitle: "Step 1: The Castle, Crocodile Moat & True Value Creation",
+      prevTitle: "Step 1: The Castle, Crocodile Moat & Economic Value Creation",
       takeawayFromPrev: "A company produces real economic wealth only when ROIC > WACC.",
       transitionQuestion: "At what stage of its life cycle does a company achieve this high ROIC and transform into a cash-printing fortress?",
       nextTitle: "Step 3: The Value Stick (Microeconomic Foundations)",

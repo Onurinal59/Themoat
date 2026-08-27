@@ -578,13 +578,20 @@ export const DickinsonLifecycleSim: React.FC = () => {
             </p>
 
             {/* Real World Examples */}
-            <div className="pt-2 border-t border-current/15 flex flex-wrap items-center gap-1.5 text-xs">
-              <span className="font-bold mr-1">{isEnglish ? "Typical Firms:" : "Örnekler:"}</span>
-              {(isEnglish ? currentStage.examplesEn : currentStage.examplesTr).map((ex, i) => (
-                <span key={i} className="px-2 py-0.5 rounded-md bg-white/90 dark:bg-slate-800/90 border border-current/20 font-medium">
-                  {ex}
-                </span>
-              ))}
+            <div className="pt-2 border-t border-current/15 space-y-1 text-xs">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="font-bold mr-1">{isEnglish ? "Typical Firms:" : "Örnekler:"}</span>
+                {(isEnglish ? currentStage.examplesEn : currentStage.examplesTr).map((ex, i) => (
+                  <span key={i} className="px-2 py-0.5 rounded-md bg-white/90 dark:bg-slate-800/90 border border-current/20 font-medium">
+                    {ex}
+                  </span>
+                ))}
+              </div>
+              <p className="text-[10px] opacity-75 italic">
+                {isEnglish
+                  ? "Illustrative teaching scenario — figures are not current company estimates or investment views."
+                  : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
+              </p>
             </div>
           </div>
         </div>

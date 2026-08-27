@@ -196,8 +196,8 @@ export const RoicWaccSim: React.FC = () => {
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl">
             {isEnglish
-              ? "Adjust left-hand levers and watch the real-time financial terminal on the right. A firm creates true economic wealth only when Return on Capital (ROIC) exceeds Cost of Capital (WACC)."
-              : "Soldaki parametreleri değiştirin ve sağdaki terminalin canlı tepkisini izleyin. Bir şirket yalnızca Sermaye Getirisi (ROIC), Sermaye Maliyetini (WACC) aştığı zaman gerçek refah yaratır."}
+              ? "Adjust left-hand levers and watch the real-time financial terminal on the right. A firm creates economic wealth only when Return on Capital (ROIC) exceeds Cost of Capital (WACC)."
+              : "Soldaki parametreleri değiştirin ve sağdaki terminalin canlı tepkisini izleyin. Bir şirket yalnızca Sermaye Getirisi (ROIC), Sermaye Maliyetini (WACC) aştığı zaman ekonomik değer yaratır."}
           </p>
         </div>
 
@@ -658,15 +658,15 @@ export const RoicWaccSim: React.FC = () => {
               </div>
             </div>
 
-            {/* Verdict Explanation Text */}
+            {/* Interpretation Explanation Text */}
             <p className="mt-3 text-xs leading-relaxed font-medium text-slate-700 dark:text-slate-200 pt-2 border-t border-slate-200/60 dark:border-slate-800/60">
               {isValueCreating
                 ? isEnglish
-                  ? `🏰 Institutional Verdict: For every $100 deployed, this business generates $${roic.toFixed(1)} in net operating profit while its financing costs only $${wacc.toFixed(1)}, compounding $${spread.toFixed(1)} of pure shareholder wealth each cycle.`
-                  : `🏰 Kurumsal Teşhis: Bağlanan her 100 $ sermaye için şirket 100 × %${roic.toFixed(1)} = ${roic.toFixed(1)} $ net faaliyet kârı üretirken finansman maliyeti ${wacc.toFixed(1)} $ olduğu için aradaki ${spread.toFixed(1)} $ net refah hissedara kalır.`
+                  ? `🏰 Model Interpretation: For every $100 deployed, this business generates $${roic.toFixed(1)} in net operating profit while its financing costs only $${wacc.toFixed(1)}, compounding $${spread.toFixed(1)} of pure shareholder wealth each cycle.`
+                  : `🏰 Modelin Yorumu: Bağlanan her 100 $ sermaye için şirket 100 × %${roic.toFixed(1)} = ${roic.toFixed(1)} $ net faaliyet kârı üretirken finansman maliyeti ${wacc.toFixed(1)} $ olduğu için aradaki ${spread.toFixed(1)} $ net refah hissedara kalır.`
                 : isEnglish
-                ? `⚠️ Institutional Verdict: Capital Drain! Even if the business books positive accounting profit, its return (%${roic.toFixed(1)}) fails to hurdle the cost of capital (%${wacc.toFixed(1)}). Rapid revenue growth will only accelerate wealth destruction.`
-                : `⚠️ Kurumsal Teşhis: Sermaye Tuzağı! Şirket kâr açıklıyor gibi görünse bile getirisi (%${roic.toFixed(1)}) sermaye maliyetini (%${wacc.toFixed(1)}) karşılayamamaktadır. Bu durumda şirketi büyütmek hissedarın servetini daha da hızlı yakacaktır.`}
+                ? `⚠️ Model Interpretation: Capital Drain! Even if the business books positive accounting profit, its return (%${roic.toFixed(1)}) fails to hurdle the cost of capital (%${wacc.toFixed(1)}). Rapid revenue growth will only accelerate wealth destruction.`
+                : `⚠️ Modelin Yorumu: Sermaye Tuzağı! Şirket kâr açıklıyor gibi görünse bile getirisi (%${roic.toFixed(1)}) sermaye maliyetini (%${wacc.toFixed(1)}) karşılayamamaktadır. Bu durumda şirketi büyütmek hissedarın servetini daha da hızlı yakacaktır.`}
             </p>
           </motion.div>
         </div>

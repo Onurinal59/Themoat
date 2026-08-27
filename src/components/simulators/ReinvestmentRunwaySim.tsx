@@ -241,27 +241,34 @@ export const ReinvestmentRunwaySim: React.FC = () => {
         </div>
 
         {/* 15-Year Takeaway Summary */}
-        <div className="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider block mb-1">
-              {isEnglish ? "15-Year NOPAT Outcome" : "15. Yılın Sonunda Kâr Hacmi"}
-            </span>
-            <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
-              {isEnglish
-                ? `Company B generates $${finalYear?.nopatB}M/yr vs Company A's $${finalYear?.nopatA}M/yr.`
-                : `Şirket B yılda $${finalYear?.nopatB}M kâr üretirken, Şirket A sadece $${finalYear?.nopatA}M kârda kalmıştır.`}
-            </p>
+        <div className="p-5 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 space-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider block mb-1">
+                {isEnglish ? "15-Year NOPAT Outcome" : "15. Yılın Sonunda Kâr Hacmi"}
+              </span>
+              <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                {isEnglish
+                  ? `Company B generates $${finalYear?.nopatB}M/yr vs Company A's $${finalYear?.nopatA}M/yr.`
+                  : `Şirket B yılda $${finalYear?.nopatB}M kâr üretirken, Şirket A sadece $${finalYear?.nopatA}M kârda kalmıştır.`}
+              </p>
+            </div>
+            <div>
+              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block mb-1">
+                {isEnglish ? "Key Moat Takeaway" : "Temel Hendek Çıkarımı"}
+              </span>
+              <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
+                {isEnglish
+                  ? "Reinvestment runway is the multiplier of a moat. Never settle for high ROIC alone if there is nowhere to put the capital."
+                  : "Yeniden yatırım pisti, hendeğin çarpanıdır. Parayı büyütecek yer olmadıkça tek başına yüksek ROIC dev bir servet yaratamaz."}
+              </p>
+            </div>
           </div>
-          <div>
-            <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block mb-1">
-              {isEnglish ? "Key Moat Takeaway" : "Temel Hendek Çıkarımı"}
-            </span>
-            <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
-              {isEnglish
-                ? "Reinvestment runway is the multiplier of a moat. Never settle for high ROIC alone if there is nowhere to put the capital."
-                : "Yeniden yatırım pisti, hendeğin çarpanıdır. Parayı büyütecek yer olmadıkça tek başına yüksek ROIC dev bir servet yaratamaz."}
-            </p>
-          </div>
+          <p className="text-[10px] text-slate-400 dark:text-slate-500 italic pt-1 border-t border-indigo-500/10">
+            {isEnglish
+              ? "Illustrative teaching scenario — figures are not current company estimates or investment views."
+              : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
+          </p>
         </div>
       </div>
     </div>

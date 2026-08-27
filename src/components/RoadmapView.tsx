@@ -57,7 +57,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
   const getPhaseInfo = (idx: number) => {
     if (idx === 0) return { 
         title: isEnglish ? "Phase I: Strategic Foundations & Capital Economics" : "Faz I: Stratejik Temeller & Sermaye Ekonomisi", 
-        desc: isEnglish ? "Establish the mathematics of true economic profit (ROIC vs. WACC), avoid value-destroying growth traps, and diagnose corporate lifecycles via cash flow signatures." : "Gerçek ekonomik kârın matematiğini kurun (ROIC vs. WACC), değer yok eden büyüme tuzaklarından kaçının ve nakit akış vektörleriyle kurumsal yaşam döngüsünü teşhis edin.",
+        desc: isEnglish ? "Establish the mathematics of economic profit (ROIC vs. WACC), avoid value-destroying growth traps, and diagnose corporate lifecycles via cash flow signatures." : "Ekonomik kârın matematiğini kurun (ROIC vs. WACC), değer yok eden büyüme tuzaklarından kaçının ve nakit akış vektörleriyle kurumsal yaşam döngüsünü teşhis edin.",
         color: "from-blue-500 to-indigo-500" 
     };
     if (idx === 2) return { 
@@ -111,8 +111,8 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                 </h1>
                 <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-medium">
                     {isEnglish 
-                        ? "In competitive markets, high returns attract capital that erodes margins. Learn the Morgan Stanley framework to calculate true ROIC, model competitive advantage periods (CAP), and reverse-engineer market expectations."
-                        : "Serbest piyasada yüksek kârlar sermayeyi mıknatıs gibi çeker ve aşındırır. Morgan Stanley ve Credit Suisse araştırmalarına dayanan bu akademide gerçek ROIC'yi hesaplayın, hendek süresini (CAP) modelleyin ve tersine DCF uygulayın."}
+                        ? "In competitive markets, high returns attract capital that erodes margins. Learn the Morgan Stanley framework to calculate ROIC with clear assumptions, model competitive advantage periods (CAP), and reverse-engineer market expectations."
+                        : "Serbest piyasada yüksek kârlar sermayeyi mıknatıs gibi çeker ve aşındırır. Morgan Stanley araştırmalarına dayanan bu akademide varsayımları açık ROIC hesaplayın, hendek süresini (CAP) modelleyin ve tersine DCF uygulayın."}
                 </p>
 
                 {/* Mobile Progress Bar Widget */}
@@ -251,7 +251,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                 <Search className="w-5 h-5" />
             </div>
             <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm mb-1">{isEnglish ? "10-K Balance Sheet Audit" : "10-K Bilanço Röntgeni"}</h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{isEnglish ? "Scan real company financials to calculate true NOPAT and ROIC." : "Gerçek şirket bilançolarını tarayıp NOPAT ve ROIC hesaplayın."}</p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{isEnglish ? "Review financials to estimate adjusted NOPAT and ROIC." : "Finansalları inceleyerek düzeltilmiş NOPAT ve ROIC hesaplayın."}</p>
           </motion.button>
           
           <motion.button

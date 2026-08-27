@@ -432,7 +432,7 @@ export const FORMULA_GUIDES_DATA: Record<string, FormulaGuide> = {
     plainLanguageSummary:
       "Standart muhasebe kuralları (GAAP/IFRS), bir yazılım veya ilaç şirketinin geleceği inşa eden tüm Ar-Ge harcamalarını 'o yıl çöpe gitmiş sıradan bir elektrik faturası gibi' anında gider yazar. Bu da şirketin kârını ve bilançodaki gerçek sermayesini gizler. 10-K Dedektifi bu hatayı düzeltir.",
     whyThisFormulaExists:
-      "Ar-Ge bir gider değil, uzun vadeli bir fabrikadır. İlaç şirketinin laboratuvarı ile çelik şirketinin fırını aynı şeydir. Ar-Ge'yi aktifleştirip 3-5 yıla yayarak amorti ettiğinizde şirketin gerçek NOPAT'ı ve gerçek Yatırılan Sermayesi ortaya çıkar.",
+      "Ar-Ge bir gider değil, uzun vadeli bir fabrikadır. İlaç şirketinin laboratuvarı ile çelik şirketinin fırını aynı şeydir. Ar-Ge'yi aktifleştirip 3-5 yıla yayarak amorti ettiğinizde şirketin düzeltilmiş NOPAT'ı ve düzeltilmiş Yatırılan Sermayesi ortaya çıkar.",
     variables: [
       {
         symbol: "Ar-Ge Gideri",
