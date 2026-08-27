@@ -58,6 +58,16 @@ export const LanguageContext = createContext<LanguageContextType | undefined>(un
 
 const UI_TRANSLATIONS: Record<Language, Record<string, string>> = {
   "en": {
+    "footer.title": "Economic Moat Academy",
+    "footer.desc": "An interactive strategy, ROIC X-ray, and competitive advantage simulation platform based on the methodologies of Michael J. Mauboussin and Dan Callahan.",
+    "footer.tagline": "Sustainable Competitive Advantage & Corporate Valuation Guide",
+    "footer.role": "Platform Creator & Developer",
+    "footer.contact": "For questions, feedback, or collaboration opportunities, feel free to connect on LinkedIn.",
+    "footer.education": "EDUCATION & MODULES",
+    "footer.tools": "LABORATORY & TOOLS",
+    "footer.copyright": "© 2026 Economic Moat Academy",
+    "footer.disclaimer": "This platform is intended solely for financial analysis, education, and methodological learning; it does not constitute investment advice.",
+
     "AICoachDrawer.hello_i_am_your_socr_1": "hello i am your socr",
     "AICoachDrawer.economic_moat_and_su_2": "Economic Moat and Sustainable Value Creation",
     "AICoachDrawer.en_3": "en",
@@ -1451,6 +1461,16 @@ const UI_TRANSLATIONS: Record<Language, Record<string, string>> = {
     "App.general_moat_strateg_3": "General Moat Strategy"
   },
   "tr": {
+    "footer.title": "Ekonomik Hendek Akademisi",
+    "footer.desc": "Michael J. Mauboussin ve Dan Callahan'ın metodolojilerini temel alan interaktif strateji, ROIC röntgeni ve rekabet avantajı simülasyon platformu.",
+    "footer.tagline": "Sürdürülebilir Rekabet Avantajı & Kurumsal Değerleme Rehberi",
+    "footer.role": "Platform Yapımcısı & Geliştirici",
+    "footer.contact": "Soru, geri bildirim veya iş birliği önerileriniz için LinkedIn üzerinden doğrudan iletişime geçebilirsiniz.",
+    "footer.education": "EĞİTİM & MODÜLLER",
+    "footer.tools": "LABORATUVAR & ARAÇLAR",
+    "footer.copyright": "© 2026 Ekonomik Hendek Akademisi",
+    "footer.disclaimer": "Bu platform yalnızca finansal analiz, eğitim ve metodolojik öğrenim amaçlıdır; herhangi bir yatırım tavsiyesi (YTD) niteliği taşımaz.",
+
     "AICoachDrawer.hello_i_am_your_socr_1": "hello i am your socr",
     "AICoachDrawer.economic_moat_and_su_2": "Ekonomik Hendek ve Sürdürülebilir Değer Yaratma",
     "AICoachDrawer.en_3": "tr",
@@ -1891,7 +1911,7 @@ const UI_TRANSLATIONS: Record<Language, Record<string, string>> = {
     "MoatDuelView.company_1_438": "Şirket 1",
     "MoatDuelView.company_2_439": "Şirket 2",
     "MoatDuelView.michael_mauboussin_m_440": "Michael Mauboussin Hendek Düellosu",
-    "MoatDuelView.relative_competitive_441": "Göreli Rekabet Analizi (Relative Advantage)",
+    "MoatDuelView.relative_competitive_441": "Göreli Rekabet Üstünlüğü",
     "MoatDuelView.clash_two_companies_442": "İki Şirketin Ekonomik Hendeklerini Yan Yana Çarpıştırın",
     "MoatDuelView.according_to_maubous_443": "Mauboussin'e göre ekonomik hendek mutlak bir sayı değil, rakiplere karşı sağlanan göreli üstünlüktür. İki şirketin DuPont ayrıştırmasını, fiyatlama gücünü, sermaye devir hızını ve CAP ömrünü kafa kafaya test edin.",
     "MoatDuelView.educational_scenario_444": "Eğitimsel senaryo şablonu — şirket etiketleri Mauboussin çerçevesini göstermek için kullanılmıştır. Görüntülenen veriler ve sonuçlar temsilidir; güncel doğrulanmış şirket verisi, değerleme, fiyat hedefi veya yatırım tavsiyesi değildir. Gerçek kararlar almadan önce en güncel şirket raporlarını, veri tarihlerini ve kendi varsayımlarınızı doğrulayın.",

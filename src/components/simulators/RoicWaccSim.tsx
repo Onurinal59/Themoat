@@ -62,7 +62,7 @@ const PRESET_COMPANIES: PresetCompany[] = [
     nopat: 12500, // ROIC = 25%
     wacc: 8.0,
     moatType: "wide",
-    descTr: "Fiyatlama gücü ve marka sadakati sayesinde sermaye maliyetinin (%8.0) 3 katı getiri (%25.0 ROIC) üreterek devasa yeşil yayılım sağlar.",
+    descTr: "Fiyatlama gücü ve marka sadakati sayesinde sermaye maliyetinin (%8,0) 3 katı getiri (%25,0 ROIC) üreterek devasa yeşil yayılım sağlar.",
     descEn: "Unmatched brand pricing power generates 25% ROIC against an 8% WACC, delivering massive green economic spread.",
   },
   {
@@ -86,7 +86,7 @@ const PRESET_COMPANIES: PresetCompany[] = [
     nopat: 4200, // ROIC = 14%
     wacc: 9.0,
     moatType: "narrow",
-    descTr: "Yüksek hacim ve stok çevrim hızıyla sermaye maliyetinin 5 puan üzerinde (%14.0 ROIC) istikrarlı pozitif yayılım üretir.",
+    descTr: "Yüksek hacim ve stok çevrim hızıyla sermaye maliyetinin 5 puan üzerinde (%14,0 ROIC) istikrarlı pozitif yayılım üretir.",
     descEn: "High inventory turnover delivers a consistent 5% economic spread (14% ROIC vs 9% WACC).",
   },
   {
@@ -98,7 +98,7 @@ const PRESET_COMPANIES: PresetCompany[] = [
     nopat: 4000, // ROIC = 5%
     wacc: 10.5,
     moatType: "destroyer",
-    descTr: "80 milyar $ sermaye bağlayıp 4 milyar $ muhasebe kârı açıklar; fakat %10.5 sermaye maliyeti yüzünden her yıl -4.4 milyar $ servet yakar!",
+    descTr: "80 milyar $ sermaye bağlayıp 4 milyar $ muhasebe kârı açıklar; fakat %10,5 sermaye maliyeti yüzünden her yıl -4,4 milyar $ servet yakar!",
     descEn: "Deploys $80B capital producing $4B accounting profit, yet burns -$4.4B in wealth yearly because 5% ROIC is well below 10.5% WACC!",
   },
 ];
@@ -251,7 +251,7 @@ export const RoicWaccSim: React.FC = () => {
                 {t("RoicWaccSim.core_levers_1285")}
               </h3>
             </div>
-            <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">Live Sync</span>
+            <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">{isEnglish ? "Live Sync" : "Canlı Eşzamanlama"}</span>
           </div>
 
           {/* Slider 1: Invested Capital */}
@@ -507,11 +507,11 @@ export const RoicWaccSim: React.FC = () => {
                 <h4 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-slate-100 leading-snug">
                   {isValueCreating
                     ? isEnglish
-                      ? `+${formatPercentagePoints(spread, 2)} Spread (+{formatUsdFromMillions(economicProfit, 0)} / Year)`
-                      : `+${formatPercentagePoints(spread, 2)} Yayılım (+{formatUsdFromMillions(economicProfit, 0)} / Yıl)`
+                      ? `+${formatPercentagePoints(spread, 2)} Spread (+${formatUsdFromMillions(economicProfit, 0)} / Year)`
+                      : `+${formatPercentagePoints(spread, 2)} Yayılım (+${formatUsdFromMillions(economicProfit, 0)} / Yıl)`
                     : isEnglish
-                    ? `${formatPercentagePoints(spread, 2)} Negative Spread ({formatUsdFromMillions(economicProfit, 0)} / Year)`
-                    : `${formatPercentagePoints(spread, 2)} Negatif Yayılım ({formatUsdFromMillions(economicProfit, 0)} / Yıl)`}
+                    ? `${formatPercentagePoints(spread, 2)} Negative Spread (${formatUsdFromMillions(economicProfit, 0)} / Year)`
+                    : `${formatPercentagePoints(spread, 2)} Negatif Yayılım (${formatUsdFromMillions(economicProfit, 0)} / Yıl)`}
                 </h4>
               </div>
             </div>
@@ -613,7 +613,7 @@ export const RoicWaccSim: React.FC = () => {
                     Spread = {formatPercentagePoints(roic, 1)} (ROIC) - {formatPercentagePoints(wacc, 1)} (WACC) = {spread >= 0 ? `+${formatPercentagePoints(spread, 1)}` : formatPercentagePoints(spread, 1)}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    {t("RoicWaccSim.economic_profit_1306")} = {formatUsdFromMillions(investedCapital)} × {formatPercentagePoints(spread, 1)} = {formatUsdFromMillions(economicProfit)}
+                    {t("RoicWaccSim.economic_profit_1306")} = {formatUsdFromMillions(investedCapital)} × {formatPercentagePoints(spread, 1)} = ${formatUsdFromMillions(economicProfit)}
                   </div>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">

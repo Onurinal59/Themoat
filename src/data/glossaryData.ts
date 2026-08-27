@@ -29,7 +29,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
     id: "economic-spread",
     term: "Ekonomik Fark / Değer Yayılımı (ROIC - WACC)",
     shortDefinition: "ROIC ile WACC arasındaki pozitif fark; şirketin hissedarlarına gerçek bir ekonomik katma değer üretip üretmediğinin göstergesi.",
-    detailedExplanation: "Eğer ROIC > WACC ise şirket değer yaratır (Value Creation). ROIC = WACC ise şirket nötrdür, zenginleşmez. ROIC < WACC ise şirket çok ciro yapsa bile aslında hissedar servetini yok eder (Value Destruction).",
+    detailedExplanation: "Eğer ROIC > WACC ise şirket değer yaratır (Value Creation). ROIC = WACC ise şirket nötrdür, zenginleşmez. ROIC < WACC ise şirket çok ciro yapsa bile aslında hissedar servetini yok eder (Değer Yok Edimi).",
     realWorldAnalogy: "Paranızın maliyeti %8 iken işinizden %15 kazanıyorsanız, aradaki +%7'lik fark gerçek zenginleşmeyi temsil eder.",
     category: "Temel Finans",
   },
@@ -171,7 +171,7 @@ export const GLOSSARY_TERMS: GlossaryTerm[] = [
   },
   {
     id: "the-triad",
-    term: "Değer Yaratma Üçlüsü (The Value Triad)",
+    term: "Değer Yaratmanın Üç Boyutu (Değer Yaratmanın Üç Boyutu)",
     shortDefinition: "Michael Mauboussin'in değer denklemi: Değer = Yayılım (ROIC - WACC) × Yatırım Pisti (I) × Süre (CAP).",
     detailedExplanation: "Tek başına yüksek ROIC yetmez. Değer yaratımı bu üç unsurun integral çarpımıdır: 1. Yayılımın genişliği, 2. Kârın ne kadarının yüksek getiriyle (RONIC) tekrar yatırılabildiği, 3. Bu getirinin kaç yıl sürdürülebildiği.",
     realWorldAnalogy: "Bir spor arabanın hızı (ROIC), yakıt deposunun büyüklüğü ve pistin uzunluğu (Runway), yarışın kaç saat sürdüğü (CAP).",

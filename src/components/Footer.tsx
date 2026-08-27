@@ -44,7 +44,7 @@ export const Footer: React.FC<FooterProps> = ({
               </span>
               <span className="hidden md:inline text-slate-400 dark:text-slate-500">•</span>
               <span className="hidden md:inline text-slate-500 dark:text-slate-400">
-                {t("footer.tagline", "Sürdürülebilir Rekabet Avantajı & Kurumsal Değerleme Rehberi")}
+                {t("footer.tagline")}
               </span>
             </div>
 
@@ -92,10 +92,7 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
 
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-md">
-              {t(
-                "footer.description",
-                "Michael J. Mauboussin ve Dan Callahan'ın dünyaca ünlü araştırmalarını temel alan, hissedarlar ve finansal analistler için tasarlanmış interaktif strateji, ROIC röntgeni ve rekabet avantajı simülasyon platformu."
-              )}
+              {t("footer.desc")}
             </p>
 
             {/* Creator Profile Card */}
@@ -110,7 +107,7 @@ export const Footer: React.FC<FooterProps> = ({
                       Onur İnal
                     </span>
                     <span className="text-[11px] text-slate-500 dark:text-slate-400 block">
-                      {t("footer.creator", "Platform Yapımcısı & Geliştirici")}
+                      {t("footer.role")}
                     </span>
                   </div>
                 </div>
@@ -129,7 +126,7 @@ export const Footer: React.FC<FooterProps> = ({
               </div>
 
               <p className="text-[11px] text-slate-600 dark:text-slate-400 leading-normal">
-                {t("footer.contact", "Soru, geri bildirim veya iş birliği önerileriniz için LinkedIn üzerinden doğrudan iletişime geçebilirsiniz.")}
+                {t("footer.contact")}
               </p>
             </div>
           </div>
@@ -138,7 +135,7 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="lg:col-span-3 space-y-3">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 flex items-center gap-1.5">
               <GraduationCap className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              {t("footer.education", "Eğitim & Modüller")}
+              {t("footer.education")}
             </span>
             <ul className="space-y-1 text-xs">
               <li>
@@ -188,7 +185,7 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="lg:col-span-4 space-y-3">
             <span className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-slate-200 flex items-center gap-1.5">
               <Layers className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              {t("footer.tools", "Laboratuvar & Araçlar")}
+              {t("footer.tools")}
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               <button
@@ -236,7 +233,7 @@ export const Footer: React.FC<FooterProps> = ({
         {/* Bottom Credits & Legal Disclaimer */}
         <div className="mt-10 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-slate-500 dark:text-slate-400">
           <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 text-center md:text-left">
-            <span>{t("footer.copyright", "© 2026 Ekonomik Hendek Akademisi")}</span>
+            <span>{t("footer.copyright")}</span>
             <span>•</span>
             <span className="inline-flex items-center">
               {t("Footer.author_205")}
@@ -255,7 +252,7 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
 
           <div className="text-[11px] text-center md:text-right text-slate-400 dark:text-slate-500 max-w-lg">
-            {t("footer.disclaimer", "Bu platform yalnızca finansal analiz, eğitim ve metodolojik öğrenim amaçlıdır; herhangi bir yatırım tavsiyesi (YTD) niteliği taşımaz.")}
+            {t("footer.disclaimer")}
           </div>
         </div>
       </div>

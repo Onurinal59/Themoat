@@ -55,7 +55,7 @@ export const MODULES_DATA: LearningModule[] = [
           "WACC (Sermaye Maliyeti): Şirketin bu fonları bulmasının (özsermaye fırsat maliyeti + net borç faizi) ağırlıklı yıllık taban maliyetidir.",
           "Bu hesaplama öğretim amaçlı bir modeldir. Sonuç; NOPAT, yatırılmış sermaye ve maddi olmayan varlık düzeltmeleri için seçilen varsayımlara bağlıdır. (Kaynak: Mauboussin & Callahan (2024), s. 52 ve ss. 70–72.)",
           "Terminalde Eyleme Geçin: Aşağıdaki simülatörde soldaki NOPAT sürgüsünü yukarı çekin; sağdaki grafikte yeşil Ekonomik Yayılım (Spread) çubuğunun nasıl büyüdüğünü ve yıllık refah üretiminin katlandığını canlı izleyin.",
-          "Sermaye Tuzağını Keşfedin: WACC sürgüsünü ROIC'nin üzerine çıkarın. Şirket milyarlarca TL muhasebe kârı açıklasa bile sağdaki göstergenin kırmızıya dönüştüğünü ve büyüdükçe servet erittiğini (Value Destruction) anında teşhis edin."
+          "Sermaye Tuzağını Keşfedin: WACC sürgüsünü ROIC'nin üzerine çıkarın. Şirket milyarlarca TL muhasebe kârı açıklasa bile sağdaki göstergenin kırmızıya dönüştüğünü ve büyüdükçe servet erittiğini (Değer Yok Edimi) anında teşhis edin."
         ],
         interactiveWidgetId: "roic-wacc",
         formulaBox: {
@@ -93,7 +93,7 @@ export const MODULES_DATA: LearningModule[] = [
         ],
         interactiveWidgetId: "cap-fade",
         formulaBox: {
-          title: "Bileşik Değer Yaratma Üçlüsü (The Value Triad)",
+          title: "Bileşik Değer Yaratma Üçlüsü (Değer Yaratmanın Üç Boyutu)",
           equation: "Kümülatif Hissedar Değeri = Σ [ Yatırılan Sermaye(t) × (ROIC(t) - WACC) / (1 + WACC)^t ]\nBüyüme Hızı (g) = Yeniden Yatırım Oranı (b) × Yeni Yatırımların Getirisi (RONIC)",
           variables: [
             { symbol: "Spread", label: "Ekonomik Yayılım", desc: "ROIC - WACC (Birim sermaye başına yaratılan fazla getiri)" },
@@ -133,7 +133,7 @@ export const MODULES_DATA: LearningModule[] = [
         question: "Bir şirketin sermaye maliyeti (WACC) %10 ve yatırılan sermaye getirisi (ROIC) %7 ise ne gerçekleşmektedir?",
         options: [
           "Şirket hissedarları için harika bir ekonomik katma değer üretmektedir.",
-          "Şirket muhasebede kâr etmesine rağmen sermaye fırsat maliyetini karşılayamadığı için değer yok etmektedir (Value Destruction).",
+          "Şirket muhasebede kâr etmesine rağmen sermaye fırsat maliyetini karşılayamadığı için değer yok etmektedir (Değer Yok Edimi).",
           "Şirketin hisse fiyatı kesinlikle ikiye katlanacaktır.",
           "Şirketin hiçbir borcu veya sermaye ihtiyacı kalmamıştır."
         ],

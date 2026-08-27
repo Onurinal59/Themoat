@@ -134,7 +134,7 @@ export const MAUBOUSSIN_GUIDED_TEMPLATE: CompanyAuditDossier = {
   id: "mauboussin-master-template",
   companyName: "Costco Wholesale (Mauboussin Template)",
   ticker: "COST (NASDAQ)",
-  industry: "Toptan Satış & Üyelikli Perakende (Warehouse Club)",
+  industry: "Toptan Satış & Üyelikli Perakende",
   description: "Michael Mauboussin's 5-step economic moat methodology: ROIC decomposition, Profit Pools, Value Stick (WTP/WTS), Game Theory, and CAP duration.",
   financials: {
     revenue: 242000,
@@ -416,7 +416,7 @@ export const INITIAL_PRESET_DOSSIERS_TR: CompanyAuditDossier[] = [
     id: "bim-dossier",
     companyName: "BİM Birleşik Mağazalar",
     ticker: "BIMAS (BIST)",
-    industry: "İndirimli Perakende (Hard-Discount Retail)",
+    industry: "Sert İndirimli Market Perakendeciliği",
     description: "Yüksek hacim, özel markalı (private label) sınırlı ürün portföyü ve sıfır lüks mağaza konseptiyle Türkiye'nin en büyük perakendecisi.",
     financials: {
       revenue: 420000,
@@ -577,7 +577,7 @@ export const INITIAL_PRESET_DOSSIERS_EN: CompanyAuditDossier[] = [
     id: "bim-dossier",
     companyName: "BIM Stores (Hard-Discount)",
     ticker: "BIMAS (BIST)",
-    industry: "Hard-Discount Grocery Retail",
+    industry: "Sert İndirimli Market Perakendeciliği",
     description: "High volume, limited SKU private-label portfolio, and zero frills store format making it the leading discount retailer.",
     financials: {
       revenue: 420000,
@@ -840,7 +840,7 @@ export function computeMoatScore(dossier: CompanyAuditDossier): {
     score += 5;
     tags.push("Positive Value Creation");
   } else {
-    tags.push("Value Destruction (ROIC < WACC)");
+    tags.push("Değer Yok Edimi (ROIC < WACC)");
   }
 
   // Industry Structure (Max 25 pts)

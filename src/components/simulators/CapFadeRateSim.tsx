@@ -164,7 +164,7 @@ export const CapFadeRateSim: React.FC = () => {
                   {isEnglish ? p.badgeEn : p.badgeTr}
                 </span>
                 <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">
-                  ROIC: %{p.initialRoic}
+                  ROIC: {formatPercentagePoints(p.initialRoic, 0)}
                 </span>
               </div>
               <h3 className="font-black text-slate-900 dark:text-white text-base mb-1 group-hover:text-emerald-500 transition-colors">
@@ -202,7 +202,7 @@ export const CapFadeRateSim: React.FC = () => {
                 {t("CapFadeRateSim.initial_roic_788")}
               </label>
               <span className="font-black text-emerald-600 dark:text-emerald-400 font-mono">
-                ${initialRoic}
+                {formatPercentagePoints(initialRoic, 0)}
               </span>
             </div>
             <input
@@ -213,7 +213,7 @@ export const CapFadeRateSim: React.FC = () => {
               step="1"
               value={initialRoic}
               aria-labelledby="cap-slider-initial-roic-label"
-              aria-valuetext={`ROIC %${initialRoic}`}
+              aria-valuetext={`ROIC ${formatPercentagePoints(initialRoic, 0)}`}
               onChange={(e) => setInitialRoic(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"
             />
@@ -354,7 +354,7 @@ export const CapFadeRateSim: React.FC = () => {
                       return (
                         <div className="p-3 rounded-xl bg-slate-900 text-white text-xs border border-slate-700 shadow-xl space-y-1">
                           <p className="font-bold text-slate-300">{d.year}</p>
-                          <p className="text-emerald-400 font-bold">ROIC: %{d.roic}</p>
+                          <p className="text-emerald-400 font-bold">ROIC: {formatPercentagePoints(d.roic, 1)}</p>
                           <p className="text-rose-400">WACC: %{d.wacc}</p>
                           <p className="text-amber-300 font-mono">Yayılım (Spread): +%{d.spread}</p>
                           <p className="text-cyan-300 font-mono">Yıllık Ekonomik Kâr: ${d.economicProfit}M</p>

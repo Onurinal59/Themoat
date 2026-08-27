@@ -243,7 +243,7 @@ export const ReverseDCFSim: React.FC = () => {
                 {t("ReverseDCFSim.current_annual_fcf_n_1246")}
               </span>
               <span className="font-mono font-black text-sm text-slate-900 dark:text-slate-100">
-                ${currentFCF}M
+                {formatUsdFromMillions(currentFCF)}
               </span>
             </div>
             <input
@@ -329,16 +329,16 @@ export const ReverseDCFSim: React.FC = () => {
                 <AreaChart data={projectedYearsData.slice(0, 10)} margin={{ top: 10, right: 15, left: -20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                   <XAxis dataKey="year" tick={{ fontSize: 10, fill: "#94A3B8" }} />
-                  <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} unit="M" />
+                  <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} tickFormatter={(val) => formatUsdFromMillions(val, 0)} />
                   <Tooltip
                     content={
                       <CustomChartTooltip
-                        prefix={isEnglish ? "$" : ""} unit={isEnglish ? "M" : " Mn $"}
+                        prefix="" unit=""
                         valueFormatter={(val, name) => {
                           const label = name === "fcf"
                             ? (t("ReverseDCFSim.projected_fcf_1253"))
                             : (t("ReverseDCFSim.discounted_pv_1254"));
-                          return isEnglish ? `\$\${val}M (\${label})` : `\${val} Mn \$ (\${label})`;
+                          return `${formatUsdFromMillions(Number(val))} (${label})`;
                         }}
                       />
                     }

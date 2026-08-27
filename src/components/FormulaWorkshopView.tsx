@@ -879,7 +879,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-md text-right sm:text-left">
                     {isEnglish
                       ? `Economic Spread: ${formatPercentagePoints((ppRoic - ppWacc), 1)}. ${calculatedEconomicProfit >= 0 ? "The segment creates industry wealth!" : "Value destruction occurring!"}`
-                      : `Ekonomik Yayılım: ${formatPercentagePoints((ppRoic - ppWacc), 1)}. ${calculatedEconomicProfit >= 0 ? "Şirket sektörel refah yaratıyor!" : "Şirket değer yakıyor (Value destruction)!"}`}
+                      : `Ekonomik Yayılım: ${formatPercentagePoints((ppRoic - ppWacc), 1)}. ${calculatedEconomicProfit >= 0 ? "Şirket sektörel refah yaratıyor!" : "Şirket değer yakıyor (Değer Yok Edimi)!"}`}
                   </div>
                 </div>
               </div>
