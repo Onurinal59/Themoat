@@ -9,11 +9,7 @@ import {
 } from "./utils/spacedRepetition";
 import { Navbar, NavTab } from "./components/Navbar";
 import { INITIAL_PRESET_DOSSIERS } from "./data/companyAuditData";
-import { GlossaryModal } from "./components/GlossaryModal";
-import { AICoachDrawer } from "./components/AICoachDrawer";
-import { OnboardingGuideModal } from "./components/OnboardingGuideModal";
 import { FloatingGuideWidget } from "./components/FloatingGuideWidget";
-import { FormulaDeepDiveModal } from "./components/FormulaDeepDiveModal";
 import { Footer } from "./components/Footer";
 import { GlobalClickEffect } from "./components/GlobalClickEffect";
 import { MobileBottomNav } from "./components/MobileBottomNav";
@@ -26,6 +22,11 @@ const SimulationsView = React.lazy(() => import("./components/SimulationsView").
 const CompanyAuditLab = React.lazy(() => import("./components/CompanyAuditLab").then(m => ({ default: m.CompanyAuditLab })));
 const MoatDuelView = React.lazy(() => import("./components/MoatDuelView").then(m => ({ default: m.MoatDuelView })));
 const FormulaWorkshopView = React.lazy(() => import("./components/FormulaWorkshopView").then(m => ({ default: m.FormulaWorkshopView })));
+
+const GlossaryModal = React.lazy(() => import("./components/GlossaryModal").then(m => ({ default: m.GlossaryModal })));
+const AICoachDrawer = React.lazy(() => import("./components/AICoachDrawer").then(m => ({ default: m.AICoachDrawer })));
+const OnboardingGuideModal = React.lazy(() => import("./components/OnboardingGuideModal").then(m => ({ default: m.OnboardingGuideModal })));
+const FormulaDeepDiveModal = React.lazy(() => import("./components/FormulaDeepDiveModal").then(m => ({ default: m.FormulaDeepDiveModal })));
 
 export default function App() {
   const { getModules, isEnglish } = useLanguage();
@@ -442,77 +443,87 @@ export default function App() {
       />
 
       {/* Floating Socratic AI Coach Drawer */}
-      <AICoachDrawer
-        isOpen={isAICoachOpen}
-        onClose={() => {
-          setIsAICoachOpen(false);
-          setAiCoachPrompt(undefined);
-        }}
-        currentTopic={
-          activeTab === "company-audit"
-            ? (isEnglish ? "Company Balance Sheet X-Ray & Moat Diagnostic" : "Şirket Bilançosu Röntgeni & Hendek Teşhisi")
-            : activeModule
-            ? activeModule.title
-            : (isEnglish ? "General Moat Strategy" : "Genel Hendek Stratejisi")
-        }
-        initialPrompt={aiCoachPrompt}
-      />
+      <React.Suspense fallback={null}>
+        {isAICoachOpen && (
+          <AICoachDrawer
+            isOpen={isAICoachOpen}
+            onClose={() => {
+              setIsAICoachOpen(false);
+              setAiCoachPrompt(undefined);
+            }}
+            currentTopic={
+              activeTab === "company-audit"
+                ? (isEnglish ? "Company Balance Sheet X-Ray & Moat Diagnostic" : "Şirket Bilançosu Röntgeni & Hendek Teşhisi")
+                : activeModule
+                ? activeModule.title
+                : (isEnglish ? "General Moat Strategy" : "Genel Hendek Stratejisi")
+            }
+            initialPrompt={aiCoachPrompt}
+          />
+        )}
 
-      {/* Full Terminology Modal */}
-      <GlossaryModal
-        isOpen={isGlossaryOpen}
-        onClose={() => setIsGlossaryOpen(false)}
-        selectedTermId={selectedGlossaryTermId}
-      />
+        {/* Full Terminology Modal */}
+        {isGlossaryOpen && (
+          <GlossaryModal
+            isOpen={isGlossaryOpen}
+            onClose={() => setIsGlossaryOpen(false)}
+            selectedTermId={selectedGlossaryTermId}
+          />
+        )}
 
-      {/* Onboarding & Journey Guide Modal */}
-      <OnboardingGuideModal
-        isOpen={isGuideOpen}
-        onClose={() => {
-          setIsGuideOpen(false);
-          try {
-            localStorage.setItem("moat_guide_seen", "true");
-          } catch {
-            // ignore
-          }
-        }}
-        onNavigateTab={(tab, sim) => {
-          if (sim) setSelectedSim(sim);
-          setActiveTab(tab);
-          setActiveModuleId(null);
-          try {
-            localStorage.setItem("moat_guide_seen", "true");
-          } catch {
-            // ignore
-          }
-        }}
-        onStartFirstModule={() => {
-          setActiveTab("roadmap");
-          if (currentModules.length > 0) {
-            setActiveModuleId(currentModules[0].id);
-          }
-          try {
-            localStorage.setItem("moat_guide_seen", "true");
-          } catch {
-            // ignore
-          }
-        }}
-      />
+        {/* Onboarding & Journey Guide Modal */}
+        {isGuideOpen && (
+          <OnboardingGuideModal
+            isOpen={isGuideOpen}
+            onClose={() => {
+              setIsGuideOpen(false);
+              try {
+                localStorage.setItem("moat_guide_seen", "true");
+              } catch {
+                // ignore
+              }
+            }}
+            onNavigateTab={(tab, sim) => {
+              if (sim) setSelectedSim(sim);
+              setActiveTab(tab);
+              setActiveModuleId(null);
+              try {
+                localStorage.setItem("moat_guide_seen", "true");
+              } catch {
+                // ignore
+              }
+            }}
+            onStartFirstModule={() => {
+              setActiveTab("roadmap");
+              if (currentModules.length > 0) {
+                setActiveModuleId(currentModules[0].id);
+              }
+              try {
+                localStorage.setItem("moat_guide_seen", "true");
+              } catch {
+                // ignore
+              }
+            }}
+          />
+        )}
 
-      {/* Global Formula Deep Dive Atelier Modal */}
-      <FormulaDeepDiveModal
-        isOpen={isFormulaModalOpen}
-        initialFormulaId={selectedFormulaId || undefined}
-        onClose={() => {
-          setIsFormulaModalOpen(false);
-          setSelectedFormulaId(null);
-        }}
-        onOpenFullPage={(fId) => {
-          setSelectedFormulaId(fId);
-          setActiveTab("formulas");
-          setActiveModuleId(null);
-        }}
-      />
+        {/* Global Formula Deep Dive Atelier Modal */}
+        {isFormulaModalOpen && (
+          <FormulaDeepDiveModal
+            isOpen={isFormulaModalOpen}
+            initialFormulaId={selectedFormulaId || undefined}
+            onClose={() => {
+              setIsFormulaModalOpen(false);
+              setSelectedFormulaId(null);
+            }}
+            onOpenFullPage={(fId) => {
+              setSelectedFormulaId(fId);
+              setActiveTab("formulas");
+              setActiveModuleId(null);
+            }}
+          />
+        )}
+      </React.Suspense>
 
       {/* Modern Mobile-First Bottom Navigation Bar */}
       <MobileBottomNav

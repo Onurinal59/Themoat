@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://measure-moat.vercel.app/sitemap.xml
