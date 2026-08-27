@@ -385,22 +385,24 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </span>
               </div>
 
-              {/* Unified "Utilities / More" Dropdown (Consolidates Language, Theme, Resources & AI Coach) */}
+              {/* Single Unified "Araçlar" / "Tools" Hub */}
               <div className="relative" ref={utilitiesRef}>
                 <button
-                  id="btn-utilities-menu-toggle"
+                  id="btn-tools-menu-toggle"
                   onClick={() => setIsUtilitiesOpen(!isUtilitiesOpen)}
+                  aria-haspopup="true"
                   aria-expanded={isUtilitiesOpen}
-                  aria-label={isEnglish ? "Options & Utilities Menu" : "Seçenekler ve Araçlar Menüsü"}
-                  className={`min-h-[44px] min-w-[44px] flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer whitespace-nowrap select-none ${
+                  aria-label={isEnglish ? "Tools (AI Coach, Resources, Theme, Language)" : "Araçlar (AI Koç, Kaynaklar, Tema, Dil)"}
+                  title={isEnglish ? "Tools" : "Araçlar"}
+                  className={`min-h-[44px] min-w-[44px] flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer whitespace-nowrap select-none focus:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 ${
                     isUtilitiesOpen
                       ? "bg-indigo-50 dark:bg-indigo-950/80 text-indigo-700 dark:text-indigo-300 border-indigo-300 dark:border-indigo-800 shadow-2xs ring-2 ring-indigo-500/20"
                       : "bg-slate-100/90 hover:bg-slate-200/80 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200/80 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700"
                   }`}
                 >
                   <SlidersHorizontal className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
-                  <span className="hidden md:inline font-bold">
-                    {isEnglish ? "Utilities" : "Seçenekler"}
+                  <span className="inline font-bold">
+                    {isEnglish ? "Tools" : "Araçlar"}
                   </span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-200 ${
@@ -409,18 +411,18 @@ export const Navbar: React.FC<NavbarProps> = ({
                   />
                 </button>
 
-                {/* Utilities Menu Popover */}
+                {/* Araçlar Dropdown Menu */}
                 <AnimatePresence>
                   {isUtilitiesOpen && (
                     <motion.div
-                      id="utilities-menu-popover"
+                      id="tools-menu-dropdown"
                       initial={{ opacity: 0, y: 8, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.96 }}
                       transition={{ duration: 0.18, ease: "easeOut" }}
-                      className="absolute right-0 mt-2 w-72 sm:w-80 p-2.5 rounded-2xl bg-white/98 dark:bg-slate-900/98 backdrop-blur-2xl border border-slate-200 dark:border-slate-800 shadow-xl z-50 space-y-2.5"
+                      className="absolute right-0 mt-2 w-72 sm:w-80 p-2.5 rounded-2xl bg-white/98 dark:bg-slate-900/98 backdrop-blur-2xl border border-slate-200 dark:border-slate-800 shadow-xl z-50 space-y-2"
                     >
-                      {/* Top Prominent Action: Socratic AI Coach */}
+                      {/* 1. AI Coach */}
                       <button
                         id="menu-item-ai-coach"
                         onClick={() => {
@@ -435,30 +437,110 @@ export const Navbar: React.FC<NavbarProps> = ({
                           </div>
                           <div className="text-left">
                             <div className="text-xs font-black">
-                              {isEnglish ? "Socratic AI Coach" : "Sokratik AI Koçu"}
+                              {isEnglish ? "AI Coach" : "AI Koç"}
                             </div>
                             <div className="text-[10px] text-indigo-100 font-medium">
-                              {isEnglish ? "Ask questions & deepen intuition" : "Kavramları Sokratik yöntemle tartış"}
+                              {isEnglish ? "Socratic financial guidance & questions" : "Sokratik finans rehberliği & soru sor"}
                             </div>
                           </div>
                         </div>
                         <ArrowRight className="w-4 h-4 text-white/80 group-hover:translate-x-1 transition-transform shrink-0" />
                       </button>
 
-                      {/* Divider */}
-                      <div className="h-px bg-slate-100 dark:bg-slate-800 my-1" />
+                      {/* 2. Resources (Glossary & Study Guide / Tour) */}
+                      <div className="space-y-1 pt-1 border-t border-slate-100 dark:border-slate-800">
+                        <div className="px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                          {isEnglish ? "Resources" : "Kaynaklar"}
+                        </div>
+                        <button
+                          id="menu-item-resources-glossary"
+                          onClick={() => {
+                            setIsUtilitiesOpen(false);
+                            onOpenGlossary();
+                          }}
+                          className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer min-h-[44px]"
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <div className="w-7 h-7 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
+                              <BookOpen className="w-4 h-4" />
+                            </div>
+                            <div className="text-left">
+                              <span className="text-xs font-bold block">
+                                {isEnglish ? "Glossary & Terminology" : "Sözlük & Terminoloji"}
+                              </span>
+                              <span className="text-[10px] text-slate-500 dark:text-slate-400">
+                                {isEnglish ? "ROIC, WACC, NOPAT formulas & terms" : "Formüller, kısaltmalar ve tanımlar"}
+                              </span>
+                            </div>
+                          </div>
+                        </button>
 
-                      {/* Language Selection Row */}
-                      <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 space-y-1.5">
+                        {onOpenGuide && (
+                          <button
+                            id="menu-item-resources-tour"
+                            onClick={() => {
+                              setIsUtilitiesOpen(false);
+                              onOpenGuide();
+                            }}
+                            className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer min-h-[44px]"
+                          >
+                            <div className="flex items-center gap-2.5">
+                              <div className="w-7 h-7 rounded-lg bg-amber-50 dark:bg-amber-950/60 flex items-center justify-center text-amber-600 dark:text-amber-400">
+                                <HelpCircle className="w-4 h-4" />
+                              </div>
+                              <div className="text-left">
+                                <span className="text-xs font-bold block">
+                                  {isEnglish ? "Platform Tour & Methodology" : "Platform Turu & Metodoloji"}
+                                </span>
+                                <span className="text-[10px] text-slate-500 dark:text-slate-400">
+                                  {isEnglish ? "7-stop interactive mastery tour" : "7 duraklı interaktif ustalık turu"}
+                                </span>
+                              </div>
+                            </div>
+                          </button>
+                        )}
+                      </div>
+
+                      {/* 3. Theme switch (Açık / Koyu Tema Değiştir) */}
+                      <div className="pt-1 border-t border-slate-100 dark:border-slate-800">
+                        <button
+                          id="menu-item-toggle-theme"
+                          onClick={(e) => {
+                            onToggleDarkMode(e);
+                          }}
+                          className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer min-h-[44px]"
+                        >
+                          <div className="flex items-center gap-2.5">
+                            <div className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300">
+                              {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
+                            </div>
+                            <div className="text-left">
+                              <span className="text-xs font-bold block">
+                                {isEnglish ? "Toggle Theme" : "Tema Değiştir"}
+                              </span>
+                              <span className="text-[10px] text-slate-500 dark:text-slate-400">
+                                {isDarkMode ? (isEnglish ? "Switch to light theme" : "Aydınlık temaya geç") : (isEnglish ? "Switch to dark theme" : "Karanlık temaya geç")}
+                              </span>
+                            </div>
+                          </div>
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                            {isDarkMode ? (isEnglish ? "Dark" : "Koyu") : (isEnglish ? "Light" : "Açık")}
+                          </span>
+                        </button>
+                      </div>
+
+                      {/* 4. Dil: Türkçe / English */}
+                      <div className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-700/60 space-y-1.5 pt-1.5">
                         <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
                           <span className="flex items-center gap-1">
                             <Globe className="w-3 h-3 text-indigo-500" />
-                            {isEnglish ? "Language / Dil" : "Dil Seçimi / Language"}
+                            {isEnglish ? "Language / Dil" : "Dil: Türkçe / English"}
                           </span>
                         </div>
                         <div className="grid grid-cols-2 gap-1.5">
                           <button
                             type="button"
+                            id="menu-item-lang-tr"
                             onClick={() => {
                               setLanguage("tr");
                               setIsUtilitiesOpen(false);
@@ -474,6 +556,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           </button>
                           <button
                             type="button"
+                            id="menu-item-lang-en"
                             onClick={() => {
                               setLanguage("en");
                               setIsUtilitiesOpen(false);
@@ -489,79 +572,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                           </button>
                         </div>
                       </div>
-
-                      {/* Theme Toggle Button */}
-                      <button
-                        onClick={(e) => {
-                          onToggleDarkMode(e);
-                        }}
-                        className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer min-h-[44px]"
-                      >
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-7 h-7 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300">
-                            {isDarkMode ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-indigo-600" />}
-                          </div>
-                          <div className="text-left">
-                            <span className="text-xs font-bold block">
-                              {isDarkMode ? (isEnglish ? "Light Theme" : "Aydınlık Tema") : (isEnglish ? "Dark Theme" : "Karanlık Tema")}
-                            </span>
-                            <span className="text-[10px] text-slate-500 dark:text-slate-400">
-                              {isDarkMode ? (isEnglish ? "Switch to warm daylight" : "Açık renk paletine geç") : (isEnglish ? "Switch to navy dark canvas" : "Koyu lacivert paletine geç")}
-                            </span>
-                          </div>
-                        </div>
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-                          {isDarkMode ? (isEnglish ? "Dark" : "Koyu") : (isEnglish ? "Light" : "Açık")}
-                        </span>
-                      </button>
-
-                      {/* Glossary Item */}
-                      <button
-                        onClick={() => {
-                          setIsUtilitiesOpen(false);
-                          onOpenGlossary();
-                        }}
-                        className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer min-h-[44px]"
-                      >
-                        <div className="flex items-center gap-2.5">
-                          <div className="w-7 h-7 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 flex items-center justify-center text-indigo-600 dark:text-indigo-400">
-                            <BookOpen className="w-4 h-4" />
-                          </div>
-                          <div className="text-left">
-                            <span className="text-xs font-bold block">
-                              {isEnglish ? "Finance & Strategy Glossary" : "Finans & Strateji Sözlüğü"}
-                            </span>
-                            <span className="text-[10px] text-slate-500 dark:text-slate-400">
-                              {isEnglish ? "Search terms & formulas" : "Terimler, kısaltmalar ve tanımlar"}
-                            </span>
-                          </div>
-                        </div>
-                      </button>
-
-                      {/* Learning Tour Guide */}
-                      {onOpenGuide && (
-                        <button
-                          onClick={() => {
-                            setIsUtilitiesOpen(false);
-                            onOpenGuide();
-                          }}
-                          className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer min-h-[44px]"
-                        >
-                          <div className="flex items-center gap-2.5">
-                            <div className="w-7 h-7 rounded-lg bg-amber-50 dark:bg-amber-950/60 flex items-center justify-center text-amber-600 dark:text-amber-400">
-                              <HelpCircle className="w-4 h-4" />
-                            </div>
-                            <div className="text-left">
-                              <span className="text-xs font-bold block">
-                                {isEnglish ? "Learning Guide & Methodology" : "Öğrenme Rehberi & Metodoloji"}
-                              </span>
-                              <span className="text-[10px] text-slate-500 dark:text-slate-400">
-                                {isEnglish ? "Platform's 7-stop mastery tour" : "Platformun 7 duraklı ustalık turu"}
-                              </span>
-                            </div>
-                          </div>
-                        </button>
-                      )}
                     </motion.div>
                   )}
                 </AnimatePresence>

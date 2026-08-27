@@ -500,7 +500,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                   {section.formulaDeepDiveId && (
                     <button
                       onClick={() => onOpenFormulaWorkshop?.(section.formulaDeepDiveId!)}
-                      className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-bold transition-all cursor-pointer shadow-xs"
+                      className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-indigo-700 dark:text-indigo-300 border border-slate-300 dark:border-slate-700 text-[11px] font-bold transition-all cursor-pointer shadow-xs"
                     >
                       <Calculator className="w-3.5 h-3.5" />
                       <span>{isEnglish ? "Calculate in Workshop" : "Formül Sayfasında Hesapla"}</span>

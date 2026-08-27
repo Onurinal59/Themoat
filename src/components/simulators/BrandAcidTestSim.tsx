@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   Sparkles,
   Shield,
@@ -11,7 +11,10 @@ import {
   TrendingUp,
   Percent,
   Layers,
-  ArrowRight
+  ArrowRight,
+  Calculator,
+  ChevronDown,
+  BookOpen
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -97,6 +100,7 @@ export const BrandAcidTestSim: React.FC = () => {
   const [adSpendPercent, setAdSpendPercent] = useState<number>(8);
   const [elasticity, setElasticity] = useState<number>(0.5); // Price elasticity
   const [priceHikePercent, setPriceHikePercent] = useState<number>(10); // Simulated +% price hike
+  const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   // Base calculation
   const baseGrossProfit = price - cogs;
@@ -329,6 +333,97 @@ export const BrandAcidTestSim: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Progressive Disclosure: "See the calculation / Hesabı gör" Collapsible Panel */}
+      <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button
+          id="btn-toggle-brand-sim-details"
+          onClick={() => setShowCalculationDetails(!showCalculationDetails)}
+          className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer min-h-[44px]"
+        >
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+            <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>
+              {isEnglish ? "See the calculation" : "Hesabı gör"}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
+            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                showCalculationDetails ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {showCalculationDetails && (
+            <motion.div
+              id="brand-sim-calculation-breakdown"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="mt-3 p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-5"
+            >
+              {/* Formula Blueprint */}
+              <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
+                  <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                  <span>{isEnglish ? "Brand Pricing Power & Elasticity Formula" : "Marka Fiyatlama Gücü ve Talep Esnekliği Formülü"}</span>
+                </div>
+                <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
+                  <span>{isEnglish ? "Volume Change = - (Price Hike % × Elasticity ε)" : "Hacim Değişimi % = - (Fiyat Zammı % × Talep Esnekliği ε)"}</span>
+                  <br />
+                  <span>{isEnglish ? "Unit Margin = (New Price - COGS - Ad Spend - CAC)" : "Birim Kâr = (Yeni Fiyat - COGS - Reklam Gideri - CAC)"}</span>
+                  <br />
+                  <span>{isEnglish ? "Total Profit = New Customer Volume × New Unit Margin" : "Toplam Kâr = Yeni Müşteri Hacmi × Yeni Birim Kâr"}</span>
+                </div>
+              </div>
+
+              {/* Step-by-Step Diagnostic Breakdown */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  {isEnglish ? "Step-by-Step Numerical Breakdown" : "Adım Adım Sayısal Hesaplama"}
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-500 block font-bold mb-1">
+                      {isEnglish ? "1. Baseline Unit Economics" : "1. Başlangıç Birim Ekonomisi"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {isEnglish
+                        ? `Price: $${price} | COGS: $${cogs} | Ad Spend: $${baseAdCost.toFixed(1)} | CAC: $${cac} -> Base Profit: $${baseOperatingProfit.toFixed(1)}/unit`
+                        : `Fiyat: $${price} | COGS: $${cogs} | Reklam: $${baseAdCost.toFixed(1)} | CAC: $${cac} -> Taban Kâr: $${baseOperatingProfit.toFixed(1)}/birim`}
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-500 block font-bold mb-1">
+                      {isEnglish ? "2. Price Shock (+%" + priceHikePercent + ")" : "2. Fiyat Şoku (+%" + priceHikePercent + ")"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {isEnglish
+                        ? `New Price: $${newPrice.toFixed(1)} | Volume Defection: ${volumeChangePercent.toFixed(1)}% | Retained Units: ${(100 * volumeMultiplier).toFixed(1)}`
+                        : `Yeni Fiyat: $${newPrice.toFixed(1)} | Kaybedilen Hacim: %${Math.abs(volumeChangePercent).toFixed(1)} | Kalan Birim: ${(100 * volumeMultiplier).toFixed(1)}`}
+                    </p>
+                  </div>
+                  <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-500 block font-bold mb-1">
+                      {isEnglish ? "3. Net Operating Profit" : "3. Net Faaliyet Kârı"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {isEnglish
+                        ? `Total Post-Hike Profit: $${newTotalProfit.toFixed(1)} vs Pre-Hike: $${baseTotalProfit.toFixed(1)} (${profitChangePercent >= 0 ? "+" : ""}${profitChangePercent.toFixed(1)}%)`
+                        : `Zam Sonrası Toplam Kâr: $${newTotalProfit.toFixed(1)} vs Zam Öncesi: $${baseTotalProfit.toFixed(1)} (${profitChangePercent >= 0 ? "+" : ""}${profitChangePercent.toFixed(1)}%)`}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

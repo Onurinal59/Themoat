@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   Shield,
   Target,
@@ -10,6 +11,9 @@ import {
   Swords,
   Layers,
   BarChart3,
+  Calculator,
+  ChevronDown,
+  BookOpen,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -30,6 +34,7 @@ export const ColonelBlottoSim: React.FC = () => {
   const [b1, setB1] = useState<number>(35);
   const [b2, setB2] = useState<number>(35);
   const [b3, setB3] = useState<number>(30);
+  const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   // Opponent default allocation (Exhibit 37: 30, 30, 40)
   const oppB1 = 30;
@@ -317,6 +322,91 @@ export const ColonelBlottoSim: React.FC = () => {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Progressive Disclosure: "See the calculation / Hesabı gör" Collapsible Panel */}
+      <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button
+          id="btn-toggle-blotto-sim-details"
+          onClick={() => setShowCalculationDetails(!showCalculationDetails)}
+          className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer min-h-[44px]"
+        >
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+            <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>
+              {isEnglish ? "See the calculation" : "Hesabı gör"}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
+            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                showCalculationDetails ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {showCalculationDetails && (
+            <motion.div
+              id="blotto-sim-calculation-breakdown"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="mt-3 p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-5"
+            >
+              {/* Formula Blueprint */}
+              <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
+                  <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                  <span>{isEnglish ? "Game Theory & Blotto Payoff Formula" : "Oyun Teorisi ve Albay Blotto Kazanç Formülü"}</span>
+                </div>
+                <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
+                  <span>{isEnglish ? "Battlefield Outcome: Win (Bi > Oi) -> +1 Point | Loss (Bi < Oi) -> 0 Points" : "Cephe Çıktısı: Galibiyet (Bi > Oi) -> +1 Puan | Mağlubiyet (Bi < Oi) -> 0 Puan"}</span>
+                  <br />
+                  <span>{isEnglish ? "Budget Constraint: Σ Bi = 100 & Σ Oi = 100" : "Bütçe Kısıtı: Toplam Bi = 100 & Toplam Oi = 100"}</span>
+                  <br />
+                  <span>{isEnglish ? "Dominant Strategy: Win 2 of 3 battlefields with concentrated force (e.g., 35, 35, 30 vs 30, 30, 40)" : "Baskın Strateji: Yoğunlaştırılmış güçle 3 cepheden en az 2'sini kazanmak"}</span>
+                </div>
+              </div>
+
+              {/* Step-by-Step Diagnostic Breakdown */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  {isEnglish ? "Battlefield Diagnostic Breakdown" : "Cepheler Bazında Stratejik Teşhis"}
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-500 block font-bold mb-1">
+                      {isEnglish ? "1. High Margin Enterprise" : "1. Yüksek Marjlı Kurumsal"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {b1 > oppB1 ? (isEnglish ? `Won! (${b1} vs ${oppB1})` : `Kazanıldı! (${b1} vs ${oppB1})`) : b1 === oppB1 ? (isEnglish ? `Tied (${b1})` : `Berabere (${b1})`) : (isEnglish ? `Lost (${b1} vs ${oppB1})` : `Kaybedildi (${b1} vs ${oppB1})`)}
+                    </p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-500 block font-bold mb-1">
+                      {isEnglish ? "2. Mid-Market Segment" : "2. Orta Ölçek KOBİ"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {b2 > oppB2 ? (isEnglish ? `Won! (${b2} vs ${oppB2})` : `Kazanıldı! (${b2} vs ${oppB2})`) : b2 === oppB2 ? (isEnglish ? `Tied (${b2})` : `Berabere (${b2})`) : (isEnglish ? `Lost (${b2} vs ${oppB2})` : `Kaybedildi (${b2} vs ${oppB2})`)}
+                    </p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-500 block font-bold mb-1">
+                      {isEnglish ? "3. Self-Serve / Low Margin" : "3. Bireysel / Düşük Marj"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {b3 > oppB3 ? (isEnglish ? `Won! (${b3} vs ${oppB3})` : `Kazanıldı! (${b3} vs ${oppB3})`) : b3 === oppB3 ? (isEnglish ? `Tied (${b3})` : `Berabere (${b3})`) : (isEnglish ? `Lost (${b3} vs ${oppB3})` : `Kaybedildi (${b3} vs ${oppB3})`)}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

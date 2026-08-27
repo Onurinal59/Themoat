@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import { getChecklistItems } from "../../data/checklistData";
 import {
   CheckSquare,
@@ -12,6 +13,9 @@ import {
   HelpCircle,
   BarChart3,
   Layers,
+  Calculator,
+  ChevronDown,
+  BookOpen,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -71,6 +75,7 @@ export const MoatChecklistSim: React.FC = () => {
 
   const [checkedState, setCheckedState] = useState<Record<string, boolean>>({});
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
+  const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   const categories = [
     { id: "all", label: isEnglish ? "All 22 Items" : "Tüm Maddeler (22)" },
@@ -327,6 +332,85 @@ export const MoatChecklistSim: React.FC = () => {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Progressive Disclosure: "See the calculation / Hesabı gör" Collapsible Panel */}
+      <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button
+          id="btn-toggle-moat-checklist-details"
+          onClick={() => setShowCalculationDetails(!showCalculationDetails)}
+          className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer min-h-[44px]"
+        >
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+            <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>
+              {isEnglish ? "See the calculation" : "Hesabı gör"}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
+            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                showCalculationDetails ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {showCalculationDetails && (
+            <motion.div
+              id="moat-checklist-calculation-breakdown"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="mt-3 p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-5"
+            >
+              {/* Formula Blueprint */}
+              <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
+                  <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                  <span>{isEnglish ? "Weighted Checklist Scoring & Robustness Formula" : "Ağırlıklı Hendek Kontrol Listesi Puanlama Formülü"}</span>
+                </div>
+                <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
+                  <span>{isEnglish ? "Total Moat Score (%) = (Σ Validated Moat Factor Weights / Total Maximum Factor Weights) × 100" : "Toplam Hendek Skoru (%) = (Doğrulanan Hendek Ağırlıkları Toplamı / Maksimum Olası Puan) × 100"}</span>
+                  <br />
+                  <span>{isEnglish ? "Fortress Moat: Score >= 70% | Narrow Moat: 45% - 69% | No Moat: < 45%" : "Kale Hendek: Skor >= %70 | Dar Hendek: %45 - %69 | Hendeksiz: < %45"}</span>
+                </div>
+              </div>
+
+              {/* Step-by-Step Diagnostic Breakdown */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  {isEnglish ? "Active Scoring Diagnostic Breakdown" : "Mevcut Puanlama Röntgeni"}
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-indigo-600 dark:text-indigo-400 block font-bold mb-1">
+                      {isEnglish ? "Validated Items Count" : "Onaylanan Madde Sayısı"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {Object.values(checkedState).filter(Boolean).length} / {checklistItems.length} {isEnglish ? "criteria satisfied" : "kriter sağlandı"} ({scorePercent}%)
+                    </p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-emerald-600 dark:text-emerald-400 block font-bold mb-1">
+                      {isEnglish ? "Competitive Advantage Period (CAP) Implication" : "Rekabet Avantajı Süresi (CAP) Çıkarımı"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {scorePercent >= 70
+                        ? (isEnglish ? "Estimated CAP: 15-25+ years" : "Tahmini CAP: 15-25+ yıl")
+                        : scorePercent >= 45
+                        ? (isEnglish ? "Estimated CAP: 5-10 years" : "Tahmini CAP: 5-10 yıl")
+                        : (isEnglish ? "Estimated CAP: 0-3 years" : "Tahmini CAP: 0-3 yıl")}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

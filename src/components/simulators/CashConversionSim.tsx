@@ -402,7 +402,7 @@ export const CashConversionSim: React.FC = () => {
         </div>
       </div>
 
-      {/* Progressive Disclosure: "See the calculation & deep dive" Collapsible Panel */}
+      {/* Progressive Disclosure: "See the calculation / Hesabı gör" Collapsible Panel */}
       <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
         <button
           id="btn-toggle-ccc-sim-details"
@@ -412,9 +412,7 @@ export const CashConversionSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish
-                ? "See the calculation & deep dive (Working Capital Math, Float & Cash Dynamics)"
-                : "Hesabı & Derinlemesine Analizi Gör (İşletme Sermayesi Formülü, Float & Dinamikler)"}
+              {isEnglish ? "See the calculation" : "Hesabı gör"}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">

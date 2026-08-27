@@ -405,7 +405,7 @@ export const DuPontSim: React.FC = () => {
         </div>
       </div>
 
-      {/* Progressive Disclosure: "See the calculation & deep dive" Collapsible Panel */}
+      {/* Progressive Disclosure: "See the calculation / Hesabı gör" Collapsible Panel */}
       <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
         <button
           id="btn-toggle-dupont-sim-details"
@@ -415,9 +415,7 @@ export const DuPontSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish
-                ? "See the calculation & deep dive (DuPont Proof, Margins vs Turnover & Diagnosis)"
-                : "Hesabı & Derinlemesine Analizi Gör (DuPont Formül Dökümü, Marj vs Hız Analizi)"}
+              {isEnglish ? "See the calculation" : "Hesabı gör"}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">

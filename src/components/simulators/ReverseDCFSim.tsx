@@ -412,7 +412,7 @@ export const ReverseDCFSim: React.FC = () => {
         </div>
       </div>
 
-      {/* Progressive Disclosure: "See the calculation & deep dive" Collapsible Panel */}
+      {/* Progressive Disclosure: "See the calculation / Hesabı gör" Collapsible Panel */}
       <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
         <button
           id="btn-toggle-reverse-dcf-sim-details"
@@ -422,9 +422,7 @@ export const ReverseDCFSim: React.FC = () => {
           <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
             <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             <span>
-              {isEnglish
-                ? "See the calculation & deep dive (Steady-State Math, PVGO Decomposition & Reverse DCF Proof)"
-                : "Hesabı & Derinlemesine Analizi Gör (Taban Değer Formülü, PVGO Ayrışımı & Tersine DCF)"}
+              {isEnglish ? "See the calculation" : "Hesabı gör"}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">

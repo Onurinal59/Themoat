@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   PieChart as PieIcon,
   TrendingUp,
@@ -11,6 +12,9 @@ import {
   Smartphone,
   BarChart3,
   HelpCircle,
+  Calculator,
+  ChevronDown,
+  BookOpen,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -179,6 +183,7 @@ export const ProfitPoolSim: React.FC = () => {
   const { isEnglish } = useLanguage();
   const [selectedIndustryIdx, setSelectedIndustryIdx] = useState<number>(0);
   const [selectedSegmentIdx, setSelectedSegmentIdx] = useState<number>(0);
+  const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   const activeIndustry = INDUSTRY_POOLS[selectedIndustryIdx];
   const activeSegment = activeIndustry.segments[selectedSegmentIdx] || activeIndustry.segments[0];
@@ -416,6 +421,101 @@ export const ProfitPoolSim: React.FC = () => {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Progressive Disclosure: "See the calculation / Hesabı gör" Collapsible Panel */}
+      <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button
+          id="btn-toggle-profitpool-sim-details"
+          onClick={() => setShowCalculationDetails(!showCalculationDetails)}
+          className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer min-h-[44px]"
+        >
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+            <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>
+              {isEnglish ? "See the calculation" : "Hesabı gör"}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
+            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                showCalculationDetails ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {showCalculationDetails && (
+            <motion.div
+              id="profitpool-sim-calculation-breakdown"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="mt-3 p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-5"
+            >
+              {/* Formula Blueprint */}
+              <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
+                  <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                  <span>{isEnglish ? "Profit Pool Asymmetry & Economic Spread Formula" : "Kâr Havuzu Asimetrisi ve Ekonomik Yayılım Formülü"}</span>
+                </div>
+                <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
+                  <span>{isEnglish ? "Economic Spread = ROIC - WACC" : "Ekonomik Yayılım (Spread) = ROIC - WACC"}</span>
+                  <br />
+                  <span>{isEnglish ? "Profit Pool Capture Index = Profit Share (%) / Capital Share (%)" : "Kâr Havuzu Çekim Endeksi = Kâr Payı (%) / Sermaye Payı (%)"}</span>
+                  <br />
+                  <span>{isEnglish ? "Value Creation = Spread > 0 & Capture Index > 1.0" : "Değer Yaratma = Yayılım > 0 & Çekim Endeksi > 1.0"}</span>
+                </div>
+              </div>
+
+              {/* Step-by-Step Diagnostic Breakdown */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  {isEnglish ? "Active Value Chain Step-by-Step Diagnostic" : "Seçili Değer Zinciri Adım Adım Teşhis Röntgeni"}
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-500 block font-bold mb-1">
+                      {isEnglish ? "1. Capital vs Profit Ratio" : "1. Sermaye vs Kâr Oranı"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {isEnglish
+                        ? `Captures %${activeSegment.profitShare} of industry profit with only %${activeSegment.capitalShare} of total invested capital.`
+                        : `Sektör sermayesinin %${activeSegment.capitalShare}'ini bağlayarak sektör kârının %${activeSegment.profitShare}'ini almaktadır.`}
+                    </p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-500 block font-bold mb-1">
+                      {isEnglish ? "2. Spread & Hurdle Rate" : "2. Yayılım ve Sermaye Maliyeti"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {isEnglish
+                        ? `ROIC: %${activeSegment.roic} vs WACC: %${activeSegment.wacc} -> Net Spread: %${(activeSegment.roic - activeSegment.wacc).toFixed(1)}`
+                        : `ROIC: %${activeSegment.roic} vs WACC: %${activeSegment.wacc} -> Net Yayılım: %${(activeSegment.roic - activeSegment.wacc).toFixed(1)}`}
+                    </p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-slate-500 block font-bold mb-1">
+                      {isEnglish ? "3. Strategic Moat Verdict" : "3. Stratejik Hendek Kararı"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {activeSegment.roic >= activeSegment.wacc
+                        ? isEnglish
+                          ? "Value compounder! Generates high returns above cost of capital."
+                          : "Değer üreteci! Sermaye maliyetinin üzerinde net ekonomik refah yaratır."
+                        : isEnglish
+                          ? "Value destroyer / capital trap. Destroys capital despite high physical presence."
+                          : "Sermaye tuzağı / değer yok edici. Fiziksel varlığına rağmen sermaye eritir."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

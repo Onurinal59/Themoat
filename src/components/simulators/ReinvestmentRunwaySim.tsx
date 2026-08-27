@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   TrendingUp,
   Layers,
@@ -11,7 +11,10 @@ import {
   DollarSign,
   Percent,
   CheckCircle2,
-  HelpCircle
+  HelpCircle,
+  Calculator,
+  ChevronDown,
+  BookOpen
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -38,6 +41,7 @@ export const ReinvestmentRunwaySim: React.FC = () => {
 
   const [wacc, setWacc] = useState<number>(9.0);
   const [initialCapital, setInitialCapital] = useState<number>(100); // $M
+  const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
 
   // Simulate 15 years for both companies
   const simulationYears = 15;
@@ -270,6 +274,87 @@ export const ReinvestmentRunwaySim: React.FC = () => {
               : "Öğretim senaryosudur; rakamlar güncel şirket tahmini veya yatırım görüşü değildir."}
           </p>
         </div>
+      </div>
+
+      {/* Progressive Disclosure: "See the calculation / Hesabı gör" Collapsible Panel */}
+      <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button
+          id="btn-toggle-runway-sim-details"
+          onClick={() => setShowCalculationDetails(!showCalculationDetails)}
+          className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer min-h-[44px]"
+        >
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+            <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>
+              {isEnglish ? "See the calculation" : "Hesabı gör"}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
+            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                showCalculationDetails ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {showCalculationDetails && (
+            <motion.div
+              id="runway-sim-calculation-breakdown"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="mt-3 p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-5"
+            >
+              {/* Formula Blueprint */}
+              <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
+                  <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                  <span>{isEnglish ? "Reinvestment Compounding & Growth Formula" : "Yeniden Yatırım Bileşik Büyüme ve Kâr Formülü"}</span>
+                </div>
+                <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
+                  <span>{isEnglish ? "Fundamental Growth (g) = ROIC × Reinvestment Rate (b)" : "Temel Büyüme (g) = ROIC × Yeniden Yatırım Oranı (b)"}</span>
+                  <br />
+                  <span>{isEnglish ? "Invested Capital (t+1) = Capital (t) + [NOPAT (t) × b]" : "Yatırılan Sermaye (t+1) = Sermaye (t) + [NOPAT (t) × b]"}</span>
+                  <br />
+                  <span>{isEnglish ? "Economic Profit = Invested Capital × (ROIC - WACC)" : "Ekonomik Kâr = Yatırılan Sermaye × (ROIC - WACC)"}</span>
+                </div>
+              </div>
+
+              {/* Step-by-Step Diagnostic Breakdown */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  {isEnglish ? "Step-by-Step Numerical Proof" : "Adım Adım Sayısal İspat"}
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-1">
+                    <span className="text-rose-500 block font-black">
+                      {isEnglish ? `Company A (High ROIC %${compARoic}, Reinvest %${compAReinvest})` : `Şirket A (Yüksek ROIC %${compARoic}, Yatırım %${compAReinvest})`}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {isEnglish
+                        ? `Intrinsic Growth: ${(compARoic * (compAReinvest / 100)).toFixed(1)}%/yr. Yr 15 Capital: $${finalYear?.capA}M | Final NOPAT: $${finalYear?.nopatA}M/yr`
+                        : `İçsel Büyüme: %${(compARoic * (compAReinvest / 100)).toFixed(1)}/yıl. 15. Yıl Sermaye: $${finalYear?.capA}M | Yıllık Kâr: $${finalYear?.nopatA}M`}
+                    </p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-1">
+                    <span className="text-emerald-500 block font-black">
+                      {isEnglish ? `Company B (Moderate ROIC %${compBRoic}, Reinvest %${compBReinvest})` : `Şirket B (Ilımlı ROIC %${compBRoic}, Yatırım %${compBReinvest})`}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {isEnglish
+                        ? `Intrinsic Growth: ${(compBRoic * (compBReinvest / 100)).toFixed(1)}%/yr. Yr 15 Capital: $${finalYear?.capB}M | Final NOPAT: $${finalYear?.nopatB}M/yr`
+                        : `İçsel Büyüme: %${(compBRoic * (compBReinvest / 100)).toFixed(1)}/yıl. 15. Yıl Sermaye: $${finalYear?.capB}M | Yıllık Kâr: $${finalYear?.nopatB}M`}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );

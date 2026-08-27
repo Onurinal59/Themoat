@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import {
   Swords,
   RotateCcw,
@@ -9,6 +10,9 @@ import {
   CheckCircle2,
   TrendingUp,
   BarChart3,
+  Calculator,
+  ChevronDown,
+  BookOpen,
 } from "lucide-react";
 import {
   ResponsiveContainer,
@@ -40,6 +44,7 @@ export const PrisonersDilemmaSim: React.FC = () => {
   const [botStrategy, setBotStrategy] = useState<StrategyType>("tit-for-tat");
   const [history, setHistory] = useState<RoundResult[]>([]);
   const [currentRound, setCurrentRound] = useState<number>(1);
+  const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
   const maxRounds = 5;
 
   const totalPlayerScore = history.reduce((sum, r) => sum + r.playerPayoff, 0);
@@ -354,6 +359,87 @@ export const PrisonersDilemmaSim: React.FC = () => {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Progressive Disclosure: "See the calculation / Hesabı gör" Collapsible Panel */}
+      <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
+        <button
+          id="btn-toggle-prisoners-sim-details"
+          onClick={() => setShowCalculationDetails(!showCalculationDetails)}
+          className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/40 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700 transition-colors cursor-pointer min-h-[44px]"
+        >
+          <div className="flex items-center gap-2 text-xs sm:text-sm font-bold">
+            <Calculator className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+            <span>
+              {isEnglish ? "See the calculation" : "Hesabı gör"}
+            </span>
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 font-bold">
+            <span>{showCalculationDetails ? (isEnglish ? "Hide" : "Gizle") : (isEnglish ? "Show" : "Göster")}</span>
+            <ChevronDown
+              className={`w-4 h-4 transition-transform duration-200 ${
+                showCalculationDetails ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {showCalculationDetails && (
+            <motion.div
+              id="prisoners-sim-calculation-breakdown"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.2, ease: "easeOut" }}
+              className="mt-3 p-5 sm:p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 space-y-5"
+            >
+              {/* Formula Blueprint */}
+              <div className="p-4 rounded-xl bg-indigo-50/70 dark:bg-indigo-950/40 border border-indigo-200/60 dark:border-indigo-800/60 space-y-2">
+                <div className="flex items-center gap-2 text-xs font-black text-indigo-900 dark:text-indigo-200 uppercase tracking-wider">
+                  <BookOpen className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                  <span>{isEnglish ? "Game Theory Pricing Payoff Matrix & ROIC Math" : "Oyun Teorisi Fiyatlandırma Matrisi ve ROIC Mantığı"}</span>
+                </div>
+                <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
+                  <span>{isEnglish ? "Both Cooperate ($220, $220): +$100M each (Total Industry Profit = $200M)" : "İki Taraf da Anlaşır ($220, $220): Her biri +$100M (Sektör Toplam Kârı = $200M)"}</span>
+                  <br />
+                  <span>{isEnglish ? "One Defects ($200 vs $220): Defector +$120M, Cooperator +$40M (Total = $160M)" : "Tek Taraf Fiyat Kırar ($200 vs $220): İndiren +$120M, Koruyan +$40M (Toplam = $160M)"}</span>
+                  <br />
+                  <span>{isEnglish ? "Both Defect ($200, $200): +$60M each (Total Industry Profit = $120M — 40% Value Destroyed)" : "İki Taraf da Fiyat Kırar ($200, $200): Her biri +$60M (Sektör Kârı = $120M — %40 Kâr Yok Oluşu)"}</span>
+                </div>
+              </div>
+
+              {/* Step-by-Step Diagnostic Breakdown */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  {isEnglish ? "Nash Equilibrium vs Long-Term Moat Economics" : "Nash Dengesi vs Uzun Vadeli Hendek Ekonomisi"}
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-rose-500 block font-bold mb-1">
+                      {isEnglish ? "The Pricing War Trap" : "Fiyat Savaşı Tuzağı"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {isEnglish
+                        ? "Undercutting prices creates a transient advantage that rivals immediately match, driving the entire industry into sub-WACC returns."
+                        : "Fiyat kırmak geçici bir pazar payı sağlasa da rakipler anında karşılık verir ve sektörün ROIC'si sermaye maliyetinin altına düşer."}
+                    </p>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                    <span className="text-emerald-600 block font-bold mb-1">
+                      {isEnglish ? "Tit-For-Tat & Rational Discipline" : "Tit-For-Tat ve Rasyonel Oligopol Disiplini"}
+                    </span>
+                    <p className="text-slate-700 dark:text-slate-300">
+                      {isEnglish
+                        ? "Cooperating by default and immediately punishing price cuts restores industry rationality, preserving sustainable economic profit."
+                        : "Varsayılan olarak işbirliği yapıp fiyat kırmayı anında cezalandırmak rasyonel fiyatlama disiplinini yeniden tesis eder."}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
