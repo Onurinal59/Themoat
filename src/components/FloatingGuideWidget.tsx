@@ -51,7 +51,7 @@ export const FloatingGuideWidget: React.FC<FloatingGuideWidgetProps> = ({
   return (
     <div
       id="mastery-floating-tour-widget"
-      className="fixed bottom-20 sm:bottom-6 left-3 sm:left-6 z-20 pointer-events-none select-none"
+      className="hidden md:block fixed bottom-6 left-6 z-20 pointer-events-none select-none"
     >
       <div className="relative pointer-events-auto">
         {/* Expanded Small Popover Drawer (Max 320px, clean, non-obtrusive) */}
