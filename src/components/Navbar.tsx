@@ -199,7 +199,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const handleToolsTriggerKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      toggleToolsMenu();
+      event.currentTarget.click();
     }
   };
 
