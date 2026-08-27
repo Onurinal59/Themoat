@@ -50,7 +50,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
   onNavigateTab,
   onStartFirstModule
 }) => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const contentBodyRef = useRef<HTMLDivElement>(null);
 

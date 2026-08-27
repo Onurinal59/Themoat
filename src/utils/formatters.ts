@@ -1,33 +1,27 @@
-export const formatPercent = (value: number, locale: string, fractionDigits: number = 1): string => {
+export const formatPercentagePoints = (value: number, locale: string, maximumFractionDigits: number = 1): string => {
   return new Intl.NumberFormat(locale === "tr" ? "tr-TR" : "en-US", {
     style: "percent",
-    minimumFractionDigits: fractionDigits,
-    maximumFractionDigits: fractionDigits,
+    minimumFractionDigits: maximumFractionDigits,
+    maximumFractionDigits: maximumFractionDigits,
   }).format(value / 100);
 };
 
-export const formatCurrency = (value: number, locale: string, currency: string = "USD"): string => {
-  if (value === 0) return new Intl.NumberFormat(locale === "tr" ? "tr-TR" : "en-US", { style: "currency", currency, minimumFractionDigits: 0 }).format(0);
+export const formatUsdFromMillions = (valueInMillions: number, locale: string, maximumFractionDigits: number = 1): string => {
+  const formatted = new Intl.NumberFormat(locale === "tr" ? "tr-TR" : "en-US", {
+    minimumFractionDigits: maximumFractionDigits,
+    maximumFractionDigits: maximumFractionDigits,
+  }).format(valueInMillions);
   
-  if (locale === "tr") {
-    // Turkish compact notation often uses "mn" or "milyar" but standard Intl provides "B" and "Mn".
-    // "compact" notation in tr-TR Intl.NumberFormat for USD gives "$700 Mn" or similar.
-    return new Intl.NumberFormat("tr-TR", {
-      style: "currency",
-      currency,
-      notation: "compact",
-      compactDisplay: "short",
-      maximumFractionDigits: 1
-    }).format(value);
-  }
+  return locale === "tr" ? `${formatted} Mn $` : `$${formatted}M`;
+};
+
+export const formatUsdFromBillions = (valueInBillions: number, locale: string, maximumFractionDigits: number = 1): string => {
+  const formatted = new Intl.NumberFormat(locale === "tr" ? "tr-TR" : "en-US", {
+    minimumFractionDigits: maximumFractionDigits,
+    maximumFractionDigits: maximumFractionDigits,
+  }).format(valueInBillions);
   
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency,
-    notation: "compact",
-    compactDisplay: "short",
-    maximumFractionDigits: 1
-  }).format(value);
+  return locale === "tr" ? `${formatted} Mr $` : `$${formatted}B`;
 };
 
 export const formatNumber = (value: number, locale: string, fractionDigits: number = 0): string => {
@@ -37,6 +31,24 @@ export const formatNumber = (value: number, locale: string, fractionDigits: numb
   }).format(value);
 };
 
-export const formatDuration = (minutes: number, locale: string): string => {
-  return locale === "tr" ? `${minutes} dk` : `${minutes} min`;
+export const formatMultiplier = (value: number, locale: string, maximumFractionDigits: number = 2): string => {
+  const formatted = new Intl.NumberFormat(locale === "tr" ? "tr-TR" : "en-US", {
+    minimumFractionDigits: maximumFractionDigits,
+    maximumFractionDigits: maximumFractionDigits,
+  }).format(value);
+  return `${formatted}x`;
+};
+
+export const formatDurationYears = (value: number, locale: string): string => {
+  return locale === "tr" ? `${value} yıl` : `${value} years`;
+};
+
+export const formatCurrency = (value: number, locale: string): string => {
+  return new Intl.NumberFormat(locale === "tr" ? "tr-TR" : "en-US", {
+    style: "currency",
+    currency: "USD",
+    notation: "compact",
+    compactDisplay: "short",
+    maximumFractionDigits: 1
+  }).format(value);
 };

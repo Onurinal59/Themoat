@@ -24,7 +24,7 @@ export const MauboussinMethodologyCoach: React.FC<MauboussinMethodologyCoachProp
   isTemplateDossier,
   onAskAICoach,
 }) => {
-  const { isEnglish, getStepMethodologyGuides, t } = useLanguage();
+  const { isEnglish, getStepMethodologyGuides, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [isExpanded, setIsExpanded] = useState(true);
   
   const stepGuides = getStepMethodologyGuides();

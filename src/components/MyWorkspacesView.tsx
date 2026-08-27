@@ -53,7 +53,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
   onResetToPresets,
   onOpenAuditStudio,
 }) => {
-  const { language, isEnglish, t } = useLanguage();
+  const { language, isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filterType, setFilterType] = useState<"all" | "custom" | "presets" | "template" | "wide" | "valueCreating">("all");

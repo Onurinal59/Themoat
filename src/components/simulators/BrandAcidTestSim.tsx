@@ -92,7 +92,7 @@ const BRAND_PRESETS: BrandPreset[] = [
 ];
 
 export const BrandAcidTestSim: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
 
   const [price, setPrice] = useState<number>(500);
   const [cogs, setCogs] = useState<number>(180);

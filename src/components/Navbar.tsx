@@ -91,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   isDarkMode,
   onToggleDarkMode,
 }) => {
-  const { language, setLanguage, isEnglish, t } = useLanguage();
+  const { language, setLanguage, isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [isUtilitiesOpen, setIsUtilitiesOpen] = useState(false);
   const [isToolsMenuOpen, setIsToolsMenuOpen] = useState(false);

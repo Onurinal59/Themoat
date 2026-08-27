@@ -1,3 +1,4 @@
+import { formatPercentagePoints as fpp, formatUsdFromMillions as fumm, formatUsdFromBillions as fubb, formatMultiplier as fmul, formatDurationYears as fdy } from '../utils/formatters';
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { LearningModule, GlossaryTerm, FormulaGuide, ChecklistItem, Flashcard, CompanyAuditDossier, StepMethodologyGuide } from "../types";
 import { MODULES_DATA } from "../data/modulesData";
@@ -43,6 +44,13 @@ export interface LanguageContextType {
   formatCurrency: (value: number) => string;
   formatNumber: (value: number, fractionDigits?: number) => string;
   formatDuration: (minutes: number) => string;
+  
+  // New ones
+  formatPercentagePoints: (value: number, maximumFractionDigits?: number) => string;
+  formatUsdFromMillions: (valueInMillions: number, maximumFractionDigits?: number) => string;
+  formatUsdFromBillions: (valueInBillions: number, maximumFractionDigits?: number) => string;
+  formatMultiplier: (value: number, maximumFractionDigits?: number) => string;
+  formatDurationYears: (value: number) => string;
 }
 
 
@@ -719,7 +727,7 @@ const UI_TRANSLATIONS: Record<Language, Record<string, string>> = {
     "Navbar.switch_to_dark_theme_666": "Switch to dark theme",
     "Navbar.dark_667": "Dark",
     "Navbar.light_668": "light",
-    "Navbar.language_dil_669": "Language / Dil",
+    "Navbar.language_dil_669": "LANGUAGE",
     "Navbar.main_navigation_670": "Main Navigation",
     "Navbar.tools_duel_671": "Tools & Duel",
     "Navbar.ask_socratic_ai_coac_672": "Ask Socratic AI Coach",
@@ -2109,10 +2117,10 @@ const UI_TRANSLATIONS: Record<Language, Record<string, string>> = {
     "Navbar.7_stop_interactive_m_663": "7 duraklı interaktif ustalık turu",
     "Navbar.toggle_theme_664": "Tema Değiştir",
     "Navbar.switch_to_light_them_665": "Aydınlık temaya geç",
-    "Navbar.switch_to_dark_theme_666": "Karanlık temaya geç",
+    "Navbar.switch_to_dark_theme_666": "Koyu Temaya Geç",
     "Navbar.dark_667": "Koyu",
-    "Navbar.light_668": "dark",
-    "Navbar.language_dil_669": "Dil: Türkçe / English",
+    "Navbar.light_668": "Açık",
+    "Navbar.language_dil_669": "DİL",
     "Navbar.main_navigation_670": "Ana Görevler",
     "Navbar.tools_duel_671": "Uygulama & Düello",
     "Navbar.ask_socratic_ai_coac_672": "Sokratik AI Koçuna Soru Sor",
@@ -2967,9 +2975,15 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return language === "en" ? MAUBOUSSIN_GUIDED_TEMPLATE_EN : MAUBOUSSIN_GUIDED_TEMPLATE;
   };
 
+
+  const formatPercentagePoints = (value: number, maxFD?: number) => fpp(value, language, maxFD);
+  const formatUsdFromMillions = (value: number, maxFD?: number) => fumm(value, language, maxFD);
+  const formatUsdFromBillions = (value: number, maxFD?: number) => fubb(value, language, maxFD);
+  const formatMultiplier = (value: number, maxFD?: number) => fmul(value, language, maxFD);
+  const formatDurationYears = (value: number) => fdy(value, language);
+
   return (
-    <LanguageContext.Provider
-      value={{
+    <LanguageContext.Provider value={{
         language,
         setLanguage,
         toggleLanguage,
@@ -2988,8 +3002,12 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     formatCurrency,
     formatNumber,
     formatDuration,
-      }}
-    >
+
+    formatPercentagePoints,
+    formatUsdFromMillions,
+    formatUsdFromBillions,
+    formatMultiplier,
+    formatDurationYears}}>
       {children}
     </LanguageContext.Provider>
   );

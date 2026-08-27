@@ -37,7 +37,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
   onSelectFormula,
   onOpenFullPage,
 }) => {
-  const { getFormulaGuides, isEnglish, t , formatPercent, formatCurrency } = useLanguage();
+  const { getFormulaGuides, isEnglish, t , formatPercent, formatCurrency , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const formulaGuides = getFormulaGuides();
   const [activeId, setActiveId] = useState<string>("wacc");
 
@@ -329,7 +329,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.equity_e_232")}</span>
                           <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                            {waccEquity}M {t("FormulaDeepDiveModal.text_233")} ({Math.round(weightE * 100)}%)
+                            {formatUsdFromMillions(waccEquity, 0)} ({formatPercentagePoints(Math.round(weightE * 100), 0)})
                           </span>
                         </div>
                         <input
@@ -347,7 +347,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.total_debt_d_234")}</span>
                           <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                            {waccDebt}M {t("FormulaDeepDiveModal.text_235")} ({Math.round(weightD * 100)}%)
+                            {formatUsdFromMillions(waccDebt, 0)} ({formatPercentagePoints(Math.round(weightD * 100), 0)})
                           </span>
                         </div>
                         <input
@@ -365,7 +365,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.equity_beta_236")}</span>
                           <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                            {waccBeta.toFixed(2)}x (Ke = ${formatPercent(calculatedKe, 1)})
+                            {formatMultiplier(waccBeta, 2)} (Ke ={formatPercent(calculatedKe, 1)})
                           </span>
                         </div>
                         <input
@@ -382,8 +382,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                       <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.cost_of_debt_kd_237")}</span>
-                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                            ${formatPercent(waccKd, 1)}
+                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercent(waccKd, 1)}
                           </span>
                         </div>
                         <input
@@ -400,8 +399,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                       <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.tax_rate_t_238")}</span>
-                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                            ${formatPercent(waccTax, 1)} (Net Kd: ${formatPercent(netKd, 1)})
+                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercent(waccTax, 1)} (Net Kd:{formatPercent(netKd, 1)})
                           </span>
                         </div>
                         <input
@@ -418,8 +416,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                       <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.risk_free_rate_rf_239")}</span>
-                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                            ${formatPercent(waccRf, 1)}
+                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercent(waccRf, 1)}
                           </span>
                         </div>
                         <input
@@ -439,14 +436,13 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                         <div className="text-xs text-indigo-300 font-bold uppercase tracking-wider">
                           {t("FormulaDeepDiveModal.calculated_weighted_240")}
                         </div>
-                        <div className="text-2xl sm:text-3xl font-black text-white mt-0.5">
-                          ${formatPercent(calculatedWacc, 2)}
+                        <div className="text-2xl sm:text-3xl font-black text-white mt-0.5">{formatPercent(calculatedWacc, 2)}
                         </div>
                       </div>
                       <div className="text-xs text-indigo-200/90 max-w-sm leading-relaxed text-right sm:text-left">
                         {isEnglish
-                          ? `Equity Contribution: %${(weightE * calculatedKe).toFixed(1)} + Net Debt Contribution: %${(weightD * netKd).toFixed(1)}. Firm must earn at least %${calculatedWacc.toFixed(1)} per $100 capital.`
-                          : `Özsermaye Katkısı: %${(weightE * calculatedKe).toFixed(1)} + Net Borç Katkısı: %${(weightD * netKd).toFixed(1)}. Şirket her 100 TL için yıllık %${calculatedWacc.toFixed(1)} getiri üretmek zorundadır.`}
+                          ? `Equity Contribution: ${formatPercentagePoints((weightE * calculatedKe), 1)} + Net Debt Contribution: ${formatPercentagePoints((weightD * netKd), 1)}. Firm must earn at least ${formatPercentagePoints(calculatedWacc, 1)} per $100 capital.`
+                          : `Özsermaye Katkısı: ${formatPercentagePoints((weightE * calculatedKe), 1)} + Net Borç Katkısı: ${formatPercentagePoints((weightD * netKd), 1)}. Şirket her 100 TL için yıllık ${formatPercentagePoints(calculatedWacc, 1)} getiri üretmek zorundadır.`}
                       </div>
                     </div>
                   </div>
@@ -460,7 +456,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.operating_profit_ebi_241")}</span>
                           <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                            {roicEbit}M {t("FormulaDeepDiveModal.text_242")}
+                            {formatUsdFromMillions(roicEbit, 0)}
                           </span>
                         </div>
                         <input
@@ -477,8 +473,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                       <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.tax_rate_243")}</span>
-                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                            ${formatPercent(roicTax, 1)}
+                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercent(roicTax, 1)}
                           </span>
                         </div>
                         <input
@@ -496,7 +491,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.working_capital_nwc_244")}</span>
                           <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                            {roicNwc}M {t("FormulaDeepDiveModal.text_245")}
+                            {formatUsdFromMillions(roicNwc, 0)}
                           </span>
                         </div>
                         <input
@@ -514,7 +509,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.fixed_assets_pp_e_246")}</span>
                           <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                            {roicPpe}M {t("FormulaDeepDiveModal.text_247")}
+                            {formatUsdFromMillions(roicPpe, 0)}
                           </span>
                         </div>
                         <input
@@ -534,14 +529,13 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                         <div className="text-xs text-emerald-300 font-bold uppercase tracking-wider">
                           {t("FormulaDeepDiveModal.net_operating_profit_248")}
                         </div>
-                        <div className="text-2xl sm:text-3xl font-black text-white mt-0.5">
-                          ${formatPercent(calculatedRoic, 2)}
+                        <div className="text-2xl sm:text-3xl font-black text-white mt-0.5">{formatPercent(calculatedRoic, 2)}
                         </div>
                       </div>
                       <div className="text-xs text-emerald-200/90 max-w-sm leading-relaxed text-right sm:text-left">
                         {isEnglish
-                          ? `NOPAT = $${calculatedNopat.toFixed(0)}M | Invested Capital = ${formatCurrency(totalInvestedCapital * 1000000)}. The firm generates $${calculatedRoic.toFixed(1)} pure cash return per $100 capital deployed.`
-                          : `NOPAT = ${calculatedNopat.toFixed(0)}M TL | Yatırılan Sermaye = ${totalInvestedCapital}M TL. Şirket bağladığı her 100 TL sermaye ile yılda ${calculatedRoic.toFixed(1)} TL saf nakit getiri üretmektedir.`}
+                          ? `NOPAT = {formatUsdFromMillions(calculatedNopat)} | Invested Capital = {formatUsdFromMillions(totalInvestedCapital)}. The firm generates \$${calculatedRoic.toFixed(1)} pure cash return per $100 capital deployed.`
+                          : `NOPAT = {formatUsdFromMillions(calculatedNopat)} TL | Yatırılan Sermaye = ${totalInvestedCapital}M TL. Şirket bağladığı her 100 TL sermaye ile yılda ${calculatedRoic.toFixed(1)} TL saf nakit getiri üretmektedir.`}
                       </div>
                     </div>
                   </div>
@@ -827,7 +821,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                       <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.share_price_278")}</span>
-                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{dcfPrice} {t("FormulaDeepDiveModal.text_279")}</span>
+                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatCurrency(dcfPrice)}</span>
                         </div>
                         <input
                           type="range"
@@ -843,7 +837,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                       <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.nopat_per_share_280")}</span>
-                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{dcfNopat} {t("FormulaDeepDiveModal.text_281")}</span>
+                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatCurrency(dcfNopat)}</span>
                         </div>
                         <input
                           type="range"
@@ -859,7 +853,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                       <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.cost_of_capital_wacc_282")}</span>
-                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">${formatPercent(dcfWacc, 1)}</span>
+                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercent(dcfWacc, 1)}</span>
                         </div>
                         <input
                           type="range"
@@ -875,7 +869,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                       <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                         <div className="flex justify-between text-xs font-semibold">
                           <span>{t("FormulaDeepDiveModal.expected_roic_283")}</span>
-                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">${formatPercent(dcfRoic, 1)}</span>
+                          <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercent(dcfRoic, 1)}</span>
                         </div>
                         <input
                           type="range"
@@ -900,7 +894,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                       </div>
                       <p className="text-xs text-blue-200/90 max-w-sm leading-relaxed text-right sm:text-left">
                         {isEnglish
-                          ? `Zero-Growth Value: $${steadyStateVal.toFixed(1)}. To justify this stock price, the firm must sustain ROIC > WACC without conceding market share for a full ${impliedCapYears} years!`
+                          ? `Zero-Growth Value: \$${steadyStateVal.toFixed(1)}. To justify this stock price, the firm must sustain ROIC > WACC without conceding market share for a full ${impliedCapYears} years!`
                           : `Sıfır Büyüme Değeri: ${steadyStateVal.toFixed(1)} TL. Bu fiyatı haklı çıkarmak için şirketin tam ${impliedCapYears} yıl boyunca rakiplere pazar kaptırmadan ROIC > WACC farkını koruması şarttır!`}
                       </p>
                     </div>

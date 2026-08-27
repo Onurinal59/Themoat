@@ -104,7 +104,7 @@ const PRESET_COMPANIES: PresetCompany[] = [
 ];
 
 export const RoicWaccSim: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [investedCapital, setInvestedCapital] = useState<number>(50000); // Milyon $
   const [nopat, setNopat] = useState<number>(10000); // Milyon $ Net Operating Profit
   const [wacc, setWacc] = useState<number>(8.5); // Cost of capital %
@@ -280,7 +280,7 @@ export const RoicWaccSim: React.FC = () => {
                   <Minus className="w-3 h-3" />
                 </button>
                 <span className="font-mono font-black text-xs sm:text-sm px-2.5 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 min-w-24 text-center">
-                  ${investedCapital.toLocaleString()}M
+                  {formatUsdFromMillions(investedCapital)}
                 </span>
                 <button
                   type="button"
@@ -398,7 +398,7 @@ export const RoicWaccSim: React.FC = () => {
                   <Minus className="w-3 h-3" />
                 </button>
                 <span className="font-mono font-black text-xs sm:text-sm px-2.5 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 min-w-24 text-center">
-                  %{wacc.toFixed(1)}
+                  {formatPercentagePoints(wacc, 1)}
                 </span>
                 <button
                   type="button"
@@ -425,9 +425,9 @@ export const RoicWaccSim: React.FC = () => {
               className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
             />
             <div className="flex justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
-              <span>%4.0</span>
-              <span>%13.0</span>
-              <span>%22.0</span>
+              <span>{formatPercentagePoints(4, 1)}</span>
+              <span>{formatPercentagePoints(13, 1)}</span>
+              <span>{formatPercentagePoints(22, 1)}</span>
             </div>
           </div>
         </div>
@@ -488,7 +488,7 @@ export const RoicWaccSim: React.FC = () => {
                 }`}
               >
                 <span className="text-[10px] font-sans font-bold opacity-90 leading-none">ROIC</span>
-                <span>%{roic.toFixed(1)}</span>
+                <span>{formatPercentagePoints(roic, 1)}</span>
               </div>
               <div className="space-y-1 flex-1 min-w-0">
                 <div className="flex items-center gap-1.5 flex-wrap">
@@ -507,11 +507,11 @@ export const RoicWaccSim: React.FC = () => {
                 <h4 className="text-sm sm:text-base font-black tracking-tight text-slate-900 dark:text-slate-100 leading-snug">
                   {isValueCreating
                     ? isEnglish
-                      ? `+${spread.toFixed(2)}% Spread (+$${Math.round(economicProfit).toLocaleString()}M / Year)`
-                      : `+${spread.toFixed(2)} Puan Yayılım (+${Math.round(economicProfit).toLocaleString()}M $ / Yıl Refah)`
+                      ? `+${formatPercentagePoints(spread, 2)} Spread (+{formatUsdFromMillions(economicProfit, 0)} / Year)`
+                      : `+${formatPercentagePoints(spread, 2)} Yayılım (+{formatUsdFromMillions(economicProfit, 0)} / Yıl)`
                     : isEnglish
-                    ? `${spread.toFixed(2)}% Negative Spread (-$${Math.abs(Math.round(economicProfit)).toLocaleString()}M / Year)`
-                    : `${spread.toFixed(2)} Puan Negatif Yayılım (-${Math.abs(Math.round(economicProfit)).toLocaleString()}M $ / Yıl Kayıp)`}
+                    ? `${formatPercentagePoints(spread, 2)} Negative Spread ({formatUsdFromMillions(economicProfit, 0)} / Year)`
+                    : `${formatPercentagePoints(spread, 2)} Negatif Yayılım ({formatUsdFromMillions(economicProfit, 0)} / Yıl)`}
                 </h4>
               </div>
             </div>
@@ -533,7 +533,7 @@ export const RoicWaccSim: React.FC = () => {
                           return (
                             <div className="p-2.5 rounded-xl bg-slate-900 text-white border border-slate-700 text-xs space-y-1 shadow-lg">
                               <div className="font-bold">{data.name}</div>
-                              <div className="text-sm font-mono font-black text-amber-300">%{data.value}</div>
+                              <div className="text-sm font-mono font-black text-amber-300">{formatPercentagePoints(data.value, 1)}</div>
                             </div>
                           );
                         }
@@ -610,20 +610,20 @@ export const RoicWaccSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
                 <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
                   <div className="font-bold">
-                    Spread = %{roic.toFixed(1)} (ROIC) - %{wacc.toFixed(1)} (WACC) = {spread >= 0 ? `+${spread.toFixed(1)}%` : `${spread.toFixed(1)}%`}
+                    Spread = {formatPercentagePoints(roic, 1)} (ROIC) - {formatPercentagePoints(wacc, 1)} (WACC) = {spread >= 0 ? `+${formatPercentagePoints(spread, 1)}` : formatPercentagePoints(spread, 1)}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    {t("RoicWaccSim.economic_profit_1306")} = ${investedCapital.toLocaleString()}M × {spread.toFixed(1)}% = ${Math.round(economicProfit).toLocaleString()}M
+                    {t("RoicWaccSim.economic_profit_1306")} = {formatUsdFromMillions(investedCapital)} × {formatPercentagePoints(spread, 1)} = {formatUsdFromMillions(economicProfit)}
                   </div>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">
                   {isValueCreating
                     ? isEnglish
                       ? `🏰 Model Interpretation: For every $100 deployed, this business generates $${roic.toFixed(1)} in net operating profit while its financing costs only $${wacc.toFixed(1)}, compounding $${spread.toFixed(1)} of pure shareholder wealth each cycle.`
-                      : `🏰 Modelin Yorumu: Bağlanan her 100 $ sermaye için şirket 100 × %${roic.toFixed(1)} = ${roic.toFixed(1)} $ net faaliyet kârı üretirken finansman maliyeti ${wacc.toFixed(1)} $ olduğu için aradaki ${spread.toFixed(1)} $ net refah hissedara kalır.`
+                      : `🏰 Modelin Yorumu: Bağlanan her 100 $ sermaye için şirket 100 × ${formatPercentagePoints(roic, 1)} = ${roic.toFixed(1)} $ net faaliyet kârı üretirken finansman maliyeti ${wacc.toFixed(1)} $ olduğu için aradaki ${spread.toFixed(1)} $ net refah hissedara kalır.`
                     : isEnglish
-                    ? `⚠️ Model Interpretation: Capital Drain! Even if the business books positive accounting profit, its return (%${roic.toFixed(1)}) fails to hurdle the cost of capital (%${wacc.toFixed(1)}). Rapid revenue growth will only accelerate wealth destruction.`
-                    : `⚠️ Modelin Yorumu: Sermaye Tuzağı! Şirket kâr açıklıyor gibi görünse bile getirisi (%${roic.toFixed(1)}) sermaye maliyetini (%${wacc.toFixed(1)}) karşılayamamaktadır. Bu durumda şirketi büyütmek hissedarın servetini daha da hızlı yakacaktır.`}
+                    ? `⚠️ Model Interpretation: Capital Drain! Even if the business books positive accounting profit, its return (${formatPercentagePoints(roic, 1)}) fails to hurdle the cost of capital (${formatPercentagePoints(wacc, 1)}). Rapid revenue growth will only accelerate wealth destruction.`
+                    : `⚠️ Modelin Yorumu: Sermaye Tuzağı! Şirket kâr açıklıyor gibi görünse bile getirisi (${formatPercentagePoints(roic, 1)}) sermaye maliyetini (${formatPercentagePoints(wacc, 1)}) karşılayamamaktadır. Bu durumda şirketi büyütmek hissedarın servetini daha da hızlı yakacaktır.`}
                 </p>
               </div>
 

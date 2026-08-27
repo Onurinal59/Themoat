@@ -206,7 +206,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
   onOpenFormulaWorkshop,
   onReviewMissedInFlashcards,
 }) => {
-  const { t, formatPercent, formatCurrency } = useLanguage();
+  const { t, formatPercent, formatCurrency , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
 
   const { isEnglish, getFormulaGuides } = useLanguage();
   const formulaGuidesMap = getFormulaGuides();

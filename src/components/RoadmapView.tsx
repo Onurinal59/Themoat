@@ -46,7 +46,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
   onOpenGuide,
   onNavigateTab,
 }) => {
-  const { isEnglish, t, getModules, getFlashcards } = useLanguage();
+  const { isEnglish, t, getModules, getFlashcards , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const modules = getModules();
   const baseFlashcards = getFlashcards();
   const dueCards = getDueFlashcards(userState, baseFlashcards);

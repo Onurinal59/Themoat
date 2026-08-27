@@ -26,7 +26,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   hasNextModule,
   isNextModuleUnlocked = false,
 }) => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
 
   const NAV_ITEMS: { id: NavTab; label: string; icon: React.ElementType }[] = [
     {

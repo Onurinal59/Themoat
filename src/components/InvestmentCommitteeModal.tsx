@@ -37,7 +37,7 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
   dossier,
   onAskAICoach,
 }) => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const fin = calculateFinancialOutputs(dossier.financials);
   const score = computeMoatScore(dossier);
 

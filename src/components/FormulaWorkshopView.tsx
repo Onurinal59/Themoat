@@ -36,7 +36,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
   onNavigateToModule,
   onNavigateToSim,
 }) => {
-  const { getFormulaGuides, isEnglish, t, formatCurrency, formatPercent, formatNumber } = useLanguage();
+  const { getFormulaGuides, isEnglish, t, formatCurrency, formatPercent, formatNumber , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const formulaGuides = getFormulaGuides();
   const [activeId, setActiveId] = useState<string>(selectedFormulaId || "wacc");
 
@@ -382,7 +382,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.equity_e_313")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {waccEquity}M {t("FormulaWorkshopView.text_314")} ({Math.round(weightE * 100)}%)
+                        {formatUsdFromMillions(waccEquity, 0)} ({formatPercentagePoints(Math.round(weightE * 100), 0)})
                       </span>
                     </div>
                     <input
@@ -400,7 +400,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.total_debt_d_315")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {waccDebt}M {t("FormulaWorkshopView.text_316")} ({Math.round(weightD * 100)}%)
+                        {formatUsdFromMillions(waccDebt, 0)} ({formatPercentagePoints(Math.round(weightD * 100), 0)})
                       </span>
                     </div>
                     <input
@@ -418,7 +418,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.equity_beta_317")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {waccBeta.toFixed(2)}x (Ke = ${formatPercent(calculatedKe, 1)})
+                        {formatMultiplier(waccBeta, 2)} (Ke ={formatPercent(calculatedKe, 1)})
                       </span>
                     </div>
                     <input
@@ -435,8 +435,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.pre_tax_cost_of_debt_318")}</span>
-                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        ${formatPercent(waccKd, 1)}
+                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercentagePoints(waccKd, 1)}
                       </span>
                     </div>
                     <input
@@ -453,8 +452,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.effective_tax_rate_t_319")}</span>
-                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        ${formatPercent(waccTax, 1)} ({t("FormulaWorkshopView.after_tax_kd_320")}: ${formatPercent(netKd, 1)})
+                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercentagePoints(waccTax, 1)} ({t("FormulaWorkshopView.after_tax_kd_320")}:{formatPercentagePoints(netKd, 1)})
                       </span>
                     </div>
                     <input
@@ -471,8 +469,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.risk_free_rate_rf_321")}</span>
-                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        ${formatPercent(waccRf, 1)}
+                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercentagePoints(waccRf, 1)}
                       </span>
                     </div>
                     <input
@@ -492,14 +489,13 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="text-xs text-indigo-700 dark:text-indigo-300 font-bold uppercase tracking-wider">
                       {t("FormulaWorkshopView.calculated_cost_of_c_322")}
                     </div>
-                    <div className="text-3xl sm:text-4xl font-black text-indigo-600 dark:text-amber-300 font-mono mt-0.5">
-                      ${formatPercent(calculatedWacc, 2)}
+                    <div className="text-3xl sm:text-4xl font-black text-indigo-600 dark:text-amber-300 font-mono mt-0.5">{formatPercentagePoints(calculatedWacc, 2)}
                     </div>
                   </div>
                   <div className="text-xs text-slate-600 dark:text-indigo-200 leading-relaxed max-w-md text-right sm:text-left">
                     {isEnglish
-                      ? `Equity Contribution: %${(weightE * calculatedKe).toFixed(1)} + After-tax Debt: %${(weightD * netKd).toFixed(1)}. The firm must earn at least %${calculatedWacc.toFixed(1)} NOPAT per $100 of invested capital to preserve economic value.`
-                      : `Özsermaye Katkısı: %${(weightE * calculatedKe).toFixed(1)} + Net Borç Katkısı: %${(weightD * netKd).toFixed(1)}. Şirket her 100 TL için yıllık en az %${calculatedWacc.toFixed(1)} NOPAT üretmelidir.`}
+                      ? `Equity Contribution: ${formatPercentagePoints((weightE * calculatedKe), 1)} + After-tax Debt: ${formatPercentagePoints((weightD * netKd), 1)}. The firm must earn at least ${formatPercentagePoints(calculatedWacc, 1)} NOPAT per $100 of invested capital to preserve economic value.`
+                      : `Özsermaye Katkısı: ${formatPercentagePoints((weightE * calculatedKe), 1)} + Net Borç Katkısı: ${formatPercentagePoints((weightD * netKd), 1)}. Şirket yatırılan her 100 birim sermaye için yıllık en az ${formatPercentagePoints(calculatedWacc, 1)} NOPAT üretmelidir.`}
                   </div>
                 </div>
               </div>
@@ -513,7 +509,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.operating_profit_ebi_323")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {roicEbit}M {t("FormulaWorkshopView.text_324")}
+                        {formatUsdFromMillions(roicEbit, 0)}
                       </span>
                     </div>
                     <input
@@ -530,8 +526,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.tax_rate_t_325")}</span>
-                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        ${formatPercent(roicTax, 1)}
+                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercent(roicTax, 1)}
                       </span>
                     </div>
                     <input
@@ -549,7 +544,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.net_working_capital_326")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {roicNwc}M {t("FormulaWorkshopView.text_327")}
+                        {formatUsdFromMillions(roicNwc, 0)}
                       </span>
                     </div>
                     <input
@@ -567,7 +562,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.fixed_assets_pp_e_328")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {roicPpe}M {t("FormulaWorkshopView.text_329")}
+                        {formatUsdFromMillions(roicPpe, 0)}
                       </span>
                     </div>
                     <input
@@ -587,14 +582,13 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="text-xs text-emerald-700 dark:text-emerald-300 font-bold uppercase tracking-wider">
                       {t("FormulaWorkshopView.calculated_roic_330")}
                     </div>
-                    <div className="text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-400 font-mono mt-0.5">
-                      ${formatPercent(calculatedRoic, 2)}
+                    <div className="text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-400 font-mono mt-0.5">{formatPercent(calculatedRoic, 2)}
                     </div>
                   </div>
                   <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-md text-right sm:text-left">
                     {isEnglish
-                      ? `NOPAT: $${calculatedNopat.toFixed(1)}M | Invested Capital: ${formatCurrency(totalInvestedCapital * 1000000)}. The firm generates $${calculatedRoic.toFixed(1)} of pure cash return per $100 of invested capital.`
-                      : `Net Faaliyet Kârı (NOPAT): ${calculatedNopat.toFixed(1)}M TL | Bağlanan Sermaye: ${totalInvestedCapital}M TL. Şirket bağladığı her 100 TL ile net ${calculatedRoic.toFixed(1)} TL kâr üretmektedir.`}
+                      ? `NOPAT: {formatUsdFromMillions(calculatedNopat)} | Invested Capital: {formatUsdFromMillions(totalInvestedCapital)}. The firm generates \$${calculatedRoic.toFixed(1)} of pure cash return per $100 of invested capital.`
+                      : `Net Faaliyet Kârı (NOPAT): {formatUsdFromMillions(calculatedNopat)} TL | Bağlanan Sermaye: ${totalInvestedCapital}M TL. Şirket bağladığı her 100 TL ile net ${calculatedRoic.toFixed(1)} TL kâr üretmektedir.`}
                   </div>
                 </div>
               </div>
@@ -608,7 +602,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.willingness_to_pay_w_331")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {vsWtp} {t("FormulaWorkshopView.text_332")}
+                        {formatCurrency(vsWtp)}
                       </span>
                     </div>
                     <input
@@ -626,7 +620,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.selling_price_p_333")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {vsPrice} {t("FormulaWorkshopView.text_334")}
+                        {formatCurrency(vsPrice)}
                       </span>
                     </div>
                     <input
@@ -644,7 +638,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.unit_cost_c_335")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {vsCost} {t("FormulaWorkshopView.text_336")}
+                        {formatCurrency(vsCost)}
                       </span>
                     </div>
                     <input
@@ -662,7 +656,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.willingness_to_sell_337")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {vsWts} {t("FormulaWorkshopView.text_338")}
+                        {formatCurrency(vsWts)}
                       </span>
                     </div>
                     <input
@@ -689,19 +683,19 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                       style={{ width: `${(consumerSurplus / (totalValueCreated || 1)) * 100}%` }}
                       className="bg-indigo-500 truncate px-2"
                     >
-                      {t("FormulaWorkshopView.customer_339")}: {consumerSurplus} {t("FormulaWorkshopView.text_340")} ({Math.round((consumerSurplus / (totalValueCreated || 1)) * 100)}%)
+                      {t("FormulaWorkshopView.customer_339")}: {formatCurrency(consumerSurplus)} ({Math.round((consumerSurplus / (totalValueCreated || 1)) * 100)}%)
                     </div>
                     <div
                       style={{ width: `${(firmMargin / (totalValueCreated || 1)) * 100}%` }}
                       className="bg-emerald-500 truncate px-2"
                     >
-                      {t("FormulaWorkshopView.firm_margin_341")}: {firmMargin} {t("FormulaWorkshopView.text_342")} ({Math.round((firmMargin / (totalValueCreated || 1)) * 100)}%)
+                      {t("FormulaWorkshopView.firm_margin_341")}: {formatCurrency(firmMargin)} ({Math.round((firmMargin / (totalValueCreated || 1)) * 100)}%)
                     </div>
                     <div
                       style={{ width: `${(supplierSurplus / (totalValueCreated || 1)) * 100}%` }}
                       className="bg-amber-500 truncate px-2"
                     >
-                      {t("FormulaWorkshopView.supplier_343")}: {supplierSurplus} {t("FormulaWorkshopView.text_344")} ({Math.round((supplierSurplus / (totalValueCreated || 1)) * 100)}%)
+                      {t("FormulaWorkshopView.supplier_343")}: {formatCurrency(supplierSurplus)} ({Math.round((supplierSurplus / (totalValueCreated || 1)) * 100)}%)
                     </div>
                   </div>
                 </div>
@@ -824,7 +818,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.segment_capital_354")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {ppSegmentCap}M {t("FormulaWorkshopView.text_355")}
+                        {formatUsdFromMillions(ppSegmentCap, 0)}
                       </span>
                     </div>
                     <input
@@ -841,8 +835,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.segment_roic_356")}</span>
-                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        ${formatPercent(ppRoic, 1)}
+                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercent(ppRoic, 1)}
                       </span>
                     </div>
                     <input
@@ -859,8 +852,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.cost_of_capital_wacc_357")}</span>
-                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        ${formatPercent(ppWacc, 1)}
+                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercent(ppWacc, 1)}
                       </span>
                     </div>
                     <input
@@ -881,13 +873,13 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                       {t("FormulaWorkshopView.segment_economic_pro_358")}
                     </div>
                     <div className="text-3xl sm:text-4xl font-black text-indigo-600 dark:text-amber-300 font-mono mt-0.5">
-                      {calculatedEconomicProfit > 0 ? "+" : ""}{calculatedEconomicProfit.toFixed(1)}M {t("FormulaWorkshopView.text_359")}
+                      {calculatedEconomicProfit > 0 ? `+${formatUsdFromMillions(calculatedEconomicProfit)}` : formatUsdFromMillions(calculatedEconomicProfit)}
                     </div>
                   </div>
                   <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-md text-right sm:text-left">
                     {isEnglish
-                      ? `Economic Spread: %${(ppRoic - ppWacc).toFixed(1)}. ${calculatedEconomicProfit >= 0 ? "The segment creates industry wealth!" : "Value destruction occurring!"}`
-                      : `Ekonomik Yayılım: %${(ppRoic - ppWacc).toFixed(1)}. ${calculatedEconomicProfit >= 0 ? "Şirket sektörel refah yaratıyor!" : "Şirket değer yakıyor (Value destruction)!"}`}
+                      ? `Economic Spread: ${formatPercentagePoints((ppRoic - ppWacc), 1)}. ${calculatedEconomicProfit >= 0 ? "The segment creates industry wealth!" : "Value destruction occurring!"}`
+                      : `Ekonomik Yayılım: ${formatPercentagePoints((ppRoic - ppWacc), 1)}. ${calculatedEconomicProfit >= 0 ? "Şirket sektörel refah yaratıyor!" : "Şirket değer yakıyor (Value destruction)!"}`}
                   </div>
                 </div>
               </div>
@@ -901,7 +893,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.reported_ebit_360")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {fnReportedEbit}M {t("FormulaWorkshopView.text_361")}
+                        {formatUsdFromMillions(fnReportedEbit, 0)}
                       </span>
                     </div>
                     <input
@@ -919,7 +911,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.current_r_d_expense_362")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {fnRdExpense}M {t("FormulaWorkshopView.text_363")}
+                        {formatUsdFromMillions(fnRdExpense, 0)}
                       </span>
                     </div>
                     <input
@@ -937,7 +929,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.annual_r_d_amortizat_364")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {fnRdAmort}M {t("FormulaWorkshopView.text_365")}
+                        {formatUsdFromMillions(fnRdAmort, 0)}
                       </span>
                     </div>
                     <input
@@ -954,8 +946,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.tax_rate_t_366")}</span>
-                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        ${formatPercent(fnTax, 1)}
+                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercent(fnTax, 1)}
                       </span>
                     </div>
                     <input
@@ -976,13 +967,13 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                       {t("FormulaWorkshopView.adjusted_operating_p_367")}
                     </div>
                     <div className="text-3xl sm:text-4xl font-black text-purple-600 dark:text-purple-300 font-mono mt-0.5">
-                      {adjustedNopat.toFixed(1)}M {t("FormulaWorkshopView.text_368")}
+                      {formatUsdFromMillions(adjustedNopat)}
                     </div>
                   </div>
                   <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-md text-right sm:text-left">
                     {isEnglish
-                      ? `Reported EBIT: ${formatCurrency(fnReportedEbit * 1000000)} → Adjusted EBIT: ${formatCurrency(adjustedEbit * 1000000)} (+$${fnRdExpense - fnRdAmort}M net R&D capitalization impact).`
-                      : `Raporlanan EBIT: ${fnReportedEbit}M TL → Düzeltilmiş EBIT: ${adjustedEbit}M TL (+${fnRdExpense - fnRdAmort}M TL net Ar-Ge aktifleştirme katkısı).`}
+                      ? `Reported EBIT: {formatUsdFromMillions(fnReportedEbit)} → Adjusted EBIT: {formatUsdFromMillions(adjustedEbit)} (+{formatUsdFromMillions(fnRdExpense - fnRdAmort)} net R&D capitalization impact).`
+                      : `Raporlanan EBIT: ${fnReportedEbit}M TL → Düzeltilmiş EBIT: ${adjustedEbit}M TL (+{formatUsdFromMillions(fnRdExpense - fnRdAmort)} TL net Ar-Ge aktifleştirme katkısı).`}
                   </div>
                 </div>
               </div>
@@ -996,7 +987,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.net_sales_revenue_369")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {dpRev}M {t("FormulaWorkshopView.text_370")}
+                        {formatUsdFromMillions(dpRev, 0)}
                       </span>
                     </div>
                     <input
@@ -1014,7 +1005,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.nopat_profit_371")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {dpNopat}M {t("FormulaWorkshopView.text_372")}
+                        {formatUsdFromMillions(dpNopat, 0)}
                       </span>
                     </div>
                     <input
@@ -1032,7 +1023,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.invested_capital_373")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {dpCapital}M {t("FormulaWorkshopView.text_374")}
+                        {formatUsdFromMillions(dpCapital, 0)}
                       </span>
                     </div>
                     <input
@@ -1050,22 +1041,20 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                 <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-around gap-4 text-center">
                   <div>
                     <div className="text-[11px] font-bold text-slate-500 uppercase">{t("FormulaWorkshopView.1_nopat_margin_375")}</div>
-                    <div className="text-xl font-black text-indigo-600 dark:text-indigo-400 font-mono">
-                      ${formatPercent(nopatMargin, 1)}
+                    <div className="text-xl font-black text-indigo-600 dark:text-indigo-400 font-mono">{formatPercent(nopatMargin, 1)}
                     </div>
                   </div>
                   <div className="text-slate-400 font-black">×</div>
                   <div>
                     <div className="text-[11px] font-bold text-slate-500 uppercase">{t("FormulaWorkshopView.2_capital_turnover_376")}</div>
                     <div className="text-xl font-black text-indigo-600 dark:text-indigo-400 font-mono">
-                      {capitalTurnover.toFixed(2)}x
+                      {formatMultiplier(capitalTurnover, 2)}
                     </div>
                   </div>
                   <div className="text-slate-400 font-black">=</div>
                   <div>
                     <div className="text-[11px] font-bold text-slate-500 uppercase">DuPont ROIC</div>
-                    <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono">
-                      ${formatPercent(dupontRoic, 1)}
+                    <div className="text-2xl font-black text-emerald-600 dark:text-emerald-400 font-mono">{formatPercent(dupontRoic, 1)}
                     </div>
                   </div>
                 </div>
@@ -1099,7 +1088,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.current_stock_price_380")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {dcfPrice} {t("FormulaWorkshopView.text_381")}
+                        {formatCurrency(dcfPrice)}
                       </span>
                     </div>
                     <input
@@ -1117,7 +1106,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.nopat_per_share_382")}</span>
                       <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        {dcfNopat} {t("FormulaWorkshopView.text_383")}
+                        {formatCurrency(dcfNopat)}
                       </span>
                     </div>
                     <input
@@ -1134,8 +1123,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.cost_of_capital_wacc_384")}</span>
-                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        ${formatPercent(dcfWacc, 1)}
+                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercent(dcfWacc, 1)}
                       </span>
                     </div>
                     <input
@@ -1152,8 +1140,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   <div className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 space-y-1.5">
                     <div className="flex justify-between text-xs font-semibold">
                       <span>{t("FormulaWorkshopView.return_on_capital_ro_385")}</span>
-                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">
-                        ${formatPercent(dcfRoic, 1)}
+                      <span className="font-mono font-bold text-indigo-600 dark:text-indigo-400">{formatPercent(dcfRoic, 1)}
                       </span>
                     </div>
                     <input
@@ -1179,7 +1166,7 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   </div>
                   <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-md text-right sm:text-left">
                     {isEnglish
-                      ? `Steady State Value: $${steadyStateVal.toFixed(0)} (%${100 - futureSharePct}) | Future Growth Expectation: $${futureGrowthVal.toFixed(0)} (%${futureSharePct}).`
+                      ? `Steady State Value: \$${steadyStateVal.toFixed(0)} (%${100 - futureSharePct}) | Future Growth Expectation: \$${futureGrowthVal.toFixed(0)} (%${futureSharePct}).`
                       : `Sıfır Büyüme Değeri: ${steadyStateVal.toFixed(0)} TL (%${100 - futureSharePct}) | Gelecek Büyüme Beklentisi: ${futureGrowthVal.toFixed(0)} TL (%${futureSharePct}).`}
                   </div>
                 </div>

@@ -16,7 +16,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
   onClose,
   selectedTermId,
 }) => {
-  const { isEnglish, getGlossaryTerms, t } = useLanguage();
+  const { isEnglish, getGlossaryTerms, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const glossaryTerms = getGlossaryTerms();
 
   const [searchQuery, setSearchQuery] = useState("");

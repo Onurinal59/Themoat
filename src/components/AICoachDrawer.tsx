@@ -37,7 +37,7 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
   currentTopic,
   initialPrompt,
 }) => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
 
   const welcomeMessage = t("AICoachDrawer.hello_i_am_your_socr_1");
 

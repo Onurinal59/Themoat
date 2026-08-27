@@ -134,7 +134,7 @@ export const MAUBOUSSIN_GUIDED_TEMPLATE: CompanyAuditDossier = {
   id: "mauboussin-master-template",
   companyName: "Costco Wholesale (Mauboussin Template)",
   ticker: "COST (NASDAQ)",
-  industry: "Warehouse Club & Membership Retail",
+  industry: "Toptan Satış & Üyelikli Perakende (Warehouse Club)",
   description: "Michael Mauboussin's 5-step economic moat methodology: ROIC decomposition, Profit Pools, Value Stick (WTP/WTS), Game Theory, and CAP duration.",
   financials: {
     revenue: 242000,

@@ -93,7 +93,7 @@ const BENCHMARKS: CompanyBenchmark[] = [
 ];
 
 export const DuPontSim: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [nopatMargin, setNopatMargin] = useState<number>(26);
   const [capitalTurnover, setCapitalTurnover] = useState<number>(0.6);
   const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);
@@ -281,7 +281,7 @@ export const DuPontSim: React.FC = () => {
                 >
                   -
                 </button>
-                <span>{capitalTurnover.toFixed(1)}x</span>
+                <span>{formatMultiplier(capitalTurnover, 1)}</span>
                 <button
                   onClick={() => setCapitalTurnover(Math.min(6.0, Math.round((capitalTurnover + 0.1) * 10) / 10))}
                   className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200"
@@ -325,7 +325,7 @@ export const DuPontSim: React.FC = () => {
                 </span>
               </div>
               <span className="text-xs font-mono font-bold text-slate-500">
-                Formula: {nopatMargin}% × {capitalTurnover.toFixed(1)}x = %{calculatedRoic}
+                Formula: {nopatMargin}% × {formatMultiplier(capitalTurnover, 1)} = %{calculatedRoic}
               </span>
             </div>
 
@@ -394,7 +394,7 @@ export const DuPontSim: React.FC = () => {
                 <span className="block text-[10px] text-slate-400 font-sans">
                   {t("DuPontSim.capital_velocity_eng_979")}
                 </span>
-                {capitalTurnover.toFixed(1)}x {t("DuPontSim.revenue_capital_980")}
+                {formatMultiplier(capitalTurnover, 1)} {t("DuPontSim.revenue_capital_980")}
               </div>
             </div>
           </div>
@@ -437,7 +437,7 @@ export const DuPontSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
                 <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
                   <div className="font-bold">
-                    ROIC = NOPAT Marjı × Sermaye Devir Hızı = %{nopatMargin} × {capitalTurnover.toFixed(1)}x = %{calculatedRoic}
+                    ROIC = NOPAT Marjı × Sermaye Devir Hızı = %{nopatMargin} × {formatMultiplier(capitalTurnover, 1)} = %{calculatedRoic}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
                     {t("DuPontSim.calculation_proof_no_984")}

@@ -30,7 +30,7 @@ import { useLanguage } from "../../context/LanguageContext";
 import { CustomChartTooltip } from "../ChartTooltip";
 
 export const ColonelBlottoSim: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [b1, setB1] = useState<number>(35);
   const [b2, setB2] = useState<number>(35);
   const [b3, setB3] = useState<number>(30);

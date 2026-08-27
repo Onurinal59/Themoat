@@ -77,7 +77,7 @@ const PRESET_CYCLES: PresetCycle[] = [
 ];
 
 export const CashConversionSim: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [dio, setDio] = useState<number>(29);
   const [dso, setDso] = useState<number>(2);
   const [dpo, setDpo] = useState<number>(60);

@@ -180,7 +180,7 @@ const ALL_STAGES_CHART_DATA = [
 ];
 
 export const DickinsonLifecycleSim: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [operatingSign, setOperatingSign] = useState<Sign>("+");
   const [investingSign, setInvestingSign] = useState<Sign>("-");
   const [financingSign, setFinancingSign] = useState<Sign>("-");

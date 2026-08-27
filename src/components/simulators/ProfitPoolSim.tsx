@@ -180,7 +180,7 @@ const INDUSTRY_POOLS: IndustryPool[] = [
 ];
 
 export const ProfitPoolSim: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [selectedIndustryIdx, setSelectedIndustryIdx] = useState<number>(0);
   const [selectedSegmentIdx, setSelectedSegmentIdx] = useState<number>(0);
   const [showCalculationDetails, setShowCalculationDetails] = useState<boolean>(false);

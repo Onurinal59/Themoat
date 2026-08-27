@@ -156,7 +156,7 @@ const DICKINSON_STAGES: DickinsonStageData[] = [
 ];
 
 export const DickinsonLifecycleVisual: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [selectedStageId, setSelectedStageId] = useState<string>("maturity");
   const currentStage = DICKINSON_STAGES.find((s) => s.id === selectedStageId) || DICKINSON_STAGES[2];
 

@@ -29,7 +29,7 @@ import {
 import { useLanguage } from "../../context/LanguageContext";
 
 export const ReinvestmentRunwaySim: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
 
   // Company A: High ROIC, Low Reinvestment (e.g. See's Candies / Pure Cash Cow)
   const [compARoic, setCompARoic] = useState<number>(45);
@@ -251,8 +251,8 @@ export const ReinvestmentRunwaySim: React.FC = () => {
               </span>
               <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
                 {isEnglish
-                  ? `Company B generates $${finalYear?.nopatB}M/yr vs Company A's $${finalYear?.nopatA}M/yr.`
-                  : `Şirket B yılda $${finalYear?.nopatB}M kâr üretirken, Şirket A sadece $${finalYear?.nopatA}M kârda kalmıştır.`}
+                  ? `Company B generates {formatUsdFromMillions(finalYear?.nopatB)}/yr vs Company A's {formatUsdFromMillions(finalYear?.nopatA)}/yr.`
+                  : `Şirket B yılda {formatUsdFromMillions(finalYear?.nopatB)} kâr üretirken, Şirket A sadece {formatUsdFromMillions(finalYear?.nopatA)} kârda kalmıştır.`}
               </p>
             </div>
             <div>
@@ -330,8 +330,8 @@ export const ReinvestmentRunwaySim: React.FC = () => {
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {isEnglish
-                        ? `Intrinsic Growth: ${(compARoic * (compAReinvest / 100)).toFixed(1)}%/yr. Yr 15 Capital: $${finalYear?.capA}M | Final NOPAT: $${finalYear?.nopatA}M/yr`
-                        : `İçsel Büyüme: %${(compARoic * (compAReinvest / 100)).toFixed(1)}/yıl. 15. Yıl Sermaye: $${finalYear?.capA}M | Yıllık Kâr: $${finalYear?.nopatA}M`}
+                        ? `Intrinsic Growth: ${(compARoic * (compAReinvest / 100)).toFixed(1)}%/yr. Yr 15 Capital: {formatUsdFromMillions(finalYear?.capA)} | Final NOPAT: {formatUsdFromMillions(finalYear?.nopatA)}/yr`
+                        : `İçsel Büyüme: ${formatPercentagePoints(compARoic * compAReinvest, 1)} / yıl. 15. Yıl Sermaye: {formatUsdFromMillions(finalYear?.capA)} | Yıllık Kâr: {formatUsdFromMillions(finalYear?.nopatA)}`}
                     </p>
                   </div>
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-1">
@@ -340,8 +340,8 @@ export const ReinvestmentRunwaySim: React.FC = () => {
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {isEnglish
-                        ? `Intrinsic Growth: ${(compBRoic * (compBReinvest / 100)).toFixed(1)}%/yr. Yr 15 Capital: $${finalYear?.capB}M | Final NOPAT: $${finalYear?.nopatB}M/yr`
-                        : `İçsel Büyüme: %${(compBRoic * (compBReinvest / 100)).toFixed(1)}/yıl. 15. Yıl Sermaye: $${finalYear?.capB}M | Yıllık Kâr: $${finalYear?.nopatB}M`}
+                        ? `Intrinsic Growth: ${(compBRoic * (compBReinvest / 100)).toFixed(1)}%/yr. Yr 15 Capital: {formatUsdFromMillions(finalYear?.capB)} | Final NOPAT: {formatUsdFromMillions(finalYear?.nopatB)}/yr`
+                        : `İçsel Büyüme: ${formatPercentagePoints(compBRoic * compBReinvest, 1)} / yıl. 15. Yıl Sermaye: {formatUsdFromMillions(finalYear?.capB)} | Yıllık Kâr: {formatUsdFromMillions(finalYear?.nopatB)}`}
                     </p>
                   </div>
                 </div>

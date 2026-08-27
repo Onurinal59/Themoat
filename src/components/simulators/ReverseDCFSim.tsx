@@ -73,7 +73,7 @@ const PRESET_VALUATIONS: Record<string, PresetScenario> = {
 };
 
 export const ReverseDCFSim: React.FC = () => {
-  const { isEnglish, t, formatCurrency, formatPercent, formatNumber } = useLanguage();
+  const { isEnglish, t, formatCurrency, formatPercent, formatNumber , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [marketCap, setMarketCap] = useState<number>(120000); // Milyon $
   const [currentFCF, setCurrentFCF] = useState<number>(4000); // Milyon $
   const [nearTermGrowth, setNearTermGrowth] = useState<number>(15); // %
@@ -222,8 +222,7 @@ export const ReverseDCFSim: React.FC = () => {
               <span className="font-bold text-indigo-600 dark:text-indigo-400">
                 {t("ReverseDCFSim.market_cap_enterpris_1245")}
               </span>
-              <span className="font-mono font-black text-sm text-slate-900 dark:text-slate-100">
-                ${formatCurrency(marketCap * 1000000)}
+              <span className="font-mono font-black text-sm text-slate-900 dark:text-slate-100">{formatUsdFromBillions(marketCap / 1000, 1)}
               </span>
             </div>
             <input
@@ -265,7 +264,7 @@ export const ReverseDCFSim: React.FC = () => {
                 {t("ReverseDCFSim.near_term_growth_rat_1247")}
               </span>
               <span className="font-mono font-black text-sm text-slate-900 dark:text-slate-100">
-                %{nearTermGrowth}
+                {formatPercentagePoints(nearTermGrowth, 1)}
               </span>
             </div>
             <input
@@ -286,7 +285,7 @@ export const ReverseDCFSim: React.FC = () => {
                 {t("ReverseDCFSim.cost_of_capital_wacc_1248")}
               </span>
               <span className="font-mono font-black text-sm text-slate-900 dark:text-slate-100">
-                %{wacc.toFixed(1)}
+                {formatPercentagePoints(wacc, 1)}
               </span>
             </div>
             <input
@@ -366,11 +365,9 @@ export const ReverseDCFSim: React.FC = () => {
                 <span className="text-[10px] font-bold text-emerald-800 dark:text-emerald-300 block">
                   {t("ReverseDCFSim.steady_state_base_va_1260")}
                 </span>
-                <div className="font-mono font-black text-base sm:text-lg text-emerald-900 dark:text-emerald-100">
-                  ${formatCurrency(steadyStateValue * 1000000)}
+                <div className="font-mono font-black text-base sm:text-lg text-emerald-900 dark:text-emerald-100">{formatUsdFromBillions(steadyStateValue / 1000, 1)}
                 </div>
-                <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 block">
-                  ${formatPercent(steadyStatePercentage, 0)} {t("ReverseDCFSim.tangible_current_pr_1261")}
+                <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 block">{formatPercent(steadyStatePercentage, 0)} {t("ReverseDCFSim.tangible_current_pr_1261")}
                 </span>
               </div>
 
@@ -378,11 +375,9 @@ export const ReverseDCFSim: React.FC = () => {
                 <span className="text-[10px] font-bold text-indigo-800 dark:text-indigo-300 block">
                   {t("ReverseDCFSim.future_growth_expect_1262")}
                 </span>
-                <div className="font-mono font-black text-base sm:text-lg text-indigo-900 dark:text-indigo-100">
-                  ${formatCurrency(Math.max(0, marketCap - steadyStateValue) * 1000000)}
+                <div className="font-mono font-black text-base sm:text-lg text-indigo-900 dark:text-indigo-100">{formatUsdFromBillions(Math.max(0, marketCap - steadyStateValue) / 1000, 1)}
                 </div>
-                <span className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 block">
-                  ${formatPercent(futureValuePercentage, 0)} {t("ReverseDCFSim.future_growth_hopes_1263")}
+                <span className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 block">{formatPercent(futureValuePercentage, 0)} {t("ReverseDCFSim.future_growth_hopes_1263")}
                 </span>
               </div>
             </div>
@@ -437,10 +432,10 @@ export const ReverseDCFSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
                 <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
                   <div className="font-bold">
-                    Steady-State Value = Current FCF (${currentFCF}M) / WACC (${formatPercent(wacc, 1)}) = ${formatCurrency(steadyStateValue * 1000000)} (${formatPercent(steadyStatePercentage, 0)})
+                    Steady-State Value = Current FCF ({formatUsdFromMillions(currentFCF)}) / WACC ({formatPercent(wacc, 1)}) ={formatUsdFromBillions(steadyStateValue / 1000, 1)} ({formatPercent(steadyStatePercentage, 0)})
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    PVGO (Present Value of Growth Options) = Market Cap (${formatCurrency(marketCap * 1000000)}) - Steady-State Value (${formatCurrency(steadyStateValue * 1000000)}) = ${formatCurrency(Math.max(0, marketCap - steadyStateValue) * 1000000)} (${formatPercent(futureValuePercentage, 0)})
+                    PVGO (Present Value of Growth Options) = Market Cap ({formatUsdFromBillions(marketCap / 1000, 1)}) - Steady-State Value ({formatUsdFromBillions(steadyStateValue / 1000, 1)}) ={formatUsdFromBillions(Math.max(0, marketCap - steadyStateValue) / 1000, 1)} ({formatPercent(futureValuePercentage, 0)})
                   </div>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">

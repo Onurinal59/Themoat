@@ -68,7 +68,7 @@ export const SimulationsView: React.FC<SimulationsViewProps> = ({
   onSelectSim,
   onOpenAICoachWithPrompt,
 }) => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [internalSim, setInternalSim] = useState<SimTab>("roic-wacc");
   const activeSim = controlledActiveSim || internalSim;
 

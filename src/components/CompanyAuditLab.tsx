@@ -56,7 +56,7 @@ interface CompanyAuditLabProps {
 }
 
 export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: CompanyAuditLabProps) {
-  const { isEnglish, t, formatCurrency, formatPercent, formatNumber } = useLanguage();
+  const { isEnglish, t, formatCurrency, formatPercent, formatNumber , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   // Modal for Investment Committee Devil's Advocate
   const [isCommitteeModalOpen, setIsCommitteeModalOpen] = useState(false);
   // Saved dossiers in local storage or fallback to presets

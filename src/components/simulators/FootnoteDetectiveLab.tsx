@@ -349,7 +349,7 @@ export const DETECTIVE_CASES: DetectiveCase[] = [
 ];
 
 export const FootnoteDetectiveLab: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [activeCaseId, setActiveCaseId] = useState<string>(DETECTIVE_CASES[0].id);
   const [selectedFootnoteId, setSelectedFootnoteId] = useState<string | null>(null);
   const [appliedAdjustments, setAppliedAdjustments] = useState<Record<string, boolean>>({});

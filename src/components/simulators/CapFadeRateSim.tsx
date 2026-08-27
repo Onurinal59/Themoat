@@ -92,7 +92,7 @@ const PRESETS: MoatPreset[] = [
 ];
 
 export const CapFadeRateSim: React.FC = () => {
-  const { isEnglish, t , formatPercent, formatCurrency } = useLanguage();
+  const { isEnglish, t , formatPercent, formatCurrency , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
 
   const [initialRoic, setInitialRoic] = useState<number>(30);
   const [wacc, setWacc] = useState<number>(8.5);

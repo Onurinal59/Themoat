@@ -29,7 +29,7 @@ const OnboardingGuideModal = React.lazy(() => import("./components/OnboardingGui
 const FormulaDeepDiveModal = React.lazy(() => import("./components/FormulaDeepDiveModal").then(m => ({ default: m.FormulaDeepDiveModal })));
 
 export default function App() {
-  const { t, formatPercent, formatCurrency } = useLanguage();
+  const { t, formatPercent, formatCurrency , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const { getModules, isEnglish } = useLanguage();
   const currentModules = getModules();
 

@@ -82,7 +82,7 @@ const PRESET_SCENARIOS: Scenario[] = [
 ];
 
 export const ValueStickSim: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatCurrency, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [wtp, setWtp] = useState<number>(1400);
   const [price, setPrice] = useState<number>(1099);
   const [cost, setCost] = useState<number>(520);
@@ -179,7 +179,7 @@ export const ValueStickSim: React.FC = () => {
               {t("ValueStickSim.4_value_levers_1322")}
             </h3>
             <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
-              Total: ${totalValueCreated}
+              Total: {formatCurrency(totalValueCreated)}
             </span>
           </div>
 
@@ -202,7 +202,7 @@ export const ValueStickSim: React.FC = () => {
                 >
                   -
                 </button>
-                <span>${wtp}</span>
+                <span>{formatCurrency(wtp)}</span>
                 <button
                   type="button"
                   onClick={() => setWtp(wtp + 50)}
@@ -221,7 +221,7 @@ export const ValueStickSim: React.FC = () => {
               step={10}
               value={wtp}
               aria-labelledby="valuestick-slider-wtp-label"
-              aria-valuetext={`WTP $${wtp}`}
+              aria-valuetext={`WTP {formatCurrency(wtp)}`}
               onChange={(e) => setWtp(Number(e.target.value))}
               className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -246,7 +246,7 @@ export const ValueStickSim: React.FC = () => {
                 >
                   -
                 </button>
-                <span>${price}</span>
+                <span>{formatCurrency(price)}</span>
                 <button
                   type="button"
                   onClick={() => setPrice(Math.min(wtp, price + 50))}
@@ -265,7 +265,7 @@ export const ValueStickSim: React.FC = () => {
               step={10}
               value={price}
               aria-labelledby="valuestick-slider-price-label"
-              aria-valuetext={`Price $${price}`}
+              aria-valuetext={`Price {formatCurrency(price)}`}
               onChange={(e) => setPrice(Number(e.target.value))}
               className="w-full accent-emerald-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -290,7 +290,7 @@ export const ValueStickSim: React.FC = () => {
                 >
                   -
                 </button>
-                <span>${cost}</span>
+                <span>{formatCurrency(cost)}</span>
                 <button
                   type="button"
                   onClick={() => setCost(Math.min(price, cost + 25))}
@@ -309,7 +309,7 @@ export const ValueStickSim: React.FC = () => {
               step={10}
               value={cost}
               aria-labelledby="valuestick-slider-cost-label"
-              aria-valuetext={`Cost $${cost}`}
+              aria-valuetext={`Cost {formatCurrency(cost)}`}
               onChange={(e) => setCost(Number(e.target.value))}
               className="w-full accent-amber-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -334,7 +334,7 @@ export const ValueStickSim: React.FC = () => {
                 >
                   -
                 </button>
-                <span>${wts}</span>
+                <span>{formatCurrency(wts)}</span>
                 <button
                   type="button"
                   onClick={() => setWts(Math.min(cost, wts + 25))}
@@ -353,7 +353,7 @@ export const ValueStickSim: React.FC = () => {
               step={10}
               value={wts}
               aria-labelledby="valuestick-slider-wts-label"
-              aria-valuetext={`WTS $${wts}`}
+              aria-valuetext={`WTS {formatCurrency(wts)}`}
               onChange={(e) => setWts(Number(e.target.value))}
               className="w-full accent-pink-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -380,7 +380,7 @@ export const ValueStickSim: React.FC = () => {
                 </span>
               </div>
               <span className="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">
-                100% = ${totalValueCreated}
+                100% = {formatCurrency(totalValueCreated)}
               </span>
             </div>
 
@@ -414,10 +414,10 @@ export const ValueStickSim: React.FC = () => {
                   {t("ValueStickSim.customer_delight_1339")}
                 </span>
                 <div className="font-mono font-black text-base sm:text-lg text-indigo-900 dark:text-indigo-100">
-                  ${customerDelight}
+                  {formatCurrency(customerDelight)}
                 </div>
                 <span className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 block">
-                  %{customerShare.toFixed(1)} {t("ValueStickSim.share_1340")}
+                  {formatPercentagePoints(customerShare, 1)} {t("ValueStickSim.share_1340")}
                 </span>
               </div>
 
@@ -427,10 +427,10 @@ export const ValueStickSim: React.FC = () => {
                   {t("ValueStickSim.firm_margin_1341")}
                 </span>
                 <div className="font-mono font-black text-base sm:text-lg text-emerald-900 dark:text-emerald-100">
-                  ${firmProfit}
+                  {formatCurrency(firmProfit)}
                 </div>
                 <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 block">
-                  %{firmShare.toFixed(1)} {t("ValueStickSim.share_1342")}
+                  {formatPercentagePoints(firmShare, 1)} {t("ValueStickSim.share_1342")}
                 </span>
               </div>
 
@@ -440,10 +440,10 @@ export const ValueStickSim: React.FC = () => {
                   {t("ValueStickSim.supplier_surplus_1343")}
                 </span>
                 <div className="font-mono font-black text-base sm:text-lg text-amber-900 dark:text-amber-100">
-                  ${supplierSurplus}
+                  {formatCurrency(supplierSurplus)}
                 </div>
                 <span className="text-[10px] font-mono text-amber-600 dark:text-amber-400 block">
-                  %{supplierShare.toFixed(1)} {t("ValueStickSim.share_1344")}
+                  {formatPercentagePoints(supplierShare, 1)} {t("ValueStickSim.share_1344")}
                 </span>
               </div>
             </div>
@@ -499,16 +499,16 @@ export const ValueStickSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
                 <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
                   <div className="font-bold">
-                    Total Value Created = WTP (${wtp}) - WTS (${wts}) = ${totalValueCreated}
+                    Total Value Created = WTP ({formatCurrency(wtp)}) - WTS ({formatCurrency(wts)}) = {formatCurrency(totalValueCreated)}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    1. Customer Delight (WTP - Price) = ${wtp} - ${price} = ${customerDelight} (%{customerShare.toFixed(1)})
+                    1. Customer Delight (WTP - Price) = {formatCurrency(wtp)} - {formatCurrency(price)} = {formatCurrency(customerDelight)} ({formatPercentagePoints(customerShare, 1)})
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    2. Firm Profit (Price - Cost) = ${price} - ${cost} = ${firmProfit} (%{firmShare.toFixed(1)})
+                    2. Firm Profit (Price - Cost) = {formatCurrency(price)} - {formatCurrency(cost)} = {formatCurrency(firmProfit)} ({formatPercentagePoints(firmShare, 1)})
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    3. Supplier Surplus (Cost - WTS) = ${cost} - ${wts} = ${supplierSurplus} (%{supplierShare.toFixed(1)})
+                    3. Supplier Surplus (Cost - WTS) = {formatCurrency(cost)} - {formatCurrency(wts)} = {formatCurrency(supplierSurplus)} ({formatPercentagePoints(supplierShare, 1)})
                   </div>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">

@@ -32,7 +32,7 @@ export const MoatDuelView: React.FC<MoatDuelViewProps> = ({
   onOpenAuditStudio,
   onOpenAICoachWithPrompt,
 }) => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   // Select initial two dossiers
   const [comp1Id, setComp1Id] = useState<string>(dossiers[0]?.id || "");
   const [comp2Id, setComp2Id] = useState<string>(dossiers[1]?.id || dossiers[0]?.id || "");
@@ -88,14 +88,14 @@ export const MoatDuelView: React.FC<MoatDuelViewProps> = ({
       ? `⚔️ MAUBOUSSIN MOAT DUEL REPORT:
 ------------------------------------------
 Company 1: ${comp1.companyName} (${comp1.ticker})
-- ROIC: ${fin1.roicPercent}% | WACC: ${comp1.financials.wacc}% | Spread: ${fin1.spread}%
-- NOPAT Margin: ${fin1.nopatMarginPercent}% | Capital Turnover: ${fin1.capitalTurnover}x
+- ROIC: ${formatPercentagePoints(fin1.roicPercent, 1)} | WACC: ${formatPercentagePoints(comp1.financials.wacc, 1)} | Spread: ${formatPercentagePoints(fin1.spread, 1)}
+- NOPAT Margin: ${formatPercentagePoints(fin1.nopatMarginPercent, 1)} | Capital Turnover: ${formatMultiplier(fin1.capitalTurnover, 2)}
 - Moat Width: ${score1.diagnosedMoat} (Score: ${score1.scorePercent}/100)
 - Estimated CAP: ${comp1.sustainability.estimatedCapYears} Years
 
 Company 2: ${comp2.companyName} (${comp2.ticker})
-- ROIC: ${fin2.roicPercent}% | WACC: ${comp2.financials.wacc}% | Spread: ${fin2.spread}%
-- NOPAT Margin: ${fin2.nopatMarginPercent}% | Capital Turnover: ${fin2.capitalTurnover}x
+- ROIC: ${formatPercentagePoints(fin2.roicPercent, 1)} | WACC: ${formatPercentagePoints(comp2.financials.wacc, 1)} | Spread: ${formatPercentagePoints(fin2.spread, 1)}
+- NOPAT Margin: ${formatPercentagePoints(fin2.nopatMarginPercent, 1)} | Capital Turnover: ${formatMultiplier(fin2.capitalTurnover, 2)}
 - Moat Width: ${score2.diagnosedMoat} (Score: ${score2.scorePercent}/100)
 - Estimated CAP: ${comp2.sustainability.estimatedCapYears} Years
 
@@ -117,14 +117,14 @@ ${
       : `⚔️ MAUBOUSSIN HENDEK DÜELLOSU RAPORU:
 ------------------------------------------
 ${t("MoatDuelView.company_1_438")}: ${comp1.companyName} (${comp1.ticker})
-- ROIC: %${fin1.roicPercent} | WACC: %${comp1.financials.wacc} | Spread: %${fin1.spread}
-- NOPAT Marjı: %${fin1.nopatMarginPercent} | Sermaye Devir Hızı: ${fin1.capitalTurnover}x
+- ROIC: ${formatPercentagePoints(fin1.roicPercent, 1)} | WACC: ${formatPercentagePoints(comp1.financials.wacc, 1)} | Spread: ${formatPercentagePoints(fin1.spread, 1)}
+- NOPAT Marjı: ${formatPercentagePoints(fin1.nopatMarginPercent, 1)} | Sermaye Devir Hızı: ${formatMultiplier(fin1.capitalTurnover, 2)}
 - Hendek Genişliği: ${score1.diagnosedMoat} (Skor: ${score1.scorePercent}/100)
 - Tahmini CAP: ${comp1.sustainability.estimatedCapYears} Yıl
 
 ${t("MoatDuelView.company_2_439")}: ${comp2.companyName} (${comp2.ticker})
-- ROIC: %${fin2.roicPercent} | WACC: %${comp2.financials.wacc} | Spread: %${fin2.spread}
-- NOPAT Marjı: %${fin2.nopatMarginPercent} | Sermaye Devir Hızı: ${fin2.capitalTurnover}x
+- ROIC: ${formatPercentagePoints(fin2.roicPercent, 1)} | WACC: ${formatPercentagePoints(comp2.financials.wacc, 1)} | Spread: ${formatPercentagePoints(fin2.spread, 1)}
+- NOPAT Marjı: ${formatPercentagePoints(fin2.nopatMarginPercent, 1)} | Sermaye Devir Hızı: ${formatMultiplier(fin2.capitalTurnover, 2)}
 - Hendek Genişliği: ${score2.diagnosedMoat} (Skor: ${score2.scorePercent}/100)
 - Tahmini CAP: ${comp2.sustainability.estimatedCapYears} Yıl
 
@@ -298,7 +298,7 @@ ${
                 ROIC
               </span>
               <span className={`text-lg font-black ${fin1.roicPercent >= 15 ? "text-emerald-600 dark:text-emerald-400" : "text-slate-800 dark:text-slate-200"}`}>
-                {fin1.roicPercent}%
+                {formatPercentagePoints(fin1.roicPercent, 1)}
               </span>
             </div>
 
@@ -307,7 +307,7 @@ ${
                 {t("MoatDuelView.economic_spread_451")}
               </span>
               <span className={`text-lg font-black ${fin1.spread > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
-                {fin1.spread > 0 ? `+${fin1.spread}%` : `${fin1.spread}%`}
+                {fin1.spread > 0 ? `+${formatPercentagePoints(fin1.spread, 1)}` : `${formatPercentagePoints(fin1.spread, 1)}`}
               </span>
             </div>
 
@@ -316,7 +316,7 @@ ${
                 {t("MoatDuelView.nopat_margin_452")}
               </span>
               <span className="text-base font-bold text-slate-800 dark:text-slate-200">
-                {fin1.nopatMarginPercent}%
+                {formatPercentagePoints(fin1.nopatMarginPercent, 1)}
               </span>
             </div>
 
@@ -325,7 +325,7 @@ ${
                 {t("MoatDuelView.capital_turnover_453")}
               </span>
               <span className="text-base font-bold text-slate-800 dark:text-slate-200">
-                {fin1.capitalTurnover}x
+                {formatMultiplier(fin1.capitalTurnover, 2)}
               </span>
             </div>
           </div>
@@ -395,7 +395,7 @@ ${
                 ROIC
               </span>
               <span className={`text-lg font-black ${fin2.roicPercent >= 15 ? "text-emerald-600 dark:text-emerald-400" : "text-slate-800 dark:text-slate-200"}`}>
-                {fin2.roicPercent}%
+                {formatPercentagePoints(fin2.roicPercent, 1)}
               </span>
             </div>
 
@@ -404,7 +404,7 @@ ${
                 {t("MoatDuelView.economic_spread_459")}
               </span>
               <span className={`text-lg font-black ${fin2.spread > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
-                {fin2.spread > 0 ? `+${fin2.spread}%` : `${fin2.spread}%`}
+                {fin2.spread > 0 ? `+${formatPercentagePoints(fin2.spread, 1)}` : `${formatPercentagePoints(fin2.spread, 1)}`}
               </span>
             </div>
 
@@ -413,7 +413,7 @@ ${
                 {t("MoatDuelView.nopat_margin_460")}
               </span>
               <span className="text-base font-bold text-slate-800 dark:text-slate-200">
-                {fin2.nopatMarginPercent}%
+                {formatPercentagePoints(fin2.nopatMarginPercent, 1)}
               </span>
             </div>
 
@@ -422,7 +422,7 @@ ${
                 {t("MoatDuelView.capital_turnover_461")}
               </span>
               <span className="text-base font-bold text-slate-800 dark:text-slate-200">
-                {fin2.capitalTurnover}x
+                {formatMultiplier(fin2.capitalTurnover, 2)}
               </span>
             </div>
           </div>
@@ -472,8 +472,8 @@ ${
               {/* ROIC */}
               <tr>
                 <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{t("MoatDuelView.roic_return_on_inves_468")}</td>
-                <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{fin1.roicPercent}%</td>
-                <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{fin2.roicPercent}%</td>
+                <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{formatPercentagePoints(fin1.roicPercent, 1)}</td>
+                <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{formatPercentagePoints(fin2.roicPercent, 1)}</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                   {roicWinner === 1 ? (
                     <span className="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 font-bold">
@@ -490,8 +490,8 @@ ${
               {/* Spread */}
               <tr>
                 <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{t("MoatDuelView.economic_spread_roic_472")}</td>
-                <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{fin1.spread}%</td>
-                <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{fin2.spread}%</td>
+                <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{formatPercentagePoints(fin1.spread, 1)}</td>
+                <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{formatPercentagePoints(fin2.spread, 1)}</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                   {spreadWinner === 1
                     ? (isEnglish ? `Under these illustrative inputs, ${comp1.ticker} shows a higher economic spread in this educational model.` : `Bu temsili girdilerle, ${comp1.ticker} modelde daha yüksek yayılım gösterir.`)
@@ -502,8 +502,8 @@ ${
               {/* NOPAT Margin */}
               <tr>
                 <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{t("MoatDuelView.nopat_margin_pricing_473")}</td>
-                <td className="py-3 px-4 text-indigo-700 dark:text-indigo-300 font-bold">{fin1.nopatMarginPercent}%</td>
-                <td className="py-3 px-4 text-rose-700 dark:text-rose-300 font-bold">{fin2.nopatMarginPercent}%</td>
+                <td className="py-3 px-4 text-indigo-700 dark:text-indigo-300 font-bold">{formatPercentagePoints(fin1.nopatMarginPercent, 1)}</td>
+                <td className="py-3 px-4 text-rose-700 dark:text-rose-300 font-bold">{formatPercentagePoints(fin2.nopatMarginPercent, 1)}</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                   {marginWinner === 1
                     ? (isEnglish ? `Under these illustrative inputs, ${comp1.ticker} shows a higher modeled margin; this is not a current company conclusion.` : `Temsili girdilerle, ${comp1.ticker} daha yüksek marj gösterir; güncel şirket analizi değildir.`)
@@ -514,8 +514,8 @@ ${
               {/* Turnover */}
               <tr>
                 <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{t("MoatDuelView.capital_turnover_vel_474")}</td>
-                <td className="py-3 px-4 text-indigo-700 dark:text-indigo-300 font-bold">{fin1.capitalTurnover}x</td>
-                <td className="py-3 px-4 text-rose-700 dark:text-rose-300 font-bold">{fin2.capitalTurnover}x</td>
+                <td className="py-3 px-4 text-indigo-700 dark:text-indigo-300 font-bold">{formatMultiplier(fin1.capitalTurnover, 2)}</td>
+                <td className="py-3 px-4 text-rose-700 dark:text-rose-300 font-bold">{formatMultiplier(fin2.capitalTurnover, 2)}</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                   {turnoverWinner === 1
                     ? (isEnglish ? `Under these illustrative inputs, ${comp1.ticker} shows higher modeled capital turnover.` : `Temsili girdilerle, ${comp1.ticker} daha yüksek sermaye devri gösterir.`)

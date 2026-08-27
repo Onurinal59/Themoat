@@ -70,7 +70,7 @@ const PRESET_COMPANIES: CompanyProfile[] = [
 ];
 
 export const MoatChecklistSim: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const checklistItems = getChecklistItems(isEnglish);
 
   const [checkedState, setCheckedState] = useState<Record<string, boolean>>({});

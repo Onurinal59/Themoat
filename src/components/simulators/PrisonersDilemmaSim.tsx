@@ -40,7 +40,7 @@ interface RoundResult {
 }
 
 export const PrisonersDilemmaSim: React.FC = () => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [botStrategy, setBotStrategy] = useState<StrategyType>("tit-for-tat");
   const [history, setHistory] = useState<RoundResult[]>([]);
   const [currentRound, setCurrentRound] = useState<number>(1);

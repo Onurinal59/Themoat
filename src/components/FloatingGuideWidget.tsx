@@ -12,7 +12,7 @@ export const FloatingGuideWidget: React.FC<FloatingGuideWidgetProps> = ({
   onOpenGuide,
   isAllCompleted = false,
 }) => {
-  const { isEnglish, t } = useLanguage();
+  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   // Default to popover closed so it never covers lesson text or simulators
   const [isOpen, setIsOpen] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);

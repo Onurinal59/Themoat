@@ -40,7 +40,7 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
   targetedModuleId,
   onBackToModule,
 }) => {
-  const { isEnglish, getFlashcards, t } = useLanguage();
+  const { isEnglish, getFlashcards, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const baseFlashcards = getFlashcards();
 
   const [activeModuleFilter, setActiveModuleFilter] = useState<number | "all" | "due" | "missed" | "new">(initialFilter);
