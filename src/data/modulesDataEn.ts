@@ -634,6 +634,24 @@ export const MODULES_DATA_EN: LearningModule[] = [
         },
         keyTakeaway:
           "Disciplined game theory and tacit coordination protect industry profit pools from mutually assured destruction."
+      },
+      {
+        id: "m6-s4",
+        title: "4. Regulatory Moats (Licensing, Patents, Tariffs) & Co-opetition (Value Net)",
+        summary: "Government protections and industry standard cooperation determine the size and durability of profit pools.",
+        content: [
+          "1. Legal Moats and Government Protection (Regulation & Licensing): Some of the most durable moats originate outside market forces. Moody's and S&P hold the regulatory 'NRSRO' status for debt ratings; airport operating concessions and pharmaceutical compound patents (20-year legal monopoly) enforce barriers by law.",
+          "2. Tariffs and Trade Protection: Import quotas and tariffs provide domestic producers with artificial pricing insulation; however, political shifts can dissolve these protections overnight.",
+          "3. Antitrust and Regulatory Risk: For dominant digital platforms (Google, Meta, Apple), the primary existential risk is not direct competitor attack, but antitrust breakups and regulatory fines.",
+          "4. Co-opetition & The Value Net: In Adam Brandenburger and Barry Nalebuff's framework, firms do not simply fight—they cooperate to expand total industry Willingness to Pay (WTP) via shared standards (USB-C, 5G patent pools, open-source software), then compete to capture their share of the expanded pie."
+        ],
+        analogyBox: {
+          title: "🏛️ The Sovereign Seal on the Castle Gate",
+          description:
+            "Building stone ramparts takes years of capital expenditure; but an official government charter (like an NRSRO license) ensures competitors cannot legally enter the territory at all."
+        },
+        keyTakeaway:
+          "The most durable barriers to entry are backed by regulation and patents, while the most lucrative industries expand total value through co-opetition before competing on share."
       }
     ],
     quiz: [

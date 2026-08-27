@@ -56,18 +56,18 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
 
   const getPhaseInfo = (idx: number) => {
     if (idx === 0) return { 
-        title: isEnglish ? "Phase I: Core Foundations" : "Faz 1: Stratejik Temeller", 
-        desc: isEnglish ? "Understand the true nature of value creation, competitive advantage, and ROIC." : "Değer yaratımının, rekabet avantajının ve ROIC'nin gerçek doğasını kavrayın.",
+        title: isEnglish ? "Phase I: The Triad & Strategic Foundations" : "Faz 1: Değer Yaratma Üçlüsü & Stratejik Temeller", 
+        desc: isEnglish ? "Master the Triad (Spread, Runway, Duration), lifecycle diagnostics, and unit microeconomics (WTP/WTS)." : "Değer Yaratma Üçlüsünü (Yayılım, Yatırım Pisti, CAP), yaşam döngüsü teşhisini ve birim mikroekonomiyi kavrayın.",
         color: "from-blue-500 to-indigo-500" 
     };
     if (idx === 3) return { 
-        title: isEnglish ? "Phase II: Deep Diagnostics" : "Faz 2: Derin Finansal Teşhis", 
-        desc: isEnglish ? "Analyze industry structures, profit pools, and dissect balance sheets like a pro." : "Sektör yapılarını, kâr havuzlarını analiz edin ve bilançoları bir cerrah gibi inceleyin.",
+        title: isEnglish ? "Phase II: Industry Diagnostics & Forensic Accounting" : "Faz 2: Sektör Kâr Havuzları & Adli Bilanço Analizi", 
+        desc: isEnglish ? "Map profit pool distortions, capitalize operating leases and R&D, and analyze competitive games & regulation." : "Kâr havuzu haritalarını çıkarın, kiralama ve Ar-Ge'yi aktifleştirerek düzeltilmiş ROIC hesaplayın ve regülasyonu analiz edin.",
         color: "from-indigo-500 to-violet-500" 
     };
     if (idx === 6) return { 
-        title: isEnglish ? "Phase III: Mastery Application" : "Faz 3: Ustalık ve Uygulama", 
-        desc: isEnglish ? "Combine DuPont analysis and Reverse DCF to make elite investment decisions." : "DuPont ve Tersine DCF kullanarak elit yatırım kararları alın ve ustalaşın.",
+        title: isEnglish ? "Phase III: Internal Engines, Reverse DCF & Final Moat Audit" : "Faz 3: Şirket İçi Kâr Motoru, Tersine DCF & Hendek Denetimi", 
+        desc: isEnglish ? "Deconstruct DuPont & cash conversion cycles, solve market-implied CAP (MICAP), and execute the 60-point moat audit." : "DuPont ve nakit dönüşümünü ayrıştırın, piyasanın ima ettiği CAP'i (MICAP) çözün ve 60 maddelik Morgan Stanley denetimini uygulayın.",
         color: "from-violet-500 to-fuchsia-500" 
     };
     return null;
@@ -96,21 +96,21 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
             <div className="space-y-4 max-w-2xl">
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 dark:bg-white/10 border border-indigo-200 dark:border-white/20 text-indigo-700 dark:text-white/90 text-xs font-bold backdrop-blur-md uppercase tracking-wider">
                     <Award className="w-4 h-4 text-amber-400" />
-                    {isEnglish ? "Elite Investor Curriculum" : "Elit Yatırımcı Müfredatı"}
+                    {isEnglish ? "Michael Mauboussin & Dan Callahan Framework" : "Michael Mauboussin & Dan Callahan Metodolojisi"}
                 </div>
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
-                    {isEnglish ? "Master the Art of" : "Şirket Değerleme Sanatında"}{" "}
+                    {isEnglish ? "Measuring the Moat:" : "Ekonomik Hendeklerin Ölçülmesi:"}{" "}
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
-                        {isEnglish ? "Valuation & Moats" : "Ustalaşın"}
+                        {isEnglish ? "Magnitude, Runway & Longevity" : "Yayılım, Yatırım Pisti & CAP"}
                     </span>
                 </h1>
-                <p className="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-medium">
+                <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-medium">
                     {isEnglish 
-                        ? "Stop guessing. Learn the exact frameworks used by top fund managers to dissect balance sheets, calculate true ROIC, and identify untouchable economic moats."
-                        : "Tahmin etmeyi bırakın. En iyi fon yöneticilerinin bilançoları analiz etmek, gerçek ROIC'yi hesaplamak ve aşılamaz ekonomik hendekleri tespit etmek için kullandığı matematiksel çerçeveleri adım adım öğrenin."}
+                        ? "In competitive markets, high returns attract capital that erodes margins. Learn the rigorous Morgan Stanley / Credit Suisse framework to calculate true ROIC, model competitive advantage periods (CAP), and reverse-engineer market expectations."
+                        : "Serbest piyasada yüksek kârlar sermayeyi mıknatıs gibi çeker ve aşındırır. Morgan Stanley ve Credit Suisse araştırmalarına dayanan Measuring the Moat çerçevesiyle gerçek ROIC'yi hesaplayın, hendek süresini (CAP) modelleyin ve piyasa beklentilerini tersine DCF ile çözün."}
                 </p>
                 
-                <div className="pt-4 flex flex-wrap gap-3">
+                <div className="pt-2 flex flex-wrap gap-3">
                     <button 
                         onClick={() => {
                             if (nextUpIndex !== -1) {
@@ -122,15 +122,15 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                         className="px-6 py-3 rounded-xl bg-indigo-600 text-white hover:bg-indigo-700 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 transition-colors font-bold text-sm flex items-center gap-2 shadow-xl shadow-indigo-600/20 dark:shadow-[0_0_20px_rgba(255,255,255,0.3)] dark:hover:shadow-[0_0_25px_rgba(255,255,255,0.5)]"
                     >
                         <PlayCircle className="w-5 h-5 text-indigo-600" />
-                        {isEnglish ? (nextUpIndex === 0 ? "Start Journey" : "Continue Journey") : (nextUpIndex === 0 ? "Yolculuğa Başla" : "Kaldığın Yerden Devam Et")}
+                        {isEnglish ? (nextUpIndex === 0 ? "Start Curriculum" : "Continue Curriculum") : (nextUpIndex === 0 ? "Müfredata Başla" : "Kaldığın Yerden Devam Et")}
                     </button>
-                    {onOpenGuide && (
+                    {onNavigateTab && (
                         <button 
-                            onClick={onOpenGuide}
+                            onClick={() => onNavigateTab("simulations", "cap-fade")}
                             className="px-6 py-3 rounded-xl bg-slate-200 hover:bg-slate-300 border border-slate-300 text-slate-700 dark:bg-white/10 dark:hover:bg-white/20 dark:border-white/20 dark:text-white transition-colors font-bold text-sm flex items-center gap-2 backdrop-blur-sm"
                         >
-                            <Compass className="w-5 h-5 text-amber-300" />
-                            {isEnglish ? "How to Use This Guide" : "Bu Rehber Nasıl Kullanılır?"}
+                            <Sparkles className="w-5 h-5 text-emerald-400" />
+                            {isEnglish ? "CAP & Fade Rate Engine" : "CAP & Fade Rate Simülatörü"}
                         </button>
                     )}
                 </div>
@@ -161,6 +161,60 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                     </div>
                 </div>
             </div>
+        </div>
+      </div>
+
+      {/* The 3 Pillars of Value Creation: The Triad */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">
+              {isEnglish ? "1. Magnitude" : "1. Büyüklük"}
+            </span>
+            <span className="text-xs font-mono font-bold text-slate-400">ROIC - WACC</span>
+          </div>
+          <h3 className="text-base font-black text-slate-900 dark:text-white">
+            {isEnglish ? "Economic Spread" : "Ekonomik Yayılım (Spread)"}
+          </h3>
+          <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            {isEnglish
+              ? "The excess return generated on every dollar of invested capital above the hurdle rate."
+              : "Yatırılan her 100 TL sermayenin, sermaye maliyetinin üzerinde ürettiği net fazlalık getiri."}
+          </p>
+        </div>
+
+        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">
+              {isEnglish ? "2. Runway" : "2. Yatırım Pisti"}
+            </span>
+            <span className="text-xs font-mono font-bold text-slate-400">I × RONIC</span>
+          </div>
+          <h3 className="text-base font-black text-slate-900 dark:text-white">
+            {isEnglish ? "Reinvestment Capacity" : "Yeniden Yatırım Hacmi"}
+          </h3>
+          <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            {isEnglish
+              ? "How much capital the firm can redeploy at high incremental returns before exhausting runway."
+              : "Şirketin kârını yüksek getiriyle tekrar işe yatırabilme kapasitesi ve büyüme alanı."}
+          </p>
+        </div>
+
+        <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-black px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400 uppercase tracking-wider">
+              {isEnglish ? "3. Sustainability" : "3. Sürdürülebilirlik"}
+            </span>
+            <span className="text-xs font-mono font-bold text-slate-400">CAP & Fade Rate</span>
+          </div>
+          <h3 className="text-base font-black text-slate-900 dark:text-white">
+            {isEnglish ? "Competitive Advantage Period" : "Hendek Süresi (CAP)"}
+          </h3>
+          <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+            {isEnglish
+              ? "The number of years the firm can resist competitive arbitrage before ROIC fades to WACC."
+              : "Rakiplerin kârı eritmesine direnilebilen ve ROIC'nin sermaye maliyetine düşmediği toplam yıl."}
+          </p>
         </div>
       </div>
 

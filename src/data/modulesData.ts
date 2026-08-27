@@ -632,6 +632,24 @@ export const MODULES_DATA: LearningModule[] = [
         },
         keyTakeaway:
           "Rakipleri yok etmeye çalışmak sektörel kârlılığı eritir; disiplinli oyun teorisi ve örtük koordinasyon refahı korur."
+      },
+      {
+        id: "m6-s4",
+        title: "4. Yasal Hendekler (Regülasyon, Lisans, Tarife) & Rekabetçi İşbirliği (Co-opetition)",
+        summary: "Devlet korumaları ve endüstriyel standart işbirlikleri kâr havuzunun boyutunu ve dayanıklılığını belirler.",
+        content: [
+          "1. Yasal Hendekler ve Devlet Koruması (Regulation & Licensing): En sarsılmaz hendekler piyasa dışından, regülasyonlardan doğar. Moody's ve S&P'nin kredi derecelendirme tekelini sağlayan 'NRSRO' lisansı, havalimanı işletme imtiyazları veya ilaç patentleri (20 yıllık yasal tekel) rakipleri doğrudan yasa zoruyla engeller.",
+          "2. Gümrük Tarifeleri ve Korumacılık: İthalat kotaları ve tarifeler yerli üreticilere yapay bir hendek sağlar; ancak bu hendekler politiktir ve bir kanun değişikliğiyle tek gecede buharlaşabilir.",
+          "3. Antitröst ve Regülasyon Riski: Çok geniş hendekli dijital tekel platformları (Google, Meta, Apple) için en büyük varoluşsal tehdit rakipler değil, antitröst regülasyonları ve bölünme yaptırımlarıdır.",
+          "4. Rekabetçi İşbirliği (Co-opetition & Değer Ağı): Adam Brandenburger ve Barry Nalebuff'ın çerçevesinde şirketler sadece savaşmaz; toplam Ödeme İstekliliğini (WTP) büyütmek için ortak standartlar belirler (Örn: USB-C standardı, 5G patent havuzları, açık kaynak altyapılar). Akıllı stratejistler önce pastayı büyütmek için işbirliği yapar, ardından pastayı bölüşürken rekabet eder."
+        ],
+        analogyBox: {
+          title: "🏛️ Kale Kapısındaki Mühür",
+          description:
+            "Bir kalenin duvarlarını taşla örmek yıllar alır; ancak devletin kapıya vurduğu resmi bir imtiyaz mührü (NRSRO lisansı gibi) hiçbir rakibin kapıdan içeri adım dahi atamamasını sağlar."
+        },
+        keyTakeaway:
+          "En dayanıklı hendekler regülasyon ve patentlerle korunurken; en kârlı sektörler pastayı büyütmek için işbirliği yapıp fiyat kırıcı savaşlardan kaçınan oyuncular tarafından yönetilir."
       }
     ],
     quiz: [
