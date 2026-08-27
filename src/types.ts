@@ -9,6 +9,7 @@ export interface GlossaryTerm {
 
 export interface QuizQuestion {
   id: string;
+  flashcardId?: string;
   question: string;
   options: string[];
   correctAnswerIndex: number;

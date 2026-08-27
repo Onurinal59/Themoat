@@ -115,6 +115,7 @@ export const MODULES_DATA: LearningModule[] = [
     quiz: [
       {
         id: "q1-1",
+        flashcardId: "fc-1",
         question: "Warren Buffett'ın benzetmesinde 'Ekonomik Hendek' (Economic Moat) neyi ifade eder?",
         options: [
           "Şirketin aldığı banka kredisi miktarını",
@@ -128,6 +129,7 @@ export const MODULES_DATA: LearningModule[] = [
       },
       {
         id: "q1-2",
+        flashcardId: "fc-2",
         question: "Bir şirketin sermaye maliyeti (WACC) %10 ve yatırılan sermaye getirisi (ROIC) %7 ise ne gerçekleşmektedir?",
         options: [
           "Şirket hissedarları için harika bir ekonomik katma değer üretmektedir.",
@@ -141,6 +143,7 @@ export const MODULES_DATA: LearningModule[] = [
       },
       {
         id: "q1-3",
+        flashcardId: "fc-2",
         question: "WACC hesaplanırken borç faizinin (1 - t) ile çarpılmasının (Vergi Kalkanı) temel sebebi nedir?",
         options: [
           "Bankaların devlete ceza ödemesi",
@@ -241,6 +244,7 @@ export const MODULES_DATA: LearningModule[] = [
     quiz: [
       {
         id: "q2-1",
+        flashcardId: "fc-4",
         question: "Faaliyet Nakit Akışı (+), Yatırım Nakit Akışı (-) ve Finansman Nakit Akışı (-) olan bir şirket hangi evrededir?",
         options: [
           "Giriş (Introduction)",
@@ -254,6 +258,7 @@ export const MODULES_DATA: LearningModule[] = [
       },
       {
         id: "q2-2",
+        flashcardId: "fc-4",
         question: "Dickinson analizinde Yatırım Nakit Akışının (CFI) pozitif (+) olması neyin işaretidir?",
         options: [
           "Şirketin harika yeni fabrikalar açtığının",
@@ -350,6 +355,7 @@ export const MODULES_DATA: LearningModule[] = [
     quiz: [
       {
         id: "q3-1",
+        flashcardId: "fc-5",
         question: "Bir müşteri bir kulaklığa en fazla 2.000 TL ödemeye razıyken (WTP), mağaza bu kulaklığı 1.400 TL'ye satıyorsa Tüketici Rantı (Consumer Surplus) nedir?",
         options: ["3.400 TL", "2.000 TL", "600 TL", "0 TL"],
         correctAnswerIndex: 2,
@@ -358,6 +364,7 @@ export const MODULES_DATA: LearningModule[] = [
       },
       {
         id: "q3-2",
+        flashcardId: "fc-5",
         question: "Değer Çubuğunda (Value Stick) 'Farklılaşma Stratejisi' (Differentiation) temel olarak hangi çizgiyi yukarı taşımayı hedefler?",
         options: ["WTS (Satmaya İsteklilik)", "Maliyet (Cost)", "WTP (Ödemeye İsteklilik)", "Banka Kredi Faizi"],
         correctAnswerIndex: 2,
@@ -464,6 +471,7 @@ export const MODULES_DATA: LearningModule[] = [
     quiz: [
       {
         id: "q4-1",
+        flashcardId: "fc-7",
         question: "Kâr Havuzu (Profit Pool) analizinde bir sektör parçasının toplam ekonomik kârı geometrik olarak neye eşittir?",
         options: [
           "Sadece Y eksenindeki ROIC oranına",
@@ -477,6 +485,7 @@ export const MODULES_DATA: LearningModule[] = [
       },
       {
         id: "q4-2",
+        flashcardId: "fc-8",
         question: "Bruce Greenwald'ın pazar payı istikrarı kuralına göre 5 yıllık ortalama pazar payı değişimi neyin altında olduğunda sektör 'istikrarlı' kabul edilir?",
         options: ["%20", "%10", "%2 veya daha az", "%0.01"],
         correctAnswerIndex: 2,
@@ -587,6 +596,7 @@ export const MODULES_DATA: LearningModule[] = [
     quiz: [
       {
         id: "q5-1",
+        flashcardId: "fc-9",
         question: "Wright Yasası'na (Öğrenme Eğrisi) göre kümülatif üretim miktarı her iki katına çıktığında birim üretim maliyeti yaklaşık ne kadar düşer?",
         options: ["%1", "%20", "%50", "%0 (maliyet hiç değişmez)"],
         correctAnswerIndex: 1,
@@ -594,6 +604,7 @@ export const MODULES_DATA: LearningModule[] = [
       },
       {
         id: "q5-2",
+        flashcardId: "fc-10",
         question: "Ar-Ge harcamalarının muhasebede doğrudan gider yazılmayıp 'aktifleştirilmesi ve amorti edilmesi' bilançoyu nasıl etkiler?",
         options: [
           "Şirketin iflas etmesine yol açar",
@@ -698,6 +709,7 @@ export const MODULES_DATA: LearningModule[] = [
     quiz: [
       {
         id: "q6-1",
+        flashcardId: "fc-12",
         question: "Clayton Christensen'a göre 'Pazarın Aşılması' (Overshooting) ne anlama gelir?",
         options: [
           "Şirketin iflas edip kapılarını kapatması",
@@ -711,6 +723,7 @@ export const MODULES_DATA: LearningModule[] = [
       },
       {
         id: "q6-2",
+        flashcardId: "fc-15",
         question: "Oyun teorisinde tekrarlanan fiyat savaşlarında 'Tit-for-Tat' (Kısasa Kısas) stratejisinin ilk adımı nedir?",
         options: [
           "İlk turda hemen fiyat kırıp rakibe saldırmak",
@@ -833,6 +846,7 @@ export const MODULES_DATA: LearningModule[] = [
     quiz: [
       {
         id: "q7-1",
+        flashcardId: "fc-13",
         question: "Costco %4 NOPAT kâr marjına ve 4.0x sermaye devir hızına sahipse, ROIC oranı kaçtır?",
         options: ["%8", "%16 (%4 × 4.0)", "%1", "%40"],
         correctAnswerIndex: 1,
@@ -840,6 +854,7 @@ export const MODULES_DATA: LearningModule[] = [
       },
       {
         id: "q7-2",
+        flashcardId: "fc-14",
         question: "Bir şirketin Nakit Dönüşüm Süresinin (CCC) negatif olması ne anlama gelir?",
         options: [
           "Şirketin iflas etmek üzere olduğu",
@@ -968,6 +983,7 @@ export const MODULES_DATA: LearningModule[] = [
     quiz: [
       {
         id: "q8-1",
+        flashcardId: "fc-18",
         question: "Tersine DCF (Reverse DCF) analizinin geleneksel değerlemeye göre en büyük avantajı nedir?",
         options: [
           "Geleceği 10 yıl boyunca tahmin etme zorunluluğunu ortadan kaldırıp mevcut hisse fiyatının kaç yıllık hendek (CAP) ima ettiğini çözmesi",
@@ -981,6 +997,7 @@ export const MODULES_DATA: LearningModule[] = [
       },
       {
         id: "q8-2",
+        flashcardId: "fc-17",
         question: "Tiffany pırlanta yüzüğünün benzer kalitedeki pırlantadan yüksek fiyat primiyle satılabilmesi Değer Çubuğunda neyi gösterir?",
         options: [
           "Pırlantanın maden çıkarma maliyetinin arttığını",

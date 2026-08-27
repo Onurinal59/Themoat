@@ -71,6 +71,11 @@ export default function App() {
   const [isGlossaryOpen, setIsGlossaryOpen] = useState(false);
   const [selectedGlossaryTermId, setSelectedGlossaryTermId] = useState<string | null>(null);
 
+  // Spaced Repetition flashcard targeted review state
+  const [flashcardFilter, setFlashcardFilter] = useState<number | "all" | "due" | "missed">("all");
+  const [targetedFlashcardIds, setTargetedFlashcardIds] = useState<string[] | undefined>(undefined);
+  const [targetedFlashcardModuleId, setTargetedFlashcardModuleId] = useState<number | null>(null);
+
   const activeModule = activeModuleId ? currentModules.find(m => m.id === activeModuleId) || null : null;
   const currentModuleIndex = activeModule ? currentModules.findIndex(m => m.id === activeModule.id) : -1;
   const hasNextModule = currentModuleIndex !== -1 && currentModuleIndex < currentModules.length - 1;
@@ -270,6 +275,14 @@ export default function App() {
                   setActiveModuleId(null);
                   window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
+                onReviewMissedInFlashcards={(moduleId, flashcardIds) => {
+                  setTargetedFlashcardIds(flashcardIds);
+                  setTargetedFlashcardModuleId(moduleId);
+                  setFlashcardFilter("missed");
+                  setActiveTab("spaced-repetition");
+                  setActiveModuleId(null);
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
               />
             </motion.div>
           ) : (
@@ -290,8 +303,13 @@ export default function App() {
                     setAiCoachPrompt(undefined);
                     setIsAICoachOpen(true);
                   }}
-                  onNavigateTab={(tab, sim) => {
+                  onNavigateTab={(tab, sim, filter) => {
                     if (sim) setSelectedSim(sim);
+                    if (filter) {
+                      setFlashcardFilter(filter);
+                      setTargetedFlashcardIds(undefined);
+                      setTargetedFlashcardModuleId(null);
+                    }
                     setActiveTab(tab);
                     setActiveModuleId(null);
                   }}
@@ -350,6 +368,13 @@ export default function App() {
                   onOpenAICoach={() => {
                     setAiCoachPrompt(undefined);
                     setIsAICoachOpen(true);
+                  }}
+                  initialFilter={flashcardFilter}
+                  targetedCardIds={targetedFlashcardIds}
+                  targetedModuleId={targetedFlashcardModuleId}
+                  onBackToModule={(modId) => {
+                    setActiveModuleId(modId);
+                    window.scrollTo({ top: 0, behavior: "smooth" });
                   }}
                 />
               )}

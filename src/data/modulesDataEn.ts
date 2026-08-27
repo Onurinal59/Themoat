@@ -115,6 +115,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
     quiz: [
       {
         id: "q1-1",
+        flashcardId: "fc-1",
         question: "In Warren Buffett's metaphor, what does an 'Economic Moat' represent?",
         options: [
           "The total volume of bank loans taken by a business",
@@ -127,6 +128,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "q1-2",
+        flashcardId: "fc-2",
         question: "What occurs when a company with 7% ROIC and 10% WACC doubles its revenue through aggressive capital expenditure?",
         options: [
           "It creates massive shareholder wealth because revenue grew",
@@ -139,6 +141,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "q1-3",
+        flashcardId: "fc-2",
         question: "Why is debt interest multiplied by (1 - t) (the Tax Shield) when calculating WACC?",
         options: [
           "Banks pay penalties to the state",
@@ -238,6 +241,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
     quiz: [
       {
         id: "q2-1",
+        flashcardId: "fc-4",
         question: "A company with Cash Flow from Operations (+), Cash Flow from Investing (-), and Cash Flow from Financing (-) is in which stage?",
         options: [
           "Introduction",
@@ -251,6 +255,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "q2-2",
+        flashcardId: "fc-4",
         question: "In Dickinson analysis, what does a positive (+) Cash Flow from Investing (CFI) typically indicate?",
         options: [
           "The company is opening brilliant new factories",
@@ -347,6 +352,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
     quiz: [
       {
         id: "q3-1",
+        flashcardId: "fc-5",
         question: "If a customer is willing to pay up to $2,000 for high-end headphones (WTP) and the store prices them at $1,400, what is the Consumer Surplus?",
         options: ["$3,400", "$2,000", "$600", "$0"],
         correctAnswerIndex: 2,
@@ -355,6 +361,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "q3-2",
+        flashcardId: "fc-5",
         question: "In the Value Stick framework, what is the primary objective of a 'Differentiation Strategy'?",
         options: [
           "Lowering WTS (Willingness to Sell)",
@@ -466,6 +473,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
     quiz: [
       {
         id: "q4-1",
+        flashcardId: "fc-7",
         question: "In Profit Pool analysis, what does the geometric area of each segment's box represent?",
         options: [
           "Only the Y-axis ROIC percentage",
@@ -479,6 +487,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "q4-2",
+        flashcardId: "fc-8",
         question: "According to Bruce Greenwald's rule of thumb, an industry is considered structurally stable when the 5-year average market share change is below:",
         options: ["20%", "10%", "2% or less", "0.01%"],
         correctAnswerIndex: 2,
@@ -589,6 +598,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
     quiz: [
       {
         id: "q5-1",
+        flashcardId: "fc-9",
         question: "According to Wright's Law (Learning Curve), approximately how much do unit manufacturing costs decline every time cumulative production volume doubles?",
         options: ["1%", "20%", "50%", "0% (costs remain unchanged)"],
         correctAnswerIndex: 1,
@@ -596,6 +606,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "q5-2",
+        flashcardId: "fc-10",
         question: "What is the primary balance sheet impact of capitalizing and amortizing R&D expenditures?",
         options: [
           "It forces the company into immediate bankruptcy",
@@ -700,6 +711,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
     quiz: [
       {
         id: "q6-1",
+        flashcardId: "fc-12",
         question: "According to Clayton Christensen, what does 'Overshooting' in a market mean?",
         options: [
           "A company going bankrupt and shutting its operations",
@@ -713,6 +725,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "q6-2",
+        flashcardId: "fc-15",
         question: "In repeated game theory pricing tournaments, what is the initial move of the 'Tit-for-Tat' strategy?",
         options: [
           "Immediately slashing prices to attack the rival",
@@ -835,6 +848,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
     quiz: [
       {
         id: "q7-1",
+        flashcardId: "fc-13",
         question: "If Costco generates a 4.0% NOPAT profit margin and a 4.0x invested capital turnover, what is its ROIC?",
         options: ["8.0%", "16.0% (4.0% × 4.0)", "1.0%", "40.0%"],
         correctAnswerIndex: 1,
@@ -842,6 +856,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "q7-2",
+        flashcardId: "fc-14",
         question: "What does it mean when a retailer possesses a Negative Cash Conversion Cycle (CCC)?",
         options: [
           "The company is approaching bankruptcy",
@@ -970,6 +985,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
     quiz: [
       {
         id: "q8-1",
+        flashcardId: "fc-18",
         question: "What is the primary advantage of Reverse DCF analysis over traditional discounted cash flow valuation?",
         options: [
           "It eliminates the need for speculative 10-year forecasts by solving for the expectations and moat duration (CAP) embedded in current stock prices",
@@ -983,6 +999,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       },
       {
         id: "q8-2",
+        flashcardId: "fc-17",
         question: "In the Value Stick framework, what does Tiffany's ability to sell a diamond ring for a premium over Costco demonstrate?",
         options: [
           "The mining cost of the diamond increased",

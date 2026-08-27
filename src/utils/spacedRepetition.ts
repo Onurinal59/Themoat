@@ -3,11 +3,21 @@ import { INITIAL_FLASHCARDS } from "../data/flashcardsData";
 
 const STORAGE_KEY = "moat_academy_user_state_v1";
 
+export const PASSING_SCORE_THRESHOLD = 80;
+
 export function loadUserLearningState(): UserLearningState {
   try {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
+      // Migration / Data Validation:
+      // Ensure only modules with quiz score >= 80% are counted in completedModules
+      if (parsed.quizScores && Array.isArray(parsed.completedModules)) {
+        parsed.completedModules = parsed.completedModules.filter((id: number) => {
+          const score = parsed.quizScores[id];
+          return score !== undefined ? score >= PASSING_SCORE_THRESHOLD : true;
+        });
+      }
       return parsed;
     }
   } catch (e) {
@@ -124,4 +134,20 @@ export function checkAndUpdateStreak(state: UserLearningState): UserLearningStat
   };
   saveUserLearningState(updatedState);
   return updatedState;
+}
+
+/**
+ * Returns all flashcards that are due for review based on SM-2 schedule.
+ */
+export function getDueFlashcards(
+  userState: UserLearningState,
+  baseFlashcards: Flashcard[]
+): Flashcard[] {
+  const now = new Date().getTime();
+  return baseFlashcards
+    .map((card) => userState.flashcardStates[card.id] || card)
+    .filter((card) => {
+      if (!card.nextReviewDate) return true;
+      return new Date(card.nextReviewDate).getTime() <= now;
+    });
 }

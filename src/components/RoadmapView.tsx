@@ -4,6 +4,7 @@ import { LearningModule, UserLearningState } from "../types";
 import { NavTab } from "./Navbar";
 import { SimTab } from "./SimulationsView";
 import { useLanguage } from "../context/LanguageContext";
+import { getDueFlashcards } from "../utils/spacedRepetition";
 import {
   CheckCircle2,
   Clock,
@@ -28,7 +29,7 @@ interface RoadmapViewProps {
   onOpenGlossary: () => void;
   onOpenAICoach: () => void;
   onOpenGuide?: () => void;
-  onNavigateTab?: (tab: NavTab, sim?: SimTab) => void;
+  onNavigateTab?: (tab: NavTab, sim?: SimTab, filter?: "all" | "due" | "missed" | number) => void;
 }
 
 export const RoadmapView: React.FC<RoadmapViewProps> = ({
@@ -39,8 +40,10 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
   onOpenGuide,
   onNavigateTab,
 }) => {
-  const { isEnglish, t, getModules } = useLanguage();
+  const { isEnglish, t, getModules, getFlashcards } = useLanguage();
   const modules = getModules();
+  const baseFlashcards = getFlashcards();
+  const dueCards = getDueFlashcards(userState, baseFlashcards);
 
   const completedCount = userState.completedModules.length;
   const progressPercent = Math.round((completedCount / modules.length) * 100);
@@ -280,6 +283,44 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
             <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">{isEnglish ? "Solidify mental models in your long-term memory." : "Öğrendiğiniz finansal zihinsel modelleri kalıcı hafızaya kazıyın."}</p>
           </motion.button>
       </div>
+
+      {/* Due for Spaced Review Reminder Card */}
+      {dueCards.length > 0 && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-transparent border border-purple-500/30 dark:border-purple-500/25 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm"
+        >
+          <div className="flex items-start sm:items-center gap-3.5">
+            <div className="w-10 h-10 rounded-2xl bg-purple-500/20 text-purple-700 dark:text-purple-300 flex items-center justify-center shrink-0 mt-0.5 sm:mt-0">
+              <Sparkles className="w-5 h-5" />
+            </div>
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 flex-wrap">
+                <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-slate-100">
+                  {isEnglish ? "Due for Spaced Review" : "Günü Gelen Aralıklı Tekrarlar"}
+                </h3>
+                <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-purple-100 dark:bg-purple-950/70 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+                  {isEnglish ? `${dueCards.length} Cards Ready` : `${dueCards.length} Kart Bekliyor`}
+                </span>
+              </div>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
+                {isEnglish
+                  ? "Keep your mental models sharp. The SM-2 spaced repetition algorithm recommends reviewing these cards today to prevent recall fade."
+                  : "Zihinsel modellerini taze tut. SM-2 algoritması, hafıza erimesini önlemek için bugün bu kavramları gözden geçirmeni öneriyor."}
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => onNavigateTab ? onNavigateTab("spaced-repetition", undefined, "due") : undefined}
+            className="shrink-0 self-end sm:self-auto px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md shadow-purple-600/20 active:scale-98 cursor-pointer min-h-[44px]"
+          >
+            <span>{isEnglish ? "Start Due Review" : "Tekrar Kuyruğunu Başlat"}</span>
+            <ArrowRight className="w-4 h-4 shrink-0" />
+          </button>
+        </motion.div>
+      )}
 
       {/* The Mastery Timeline */}
       <div className="relative mt-6 sm:mt-8">

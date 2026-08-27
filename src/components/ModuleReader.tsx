@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { LearningModule, UserLearningState } from "../types";
 import { useLanguage } from "../context/LanguageContext";
+import { PASSING_SCORE_THRESHOLD } from "../utils/spacedRepetition";
 import { RoicWaccSim } from "./simulators/RoicWaccSim";
 import { DickinsonLifecycleSim } from "./simulators/DickinsonLifecycleSim";
 import { ValueStickSim } from "./simulators/ValueStickSim";
@@ -60,6 +61,7 @@ interface ModuleReaderProps {
   onOpenGlossary: (termId?: string) => void;
   onOpenLabSim?: (simId: SimTab) => void;
   onOpenFormulaWorkshop?: (formulaId: string) => void;
+  onReviewMissedInFlashcards?: (moduleId: number, cardIds: string[]) => void;
 }
 
 // Module to Lab Simulator Mapping for "Kendin Dene" feature
@@ -200,6 +202,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
   onOpenGlossary,
   onOpenLabSim,
   onOpenFormulaWorkshop,
+  onReviewMissedInFlashcards,
 }) => {
   const { isEnglish, getFormulaGuides } = useLanguage();
   const formulaGuidesMap = getFormulaGuides();
@@ -223,8 +226,16 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
   const isPrerequisiteMet = prevModule ? userState.completedModules.includes(prevModule.id) : true;
   const isPreviewMode = !isCurrentModuleCompleted && !isPrerequisiteMet;
 
-  const isCurrentQuizPassed = isQuizSubmitted && quizScore !== null && quizScore >= 66;
+  const isCurrentQuizPassed = isQuizSubmitted && quizScore !== null && quizScore >= PASSING_SCORE_THRESHOLD;
   const isNextModuleNormalLearning = isCurrentModuleCompleted || isCurrentQuizPassed;
+
+  // Identify missed questions and map to their flashcard IDs
+  const missedQuestions = isQuizSubmitted
+    ? module.quiz.filter((q) => selectedAnswers[q.id] !== q.correctAnswerIndex)
+    : [];
+  const missedFlashcardIds = Array.from(
+    new Set(missedQuestions.map((q) => q.flashcardId).filter(Boolean))
+  ) as string[];
 
   const handleOptionSelect = (questionId: string, optionIndex: number) => {
     if (isQuizSubmitted) return;
@@ -249,13 +260,13 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
     setQuizScore(score);
     setIsQuizSubmitted(true);
 
-    // Only mark module complete and unlock next step if passed (>= 66%)
-    if (score >= 66 || module.quiz.length === 0) {
+    // Only mark module complete and unlock next step if passed (>= 80%)
+    if (score >= PASSING_SCORE_THRESHOLD || module.quiz.length === 0) {
       onCompleteModule(module.id, score);
     }
 
-    // Trigger confetti if high score
-    if (score >= 66) {
+    // Trigger confetti if mastery achieved
+    if (score >= PASSING_SCORE_THRESHOLD) {
       confetti({
         particleCount: 80,
         spread: 70,
@@ -999,7 +1010,71 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
           })}
         </div>
 
-        {/* Quiz Submit Bar */}
+        {/* Mastery Result Feedback Box */}
+        {isQuizSubmitted && !isPreviewMode && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className={`p-4 sm:p-5 rounded-2xl border ${
+              isCurrentQuizPassed
+                ? "bg-emerald-50/90 dark:bg-emerald-950/40 border-emerald-300 dark:border-emerald-800 text-emerald-950 dark:text-emerald-100"
+                : "bg-amber-50/90 dark:bg-amber-950/40 border-amber-300 dark:border-amber-800 text-amber-950 dark:text-amber-100"
+            }`}
+          >
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="flex items-start gap-3">
+                <div
+                  className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5 ${
+                    isCurrentQuizPassed
+                      ? "bg-emerald-500/20 text-emerald-700 dark:text-emerald-300"
+                      : "bg-amber-500/20 text-amber-700 dark:text-amber-300"
+                  }`}
+                >
+                  {isCurrentQuizPassed ? (
+                    <Trophy className="w-5 h-5" />
+                  ) : (
+                    <AlertCircle className="w-5 h-5" />
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="font-extrabold text-sm sm:text-base">
+                      {isCurrentQuizPassed
+                        ? isEnglish
+                          ? `Passed 🎉 • ${quizScore}% Score`
+                          : `Geçtiniz 🎉 • %${quizScore} Başarı Puanı`
+                        : isEnglish
+                        ? `Not Yet Mastered • ${quizScore}% Score`
+                        : `Henüz Ustalaşılmadı • %${quizScore} Puan`}
+                    </span>
+                    <span
+                      className={`text-xs px-2 py-0.5 rounded-md font-bold uppercase ${
+                        isCurrentQuizPassed
+                          ? "bg-emerald-200/60 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-200"
+                          : "bg-amber-200/60 dark:bg-amber-900/60 text-amber-800 dark:text-amber-200"
+                      }`}
+                    >
+                      {isCurrentQuizPassed
+                        ? isEnglish ? "Mastery Achieved (≥80%)" : "Ustalık Sağlandı (≥%80)"
+                        : isEnglish ? "80% Required to Complete" : "Tamamlamak İçin En Az %80 Gerekir"}
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm leading-relaxed opacity-90">
+                    {isCurrentQuizPassed
+                      ? isEnglish
+                        ? "Outstanding work! You have satisfied the mastery criteria and unlocked the next module in your learning roadmap."
+                        : "Harika iş! Ustalık kriterini başarıyla sağladınız ve yol haritanızdaki sonraki adımın kilidini açtınız."
+                      : isEnglish
+                      ? "To count this module as completed and save your progress, review the key concepts you missed and retake the quiz. You can also explore subsequent lessons in preview mode anytime."
+                      : "Bu modülü tamamlandı saymak ve ilerlemenizi kaydetmek için kaçırdığınız kavramları gözden geçirin ve testi tekrar çözün. Dilerseniz sonraki dersleri önizleme modunda incelemeye devam edebilirsiniz."}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {/* Quiz Submit & Action Bar */}
         <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
           <div className="text-xs text-slate-500 dark:text-slate-400">
             {isPreviewMode ? (
@@ -1013,8 +1088,8 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               <span className="font-bold text-slate-900 dark:text-slate-100 flex items-center gap-1.5">
                 <Trophy className="w-4 h-4 text-amber-500 shrink-0" />
                 {isEnglish
-                  ? `Your Score: ${quizScore}% (${quizScore! >= 66 ? "Passed 🎉" : "Review Recommended"})`
-                  : `Başarı Puanınız: %${quizScore} (${quizScore! >= 66 ? "Geçtiniz 🎉" : "Gözden Geçiriniz"})`}
+                  ? `Your Score: ${quizScore}% (${isCurrentQuizPassed ? "Passed 🎉" : "Not yet mastered — 80% required"})`
+                  : `Başarı Puanınız: %${quizScore} (${isCurrentQuizPassed ? "Geçtiniz 🎉" : "Henüz ustalaşılmadı — en az %80 gerekli"})`}
               </span>
             ) : (
               <span>{isEnglish ? "Select your answers and submit to verify." : "Cevaplarınızı seçtikten sonra sonucu kontrol edin."}</span>
@@ -1064,15 +1139,34 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               </motion.button>
             )
           ) : (
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={handleResetQuiz}
-              className="w-full sm:w-auto px-6 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
-            >
-              <RotateCcw className="w-4 h-4 shrink-0" />
-              <span>{isEnglish ? "Retake Quiz to Unlock Next Step" : "Kilidi Açmak İçin Testi Tekrar Çöz"}</span>
-            </motion.button>
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
+              {missedFlashcardIds.length > 0 && onReviewMissedInFlashcards && (
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => onReviewMissedInFlashcards(module.id, missedFlashcardIds)}
+                  className="w-full sm:w-auto px-4 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs sm:text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
+                  title={isEnglish ? "Study missed concepts in flashcards" : "Kaçırılan kavramları flashcard'larda tekrar et"}
+                >
+                  <BookOpen className="w-4 h-4 shrink-0" />
+                  <span>
+                    {isEnglish
+                      ? `Review missed concepts in Flashcards (${missedFlashcardIds.length})`
+                      : `Kaçırılan kavramları Flashcard'larda çalış (${missedFlashcardIds.length})`}
+                  </span>
+                </motion.button>
+              )}
+
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleResetQuiz}
+                className="w-full sm:w-auto px-5 py-3 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs sm:text-sm font-bold shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[44px]"
+              >
+                <RotateCcw className="w-4 h-4 shrink-0" />
+                <span>{isEnglish ? "Retake Quiz" : "Testi Tekrar Çöz"}</span>
+              </motion.button>
+            </div>
           )}
         </div>
       </div>
