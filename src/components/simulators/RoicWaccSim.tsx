@@ -215,20 +215,31 @@ export const RoicWaccSim: React.FC = () => {
           <span>{isEnglish ? "Select Benchmark Scenario:" : "Örnek Senaryo Şablonu Seçin:"}</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
-          {PRESET_COMPANIES.map((p, idx) => (
-            <button
-              key={idx}
-              onClick={() => handleApplyPreset(p)}
-              className="p-3 text-left rounded-2xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/80 dark:hover:bg-indigo-950/60 border border-slate-200/80 dark:border-slate-700/60 hover:border-indigo-300 dark:hover:border-indigo-700/80 transition-all cursor-pointer group space-y-1 min-h-[44px]"
-            >
-              <div className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 line-clamp-1">
-                {isEnglish ? p.nameEn : p.nameTr}
-              </div>
-              <div className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-tight">
-                {isEnglish ? p.descEn : p.descTr}
-              </div>
-            </button>
-          ))}
+          {PRESET_COMPANIES.map((p, idx) => {
+            const isSelected =
+              investedCapital === p.capital &&
+              nopat === p.nopat &&
+              wacc === p.wacc;
+
+            return (
+              <button
+                key={idx}
+                onClick={() => handleApplyPreset(p)}
+                className={`p-3 text-left rounded-2xl border transition-all cursor-pointer group space-y-1.5 min-h-[72px] sm:min-h-[44px] ${
+                  isSelected
+                    ? "bg-indigo-50/90 dark:bg-indigo-950/80 border-indigo-400 dark:border-indigo-600 ring-1 ring-indigo-500/20 shadow-xs"
+                    : "bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/80 dark:hover:bg-indigo-950/60 border-slate-200/80 dark:border-slate-700/60 hover:border-indigo-300 dark:hover:border-indigo-700/80"
+                }`}
+              >
+                <div className="text-xs font-bold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 line-clamp-2 lg:line-clamp-1 leading-snug break-words">
+                  {isEnglish ? p.nameEn : p.nameTr}
+                </div>
+                <div className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 leading-tight">
+                  {isEnglish ? p.descEn : p.descTr}
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
 
