@@ -192,6 +192,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isToolsActive = ["company-audit", "moat-duel", "spaced-repetition"].includes(activeTab);
   const activeToolItem = TOOLS_ITEMS.find((item) => item.id === activeTab);
 
+  const toggleToolsMenu = () => {
+    setIsToolsOpen((isOpen) => !isOpen);
+  };
+
+  const handleToolsTriggerKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      toggleToolsMenu();
+    }
+  };
+
   const handleTabClick = (tabId: NavTab) => {
     setActiveTab(tabId);
     setIsMobileDrawerOpen(false);
@@ -282,13 +293,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                   type="button"
                   ref={toolsButtonRef}
                   id="nav-dropdown-tools-toggle"
-                  onClick={() => setIsToolsOpen((prev) => !prev)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      setIsToolsOpen((prev) => !prev);
-                    }
-                  }}
+                  onClick={toggleToolsMenu}
+                  onKeyDown={handleToolsTriggerKeyDown}
                   aria-haspopup="true"
                   aria-expanded={isToolsOpen}
                   aria-controls="tools-duel-menu"
