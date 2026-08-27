@@ -82,7 +82,11 @@ export const MoatDuelView: React.FC<MoatDuelViewProps> = ({
   };
 
   const handleCopyComparison = () => {
-    const summary = isEnglish
+    const disclaimer = isEnglish
+      ? `Educational scenario report — not investment advice.\nThis comparison uses illustrative teaching inputs and may not represent current verified company data, valuation, or price targets.\nVerify the latest company filings, source dates, and your own assumptions before using it outside this learning exercise.\n\n`
+      : `Eğitimsel senaryo raporu — yatırım tavsiyesi değildir.\nBu karşılaştırma temsili eğitim girdilerini kullanır; güncel şirket verisi, değerleme veya fiyat hedeflerini yansıtmayabilir.\nBu öğrenme egzersizi dışında kullanmadan önce en güncel şirket raporlarını, veri tarihlerini ve kendi varsayımlarınızı doğrulayın.\n\n`;
+
+    const summary = disclaimer + (isEnglish
       ? `⚔️ MAUBOUSSIN MOAT DUEL REPORT:
 ------------------------------------------
 Company 1: ${comp1.companyName} (${comp1.ticker})
@@ -140,7 +144,7 @@ ${
     : marginWinner === 2 && turnoverWinner === 1
     ? `📌 ${comp2.companyName} Yüksek Fiyatlama/Marj avantajıyla, ${comp1.companyName} ise Yıldırım Hızında Sermaye Devri ile değer yaratmaktadır.`
     : ""
-}`;
+}`);
 
     navigator.clipboard.writeText(summary);
     setCopied(true);
@@ -180,9 +184,19 @@ ${
               : "Mauboussin'e göre ekonomik hendek mutlak bir sayı değil, rakiplere karşı sağlanan göreli üstünlüktür. İki şirketin DuPont ayrıştırmasını, fiyatlama gücünü, sermaye devir hızını ve CAP ömrünü kafa kafaya test edin."}
           </p>
 
+          {/* Educational Disclaimer */}
+          <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/50 rounded-xl text-[11px] sm:text-xs text-amber-800 dark:text-amber-300/90 leading-relaxed font-medium">
+            {isEnglish
+              ? "Educational scenario template — company labels are used to demonstrate the Mauboussin framework. The displayed inputs and outputs may be illustrative and are not current verified company data, a valuation, a price target, or investment advice. Verify the latest company filings, source dates, and your own assumptions before any real-world decision."
+              : "Eğitimsel senaryo şablonu — şirket etiketleri Mauboussin çerçevesini göstermek için kullanılmıştır. Görüntülenen veriler ve sonuçlar temsilidir; güncel doğrulanmış şirket verisi, değerleme, fiyat hedefi veya yatırım tavsiyesi değildir. Gerçek kararlar almadan önce en güncel şirket raporlarını, veri tarihlerini ve kendi varsayımlarınızı doğrulayın."}
+          </div>
+
           {/* Quick preset matchup tags */}
           <div className="pt-2 flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-slate-500 dark:text-slate-400 text-[11px] font-semibold">{isEnglish ? "Quick Matchup Presets:" : "Hızlı Karşılaştırma Önerileri:"}</span>
+            <span className="text-slate-500 dark:text-slate-400 text-[11px] font-semibold flex items-center gap-1.5 flex-wrap">
+              {isEnglish ? "Quick Matchup Presets:" : "Hızlı Karşılaştırma Önerileri:"}
+              <span className="text-amber-600 dark:text-amber-400 font-normal">({isEnglish ? "Illustrative teaching scenario — not current company data." : "Eğitimsel senaryo — güncel şirket verisi değildir."})</span>
+            </span>
             {dossiers.length >= 2 && (
               <>
                 <button
@@ -253,8 +267,9 @@ ${
           overallWinner === 1 ? "border-indigo-500 ring-2 ring-indigo-500/20" : "border-slate-200 dark:border-slate-800"
         }`}>
           {overallWinner === 1 && (
-            <div className="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-indigo-600 text-white text-[11px] font-extrabold flex items-center gap-1 shadow-sm">
-              <Award className="w-3.5 h-3.5 text-amber-300" /> {isEnglish ? "Duel Winner" : "Düello Galibi"}
+            <div className="absolute -top-3 right-6 px-3 py-1 rounded-full bg-indigo-600 text-white text-[10px] font-extrabold flex flex-col items-center shadow-sm">
+              <span className="flex items-center gap-1"><Award className="w-3.5 h-3.5 text-amber-300" /> {isEnglish ? "Illustrative model outcome" : "Eğitim modeli sonucu"}</span>
+              <span className="text-[9px] text-indigo-200 font-medium">{isEnglish ? "Based on selected educational inputs." : "Seçilen eğitim girdilerine dayanır."}</span>
             </div>
           )}
 
@@ -337,7 +352,7 @@ ${
 
           {/* Estimated CAP */}
           <div className="p-3 rounded-2xl bg-indigo-50/50 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 flex items-center justify-between text-xs">
-            <span className="font-semibold text-slate-600 dark:text-slate-300">{isEnglish ? "Estimated CAP Duration:" : "Tahmini Hendek Ömrü (CAP):"}</span>
+            <span className="font-semibold text-slate-600 dark:text-slate-300">{isEnglish ? "Illustrative CAP assumption:" : "Temsili CAP varsayımı:"}</span>
             <span className="font-extrabold text-indigo-700 dark:text-indigo-300">
               {comp1.sustainability.estimatedCapYears} {isEnglish ? "Years" : "Yıl"}
             </span>
@@ -349,8 +364,9 @@ ${
           overallWinner === 2 ? "border-rose-500 ring-2 ring-rose-500/20" : "border-slate-200 dark:border-slate-800"
         }`}>
           {overallWinner === 2 && (
-            <div className="absolute -top-3 right-6 px-3 py-0.5 rounded-full bg-rose-600 text-white text-[11px] font-extrabold flex items-center gap-1 shadow-sm">
-              <Award className="w-3.5 h-3.5 text-amber-300" /> {isEnglish ? "Duel Winner" : "Düello Galibi"}
+            <div className="absolute -top-3 right-6 px-3 py-1 rounded-full bg-rose-600 text-white text-[10px] font-extrabold flex flex-col items-center shadow-sm">
+              <span className="flex items-center gap-1"><Award className="w-3.5 h-3.5 text-amber-300" /> {isEnglish ? "Illustrative model outcome" : "Eğitim modeli sonucu"}</span>
+              <span className="text-[9px] text-rose-200 font-medium">{isEnglish ? "Based on selected educational inputs." : "Seçilen eğitim girdilerine dayanır."}</span>
             </div>
           )}
 
@@ -433,7 +449,7 @@ ${
 
           {/* Estimated CAP */}
           <div className="p-3 rounded-2xl bg-rose-50/50 dark:bg-rose-950/30 border border-rose-100 dark:border-rose-900/40 flex items-center justify-between text-xs">
-            <span className="font-semibold text-slate-600 dark:text-slate-300">{isEnglish ? "Estimated CAP Duration:" : "Tahmini Hendek Ömrü (CAP):"}</span>
+            <span className="font-semibold text-slate-600 dark:text-slate-300">{isEnglish ? "Illustrative CAP assumption:" : "Temsili CAP varsayımı:"}</span>
             <span className="font-extrabold text-rose-700 dark:text-rose-300">
               {comp2.sustainability.estimatedCapYears} {isEnglish ? "Years" : "Yıl"}
             </span>
@@ -484,8 +500,8 @@ ${
                 <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{fin2.spread}%</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                   {spreadWinner === 1
-                    ? (isEnglish ? `${comp1.ticker} creates higher net economic value for shareholders` : `${comp1.ticker} hissedarına daha yüksek net katma değer bırakıyor`)
-                    : (isEnglish ? `${comp2.ticker} creates higher net economic value for shareholders` : `${comp2.ticker} hissedarına daha yüksek net katma değer bırakıyor`)}
+                    ? (isEnglish ? `Under these illustrative inputs, ${comp1.ticker} shows a higher economic spread in this educational model.` : `Bu temsili girdilerle, ${comp1.ticker} modelde daha yüksek yayılım gösterir.`)
+                    : (isEnglish ? `Under these illustrative inputs, ${comp2.ticker} shows a higher economic spread in this educational model.` : `Bu temsili girdilerle, ${comp2.ticker} modelde daha yüksek yayılım gösterir.`)}
                 </td>
               </tr>
 
@@ -496,8 +512,8 @@ ${
                 <td className="py-3 px-4 text-rose-700 dark:text-rose-300 font-bold">{fin2.nopatMarginPercent}%</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                   {marginWinner === 1
-                    ? (isEnglish ? `${comp1.ticker} commands a higher price premium or has lower unit costs` : `${comp1.ticker} ürününü daha yüksek primle satabiliyor veya birim maliyeti düşük`)
-                    : (isEnglish ? `${comp2.ticker} commands a higher price premium or has lower unit costs` : `${comp2.ticker} ürününü daha yüksek primle satabiliyor veya birim maliyeti düşük`)}
+                    ? (isEnglish ? `Under these illustrative inputs, ${comp1.ticker} shows a higher modeled margin; this is not a current company conclusion.` : `Temsili girdilerle, ${comp1.ticker} daha yüksek marj gösterir; güncel şirket analizi değildir.`)
+                    : (isEnglish ? `Under these illustrative inputs, ${comp2.ticker} shows a higher modeled margin; this is not a current company conclusion.` : `Temsili girdilerle, ${comp2.ticker} daha yüksek marj gösterir; güncel şirket analizi değildir.`)}
                 </td>
               </tr>
 
@@ -508,8 +524,8 @@ ${
                 <td className="py-3 px-4 text-rose-700 dark:text-rose-300 font-bold">{fin2.capitalTurnover}x</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                   {turnoverWinner === 1
-                    ? (isEnglish ? `${comp1.ticker} generates superior revenue relative to its asset base` : `${comp1.ticker} az sermaye ile çok yüksek ciro çeviriyor`)
-                    : (isEnglish ? `${comp2.ticker} generates superior revenue relative to its asset base` : `${comp2.ticker} az sermaye ile çok yüksek ciro çeviriyor`)}
+                    ? (isEnglish ? `Under these illustrative inputs, ${comp1.ticker} shows higher modeled capital turnover.` : `Temsili girdilerle, ${comp1.ticker} daha yüksek sermaye devri gösterir.`)
+                    : (isEnglish ? `Under these illustrative inputs, ${comp2.ticker} shows higher modeled capital turnover.` : `Temsili girdilerle, ${comp2.ticker} daha yüksek sermaye devri gösterir.`)}
                 </td>
               </tr>
 
@@ -529,7 +545,7 @@ ${
                 <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{comp1.sustainability.estimatedCapYears} {isEnglish ? "Years" : "Yıl"}</td>
                 <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{comp2.sustainability.estimatedCapYears} {isEnglish ? "Years" : "Yıl"}</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
-                  {isEnglish ? "Expected duration before competitors erode economic excess returns" : "Rakiplerin kârlılığı eritene kadar geçmesi beklenen koruma süresi"}
+                  {isEnglish ? "Teaching assumption for the competitive-advantage duration in this model." : "Bu modeldeki rekabet avantajı süresi için eğitim varsayımı."}
                 </td>
               </tr>
             </tbody>
@@ -549,19 +565,19 @@ ${
               <span>
                 {isEnglish ? (
                   <>
-                    This matchup is a classic textbook example of <strong>DuPont dichotomy</strong>! One company creates shareholder value through high pricing power and fat margins, while the other wins through high-velocity asset turnover.
+                    This matchup is a classic textbook example of <strong>DuPont dichotomy</strong> under the selected teaching inputs! One company creates shareholder value through high pricing power and fat margins, while the other wins through high-velocity asset turnover.
                   </>
                 ) : (
                   <>
-                    Bu düello tam bir <strong>DuPont karşıtlığı</strong> örneğidir! Şirketlerden biri yüksek fiyatlama/marj stratejisiyle, diğeri ise hızlı sermaye dönüşüyle değer yaratmaktadır.
+                    Bu düello seçilen eğitim girdileri altında tam bir <strong>DuPont karşıtlığı</strong> örneğidir! Şirketlerden biri yüksek fiyatlama/marj stratejisiyle, diğeri ise hızlı sermaye dönüşüyle değer yaratmaktadır.
                   </>
                 )}
               </span>
             ) : (
               <span>
                 {isEnglish
-                  ? "Duel results clearly highlight how each firm's competitive advantages diverge in capital markets."
-                  : "Düello sonuçları iki şirketin rekabetçi güçlerinin sermaye piyasalarında nasıl farklılaşacağını açıkça ortaya koymaktadır."}
+                  ? "Duel results clearly highlight how each firm's competitive advantages diverge in capital markets under the selected teaching inputs."
+                  : "Düello sonuçları iki şirketin rekabetçi güçlerinin sermaye piyasalarında seçilen eğitim girdilerine göre nasıl farklılaştığını açıkça ortaya koymaktadır."}
               </span>
             )}
           </p>
