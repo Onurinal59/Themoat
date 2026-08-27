@@ -94,12 +94,35 @@ export const Navbar: React.FC<NavbarProps> = ({
   const { language, setLanguage, isEnglish, t } = useLanguage();
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
   const [isUtilitiesOpen, setIsUtilitiesOpen] = useState(false);
-  const [isToolsOpen, setIsToolsOpen] = useState(false);
+  const [isToolsMenuOpen, setIsToolsMenuOpen] = useState(false);
 
   const utilitiesRef = useRef<HTMLDivElement>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
-  const toolsButtonRef = useRef<HTMLButtonElement>(null);
+  const toolsTriggerRef = useRef<HTMLButtonElement>(null);
   const utilitiesButtonRef = useRef<HTMLButtonElement>(null);
+
+  const openToolsMenu = () => {
+    setIsToolsMenuOpen(true);
+  };
+
+  const toggleToolsMenu = () => {
+    setIsToolsMenuOpen((isOpen) => !isOpen);
+  };
+
+  const closeToolsMenu = () => {
+    setIsToolsMenuOpen(false);
+    requestAnimationFrame(() => toolsTriggerRef.current?.focus());
+  };
+
+  const handleToolsTriggerKeyUp = (
+    event: React.KeyboardEvent<HTMLButtonElement>
+  ) => {
+    if (event.key !== "Enter") return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    openToolsMenu();
+  };
 
   // Close dropdowns on outside click or Escape key
   useEffect(() => {
@@ -109,15 +132,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         setIsUtilitiesOpen(false);
       }
       if (toolsRef.current && !toolsRef.current.contains(target)) {
-        setIsToolsOpen(false);
+        setIsToolsMenuOpen(false);
       }
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        if (isToolsOpen) {
-          setIsToolsOpen(false);
-          toolsButtonRef.current?.focus();
+        if (isToolsMenuOpen) {
+          closeToolsMenu();
         }
         if (isUtilitiesOpen) {
           setIsUtilitiesOpen(false);
@@ -133,7 +155,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isToolsOpen, isUtilitiesOpen]);
+  }, [isToolsMenuOpen, isUtilitiesOpen]);
 
   // Primary 4 Essential Navigation Tasks (Always visible on desktop)
   const PRIMARY_NAV_ITEMS: {
@@ -192,22 +214,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isToolsActive = ["company-audit", "moat-duel", "spaced-repetition"].includes(activeTab);
   const activeToolItem = TOOLS_ITEMS.find((item) => item.id === activeTab);
 
-  const toggleToolsMenu = () => {
-    setIsToolsOpen((isOpen) => !isOpen);
-  };
-
-  const handleToolsTriggerKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      event.currentTarget.click();
-    }
-  };
-
   const handleTabClick = (tabId: NavTab) => {
     setActiveTab(tabId);
     setIsMobileDrawerOpen(false);
     setIsUtilitiesOpen(false);
-    setIsToolsOpen(false);
+    setIsToolsMenuOpen(false);
   };
 
   return (
@@ -291,12 +302,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div className="relative" ref={toolsRef}>
                 <button
                   type="button"
-                  ref={toolsButtonRef}
+                  ref={toolsTriggerRef}
                   id="nav-dropdown-tools-toggle"
                   onClick={toggleToolsMenu}
-                  onKeyDown={handleToolsTriggerKeyDown}
+                  onKeyUp={handleToolsTriggerKeyUp}
                   aria-haspopup="true"
-                  aria-expanded={isToolsOpen}
+                  aria-expanded={isToolsMenuOpen}
                   aria-controls="tools-duel-menu"
                   aria-label={isEnglish ? "Tools and Duel" : "Uygulama ve Düello"}
                   className={`relative min-h-[44px] flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer select-none whitespace-nowrap z-10 ${
@@ -326,14 +337,14 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </span>
                   <ChevronDown
                     className={`w-3.5 h-3.5 transition-transform duration-200 ${
-                      isToolsOpen ? "rotate-180 text-indigo-600 dark:text-indigo-400" : "text-slate-400"
+                      isToolsMenuOpen ? "rotate-180 text-indigo-600 dark:text-indigo-400" : "text-slate-400"
                     }`}
                   />
                 </button>
 
                 {/* Tools Dropdown Panel */}
                 <AnimatePresence>
-                  {isToolsOpen && (
+                  {isToolsMenuOpen && (
                     <motion.div
                       id="tools-duel-menu"
                       initial={{ opacity: 0, y: 8, scale: 0.96 }}
