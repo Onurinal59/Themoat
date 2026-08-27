@@ -93,7 +93,7 @@ export const SimulationsView: React.FC<SimulationsViewProps> = ({
     { id: "dupont", label: "7. DuPont ROIC Röntgeni", icon: TrendingUp, badge: "Marj vs Hız", step: "Adım 7" },
     { id: "ccc", label: "Nakit Dönüşüm (CCC)", icon: Clock, badge: "Amazon vs B&N", step: "Adım 7+" },
     { id: "reverse-dcf", label: "8. Tersine DCF & CAP", icon: Target, badge: "İleri Değerleme", step: "Adım 8" },
-    { id: "checklist", label: "Sustainable Value Creation Checklist", icon: CheckSquare, badge: "Morgan Stanley", step: "Final" },
+    { id: "checklist", label: "Sürdürülebilir Değer Yaratımı Kontrol Listesi", icon: CheckSquare, badge: "Morgan Stanley", step: "Final" },
   ];
 
   const SIMS_EN = [
@@ -143,7 +143,7 @@ export const SimulationsView: React.FC<SimulationsViewProps> = ({
         <p className="mt-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           {isEnglish
             ? "From Step 1 ROIC & Moat Castle calculations to Step 8 Reverse DCF (Implied CAP duration) and the Sustainable Value Creation Checklist: test real scenarios with interactive parameters."
-            : "1. Adımdaki ROIC & Şato Hendeği hesaplamasından 8. Adımdaki Tersine DCF (Zımni CAP süresi) ve Sustainable Value Creation Checklist'e kadar tüm modelleri dinamik parametrelerle deneyimleyin."}
+            : "1. Adımdaki ROIC & Şato Hendeği hesaplamasından 8. Adımdaki Tersine DCF (Zımni CAP süresi) ve Sürdürülebilir Değer Yaratımı Kontrol Listesi'ne kadar tüm modelleri dinamik parametrelerle deneyimleyin."}
         </p>
       </div>
 

@@ -871,7 +871,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
       scopeNote: "Reverse DCF and the Checklist are analytical frameworks adapted from the report for educational assessment of competitive durability.",
       assumptions: [
         "Implied CAP is an analytical interpretation of market price, not a guaranteed future outcome.",
-        "The checklist adapts the original 75 questions into focused operational items."
+        "Mauboussin & Callahan’s 'Checklist for Measuring Sustainable Value Creation' comprises 75 questions and sub-items. The 22 working criteria in this educational tool have been adapted from this broader framework for practical student analysis."
       ]
     },
     moduleBridge: {
@@ -948,7 +948,7 @@ export const MODULES_DATA_EN: LearningModule[] = [
         title: "3. Sustainable Value Creation Checklist",
         summary: "A systematic audit across 5 categories adapted from the report's methodology.",
         content: [
-          "Mauboussin & Callahan's 'Checklist for Measuring Sustainable Value Creation' (pp. 67–69) comprises 75 questions and sub-items. For practical educational analysis, this framework is adapted into focused working criteria across 5 dimensions:",
+          "Mauboussin & Callahan's 'Checklist for Measuring Sustainable Value Creation' comprises 75 questions and sub-items. The 22 working criteria in this educational tool have been adapted from this broader framework for practical student analysis across 5 dimensions:",
           "1. Industry Structure & Profit Pool (Buyer/Supplier bargaining power)",
           "2. Entry Barriers & Scale Advantages (MES, Wright's Law, Network Effects)",
           "3. Customer Advantages & Switching Costs (WTP ceiling, Lock-in)",

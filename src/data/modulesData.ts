@@ -869,7 +869,7 @@ export const MODULES_DATA: LearningModule[] = [
       scopeNote: "Tersine DCF ve Kontrol Listesi, şirketin piyasa beklentilerini ve rekabet avantajını sistematik denetlemek için rapordan uyarlanmış analitik çerçevelerdir.",
       assumptions: [
         "Tersine DCF çıktısı piyasa beklentisinin analitik bir yorumudur, kesin tahmin değildir.",
-        "Kontrol listesi rapordaki 75 maddelik orijinal anketten odak çalışma sorularına uyarlanmıştır."
+        "Mauboussin & Callahan’ın 'Checklist for Measuring Sustainable Value Creation' çalışması 75 soru ve alt maddeden oluşur. Bu eğitim aracındaki 22 çalışma kriteri, öğrencilerin uygulama yapabilmesi için bu daha geniş çerçeveden sadeleştirilmiştir."
       ]
     },
     moduleBridge: {
@@ -946,7 +946,7 @@ export const MODULES_DATA: LearningModule[] = [
         title: "3. Sustainable Value Creation Checklist",
         summary: "Bir şirketi analiz ederken rapordaki metodolojiden uyarlanan odak sorularla sistematik denetim.",
         content: [
-          "Mauboussin ve Callahan'ın 'Checklist for Measuring Sustainable Value Creation' (ss. 67–69) bölümü toplam 75 soru ve alt sorudan oluşur. Bu akademide, öğrencilerin pratik yapabilmesi için bu sorular 5 ana kategoride odak çalışma maddelerine uyarlanmıştır:",
+          "Mauboussin & Callahan’ın 'Checklist for Measuring Sustainable Value Creation' çalışması 75 soru ve alt maddeden oluşur. Bu eğitim aracındaki 22 çalışma kriteri, öğrencilerin uygulama yapabilmesi için bu daha geniş çerçeveden 5 ana boyutta sadeleştirilmiştir:",
           "1. Sektör Yapısı ve Kâr Havuzu (Tedarikçi/Müşteri pazarlık gücü)",
           "2. Giriş Engelleri ve Ölçek Avantajları (MES, Wright Yasası, Ağ Etkisi)",
           "3. Tüketici Avantajları ve Geçiş Maliyetleri (WTP tavanı, Lock-in)",

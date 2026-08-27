@@ -144,16 +144,16 @@ export const MoatChecklistSim: React.FC = () => {
               {isEnglish ? "Module 1-8 Comprehensive Diagnostic" : "Modül 1-8 Kapsamlı Hendek Testi"}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {isEnglish ? "Sustainable Value Creation Checklist (Adapted from Mauboussin & Callahan 2024)" : "Sürdürülebilir Değer Yaratma Kontrol Listesi (Mauboussin & Callahan 2024 Raporundan Uyarlanmıştır)"}
+              {isEnglish ? "Sustainable Value Creation Checklist (Adapted from Mauboussin & Callahan 2024)" : "Sürdürülebilir Değer Yaratımı Kontrol Listesi (Mauboussin & Callahan 2024 Raporundan Uyarlanmıştır)"}
             </span>
           </div>
           <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {isEnglish ? "Sustainable Value Creation Checklist" : "Sürdürülebilir Değer Yaratma Kontrol Listesi"}
+            {isEnglish ? "Sustainable Value Creation Checklist" : "Sürdürülebilir Değer Yaratımı Kontrol Listesi"}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
             {isEnglish
-              ? "Audit any target company against core criteria across 5 structural dimensions. (Adapted from Mauboussin & Callahan 2024, pp. 67–69)."
-              : "Herhangi bir şirketi 5 stratejik boyuttaki kriterlere göre denetleyin. (Mauboussin & Callahan 2024 raporu ss. 67–69'daki sorulardan uyarlanmıştır)."}
+              ? "22 education-focused working criteria, adapted from the report’s broader 75 questions and sub-items. This is a focused study tool, not a full reproduction of the source checklist."
+              : "Bu araç, rapordaki daha kapsamlı 75 soru ve alt maddeden öğrencilerin uygulama yapabilmesi için sadeleştirilmiş 22 eğitim odaklı çalışma kriteri içerir. Kaynak checklistin tam kopyası değildir."}
           </p>
         </div>
 
@@ -189,14 +189,23 @@ export const MoatChecklistSim: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left Column: Category Filter & Checklist Items (5 cols) */}
         <div className="lg:col-span-5 space-y-3 bg-slate-50 dark:bg-slate-800/40 p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-slate-800">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-              <CheckSquare className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-              {isEnglish ? "Audit Checklist:" : "Denetim Maddeleri:"}
-            </h3>
-            <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
-              {checkedCount} / {totalItems} (%{scorePercent})
-            </span>
+          <div className="space-y-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
+                <CheckSquare className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                <span>{isEnglish ? "Sustainable Value Creation Checklist" : "Sürdürülebilir Değer Yaratımı Kontrol Listesi"}</span>
+              </h3>
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 inline-flex items-center self-start sm:self-auto shrink-0">
+                {isEnglish
+                  ? `${checkedCount} / ${totalItems} guided learning criteria completed`
+                  : `${totalItems} yönlendirilmiş öğrenme kriterinden ${checkedCount}’si tamamlandı`}
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+              {isEnglish
+                ? "22 education-focused working criteria, adapted from the report’s broader 75 questions and sub-items. This is a focused study tool, not a full reproduction of the source checklist."
+                : "Bu araç, rapordaki daha kapsamlı 75 soru ve alt maddeden öğrencilerin uygulama yapabilmesi için sadeleştirilmiş 22 eğitim odaklı çalışma kriteri içerir. Kaynak checklistin tam kopyası değildir."}
+            </p>
           </div>
 
           {/* Category Tabs */}
