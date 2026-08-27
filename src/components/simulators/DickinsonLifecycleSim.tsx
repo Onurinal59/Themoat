@@ -346,8 +346,10 @@ export const DickinsonLifecycleSim: React.FC = () => {
                 {operatingSign === "+" ? (isEnglish ? "+ Inflow" : "+ Giriş") : (isEnglish ? "- Outflow" : "- Çıkış")}
               </span>
             </div>
-            <div className="flex gap-2 pt-1">
+            <div className="flex gap-2 pt-1" role="group" aria-label={isEnglish ? "Operating Cash Flow Sign" : "Faaliyet Nakit Akışı Yönü"}>
               <button
+                type="button"
+                aria-pressed={operatingSign === "+"}
                 onClick={() => setOperatingSign("+")}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   operatingSign === "+"
@@ -358,6 +360,8 @@ export const DickinsonLifecycleSim: React.FC = () => {
                 {isEnglish ? "+ Generates Cash" : "+ Nakit Üretiyor"}
               </button>
               <button
+                type="button"
+                aria-pressed={operatingSign === "-"}
                 onClick={() => setOperatingSign("-")}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   operatingSign === "-"
@@ -380,8 +384,10 @@ export const DickinsonLifecycleSim: React.FC = () => {
                 {investingSign === "-" ? (isEnglish ? "- CapEx" : "- Yatırım") : (isEnglish ? "+ Divest" : "+ Satış")}
               </span>
             </div>
-            <div className="flex gap-2 pt-1">
+            <div className="flex gap-2 pt-1" role="group" aria-label={isEnglish ? "Investing Cash Flow Sign" : "Yatırım Nakit Akışı Yönü"}>
               <button
+                type="button"
+                aria-pressed={investingSign === "-"}
                 onClick={() => setInvestingSign("-")}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   investingSign === "-"
@@ -392,6 +398,8 @@ export const DickinsonLifecycleSim: React.FC = () => {
                 {isEnglish ? "- CapEx Reinvest" : "- Yatırım Yapıyor"}
               </button>
               <button
+                type="button"
+                aria-pressed={investingSign === "+"}
                 onClick={() => setInvestingSign("+")}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   investingSign === "+"
@@ -414,8 +422,10 @@ export const DickinsonLifecycleSim: React.FC = () => {
                 {financingSign === "-" ? (isEnglish ? "- Dividend/Debt" : "- Geri Ödeme") : (isEnglish ? "+ Capital Raise" : "+ Borçlanma")}
               </span>
             </div>
-            <div className="flex gap-2 pt-1">
+            <div className="flex gap-2 pt-1" role="group" aria-label={isEnglish ? "Financing Cash Flow Sign" : "Finansman Nakit Akışı Yönü"}>
               <button
+                type="button"
+                aria-pressed={financingSign === "+"}
                 onClick={() => setFinancingSign("+")}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   financingSign === "+"
@@ -426,6 +436,8 @@ export const DickinsonLifecycleSim: React.FC = () => {
                 {isEnglish ? "+ Raising Debt/Equity" : "+ Dış Kaynak Çekiyor"}
               </button>
               <button
+                type="button"
+                aria-pressed={financingSign === "-"}
                 onClick={() => setFinancingSign("-")}
                 className={`flex-1 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                   financingSign === "-"
@@ -542,7 +554,7 @@ export const DickinsonLifecycleSim: React.FC = () => {
           </div>
 
           {/* Dynamic Glassmorphic Diagnosis Card */}
-          <div className={`p-5 rounded-2xl border ${currentStage.badgeBg} space-y-3.5 shadow-sm`}>
+          <div role="status" aria-live="polite" className={`p-5 rounded-2xl border ${currentStage.badgeBg} space-y-3.5 shadow-sm`}>
             <div className="flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold uppercase tracking-wider opacity-80 block">

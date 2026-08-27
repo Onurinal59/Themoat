@@ -50,17 +50,21 @@ export const Footer: React.FC<FooterProps> = ({
 
             <div className="flex items-center gap-2">
               <button
+                type="button"
                 onClick={onOpenGuide}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-colors cursor-pointer"
+                aria-label={isEnglish ? "Open Academy Guide" : "Akademi Rehberini Aç"}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200/80 dark:border-indigo-800/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-colors cursor-pointer min-h-[44px]"
               >
-                <HelpCircle className="w-3.5 h-3.5" />
+                <HelpCircle className="w-4 h-4" />
                 <span>{isEnglish ? "Academy Guide" : "Akademi Rehberi"}</span>
               </button>
               <button
+                type="button"
                 onClick={onOpenAICoach}
-                className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-semibold text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/60 border border-purple-200/80 dark:border-purple-800/60 hover:bg-purple-100 dark:hover:bg-purple-900/60 transition-colors cursor-pointer"
+                aria-label={isEnglish ? "Open Socratic AI Coach" : "Sokratik AI Koçunu Aç"}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-purple-700 dark:text-purple-300 bg-purple-50 dark:bg-purple-950/60 border border-purple-200/80 dark:border-purple-800/60 hover:bg-purple-100 dark:hover:bg-purple-900/60 transition-colors cursor-pointer min-h-[44px]"
               >
-                <Sparkles className="w-3.5 h-3.5 text-purple-500" />
+                <Sparkles className="w-4 h-4 text-purple-500" />
                 <span>{isEnglish ? "Socratic AI Coach" : "Sokratik AI Koçu"}</span>
               </button>
             </div>
@@ -116,7 +120,7 @@ export const Footer: React.FC<FooterProps> = ({
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Onur İnal LinkedIn Profile"
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-[#0A66C2] hover:bg-[#004182] text-white shadow-xs hover:shadow-md transition-all cursor-pointer group"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#0A66C2] hover:bg-[#004182] text-white shadow-xs hover:shadow-md transition-all cursor-pointer group min-h-[44px]"
                 >
                   <Linkedin className="w-3.5 h-3.5 fill-current" />
                   <span>LinkedIn</span>
@@ -136,11 +140,12 @@ export const Footer: React.FC<FooterProps> = ({
               <GraduationCap className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               {t("footer.education", "Eğitim & Modüller")}
             </span>
-            <ul className="space-y-2 text-xs">
+            <ul className="space-y-1 text-xs">
               <li>
                 <button
+                  type="button"
                   onClick={() => onNavigateTab("roadmap")}
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 text-left cursor-pointer"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 text-left cursor-pointer min-h-[44px] py-2 w-full"
                 >
                   <BookOpen className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                   <span>{isEnglish ? "8-Step Learning Roadmap" : "8 Aşamalı Öğrenim Yol Haritası"}</span>
@@ -148,8 +153,9 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
+                  type="button"
                   onClick={() => onNavigateTab("formulas")}
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 text-left cursor-pointer"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 text-left cursor-pointer min-h-[44px] py-2 w-full"
                 >
                   <Calculator className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                   <span>{isEnglish ? "Formula & X-Ray Workshop" : "Formül & Röntgen Atölyesi"}</span>
@@ -157,8 +163,9 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
+                  type="button"
                   onClick={() => onNavigateTab("company-audit")}
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 text-left cursor-pointer"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 text-left cursor-pointer min-h-[44px] py-2 w-full"
                 >
                   <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                   <span>{isEnglish ? "Company Audit Studio (10-K & SEC)" : "Şirket Analiz Stüdyosu (10-K & KAP)"}</span>
@@ -166,8 +173,9 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button
+                  type="button"
                   onClick={() => onNavigateTab("moat-duel")}
-                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 text-left cursor-pointer"
+                  className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors flex items-center gap-2 text-left cursor-pointer min-h-[44px] py-2 w-full"
                 >
                   <ShieldCheck className="w-3.5 h-3.5 text-slate-400 shrink-0" />
                   <span>{isEnglish ? "Company Moat Duel" : "Şirket Hendek Düellosu"}</span>
@@ -184,32 +192,36 @@ export const Footer: React.FC<FooterProps> = ({
             </span>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               <button
+                type="button"
                 onClick={() => onNavigateTab("simulators")}
-                className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/60 dark:hover:bg-indigo-950/40 border border-slate-200 dark:border-slate-700/60 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-left cursor-pointer flex flex-col gap-0.5"
+                className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/60 dark:hover:bg-indigo-950/40 border border-slate-200 dark:border-slate-700/60 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-left cursor-pointer flex flex-col justify-center gap-0.5 min-h-[48px]"
               >
                 <span className="font-bold text-slate-800 dark:text-slate-200">{isEnglish ? "11 Interactive Simulators" : "11 İnteraktif Simülatör"}</span>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400">ROIC, DuPont, CCC, DCF</span>
               </button>
 
               <button
+                type="button"
                 onClick={() => onNavigateTab("spaced-repetition")}
-                className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/60 dark:hover:bg-indigo-950/40 border border-slate-200 dark:border-slate-700/60 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-left cursor-pointer flex flex-col gap-0.5"
+                className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/60 dark:hover:bg-indigo-950/40 border border-slate-200 dark:border-slate-700/60 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-left cursor-pointer flex flex-col justify-center gap-0.5 min-h-[48px]"
               >
                 <span className="font-bold text-slate-800 dark:text-slate-200">{isEnglish ? "Spaced Repetition" : "Aralıklı Tekrarlama"}</span>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400">SuperMemo-2</span>
               </button>
 
               <button
+                type="button"
                 onClick={onOpenGlossary}
-                className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/60 dark:hover:bg-indigo-950/40 border border-slate-200 dark:border-slate-700/60 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-left cursor-pointer flex flex-col gap-0.5"
+                className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/60 dark:hover:bg-indigo-950/40 border border-slate-200 dark:border-slate-700/60 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all text-left cursor-pointer flex flex-col justify-center gap-0.5 min-h-[48px]"
               >
                 <span className="font-bold text-slate-800 dark:text-slate-200">{isEnglish ? "Glossary" : "Kapsamlı Sözlük"}</span>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400">{isEnglish ? "Finance & Strategy Terms" : "Finans & Strateji Terimleri"}</span>
               </button>
 
               <button
+                type="button"
                 onClick={onOpenAICoach}
-                className="p-2.5 rounded-xl bg-purple-50/60 dark:bg-purple-950/30 hover:bg-purple-100/60 dark:hover:bg-purple-900/40 border border-purple-200/80 dark:border-purple-800/60 hover:border-purple-400 dark:hover:border-purple-600 transition-all text-left cursor-pointer flex flex-col gap-0.5"
+                className="p-2.5 rounded-xl bg-purple-50/60 dark:bg-purple-950/30 hover:bg-purple-100/60 dark:hover:bg-purple-900/40 border border-purple-200/80 dark:border-purple-800/60 hover:border-purple-400 dark:hover:border-purple-600 transition-all text-left cursor-pointer flex flex-col justify-center gap-0.5 min-h-[48px]"
               >
                 <span className="font-bold text-purple-900 dark:text-purple-200 flex items-center gap-1">
                   <Sparkles className="w-3 h-3 text-purple-600 dark:text-purple-400" />

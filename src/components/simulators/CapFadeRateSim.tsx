@@ -196,19 +196,26 @@ export const CapFadeRateSim: React.FC = () => {
           {/* Initial ROIC */}
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="font-bold text-slate-700 dark:text-slate-300">
+              <label
+                id="cap-slider-initial-roic-label"
+                htmlFor="cap-slider-initial-roic"
+                className="font-bold text-slate-700 dark:text-slate-300 cursor-pointer"
+              >
                 {isEnglish ? "Initial ROIC" : "Başlangıç ROIC Oranı"}
-              </span>
+              </label>
               <span className="font-black text-emerald-600 dark:text-emerald-400 font-mono">
                 %{initialRoic}
               </span>
             </div>
             <input
+              id="cap-slider-initial-roic"
               type="range"
               min="10"
               max="60"
               step="1"
               value={initialRoic}
+              aria-labelledby="cap-slider-initial-roic-label"
+              aria-valuetext={`ROIC %${initialRoic}`}
               onChange={(e) => setInitialRoic(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"
             />
@@ -217,19 +224,26 @@ export const CapFadeRateSim: React.FC = () => {
           {/* WACC */}
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="font-bold text-slate-700 dark:text-slate-300">
+              <label
+                id="cap-slider-wacc-label"
+                htmlFor="cap-slider-wacc"
+                className="font-bold text-slate-700 dark:text-slate-300 cursor-pointer"
+              >
                 {isEnglish ? "Cost of Capital (WACC)" : "Sermaye Maliyeti (WACC)"}
-              </span>
+              </label>
               <span className="font-black text-rose-500 font-mono">
                 %{wacc}
               </span>
             </div>
             <input
+              id="cap-slider-wacc"
               type="range"
               min="5"
               max="15"
               step="0.5"
               value={wacc}
+              aria-labelledby="cap-slider-wacc-label"
+              aria-valuetext={`WACC %${wacc}`}
               onChange={(e) => setWacc(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-rose-500"
             />
@@ -238,9 +252,13 @@ export const CapFadeRateSim: React.FC = () => {
           {/* Fade Rate */}
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="font-bold text-slate-700 dark:text-slate-300">
+              <label
+                id="cap-slider-fade-rate-label"
+                htmlFor="cap-slider-fade-rate"
+                className="font-bold text-slate-700 dark:text-slate-300 cursor-pointer"
+              >
                 {isEnglish ? "Fade Rate (Decay Velocity)" : "Aşınma Hızı (Fade Rate)"}
-              </span>
+              </label>
               <span className="font-black text-indigo-500 font-mono">
                 {fadeRate < 0.06
                   ? isEnglish ? "Very Slow (Wide)" : "Çok Yavaş (Geniş)"
@@ -250,15 +268,19 @@ export const CapFadeRateSim: React.FC = () => {
               </span>
             </div>
             <input
+              id="cap-slider-fade-rate"
               type="range"
               min="0.02"
               max="0.50"
               step="0.02"
               value={fadeRate}
+              aria-labelledby="cap-slider-fade-rate-label"
+              aria-describedby="cap-slider-fade-rate-desc"
+              aria-valuetext={`Fade rate ${fadeRate}`}
               onChange={(e) => setFadeRate(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"
             />
-            <p className="text-[11px] text-slate-500">
+            <p id="cap-slider-fade-rate-desc" className="text-[11px] text-slate-500">
               {isEnglish
                 ? "Lower fade rate = stronger barriers to entry protecting high returns."
                 : "Düşük aşınma hızı = rakipleri dışarıda tutan güçlü giriş engelleri."}
@@ -268,19 +290,26 @@ export const CapFadeRateSim: React.FC = () => {
           {/* Invested Capital */}
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="font-bold text-slate-700 dark:text-slate-300">
+              <label
+                id="cap-slider-invested-capital-label"
+                htmlFor="cap-slider-invested-capital"
+                className="font-bold text-slate-700 dark:text-slate-300 cursor-pointer"
+              >
                 {isEnglish ? "Invested Capital" : "Yatırılan Sermaye"}
-              </span>
+              </label>
               <span className="font-black text-slate-900 dark:text-white font-mono">
                 ${investedCapital}M
               </span>
             </div>
             <input
+              id="cap-slider-invested-capital"
               type="range"
               min="100"
               max="5000"
               step="100"
               value={investedCapital}
+              aria-labelledby="cap-slider-invested-capital-label"
+              aria-valuetext={`$${investedCapital} million`}
               onChange={(e) => setInvestedCapital(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-slate-600"
             />
@@ -346,7 +375,7 @@ export const CapFadeRateSim: React.FC = () => {
           </div>
 
           {/* Key Output Metric Cards */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+          <div role="status" aria-live="polite" className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
             <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
               <span className="text-[10px] font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block">
                 {isEnglish ? "Calculated CAP (Years)" : "İma Edilen CAP Süresi"}

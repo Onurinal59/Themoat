@@ -262,10 +262,14 @@ export const RoicWaccSim: React.FC = () => {
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/60 space-y-2.5 shadow-2xs">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-200 block">
+                <label
+                  id="roic-slider-invested-capital-label"
+                  htmlFor="roic-slider-invested-capital"
+                  className="text-xs font-bold text-slate-800 dark:text-slate-200 block cursor-pointer"
+                >
                   {isEnglish ? "1. Invested Capital ($M):" : "1. Yatırılan Sermaye ($M):"}
-                </span>
-                <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                </label>
+                <span id="roic-slider-invested-capital-desc" className="text-[11px] text-slate-500 dark:text-slate-400">
                   {isEnglish ? "Net Working Capital + Net Fixed Assets" : "Net İşletme Sermayesi + Net Duran Varlıklar"}
                 </span>
               </div>
@@ -275,6 +279,7 @@ export const RoicWaccSim: React.FC = () => {
                   onClick={() => setInvestedCapital((v) => Math.max(500, v - 2500))}
                   className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
                   title="-2500"
+                  aria-label={isEnglish ? "Decrease Invested Capital by 2500 million" : "Yatırılan Sermayeyi 2500 milyon azalt"}
                 >
                   <Minus className="w-3 h-3" />
                 </button>
@@ -286,17 +291,22 @@ export const RoicWaccSim: React.FC = () => {
                   onClick={() => setInvestedCapital((v) => Math.min(150000, v + 2500))}
                   className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
                   title="+2500"
+                  aria-label={isEnglish ? "Increase Invested Capital by 2500 million" : "Yatırılan Sermayeyi 2500 milyon artır"}
                 >
                   <Plus className="w-3 h-3" />
                 </button>
               </div>
             </div>
             <input
+              id="roic-slider-invested-capital"
               type="range"
               min={500}
               max={150000}
               step={500}
               value={investedCapital}
+              aria-labelledby="roic-slider-invested-capital-label"
+              aria-describedby="roic-slider-invested-capital-desc"
+              aria-valuetext={`$${investedCapital.toLocaleString()} million`}
               onChange={(e) => setInvestedCapital(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
             />
@@ -311,10 +321,14 @@ export const RoicWaccSim: React.FC = () => {
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/60 space-y-2.5 shadow-2xs">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-200 block">
+                <label
+                  id="roic-slider-nopat-label"
+                  htmlFor="roic-slider-nopat"
+                  className="text-xs font-bold text-slate-800 dark:text-slate-200 block cursor-pointer"
+                >
                   {isEnglish ? "2. Annual NOPAT ($M):" : "2. Yıllık NOPAT ($M):"}
-                </span>
-                <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                </label>
+                <span id="roic-slider-nopat-desc" className="text-[11px] text-slate-500 dark:text-slate-400">
                   {isEnglish ? "EBIT × (1 - t) Net Operating Profit" : "Vergi Sonrası Net Faaliyet Kârı"}
                 </span>
               </div>
@@ -324,6 +338,7 @@ export const RoicWaccSim: React.FC = () => {
                   onClick={() => setNopat((v) => Math.max(100, v - 500))}
                   className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
                   title="-500"
+                  aria-label={isEnglish ? "Decrease NOPAT by 500 million" : "NOPAT'ı 500 milyon azalt"}
                 >
                   <Minus className="w-3 h-3" />
                 </button>
@@ -335,17 +350,22 @@ export const RoicWaccSim: React.FC = () => {
                   onClick={() => setNopat((v) => Math.min(40000, v + 500))}
                   className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
                   title="+500"
+                  aria-label={isEnglish ? "Increase NOPAT by 500 million" : "NOPAT'ı 500 milyon artır"}
                 >
                   <Plus className="w-3 h-3" />
                 </button>
               </div>
             </div>
             <input
+              id="roic-slider-nopat"
               type="range"
               min={100}
               max={40000}
               step={100}
               value={nopat}
+              aria-labelledby="roic-slider-nopat-label"
+              aria-describedby="roic-slider-nopat-desc"
+              aria-valuetext={`$${nopat.toLocaleString()} million`}
               onChange={(e) => setNopat(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
             />
@@ -360,10 +380,14 @@ export const RoicWaccSim: React.FC = () => {
           <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/80 dark:border-slate-700/60 space-y-2.5 shadow-2xs">
             <div className="flex items-center justify-between">
               <div>
-                <span className="text-xs font-bold text-slate-800 dark:text-slate-200 block">
+                <label
+                  id="roic-slider-wacc-label"
+                  htmlFor="roic-slider-wacc"
+                  className="text-xs font-bold text-slate-800 dark:text-slate-200 block cursor-pointer"
+                >
                   {isEnglish ? "3. Cost of Capital (WACC %):" : "3. Sermaye Maliyeti (WACC %):"}
-                </span>
-                <span className="text-[11px] text-slate-500 dark:text-slate-400">
+                </label>
+                <span id="roic-slider-wacc-desc" className="text-[11px] text-slate-500 dark:text-slate-400">
                   {isEnglish ? "Blended Cost of Equity + After-Tax Debt" : "Özsermaye ve Net Borçlanma Ağırlıklı Ortalaması"}
                 </span>
               </div>
@@ -373,6 +397,7 @@ export const RoicWaccSim: React.FC = () => {
                   onClick={() => setWacc((v) => Math.max(4.0, Number((v - 0.5).toFixed(1))))}
                   className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
                   title="-0.5%"
+                  aria-label={isEnglish ? "Decrease WACC by 0.5 percent" : "WACC'yi yüzde 0.5 azalt"}
                 >
                   <Minus className="w-3 h-3" />
                 </button>
@@ -384,17 +409,22 @@ export const RoicWaccSim: React.FC = () => {
                   onClick={() => setWacc((v) => Math.min(22.0, Number((v + 0.5).toFixed(1))))}
                   className="w-7 h-7 rounded-lg bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 flex items-center justify-center text-xs font-bold cursor-pointer"
                   title="+0.5%"
+                  aria-label={isEnglish ? "Increase WACC by 0.5 percent" : "WACC'yi yüzde 0.5 artır"}
                 >
                   <Plus className="w-3 h-3" />
                 </button>
               </div>
             </div>
             <input
+              id="roic-slider-wacc"
               type="range"
               min={4.0}
               max={22.0}
               step={0.2}
               value={wacc}
+              aria-labelledby="roic-slider-wacc-label"
+              aria-describedby="roic-slider-wacc-desc"
+              aria-valuetext={`${wacc.toFixed(1)} percent`}
               onChange={(e) => setWacc(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
             />
@@ -445,6 +475,8 @@ export const RoicWaccSim: React.FC = () => {
 
           {/* Dynamic Result Card with High-Contrast Dual Indicators (Colors + Labels + Icons) */}
           <div
+            role="status"
+            aria-live="polite"
             className={`p-4 sm:p-5 rounded-2xl border transition-all ${
               isValueCreating
                 ? "bg-emerald-50/90 dark:bg-emerald-950/40 border-emerald-300/80 dark:border-emerald-700/60 shadow-sm"

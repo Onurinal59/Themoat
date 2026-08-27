@@ -957,12 +957,12 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             const isCorrect = selectedOpt === q.correctAnswerIndex;
 
             return (
-              <div key={q.id} className="space-y-3">
-                <div className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 leading-snug">
+              <fieldset key={q.id} className="space-y-3 border-0 p-0 m-0">
+                <legend className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100 leading-snug">
                   {qIdx + 1}. {q.question}
-                </div>
+                </legend>
 
-                <div className="space-y-2.5">
+                <div className="space-y-2.5" role="radiogroup" aria-label={`${isEnglish ? "Question" : "Soru"} ${qIdx + 1}`}>
                   {q.options.map((opt, optIdx) => {
                     const isSelected = selectedOpt === optIdx;
                     let optStyle = "bg-slate-50 dark:bg-slate-800/60 border-slate-200 dark:border-slate-700 hover:border-indigo-300 text-slate-700 dark:text-slate-300";
@@ -974,23 +974,38 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                         optStyle = "bg-rose-50 dark:bg-rose-950/60 border-rose-400 dark:border-rose-600 text-rose-900 dark:text-rose-200";
                       }
                     } else if (isSelected) {
-                      optStyle = "bg-indigo-50 dark:bg-indigo-950/60 border-indigo-500 text-indigo-950 dark:text-indigo-100 font-bold shadow-2xs";
+                      optStyle = "bg-indigo-50 dark:bg-indigo-950/60 border-indigo-500 text-indigo-950 dark:text-indigo-100 font-bold shadow-2xs ring-1 ring-indigo-400";
                     }
 
                     return (
-                      <motion.button
+                      <label
                         key={optIdx}
-                        whileHover={{ scale: isQuizSubmitted ? 1 : 1.01 }}
-                        whileTap={{ scale: isQuizSubmitted ? 1 : 0.99 }}
-                        disabled={isQuizSubmitted}
-                        onClick={() => handleOptionSelect(q.id, optIdx)}
-                        className={`w-full text-left p-3.5 rounded-xl border text-sm transition-all flex items-start gap-3 min-h-[46px] cursor-pointer ${optStyle}`}
+                        htmlFor={`q-${q.id}-opt-${optIdx}`}
+                        className={`w-full text-left p-3.5 rounded-xl border text-sm transition-all flex items-start gap-3 min-h-[46px] select-none ${
+                          isQuizSubmitted ? "cursor-default opacity-95" : "cursor-pointer hover:bg-slate-100/70 dark:hover:bg-slate-800"
+                        } ${optStyle}`}
                       >
-                        <span className="w-5 h-5 rounded-full border border-current flex items-center justify-center font-mono font-bold text-xs shrink-0 mt-0.5">
+                        <input
+                          type="radio"
+                          id={`q-${q.id}-opt-${optIdx}`}
+                          name={`quiz-question-${q.id}`}
+                          value={optIdx}
+                          checked={isSelected}
+                          disabled={isQuizSubmitted}
+                          onChange={() => handleOptionSelect(q.id, optIdx)}
+                          className="sr-only"
+                          aria-label={`${String.fromCharCode(65 + optIdx)}: ${opt}`}
+                        />
+                        <span
+                          aria-hidden="true"
+                          className={`w-5 h-5 rounded-full border flex items-center justify-center font-mono font-bold text-xs shrink-0 mt-0.5 ${
+                            isSelected ? "border-current bg-indigo-600 text-white dark:bg-indigo-400 dark:text-slate-900" : "border-slate-400 dark:border-slate-600 text-slate-700 dark:text-slate-300"
+                          }`}
+                        >
                           {String.fromCharCode(65 + optIdx)}
                         </span>
                         <span className="flex-1 leading-relaxed">{opt}</span>
-                      </motion.button>
+                      </label>
                     );
                   })}
                 </div>
@@ -998,6 +1013,8 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 {/* Explanation on submit */}
                 {isQuizSubmitted && (
                   <motion.div
+                    role="region"
+                    aria-label={isCorrect ? (isEnglish ? "Correct answer explanation" : "Doğru cevap açıklaması") : (isEnglish ? "Explanation and solution" : "Açıklama ve çözüm")}
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     className={`p-4 rounded-xl text-xs sm:text-sm leading-relaxed border ${
@@ -1014,7 +1031,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                     {q.explanation}
                   </motion.div>
                 )}
-              </div>
+              </fieldset>
             );
           })}
         </div>
@@ -1022,6 +1039,8 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
         {/* Mastery Result Feedback Box */}
         {isQuizSubmitted && !isPreviewMode && (
           <motion.div
+            role="status"
+            aria-live="polite"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             className={`p-4 sm:p-5 rounded-2xl border ${
@@ -1085,7 +1104,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
 
         {/* Quiz Submit & Action Bar */}
         <div className="pt-4 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
-          <div className="text-xs text-slate-500 dark:text-slate-400">
+          <div id="quiz-status-instruction" className="text-xs text-slate-500 dark:text-slate-400">
             {isPreviewMode ? (
               <span className="text-amber-700 dark:text-amber-300 font-semibold flex items-center gap-1.5">
                 <Info className="w-4 h-4 shrink-0" />
@@ -1108,8 +1127,10 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
           {isPreviewMode ? (
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
               <button
+                type="button"
                 disabled
                 aria-disabled="true"
+                aria-describedby="quiz-status-instruction"
                 className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-400 dark:text-slate-500 text-sm font-bold opacity-75 cursor-not-allowed min-h-[44px] select-none"
               >
                 {isEnglish ? "Complete Test & Save Score" : "Testi Tamamla & Puanı Kaydet"}
@@ -1117,9 +1138,11 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             </div>
           ) : !isQuizSubmitted ? (
             <motion.button
+              type="button"
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               disabled={Object.keys(selectedAnswers).length < module.quiz.length}
+              aria-describedby="quiz-status-instruction"
               onClick={handleSubmitQuiz}
               className="w-full sm:w-auto px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-sm font-bold shadow-xs transition-all cursor-pointer min-h-[44px]"
             >
@@ -1128,6 +1151,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
           ) : isNextModuleNormalLearning ? (
             nextModule ? (
               <motion.button
+                type="button"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => onSelectModule(nextModule)}
@@ -1138,6 +1162,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               </motion.button>
             ) : (
               <motion.button
+                type="button"
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={onBackToRoadmap}
@@ -1151,6 +1176,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
               {missedFlashcardIds.length > 0 && onReviewMissedInFlashcards && (
                 <motion.button
+                  type="button"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => onReviewMissedInFlashcards(module.id, missedFlashcardIds)}
@@ -1167,6 +1193,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               )}
 
               <motion.button
+                type="button"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={handleResetQuiz}

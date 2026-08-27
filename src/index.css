@@ -51,6 +51,22 @@ html {
   scrollbar-width: none !important;
 }
 
+/* Focus-visible universal high-contrast accessibility ring */
+:focus-visible {
+  outline: 3px solid #6366f1 !important;
+  outline-offset: 2px !important;
+}
+.dark :focus-visible {
+  outline: 3px solid #818cf8 !important;
+  outline-offset: 2px !important;
+}
+
+/* Ensure smooth text reflow at 200% zoom */
+.overflow-wrap-anywhere {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
 /* Custom Range Slider Styling */
 input[type="range"] {
   accent-color: #4f46e5;

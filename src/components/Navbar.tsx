@@ -98,6 +98,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const utilitiesRef = useRef<HTMLDivElement>(null);
   const toolsRef = useRef<HTMLDivElement>(null);
+  const toolsButtonRef = useRef<HTMLButtonElement>(null);
+  const utilitiesButtonRef = useRef<HTMLButtonElement>(null);
 
   // Close dropdowns on outside click or Escape key
   useEffect(() => {
@@ -113,8 +115,14 @@ export const Navbar: React.FC<NavbarProps> = ({
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsUtilitiesOpen(false);
-        setIsToolsOpen(false);
+        if (isToolsOpen) {
+          setIsToolsOpen(false);
+          toolsButtonRef.current?.focus();
+        }
+        if (isUtilitiesOpen) {
+          setIsUtilitiesOpen(false);
+          utilitiesButtonRef.current?.focus();
+        }
         setIsMobileDrawerOpen(false);
       }
     };
@@ -125,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [isToolsOpen, isUtilitiesOpen]);
 
   // Primary 4 Essential Navigation Tasks (Always visible on desktop)
   const PRIMARY_NAV_ITEMS: {
@@ -202,13 +210,12 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center justify-between h-16 gap-2 sm:gap-3 w-full min-w-0">
             
             {/* Left: Brand Identity */}
-            <div
+            <button
+              type="button"
               id="nav-brand-logo"
-              className="flex items-center gap-2 sm:gap-2.5 cursor-pointer select-none shrink-0 min-w-0"
+              className="flex items-center gap-2 sm:gap-2.5 cursor-pointer select-none shrink-0 min-w-[44px] min-h-[44px] p-1 text-left rounded-xl"
               onClick={() => handleTabClick("roadmap")}
-              role="button"
-              tabIndex={0}
-              aria-label={isEnglish ? "Economic Moat" : "Ekonomik Hendek"}
+              aria-label={isEnglish ? "Economic Moat Academy Home" : "Ekonomik Hendek Akademisi Ana Sayfa"}
               title={isEnglish ? "Economic Moat" : "Ekonomik Hendek"}
             >
               <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-700 via-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-sm shadow-indigo-500/20 ring-1 ring-white/20 shrink-0">
@@ -227,7 +234,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   Measuring the Moat & ROIC
                 </span>
               </div>
-            </div>
+            </button>
 
             {/* Center: Clean 4-Task Main Nav (Desktop) */}
             <nav
@@ -240,6 +247,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 const isActive = activeTab === item.id;
                 return (
                   <button
+                    type="button"
                     key={item.id}
                     id={`nav-link-${item.id}`}
                     onClick={() => handleTabClick(item.id)}
@@ -271,9 +279,19 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* 4th Essential Task: Tools & Duel Dropdown */}
               <div className="relative" ref={toolsRef}>
                 <button
+                  type="button"
+                  ref={toolsButtonRef}
                   id="nav-dropdown-tools-toggle"
                   onClick={() => setIsToolsOpen(!isToolsOpen)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setIsToolsOpen(!isToolsOpen);
+                    }
+                  }}
                   aria-expanded={isToolsOpen}
+                  aria-controls="tools-duel-menu"
+                  aria-label={isEnglish ? "Tools and Duel" : "Uygulama ve Düello"}
                   className={`relative min-h-[44px] flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer select-none whitespace-nowrap z-10 ${
                     isToolsActive
                       ? "text-indigo-950 dark:text-white"
@@ -310,7 +328,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <AnimatePresence>
                   {isToolsOpen && (
                     <motion.div
-                      id="nav-dropdown-tools-menu"
+                      id="tools-duel-menu"
                       initial={{ opacity: 0, y: 8, scale: 0.96 }}
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.96 }}
@@ -325,6 +343,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                         const isSelected = activeTab === tool.id;
                         return (
                           <button
+                            type="button"
                             key={tool.id}
                             id={`tool-menu-item-${tool.id}`}
                             onClick={() => handleTabClick(tool.id)}
@@ -392,10 +411,19 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Single Unified "Araçlar" / "Tools" Hub */}
               <div className="relative" ref={utilitiesRef}>
                 <button
+                  type="button"
+                  ref={utilitiesButtonRef}
                   id="btn-tools-menu-toggle"
                   onClick={() => setIsUtilitiesOpen(!isUtilitiesOpen)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      setIsUtilitiesOpen(!isUtilitiesOpen);
+                    }
+                  }}
                   aria-haspopup="true"
                   aria-expanded={isUtilitiesOpen}
+                  aria-controls="tools-menu-dropdown"
                   aria-label={isEnglish ? "Tools" : "Araçlar"}
                   title={isEnglish ? "Tools" : "Araçlar"}
                   className={`min-h-[44px] min-w-[44px] shrink-0 flex items-center justify-center gap-1.5 px-2.5 min-[480px]:px-3.5 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer whitespace-nowrap select-none focus:outline-hidden focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 ${
@@ -633,7 +661,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl px-4 py-4 space-y-4"
             >
               {/* Primary Nav Links */}
-              <div className="space-y-1">
+              <nav aria-label="Mobile Primary Navigation" className="space-y-1">
                 <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2">
                   {isEnglish ? "Main Navigation" : "Ana Görevler"}
                 </div>
@@ -642,6 +670,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   const isActive = activeTab === item.id;
                   return (
                     <button
+                      type="button"
                       key={item.id}
                       onClick={() => handleTabClick(item.id)}
                       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all min-h-[44px] ${
@@ -655,7 +684,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     </button>
                   );
                 })}
-              </div>
+              </nav>
 
               {/* Tools Section */}
               <div className="space-y-1">
@@ -667,6 +696,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   const isActive = activeTab === tool.id;
                   return (
                     <button
+                      type="button"
                       key={tool.id}
                       onClick={() => handleTabClick(tool.id)}
                       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all min-h-[44px] ${
@@ -684,11 +714,12 @@ export const Navbar: React.FC<NavbarProps> = ({
 
               {/* Socratic AI Coach Mobile Button */}
               <button
+                type="button"
                 onClick={() => {
                   setIsMobileDrawerOpen(false);
                   onOpenAICoach();
                 }}
-                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 text-white text-sm font-extrabold shadow-md min-h-[46px]"
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 text-white text-sm font-extrabold shadow-md min-h-[46px] cursor-pointer"
               >
                 <Sparkles className="w-4 h-4 text-amber-300" />
                 <span>{isEnglish ? "Ask Socratic AI Coach" : "Sokratik AI Koçuna Soru Sor"}</span>

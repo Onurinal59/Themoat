@@ -188,31 +188,42 @@ export const ValueStickSim: React.FC = () => {
           {/* 1. WTP Slider */}
           <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-1.5 shadow-2xs">
             <div className="flex justify-between items-center text-xs">
-              <span className="font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1">
+              <label
+                id="valuestick-slider-wtp-label"
+                htmlFor="valuestick-slider-wtp"
+                className="font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-1 cursor-pointer"
+              >
                 {isEnglish ? "WTP (Willingness to Pay)" : "WTP (Müşteri Ödeme İsteği)"}
-              </span>
+              </label>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
+                  type="button"
                   onClick={() => setWtp(Math.max(price, wtp - 50))}
-                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200"
+                  aria-label={isEnglish ? "Decrease WTP by 50" : "WTP değerini 50 azalt"}
+                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   -
                 </button>
                 <span>${wtp}</span>
                 <button
+                  type="button"
                   onClick={() => setWtp(wtp + 50)}
-                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200"
+                  aria-label={isEnglish ? "Increase WTP by 50" : "WTP değerini 50 artır"}
+                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   +
                 </button>
               </div>
             </div>
             <input
+              id="valuestick-slider-wtp"
               type="range"
               min={price}
               max={Math.max(6000, wtp * 1.5)}
               step={10}
               value={wtp}
+              aria-labelledby="valuestick-slider-wtp-label"
+              aria-valuetext={`WTP $${wtp}`}
               onChange={(e) => setWtp(Number(e.target.value))}
               className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -221,31 +232,42 @@ export const ValueStickSim: React.FC = () => {
           {/* 2. Price Slider */}
           <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-1.5 shadow-2xs">
             <div className="flex justify-between items-center text-xs">
-              <span className="font-bold text-emerald-600 dark:text-emerald-400">
+              <label
+                id="valuestick-slider-price-label"
+                htmlFor="valuestick-slider-price"
+                className="font-bold text-emerald-600 dark:text-emerald-400 cursor-pointer"
+              >
                 {isEnglish ? "Price (Selling Price)" : "Fiyat (Satış Fiyatı)"}
-              </span>
+              </label>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
+                  type="button"
                   onClick={() => setPrice(Math.max(cost, price - 50))}
-                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200"
+                  aria-label={isEnglish ? "Decrease Price by 50" : "Fiyatı 50 azalt"}
+                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   -
                 </button>
                 <span>${price}</span>
                 <button
+                  type="button"
                   onClick={() => setPrice(Math.min(wtp, price + 50))}
-                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200"
+                  aria-label={isEnglish ? "Increase Price by 50" : "Fiyatı 50 artır"}
+                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   +
                 </button>
               </div>
             </div>
             <input
+              id="valuestick-slider-price"
               type="range"
               min={cost}
               max={wtp}
               step={10}
               value={price}
+              aria-labelledby="valuestick-slider-price-label"
+              aria-valuetext={`Price $${price}`}
               onChange={(e) => setPrice(Number(e.target.value))}
               className="w-full accent-emerald-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -254,31 +276,42 @@ export const ValueStickSim: React.FC = () => {
           {/* 3. Cost Slider */}
           <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-1.5 shadow-2xs">
             <div className="flex justify-between items-center text-xs">
-              <span className="font-bold text-amber-600 dark:text-amber-400">
+              <label
+                id="valuestick-slider-cost-label"
+                htmlFor="valuestick-slider-cost"
+                className="font-bold text-amber-600 dark:text-amber-400 cursor-pointer"
+              >
                 {isEnglish ? "Cost (Unit Production Cost)" : "Maliyet (Birim Maliyet)"}
-              </span>
+              </label>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
+                  type="button"
                   onClick={() => setCost(Math.max(wts, cost - 25))}
-                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200"
+                  aria-label={isEnglish ? "Decrease Cost by 25" : "Maliyeti 25 azalt"}
+                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   -
                 </button>
                 <span>${cost}</span>
                 <button
+                  type="button"
                   onClick={() => setCost(Math.min(price, cost + 25))}
-                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200"
+                  aria-label={isEnglish ? "Increase Cost by 25" : "Maliyeti 25 artır"}
+                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   +
                 </button>
               </div>
             </div>
             <input
+              id="valuestick-slider-cost"
               type="range"
               min={wts}
               max={price}
               step={10}
               value={cost}
+              aria-labelledby="valuestick-slider-cost-label"
+              aria-valuetext={`Cost $${cost}`}
               onChange={(e) => setCost(Number(e.target.value))}
               className="w-full accent-amber-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -287,31 +320,42 @@ export const ValueStickSim: React.FC = () => {
           {/* 4. WTS Slider */}
           <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-1.5 shadow-2xs">
             <div className="flex justify-between items-center text-xs">
-              <span className="font-bold text-pink-600 dark:text-pink-400">
+              <label
+                id="valuestick-slider-wts-label"
+                htmlFor="valuestick-slider-wts"
+                className="font-bold text-pink-600 dark:text-pink-400 cursor-pointer"
+              >
                 {isEnglish ? "WTS (Supplier Opportunity Cost)" : "WTS (Tedarikçi Satış Tabanı)"}
-              </span>
+              </label>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
+                  type="button"
                   onClick={() => setWts(Math.max(0, wts - 25))}
-                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200"
+                  aria-label={isEnglish ? "Decrease WTS by 25" : "WTS değerini 25 azalt"}
+                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   -
                 </button>
                 <span>${wts}</span>
                 <button
+                  type="button"
                   onClick={() => setWts(Math.min(cost, wts + 25))}
-                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200"
+                  aria-label={isEnglish ? "Increase WTS by 25" : "WTS değerini 25 artır"}
+                  className="w-5 h-5 rounded bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 flex items-center justify-center text-xs hover:bg-slate-200 cursor-pointer"
                 >
                   +
                 </button>
               </div>
             </div>
             <input
+              id="valuestick-slider-wts"
               type="range"
               min={0}
               max={cost}
               step={10}
               value={wts}
+              aria-labelledby="valuestick-slider-wts-label"
+              aria-valuetext={`WTS $${wts}`}
               onChange={(e) => setWts(Number(e.target.value))}
               className="w-full accent-pink-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -362,7 +406,7 @@ export const ValueStickSim: React.FC = () => {
           </div>
 
           {/* Dynamic 3-Way Surplus Allocation Card */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
+          <div role="status" aria-live="polite" className="p-4 sm:p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-3">
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">
               {isEnglish ? "Surplus Allocation Distribution:" : "3 Taraflı Refah Dağılımı:"}
             </h4>

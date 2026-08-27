@@ -232,6 +232,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen relative text-slate-800 dark:text-slate-100 flex flex-col selection:bg-indigo-500/20 selection:text-indigo-900 dark:selection:text-indigo-200 font-sans overflow-x-clip z-0">
+      {/* Skip to Main Content Link (First focusable element on page) */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-indigo-600 focus:text-white focus:font-bold focus:rounded-xl focus:shadow-2xl focus:ring-4 focus:ring-indigo-400 focus:outline-none transition-all"
+      >
+        {isEnglish ? "Skip to main content" : "Ana içeriğe atla"}
+      </a>
       
       {/* Global Interactive Click Ripple */}
       <GlobalClickEffect />
@@ -268,7 +275,7 @@ export default function App() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-4 sm:pt-8 pb-28 sm:pb-12">
+      <main id="main-content" tabIndex={-1} className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-4 sm:pt-8 pb-28 sm:pb-12 focus:outline-none">
         <React.Suspense fallback={<div className="flex h-64 items-center justify-center text-slate-500 font-medium">Yükleniyor...</div>}>
           <AnimatePresence mode="wait">
             {activeModule ? (
