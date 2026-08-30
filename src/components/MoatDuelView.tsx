@@ -69,10 +69,14 @@ export const MoatDuelView: React.FC<MoatDuelViewProps> = ({
   const spread2 = fin2.spread;
 
   // Winner logic
-  const roicWinner = roic1 > roic2 ? 1 : roic1 < roic2 ? 2 : 0;
+  const roicWinner = !fin1.isRoicMeaningful || !fin2.isRoicMeaningful ? 0 : roic1 > roic2 ? 1 : roic1 < roic2 ? 2 : 0;
   const marginWinner = nopatMargin1 > nopatMargin2 ? 1 : nopatMargin1 < nopatMargin2 ? 2 : 0;
   const turnoverWinner = turnover1 > turnover2 ? 1 : turnover1 < turnover2 ? 2 : 0;
-  const spreadWinner = spread1 > spread2 ? 1 : spread1 < spread2 ? 2 : 0;
+  const spreadWinner = !fin1.isRoicMeaningful || !fin2.isRoicMeaningful ? 0 : spread1 > spread2 ? 1 : spread1 < spread2 ? 2 : 0;
+  const roicLabel1 = fin1.isRoicMeaningful ? formatPercentagePoints(fin1.roicPercent, 1) : "N/M";
+  const roicLabel2 = fin2.isRoicMeaningful ? formatPercentagePoints(fin2.roicPercent, 1) : "N/M";
+  const spreadLabel1 = fin1.isRoicMeaningful ? formatPercentagePoints(fin1.spread, 1) : "N/M";
+  const spreadLabel2 = fin2.isRoicMeaningful ? formatPercentagePoints(fin2.spread, 1) : "N/M";
   const overallWinner = score1.scorePercent > score2.scorePercent ? 1 : score1.scorePercent < score2.scorePercent ? 2 : 0;
 
   // Quick preset pairs
@@ -88,13 +92,13 @@ export const MoatDuelView: React.FC<MoatDuelViewProps> = ({
       ? `⚔️ MAUBOUSSIN MOAT DUEL REPORT:
 ------------------------------------------
 Company 1: ${comp1.companyName} (${comp1.ticker})
-- ROIC: ${formatPercentagePoints(fin1.roicPercent, 1)} | WACC: ${formatPercentagePoints(comp1.financials.wacc, 1)} | Spread: ${formatPercentagePoints(fin1.spread, 1)}
+- ROIC: ${roicLabel1} | WACC: ${formatPercentagePoints(comp1.financials.wacc, 1)} | Spread: ${spreadLabel1}
 - NOPAT Margin: ${formatPercentagePoints(fin1.nopatMarginPercent, 1)} | Capital Turnover: ${formatMultiplier(fin1.capitalTurnover, 2)}
 - Moat Width: ${score1.diagnosedMoat} (Score: ${score1.scorePercent}/100)
 - Estimated CAP: ${comp1.sustainability.estimatedCapYears} Years
 
 Company 2: ${comp2.companyName} (${comp2.ticker})
-- ROIC: ${formatPercentagePoints(fin2.roicPercent, 1)} | WACC: ${formatPercentagePoints(comp2.financials.wacc, 1)} | Spread: ${formatPercentagePoints(fin2.spread, 1)}
+- ROIC: ${roicLabel2} | WACC: ${formatPercentagePoints(comp2.financials.wacc, 1)} | Spread: ${spreadLabel2}
 - NOPAT Margin: ${formatPercentagePoints(fin2.nopatMarginPercent, 1)} | Capital Turnover: ${formatMultiplier(fin2.capitalTurnover, 2)}
 - Moat Width: ${score2.diagnosedMoat} (Score: ${score2.scorePercent}/100)
 - Estimated CAP: ${comp2.sustainability.estimatedCapYears} Years
@@ -117,13 +121,13 @@ ${
       : `⚔️ MAUBOUSSIN HENDEK DÜELLOSU RAPORU:
 ------------------------------------------
 ${t("MoatDuelView.company_1_438")}: ${comp1.companyName} (${comp1.ticker})
-- ROIC: ${formatPercentagePoints(fin1.roicPercent, 1)} | WACC: ${formatPercentagePoints(comp1.financials.wacc, 1)} | Spread: ${formatPercentagePoints(fin1.spread, 1)}
+- ROIC: ${roicLabel1} | WACC: ${formatPercentagePoints(comp1.financials.wacc, 1)} | Spread: ${spreadLabel1}
 - NOPAT Marjı: ${formatPercentagePoints(fin1.nopatMarginPercent, 1)} | Sermaye Devir Hızı: ${formatMultiplier(fin1.capitalTurnover, 2)}
 - Hendek Genişliği: ${score1.diagnosedMoat} (Skor: ${score1.scorePercent}/100)
 - Tahmini CAP: ${comp1.sustainability.estimatedCapYears} Yıl
 
 ${t("MoatDuelView.company_2_439")}: ${comp2.companyName} (${comp2.ticker})
-- ROIC: ${formatPercentagePoints(fin2.roicPercent, 1)} | WACC: ${formatPercentagePoints(comp2.financials.wacc, 1)} | Spread: ${formatPercentagePoints(fin2.spread, 1)}
+- ROIC: ${roicLabel2} | WACC: ${formatPercentagePoints(comp2.financials.wacc, 1)} | Spread: ${spreadLabel2}
 - NOPAT Marjı: ${formatPercentagePoints(fin2.nopatMarginPercent, 1)} | Sermaye Devir Hızı: ${formatMultiplier(fin2.capitalTurnover, 2)}
 - Hendek Genişliği: ${score2.diagnosedMoat} (Skor: ${score2.scorePercent}/100)
 - Tahmini CAP: ${comp2.sustainability.estimatedCapYears} Yıl
@@ -298,7 +302,7 @@ ${
                 ROIC
               </span>
               <span className={`text-lg font-black ${fin1.roicPercent >= 15 ? "text-emerald-600 dark:text-emerald-400" : "text-slate-800 dark:text-slate-200"}`}>
-                {formatPercentagePoints(fin1.roicPercent, 1)}
+                {roicLabel1}
               </span>
             </div>
 
@@ -307,7 +311,7 @@ ${
                 {t("MoatDuelView.economic_spread_451")}
               </span>
               <span className={`text-lg font-black ${fin1.spread > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
-                {fin1.spread > 0 ? `+${formatPercentagePoints(fin1.spread, 1)}` : `${formatPercentagePoints(fin1.spread, 1)}`}
+                {fin1.isRoicMeaningful && fin1.spread > 0 ? `+${spreadLabel1}` : spreadLabel1}
               </span>
             </div>
 
@@ -395,7 +399,7 @@ ${
                 ROIC
               </span>
               <span className={`text-lg font-black ${fin2.roicPercent >= 15 ? "text-emerald-600 dark:text-emerald-400" : "text-slate-800 dark:text-slate-200"}`}>
-                {formatPercentagePoints(fin2.roicPercent, 1)}
+                {roicLabel2}
               </span>
             </div>
 
@@ -404,7 +408,7 @@ ${
                 {t("MoatDuelView.economic_spread_459")}
               </span>
               <span className={`text-lg font-black ${fin2.spread > 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}`}>
-                {fin2.spread > 0 ? `+${formatPercentagePoints(fin2.spread, 1)}` : `${formatPercentagePoints(fin2.spread, 1)}`}
+                {fin2.isRoicMeaningful && fin2.spread > 0 ? `+${spreadLabel2}` : spreadLabel2}
               </span>
             </div>
 
@@ -472,8 +476,8 @@ ${
               {/* ROIC */}
               <tr>
                 <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{t("MoatDuelView.roic_return_on_inves_468")}</td>
-                <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{formatPercentagePoints(fin1.roicPercent, 1)}</td>
-                <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{formatPercentagePoints(fin2.roicPercent, 1)}</td>
+                <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{roicLabel1}</td>
+                <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{roicLabel2}</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                   {roicWinner === 1 ? (
                     <span className="inline-flex items-center gap-1 text-indigo-600 dark:text-indigo-400 font-bold">
@@ -490,8 +494,8 @@ ${
               {/* Spread */}
               <tr>
                 <td className="py-3 px-4 font-bold text-slate-700 dark:text-slate-300">{t("MoatDuelView.economic_spread_roic_472")}</td>
-                <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{formatPercentagePoints(fin1.spread, 1)}</td>
-                <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{formatPercentagePoints(fin2.spread, 1)}</td>
+                <td className="py-3 px-4 font-bold text-indigo-700 dark:text-indigo-300">{spreadLabel1}</td>
+                <td className="py-3 px-4 font-bold text-rose-700 dark:text-rose-300">{spreadLabel2}</td>
                 <td className="py-3 px-4 text-slate-600 dark:text-slate-400">
                   {spreadWinner === 1
                     ? (isEnglish ? `Under these illustrative inputs, ${comp1.ticker} shows a higher economic spread in this educational model.` : `Bu temsili girdilerle, ${comp1.ticker} modelde daha yüksek yayılım gösterir.`)
@@ -604,4 +608,3 @@ ${
     </motion.div>
   );
 };
-

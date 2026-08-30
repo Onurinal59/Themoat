@@ -28,6 +28,23 @@ const AICoachDrawer = React.lazy(() => import("./components/AICoachDrawer").then
 const OnboardingGuideModal = React.lazy(() => import("./components/OnboardingGuideModal").then(m => ({ default: m.OnboardingGuideModal })));
 const FormulaDeepDiveModal = React.lazy(() => import("./components/FormulaDeepDiveModal").then(m => ({ default: m.FormulaDeepDiveModal })));
 
+const NAV_TABS: NavTab[] = ["roadmap", "formulas", "simulators", "company-audit", "moat-duel", "spaced-repetition"];
+const SIM_TABS: SimTab[] = ["roic-wacc", "cap-fade", "reinvestment-runway", "dickinson", "value-stick", "brand-acid-test", "profit-pool", "footnote-detective", "game-theory", "blotto", "dupont", "ccc", "reverse-dcf", "checklist"];
+
+function readLocationState(): { tab: NavTab; moduleId: number | null; sim?: SimTab } {
+  const hash = window.location.hash.slice(1);
+  if (hash.startsWith("module-")) {
+    const moduleId = Number(hash.slice(7));
+    return { tab: "roadmap", moduleId: Number.isInteger(moduleId) && moduleId > 0 ? moduleId : null };
+  }
+  if (hash.startsWith("sim-")) {
+    const sim = hash.slice(4) as SimTab;
+    return { tab: "simulators", moduleId: null, sim: SIM_TABS.includes(sim) ? sim : "reverse-dcf" };
+  }
+  const tab = hash.startsWith("tab-") ? hash.slice(4) : hash;
+  return { tab: NAV_TABS.includes(tab as NavTab) ? tab as NavTab : "roadmap", moduleId: null };
+}
+
 export default function App() {
   const { t, formatPercent, formatCurrency , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const { getModules, isEnglish } = useLanguage();
@@ -79,9 +96,10 @@ export default function App() {
     return INITIAL_PRESET_DOSSIERS;
   };
 
-  const [activeTab, setActiveTab] = useState<NavTab>("roadmap");
-  const [selectedSim, setSelectedSim] = useState<SimTab>("reverse-dcf");
-  const [activeModuleId, setActiveModuleId] = useState<number | null>(null);
+  const initialLocation = readLocationState();
+  const [activeTab, setActiveTab] = useState<NavTab>(initialLocation.tab);
+  const [selectedSim, setSelectedSim] = useState<SimTab>(initialLocation.sim ?? "reverse-dcf");
+  const [activeModuleId, setActiveModuleId] = useState<number | null>(initialLocation.moduleId);
   const [isAICoachOpen, setIsAICoachOpen] = useState(false);
   const [aiCoachPrompt, setAiCoachPrompt] = useState<string | undefined>(undefined);
   const [isGlossaryOpen, setIsGlossaryOpen] = useState(false);
@@ -96,6 +114,26 @@ export default function App() {
   const currentModuleIndex = activeModule ? currentModules.findIndex(m => m.id === activeModule.id) : -1;
   const hasNextModule = currentModuleIndex !== -1 && currentModuleIndex < currentModules.length - 1;
   const isCurrentModuleCompleted = activeModule ? userState.completedModules.includes(activeModule.id) : false;
+
+  useEffect(() => {
+    const applyHash = () => {
+      const state = readLocationState();
+      setActiveTab(state.tab);
+      setActiveModuleId(state.moduleId);
+      if (state.sim) setSelectedSim(state.sim);
+    };
+    window.addEventListener("hashchange", applyHash);
+    return () => window.removeEventListener("hashchange", applyHash);
+  }, []);
+
+  useEffect(() => {
+    const hash = activeModuleId
+      ? `#module-${activeModuleId}`
+      : activeTab === "simulators"
+        ? `#sim-${selectedSim}`
+        : `#${activeTab}`;
+    if (window.location.hash !== hash) window.history.replaceState(null, "", hash);
+  }, [activeTab, activeModuleId, selectedSim]);
 
   const handleNextModuleFromBottomNav = () => {
     if (hasNextModule && activeModule) {
@@ -561,4 +599,3 @@ export default function App() {
     </div>
   );
 }
-

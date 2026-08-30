@@ -774,25 +774,13 @@ export function calculateFinancialOutputs(inputs: FinancialMetricInputs) {
   let capitalTurnover = 0;
   let spread = 0;
   let economicProfit = 0;
+  const isRoicMeaningful = investedCapital > 0;
 
-  if (investedCapital > 0) {
+  if (isRoicMeaningful) {
     roicPercent = (nopat / investedCapital) * 100;
     capitalTurnover = safeRev > 0 ? safeRev / investedCapital : 0;
     spread = roicPercent - safeWacc;
     economicProfit = (spread / 100) * investedCapital;
-  } else {
-    // For negative or near-zero invested capital
-    if (nopat > 0) {
-      roicPercent = 999.9; // Meaningfully capped high ROIC
-      capitalTurnover = 99.9;
-      spread = roicPercent - safeWacc;
-      economicProfit = nopat; 
-    } else {
-      roicPercent = 0;
-      capitalTurnover = 0;
-      spread = 0 - safeWacc;
-      economicProfit = nopat;
-    }
   }
 
   const ensureSafe = (val: number) => (isNaN(val) || !isFinite(val) ? 0 : val);
@@ -805,7 +793,8 @@ export function calculateFinancialOutputs(inputs: FinancialMetricInputs) {
     capitalTurnover: Number(ensureSafe(capitalTurnover).toFixed(2)),
     spread: Number(ensureSafe(spread).toFixed(1)),
     economicProfit: Number(ensureSafe(economicProfit).toFixed(1)),
-    isCreatingValue: ensureSafe(spread) > 0
+    isRoicMeaningful,
+    isCreatingValue: isRoicMeaningful && ensureSafe(spread) > 0
   };
 }
 
@@ -823,7 +812,9 @@ export function computeMoatScore(dossier: CompanyAuditDossier): {
   const fin = calculateFinancialOutputs(dossier.financials);
 
   // Financial Score (Max 35 pts)
-  if (fin.roicPercent >= 25) {
+  if (!fin.isRoicMeaningful) {
+    tags.push("ROIC N/M (Non-positive Invested Capital)");
+  } else if (fin.roicPercent >= 25) {
     score += 25;
     tags.push("Superior ROIC (25%+)");
   } else if (fin.roicPercent >= 15) {
@@ -833,7 +824,9 @@ export function computeMoatScore(dossier: CompanyAuditDossier): {
     score += 8;
   }
 
-  if (fin.spread >= 10) {
+  if (!fin.isRoicMeaningful) {
+    // ROIC and economic spread cannot be interpreted with non-positive invested capital.
+  } else if (fin.spread >= 10) {
     score += 10;
     tags.push("Strong Economic Spread (>10%)");
   } else if (fin.spread > 0) {

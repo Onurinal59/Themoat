@@ -44,6 +44,7 @@ export const TermBadge: React.FC<TermBadgeProps> = ({ termId, label, onOpenFullG
             </div>
             <button
               onClick={() => setIsOpen(false)}
+              aria-label="Bilgi kartını kapat"
               className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               <X className="w-4 h-4" />

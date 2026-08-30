@@ -1,4 +1,5 @@
 import { Flashcard, UserLearningState } from "../types";
+import { toLocalDateKey } from "./date";
 import { INITIAL_FLASHCARDS } from "../data/flashcardsData";
 
 const STORAGE_KEY = "moat_academy_user_state_v1";
@@ -60,7 +61,7 @@ export function loadUserLearningState(): UserLearningState {
     quizScores: {},
     flashcardStates: initialCardsMap,
     currentStreak: 1,
-    lastActiveDate: new Date().toISOString().split("T")[0],
+    lastActiveDate: toLocalDateKey(),
     masteredCardsCount: 0,
     bookmarkedTerms: [],
     missedQuizCards: null,
@@ -137,7 +138,7 @@ export function calculateSM2(
 }
 
 export function checkAndUpdateStreak(state: UserLearningState): UserLearningState {
-  const today = new Date().toISOString().split("T")[0];
+  const today = toLocalDateKey();
   const lastActive = state.lastActiveDate;
 
   if (lastActive === today) {
@@ -146,7 +147,7 @@ export function checkAndUpdateStreak(state: UserLearningState): UserLearningStat
 
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
-  const yesterdayStr = yesterday.toISOString().split("T")[0];
+  const yesterdayStr = toLocalDateKey(yesterday);
 
   let streak = state.currentStreak;
   if (lastActive === yesterdayStr) {

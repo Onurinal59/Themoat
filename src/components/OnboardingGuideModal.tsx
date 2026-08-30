@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { NavTab } from "./Navbar";
 import { SimTab } from "./SimulationsView";
+import { useAccessibleDialog } from "../hooks/useAccessibleDialog";
 
 interface OnboardingGuideModalProps {
   isOpen: boolean;
@@ -53,6 +54,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
   const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const contentBodyRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useAccessibleDialog(isOpen, onClose);
 
   const TOUR_STEPS_TR: TourStep[] = [
     {
@@ -358,6 +360,10 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 lg:p-8">
       {/* Backdrop */}
       <motion.div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="platform-tour-title"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -390,12 +396,13 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
                 <Sparkles className="w-3.5 h-3.5" />
                 {t("OnboardingGuideModal.platform_tour_673")}
               </div>
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+              <h2 id="platform-tour-title" className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                 Moat Academy
               </h2>
             </div>
             <button
               onClick={onClose}
+              aria-label={isEnglish ? "Close platform tour" : "Platform turunu kapat"}
               className="md:hidden p-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
             >
               <X className="w-5 h-5" />
@@ -440,6 +447,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
             {/* Desktop Close Button */}
             <button
               onClick={onClose}
+              aria-label={isEnglish ? "Close platform tour" : "Platform turunu kapat"}
               className="hidden md:flex absolute top-6 right-6 p-2.5 rounded-full bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700/50 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-all z-50 shadow-sm"
             >
               <X className="w-5 h-5" />

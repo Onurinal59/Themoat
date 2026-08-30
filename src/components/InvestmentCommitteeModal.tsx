@@ -14,8 +14,9 @@ import {
   RotateCcw
 } from "lucide-react";
 import { CompanyAuditDossier } from "../types";
-import { calculateFinancialOutputs, computeMoatScore, translateMoatDriver } from "../data/companyAuditData";
+import { calculateFinancialOutputs, translateMoatDriver } from "../data/companyAuditData";
 import { useLanguage } from "../context/LanguageContext";
+import { useAccessibleDialog } from "../hooks/useAccessibleDialog";
 
 interface InvestmentCommitteeModalProps {
   isOpen: boolean;
@@ -39,16 +40,19 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
 }) => {
   const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const fin = calculateFinancialOutputs(dossier.financials);
-  const score = computeMoatScore(dossier);
 
   // Generate 3 contextual challenges based on the dossier inputs
   const challenges: CommitteeChallenge[] = [
     {
       id: "challenge-1",
       theme: t("InvestmentCommitteeModal.1_skepticism_mean_re_405"),
-      question: isEnglish
-        ? `${dossier.companyName}'s ROIC of ${fin.roicPercent}% is well above normal levels. In microeconomic theory, supernormal returns attract competitive capital like a magnet. What concrete barrier stops new entrants from discounting prices and driving ROIC down to ${dossier.financials.wacc}% within 3-5 years?`
-        : `${dossier.companyName}'in %${fin.roicPercent} seviyesindeki ROIC oranı sektör ortalamasının çok üzerinde. Ekonomik teoride yüksek kârlar rakipleri bir mıknatıs gibi çeker. Yeni girenlerin fiyat kırarak bu kârı 3 yıl içinde %${dossier.financials.wacc} seviyesine indirmesini engelleyecek tek somut bariyer nedir?`,
+      question: fin.isRoicMeaningful
+        ? (isEnglish
+          ? `${dossier.companyName}'s ROIC of ${fin.roicPercent}% is well above normal levels. What concrete barrier stops new entrants from driving ROIC down to ${dossier.financials.wacc}% within 3-5 years?`
+          : `${dossier.companyName}'in %${fin.roicPercent} seviyesindeki ROIC oranı yüksek. Yeni girenlerin getiriyi 3-5 yıl içinde %${dossier.financials.wacc} seviyesine indirmesini engelleyecek somut bariyer nedir?`)
+        : (isEnglish
+          ? `${dossier.companyName}'s invested capital is zero or negative, so ROIC is not meaningful. What operating evidence demonstrates an economic moat without relying on the ROIC ratio?`
+          : `${dossier.companyName}'in yatırılan sermayesi sıfır veya negatif olduğu için ROIC anlamlı değil. ROIC oranına dayanmadan ekonomik hendeği hangi faaliyet kanıtları gösteriyor?`),
       skepticalReasoning: t("InvestmentCommitteeModal.empirical_market_dat_406"),
     },
     {
@@ -81,6 +85,8 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
     verdict: string;
     feedback: string;
   } | null>(null);
+  const [evaluationError, setEvaluationError] = useState<string | null>(null);
+  const dialogRef = useAccessibleDialog(isOpen, onClose);
 
   const handleTextChange = (id: string, text: string) => {
     setResponses((prev) => ({ ...prev, [id]: text }));
@@ -88,38 +94,39 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
 
   const handleEvaluateDefense = async () => {
     setIsEvaluating(true);
+    setEvaluationError(null);
+    setEvaluationResult(null);
     try {
-      const allText = Object.values(responses).join(" ");
-      const hasLength = allText.trim().length > 60;
-
-      const defenseScore = hasLength ? Math.min(95, 70 + Math.floor(allText.length / 25)) : 55;
-      const verdict = isEnglish
-        ? defenseScore >= 80
-          ? "APPROVED (Wide Moat Confirmed)"
-          : defenseScore >= 65
-          ? "CONDITIONAL APPROVAL (Narrow Moat)"
-          : "FURTHER SCRUTINY REQUIRED"
-        : defenseScore >= 80
-        ? "ONAYLANDI (Geniş Hendek Onayı)"
-        : defenseScore >= 65
-        ? "ŞARTLI ONAY (Dar Hendek)"
-        : "EK İNCELEME GEREKLİ";
-
       const formattedDrivers = dossier.competitiveAdvantage.subDrivers
         .map((d) => translateMoatDriver(d, isEnglish))
         .join(", ");
-
-      const feedback = isEnglish
-        ? hasLength
-          ? `The Investment Committee reviewed your defense. The arguments defending ${formattedDrivers || "competitive moats"} are supported by historical economic spread (ROIC ${fin.roicPercent}% vs WACC ${dossier.financials.wacc}%). Thesis approved.`
-          : `The Committee found the defense arguments too brief and generic. Please substantiate switching costs and pricing power with quantitative evidence.`
-        : hasLength
-        ? `Yatırım Komitesi analizinizi inceledi. Şirketin ${formattedDrivers || "hendek"} savunmaları makul bulundu. ROIC (%${fin.roicPercent}) ve WACC (%${dossier.financials.wacc}) yayılımı neticesinde tez kabul edildi.`
-        : `Komite, verilen savunma cevaplarını çok kısa ve yüzeysel buldu. Lütfen geçiş maliyeti ve fiyatlama gücü kanıtlarını daha somut örneklerle destekleyin.`;
-
-      // simulate evaluation brief delay
-      await new Promise((res) => setTimeout(res, 800));
-      setEvaluationResult({ defenseScore, verdict, feedback });
+      const response = await fetch("/api/evaluate-defense", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          company: `${dossier.companyName} (${dossier.ticker})`,
+          financialSummary: {
+            roic: fin.isRoicMeaningful ? fin.roicPercent : "not meaningful",
+            wacc: dossier.financials.wacc,
+            spread: fin.isRoicMeaningful ? fin.spread : "not meaningful",
+            capYears: dossier.sustainability.estimatedCapYears,
+          },
+          moatDrivers: formattedDrivers,
+          responses: challenges.map((challenge) => responses[challenge.id]),
+          language: isEnglish ? "en" : "tr",
+        }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(data.error || "evaluation_failed");
+      const verdictLabels = isEnglish
+        ? { approved: "APPROVED", conditional: "CONDITIONAL APPROVAL", revise: "FURTHER SCRUTINY REQUIRED" }
+        : { approved: "ONAYLANDI", conditional: "ŞARTLI ONAY", revise: "EK İNCELEME GEREKLİ" };
+      setEvaluationResult({ defenseScore: data.defenseScore, verdict: verdictLabels[data.verdict as keyof typeof verdictLabels], feedback: data.feedback });
+    } catch (error) {
+      console.error("Committee evaluation failed", error);
+      setEvaluationError(isEnglish
+        ? "The AI committee could not evaluate the defense. Check that every answer has at least 30 characters and try again."
+        : "AI komitesi savunmayı değerlendiremedi. Her yanıtın en az 30 karakter olduğundan emin olup tekrar dene.");
     } finally {
       setIsEvaluating(false);
     }
@@ -131,6 +138,10 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto">
           {/* Backdrop */}
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="committee-title"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -158,13 +169,14 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
                     {dossier.ticker} — {dossier.companyName}
                   </span>
                 </div>
-                <h2 className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
+                <h2 id="committee-title" className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white">
                   {t("InvestmentCommitteeModal.devil_s_advocate_def_412")}
                 </h2>
               </div>
 
               <button
                 onClick={onClose}
+                aria-label={isEnglish ? "Close investment committee" : "Yatırım komitesini kapat"}
                 className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer border border-slate-200 dark:border-transparent"
               >
                 <X className="w-5 h-5" />
@@ -200,6 +212,8 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
                     {/* Input Text Area */}
                     <div>
                       <textarea
+                        aria-label={`${c.theme}: ${c.question}`}
+                        maxLength={1800}
                         rows={3}
                         value={responses[c.id]}
                         onChange={(e) => handleTextChange(c.id, e.target.value)}
@@ -242,6 +256,10 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
                   </p>
                 </div>
               )}
+              {evaluationError && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{evaluationError}</p>}
+              <p className="text-[10px] text-slate-500 dark:text-slate-400">
+                {isEnglish ? "Your defense text is sent to Cloudflare Workers AI for evaluation. Do not include confidential information." : "Savunma metniniz değerlendirme için Cloudflare Workers AI'a gönderilir. Gizli bilgi eklemeyin."}
+              </p>
             </div>
 
             {/* Modal Footer */}

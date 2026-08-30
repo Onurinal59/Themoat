@@ -29,6 +29,8 @@ import {
 } from "lucide-react";
 import { CompanyAuditDossier } from "../types";
 import { calculateFinancialOutputs, computeMoatScore, MAUBOUSSIN_GUIDED_TEMPLATE, translateMoatDriver, translateMoatType, translateMoatWidth } from "../data/companyAuditData";
+import { MAX_IMPORT_BYTES, validateImportedDossiers } from "../utils/dossierValidation";
+import { toLocalDateKey } from "../utils/date";
 
 interface MyWorkspacesViewProps {
   dossiers: CompanyAuditDossier[];
@@ -173,7 +175,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `all_moat_studies_${new Date().toISOString().split("T")[0]}.json`;
+    link.download = `all_moat_studies_${toLocalDateKey()}.json`;
     link.click();
     URL.revokeObjectURL(url);
     showToast(isEnglish ? `All ${dossiers.length} studies backed up to JSON.` : `Tüm ${dossiers.length} çalışma yedek dosyası olarak indirildi.`);
@@ -184,22 +186,23 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
     const files = e.target.files;
     if (!files || files.length === 0) return;
     const file = files[0];
+    if (file.size > MAX_IMPORT_BYTES) {
+      showToast(isEnglish ? "Import file must be smaller than 1 MB." : "İçe aktarma dosyası 1 MB'den küçük olmalıdır.");
+      e.target.value = "";
+      return;
+    }
     const reader = new FileReader();
 
     reader.onload = (event) => {
       try {
         const parsed = JSON.parse(event.target?.result as string);
-        if (Array.isArray(parsed)) {
-          // Multiple dossiers
-          onImportDossiers(parsed);
-          showToast(isEnglish ? `${parsed.length} studies imported successfully!` : `${parsed.length} adet analiz başarıyla içe aktarıldı!`);
-        } else if (parsed && parsed.companyName && parsed.financials) {
-          // Single dossier
-          onImportDossiers([parsed]);
-          showToast(isEnglish ? `"${parsed.companyName}" study imported!` : `"${parsed.companyName}" analizi içe aktarıldı!`);
-        } else {
+        const result = validateImportedDossiers(parsed);
+        if (result.error) {
           showToast(t("MyWorkspacesView.invalid_format_pleas_621"));
+          return;
         }
+        onImportDossiers(result.dossiers);
+        showToast(isEnglish ? `${result.dossiers.length} studies imported successfully!` : `${result.dossiers.length} adet analiz başarıyla içe aktarıldı!`);
       } catch (err) {
         console.error("Import error:", err);
         showToast(t("MyWorkspacesView.error_reading_file_p_622"));
@@ -218,13 +221,14 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-slate-900 text-white dark:bg-indigo-600 px-5 py-3 rounded-2xl shadow-xl border border-slate-700 dark:border-indigo-400 flex items-center gap-3 text-sm font-medium animate-in fade-in slide-in-from-bottom-5">
           <CheckCircle2 className="w-5 h-5 text-emerald-400 dark:text-white shrink-0" />
-          <span>{toastMessage}</span>
+          <span role="status" aria-live="polite">{toastMessage}</span>
         </div>
       )}
 
       {/* Hidden File Input for JSON import */}
       <input
         type="file"
+        aria-label={isEnglish ? "Import moat studies from JSON" : "Hendek çalışmalarını JSON dosyasından içe aktar"}
         ref={fileInputRef}
         onChange={handleFileUpload}
         accept=".json"
@@ -241,7 +245,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
               </span>
               <span className="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-900/50 flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                {t("workspaces.localStorageSafe", "Tarayıcıda Güvende (LocalStorage)")}
+                {t("workspaces.localStorageSafe", isEnglish ? "Stored in this browser" : "Bu cihazın tarayıcısında saklanır")}
               </span>
             </div>
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
@@ -543,7 +547,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
                     <div>
                       <span className="text-[10px] text-slate-500 dark:text-slate-400 block">ROIC</span>
                       <span className="text-xs font-bold text-slate-900 dark:text-slate-100">
-                        %{fin.roicPercent}
+                        {fin.isRoicMeaningful ? `%${fin.roicPercent}` : "N/M"}
                       </span>
                     </div>
                     <div>
@@ -557,7 +561,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
                       <span className={`text-xs font-bold ${
                         isValueCreating ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"
                       }`}>
-                        {isValueCreating ? "+" : ""}%{fin.spread}
+                        {fin.isRoicMeaningful ? `${isValueCreating ? "+" : ""}%${fin.spread}` : "N/M"}
                       </span>
                     </div>
                   </div>

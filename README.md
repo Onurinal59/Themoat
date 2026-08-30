@@ -1,41 +1,42 @@
-# The Moat Eco
+# Economic Moat Academy
 
-The Moat Eco is an interactive, educational investment analysis platform designed to teach users Michael Mauboussin's "Measuring the Moat" framework. It helps users analyze the magnitude and sustainability of corporate value creation through hands-on simulators, financial deep dives, and an AI-powered Socratic Coach.
+An open, bilingual learning and company-analysis application based on Michael Mauboussin and Dan Callahan's economic-moat framework. It combines an eight-module curriculum, interactive finance simulators, a five-step company audit, spaced-repetition flashcards and a Socratic AI coach.
 
-## Tech Stack
-- **Frontend**: React (v18), Vite, Tailwind CSS, Framer Motion for animations.
-- **Backend**: Node.js, Express for the AI Coach API.
-- **AI Integration**: Gemini API (`@google/genai`) for pedagogical coaching.
-- **Language**: TypeScript (Strict typing for financial objects).
-- **Icons**: Lucide React.
-- **Charts**: Recharts.
+Live application: [measure-moat.vercel.app](https://measure-moat.vercel.app/)
 
-## Getting Started
+## Stack
 
-### Prerequisites
-- Node.js (v18+ recommended)
-- A Gemini API Key (set in `.env`)
+- React 19, TypeScript and Vite
+- Tailwind CSS 4, Motion, Recharts and Lucide
+- Vercel Functions for server-only API routes
+- Cloudflare Workers AI (Qwen3) for coaching and committee feedback
+- Vercel Analytics and Speed Insights
 
-### Installation & Development
-1. Install dependencies:
-   \`npm install\`
-2. Set up environment variables:
-   - Create a `.env` file based on `.env.example`.
-   - Ensure `GEMINI_API_KEY` is populated.
-3. Start the development server:
-   \`npm run dev\`
+## Local development
 
-### Build & Production
-To build the application for production:
-\`npm run build\`
+Requirements: Node.js 22 and npm.
 
-This compiles the React SPA into `dist/` and bundles the backend Express server into a CommonJS server (`dist/server.cjs`) via esbuild.
+```bash
+npm ci
+cp .env.example .env.local
+npm run dev
+```
 
-To start the production server:
-\`npm start\`
+Set `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` in `.env.local` to use AI routes locally. Never prefix these variables with `VITE_`; they must remain server-only.
 
-## Testing Financial Calculations
-A simple regression test script is included to ensure that critical financial calculations (ROIC, WACC, Spread) don't break when modifying `src/data/companyAuditData.ts`.
+## Quality checks
 
-Run tests via:
-\`node test-finance.cjs\`
+```bash
+npm run lint
+npm test
+npm run build
+npm audit --audit-level=high
+```
+
+GitHub Actions runs the same checks for pushes and pull requests. Financial regression tests explicitly cover non-positive invested capital, where ROIC is reported as not meaningful rather than as an artificial percentage.
+
+## Data and privacy
+
+Company dossiers are stored locally in the current browser and can be exported as JSON. Imports are schema-checked and limited in size. AI questions and committee defenses are sent to Cloudflare Workers AI to generate responses; users should not include personal or confidential information.
+
+This application is educational and does not provide personalized investment advice.
