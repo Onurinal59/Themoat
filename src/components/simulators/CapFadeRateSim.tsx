@@ -230,7 +230,7 @@ export const CapFadeRateSim: React.FC = () => {
                 {t("CapFadeRateSim.cost_of_capital_wacc_789")}
               </label>
               <span className="font-black text-rose-500 font-mono">
-                ${wacc}
+                {formatPercentagePoints(wacc, 1)}
               </span>
             </div>
             <input
@@ -356,8 +356,8 @@ export const CapFadeRateSim: React.FC = () => {
                           <p className="font-bold text-slate-300">{d.year}</p>
                           <p className="text-emerald-400 font-bold">ROIC: {formatPercentagePoints(d.roic, 1)}</p>
                           <p className="text-rose-400">WACC: %{d.wacc}</p>
-                          <p className="text-amber-300 font-mono">Yayılım (Spread): +%{d.spread}</p>
-                          <p className="text-cyan-300 font-mono">Yıllık Ekonomik Kâr: ${d.economicProfit}M</p>
+                          <p className="text-amber-300 font-mono">{t("CapFadeRateSim.spreadLabel")}: +{formatPercentagePoints(d.spread, 1)}</p>
+                          <p className="text-cyan-300 font-mono">{t("CapFadeRateSim.annualEconomicProfit")}: {formatUsdFromMillions(d.economicProfit)}</p>
                         </div>
                       );
                     }

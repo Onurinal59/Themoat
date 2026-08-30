@@ -587,8 +587,8 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   </div>
                   <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-md text-right sm:text-left">
                     {isEnglish
-                      ? `NOPAT: {formatUsdFromMillions(calculatedNopat)} | Invested Capital: {formatUsdFromMillions(totalInvestedCapital)}. The firm generates \$${calculatedRoic.toFixed(1)} of pure cash return per $100 of invested capital.`
-                      : `Net Faaliyet Kârı (NOPAT): {formatUsdFromMillions(calculatedNopat)} TL | Bağlanan Sermaye: ${totalInvestedCapital}M TL. Şirket bağladığı her 100 TL ile net ${calculatedRoic.toFixed(1)} TL kâr üretmektedir.`}
+                      ? `NOPAT: ${formatUsdFromMillions(calculatedNopat)} | Invested Capital: ${formatUsdFromMillions(totalInvestedCapital)}. The firm generates $${calculatedRoic.toFixed(1)} of pure cash return per $100 of invested capital.`
+                      : `Net Faaliyet Kârı (NOPAT): ${formatUsdFromMillions(calculatedNopat)} TL | Bağlanan Sermaye: ${totalInvestedCapital}M TL. Şirket bağladığı her 100 TL ile net ${calculatedRoic.toFixed(1)} TL kâr üretmektedir.`}
                   </div>
                 </div>
               </div>
@@ -972,8 +972,8 @@ export const FormulaWorkshopView: React.FC<FormulaWorkshopViewProps> = ({
                   </div>
                   <div className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-md text-right sm:text-left">
                     {isEnglish
-                      ? `Reported EBIT: {formatUsdFromMillions(fnReportedEbit)} → Adjusted EBIT: {formatUsdFromMillions(adjustedEbit)} (+{formatUsdFromMillions(fnRdExpense - fnRdAmort)} net R&D capitalization impact).`
-                      : `Raporlanan EBIT: ${fnReportedEbit}M TL → Düzeltilmiş EBIT: ${adjustedEbit}M TL (+{formatUsdFromMillions(fnRdExpense - fnRdAmort)} TL net Ar-Ge aktifleştirme katkısı).`}
+                      ? `Reported EBIT: ${formatUsdFromMillions(fnReportedEbit)} → Adjusted EBIT: ${formatUsdFromMillions(adjustedEbit)} (+${formatUsdFromMillions(fnRdExpense - fnRdAmort)} net R&D capitalization impact).`
+                      : `Raporlanan EBIT: ${fnReportedEbit}M TL → Düzeltilmiş EBIT: ${adjustedEbit}M TL (+${formatUsdFromMillions(fnRdExpense - fnRdAmort)} TL net Ar-Ge aktifleştirme katkısı).`}
                   </div>
                 </div>
               </div>

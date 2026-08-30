@@ -107,9 +107,9 @@ export const ReinvestmentRunwaySim: React.FC = () => {
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
             <h3 className="font-black text-slate-900 dark:text-white text-base flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-rose-500 inline-block" />
-              {t("ReinvestmentRunwaySim.company_a_high_roic_1210")}
+              {t("ReinvestmentRunwaySim.company_a_high_roic_1210", undefined, { roic: compARoic, reinvest: compAReinvest })}
             </h3>
-            <span className="text-xs font-bold text-slate-500">Örn: See's Candies</span>
+            <span className="text-xs font-bold text-slate-500">{t("ReinvestmentRunwaySim.example")} See's Candies</span>
           </div>
 
           <div className="space-y-2">
@@ -150,9 +150,9 @@ export const ReinvestmentRunwaySim: React.FC = () => {
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-3">
             <h3 className="font-black text-slate-900 dark:text-white text-base flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-emerald-500 inline-block" />
-              {t("ReinvestmentRunwaySim.company_b_moderate_r_1212")}
+              {t("ReinvestmentRunwaySim.company_b_moderate_r_1212", undefined, { roic: compBRoic, reinvest: compBReinvest })}
             </h3>
-            <span className="text-xs font-bold text-slate-500">Örn: Costco / Walmart 1990</span>
+            <span className="text-xs font-bold text-slate-500">{t("ReinvestmentRunwaySim.example")} Costco / Walmart 1990</span>
           </div>
 
           <div className="space-y-2">
@@ -225,10 +225,10 @@ export const ReinvestmentRunwaySim: React.FC = () => {
                     return (
                       <div className="p-3 rounded-xl bg-slate-900 text-white text-xs border border-slate-700 shadow-xl space-y-1">
                         <p className="font-bold text-slate-300">{d.year}</p>
-                        <p className="text-rose-400 font-mono">Şirket A NOPAT: ${d.nopatA}M (Sermaye: ${d.capA}M)</p>
-                        <p className="text-emerald-400 font-mono">Şirket B NOPAT: ${d.nopatB}M (Sermaye: ${d.capB}M)</p>
+                        <p className="text-rose-400 font-mono">{t("ReinvestmentRunwaySim.companyANopatTooltip")}: {formatUsdFromMillions(d.nopatA)} ({isEnglish ? "Capital" : "Sermaye"}: {formatUsdFromMillions(d.capA)})</p>
+                        <p className="text-emerald-400 font-mono">{t("ReinvestmentRunwaySim.companyBNopatTooltip")}: {formatUsdFromMillions(d.nopatB)} ({isEnglish ? "Capital" : "Sermaye"}: {formatUsdFromMillions(d.capB)})</p>
                         <p className="text-amber-300 font-bold border-t border-slate-800 pt-1">
-                          Şirket B Ekonomik Kârı: ${d.epB}M vs A: ${d.epA}M
+                          {t("ReinvestmentRunwaySim.companyBEconomicProfitTooltip")}: {formatUsdFromMillions(d.epB)} vs {t("ReinvestmentRunwaySim.companyAEconomicProfitTooltip")}: {formatUsdFromMillions(d.epA)}
                         </p>
                       </div>
                     );
@@ -251,8 +251,8 @@ export const ReinvestmentRunwaySim: React.FC = () => {
               </span>
               <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
                 {isEnglish
-                  ? `Company B generates {formatUsdFromMillions(finalYear?.nopatB)}/yr vs Company A's {formatUsdFromMillions(finalYear?.nopatA)}/yr.`
-                  : `Şirket B yılda {formatUsdFromMillions(finalYear?.nopatB)} kâr üretirken, Şirket A sadece {formatUsdFromMillions(finalYear?.nopatA)} kârda kalmıştır.`}
+                  ? `Company B generates ${formatUsdFromMillions(finalYear?.nopatB ?? 0)}/yr vs Company A's ${formatUsdFromMillions(finalYear?.nopatA ?? 0)}/yr.`
+                  : `Şirket B yılda ${formatUsdFromMillions(finalYear?.nopatB ?? 0)} kâr üretirken, Şirket A sadece ${formatUsdFromMillions(finalYear?.nopatA ?? 0)} kârda kalmıştır.`}
               </p>
             </div>
             <div>
@@ -326,22 +326,22 @@ export const ReinvestmentRunwaySim: React.FC = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-1">
                     <span className="text-rose-500 block font-black">
-                      {isEnglish ? `Company A (High ROIC %${compARoic}, Reinvest %${compAReinvest})` : `Şirket A (Yüksek ROIC %${compARoic}, Yatırım %${compAReinvest})`}
+                      {t("ReinvestmentRunwaySim.company_a_high_roic_1210", undefined, { roic: compARoic, reinvest: compAReinvest })}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {isEnglish
-                        ? `Intrinsic Growth: ${(compARoic * (compAReinvest / 100)).toFixed(1)}%/yr. Yr 15 Capital: {formatUsdFromMillions(finalYear?.capA)} | Final NOPAT: {formatUsdFromMillions(finalYear?.nopatA)}/yr`
-                        : `İçsel Büyüme: ${formatPercentagePoints(compARoic * compAReinvest, 1)} / yıl. 15. Yıl Sermaye: {formatUsdFromMillions(finalYear?.capA)} | Yıllık Kâr: {formatUsdFromMillions(finalYear?.nopatA)}`}
+                        ? `Intrinsic Growth: ${(compARoic * (compAReinvest / 100)).toFixed(1)}%/yr. Year 15 Capital: ${formatUsdFromMillions(finalYear?.capA ?? 0)} | Final NOPAT: ${formatUsdFromMillions(finalYear?.nopatA ?? 0)}/yr`
+                        : `İçsel Büyüme: ${(compARoic * (compAReinvest / 100)).toFixed(1)}%/yıl. 15. Yıl Sermayesi: ${formatUsdFromMillions(finalYear?.capA ?? 0)} | Yıllık NOPAT: ${formatUsdFromMillions(finalYear?.nopatA ?? 0)}`}
                     </p>
                   </div>
                   <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-1">
                     <span className="text-emerald-500 block font-black">
-                      {isEnglish ? `Company B (Moderate ROIC %${compBRoic}, Reinvest %${compBReinvest})` : `Şirket B (Ilımlı ROIC %${compBRoic}, Yatırım %${compBReinvest})`}
+                      {t("ReinvestmentRunwaySim.company_b_moderate_r_1212", undefined, { roic: compBRoic, reinvest: compBReinvest })}
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {isEnglish
-                        ? `Intrinsic Growth: ${(compBRoic * (compBReinvest / 100)).toFixed(1)}%/yr. Yr 15 Capital: {formatUsdFromMillions(finalYear?.capB)} | Final NOPAT: {formatUsdFromMillions(finalYear?.nopatB)}/yr`
-                        : `İçsel Büyüme: ${formatPercentagePoints(compBRoic * compBReinvest, 1)} / yıl. 15. Yıl Sermaye: {formatUsdFromMillions(finalYear?.capB)} | Yıllık Kâr: {formatUsdFromMillions(finalYear?.nopatB)}`}
+                        ? `Intrinsic Growth: ${(compBRoic * (compBReinvest / 100)).toFixed(1)}%/yr. Year 15 Capital: ${formatUsdFromMillions(finalYear?.capB ?? 0)} | Final NOPAT: ${formatUsdFromMillions(finalYear?.nopatB ?? 0)}/yr`
+                        : `İçsel Büyüme: ${(compBRoic * (compBReinvest / 100)).toFixed(1)}%/yıl. 15. Yıl Sermayesi: ${formatUsdFromMillions(finalYear?.capB ?? 0)} | Yıllık NOPAT: ${formatUsdFromMillions(finalYear?.nopatB ?? 0)}`}
                     </p>
                   </div>
                 </div>

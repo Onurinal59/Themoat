@@ -30,6 +30,7 @@ import { CustomChartTooltip } from "../ChartTooltip";
 
 interface CompanyBenchmark {
   name: string;
+  nameEn?: string;
   strategyTr: string;
   strategyEn: string;
   margin: number;
@@ -82,6 +83,7 @@ const BENCHMARKS: CompanyBenchmark[] = [
   },
   {
     name: "Standart Emtia Şirketi",
+    nameEn: "Standard Commodity Company",
     strategyTr: "Ortada Sıkışmış (Kırılgan)",
     strategyEn: "Stuck in the Middle (Vulnerable)",
     margin: 6,
@@ -208,7 +210,7 @@ export const DuPontSim: React.FC = () => {
               className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 hover:bg-indigo-50/50 dark:hover:bg-indigo-950/40 text-left text-xs transition-all cursor-pointer hover:border-indigo-300"
             >
               <span className="font-bold text-slate-900 dark:text-slate-100 block">
-                {b.name}
+                {isEnglish ? (b.nameEn || b.name) : b.name}
               </span>
               <span className="text-[10px] text-slate-500 dark:text-slate-400 line-clamp-1 mt-0.5">
                 {isEnglish ? b.strategyEn : b.strategyTr}
@@ -236,7 +238,7 @@ export const DuPontSim: React.FC = () => {
           <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-2 shadow-2xs">
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-indigo-600 dark:text-indigo-400">
-                1. NOPAT Marjı (Kârlılık Motoru)
+                {t("DuPontSim.nopatMarginEngineLabel")}
               </span>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
@@ -272,7 +274,7 @@ export const DuPontSim: React.FC = () => {
           <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/80 space-y-2 shadow-2xs">
             <div className="flex justify-between items-center text-xs">
               <span className="font-bold text-emerald-600 dark:text-emerald-400">
-                2. Sermaye Devir Hızı (Hız Motoru)
+                {t("DuPontSim.capitalTurnoverEngineLabel")}
               </span>
               <div className="flex items-center gap-1 font-mono font-black text-sm">
                 <button
@@ -325,7 +327,7 @@ export const DuPontSim: React.FC = () => {
                 </span>
               </div>
               <span className="text-xs font-mono font-bold text-slate-500">
-                Formula: {nopatMargin}% × {formatMultiplier(capitalTurnover, 1)} = %{calculatedRoic}
+                  {t("DuPontSim.formulaLabel")} {nopatMargin}% × {formatMultiplier(capitalTurnover, 1)} = %{calculatedRoic}
               </span>
             </div>
 
@@ -352,7 +354,7 @@ export const DuPontSim: React.FC = () => {
                       />
                     }
                   />
-                  <ReferenceLine y={10} stroke="#94A3B8" strokeDasharray="3 3" label={{ value: "WACC (~%10)", fill: "#94A3B8", fontSize: 10 }} />
+                <ReferenceLine y={10} stroke="#94A3B8" strokeDasharray="3 3" label={{ value: t("DuPontSim.waccReferenceLabel"), fill: "#94A3B8", fontSize: 10 }} />
                   <Bar dataKey="roic" radius={[6, 6, 0, 0]}>
                     {comparisonData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.fill} />
@@ -375,7 +377,11 @@ export const DuPontSim: React.FC = () => {
                 </h4>
               </div>
               <span className={`px-2.5 py-1 rounded-full text-xs font-bold border ${archetype.badge}`}>
-                {calculatedRoic >= 15 ? "Wide Moat" : calculatedRoic >= 9 ? "Narrow Moat" : "No Moat"}
+                {calculatedRoic >= 15
+                  ? t("DuPontSim.wideMoatBadge")
+                  : calculatedRoic >= 9
+                  ? t("DuPontSim.narrowMoatBadge")
+                  : t("DuPontSim.noMoatBadge")}
               </span>
             </div>
 
@@ -437,7 +443,9 @@ export const DuPontSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
                 <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
                   <div className="font-bold">
-                    ROIC = NOPAT Marjı × Sermaye Devir Hızı = %{nopatMargin} × {formatMultiplier(capitalTurnover, 1)} = %{calculatedRoic}
+                    {isEnglish
+                      ? `ROIC = NOPAT Margin × Capital Turnover = ${nopatMargin}% × ${formatMultiplier(capitalTurnover, 1)} = ${calculatedRoic}%`
+                      : `ROIC = NOPAT Marjı × Sermaye Devir Hızı = %${nopatMargin} × ${formatMultiplier(capitalTurnover, 1)} = %${calculatedRoic}`}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
                     {t("DuPontSim.calculation_proof_no_984")}
