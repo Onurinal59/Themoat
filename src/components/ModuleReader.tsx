@@ -405,9 +405,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                 {t("ModuleReader.preview_mode_501")}
               </span>
               <span className="text-amber-800 dark:text-amber-300">
-                {isEnglish
-                  ? `You can explore this lesson. To record progress and complete the module, first pass the Step 0${prevModule ? prevModule.id : module.id - 1} quiz.`
-                  : `Bu dersi inceleyebilirsin. İlerlemeyi kaydetmek ve modülü tamamlamak için önce Adım 0${prevModule ? prevModule.id : module.id - 1} testini geç.`}
+                {t("audit.previewModeDescription", undefined, { step: prevModule ? prevModule.id : module.id - 1 })}
               </span>
             </div>
           </div>
@@ -417,7 +415,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               onClick={() => onSelectModule(prevModule)}
               className="shrink-0 self-end sm:self-auto px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold transition-all shadow-xs cursor-pointer min-h-[36px] active:scale-98"
             >
-              {isEnglish ? `Go to Step 0${prevModule.id}` : `Adım 0${prevModule.id}'ye Git`}
+              {t("audit.goToStep", undefined, { step: prevModule.id })}
             </button>
           )}
         </motion.div>
@@ -427,13 +425,13 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
       <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-4">
         <div className="flex flex-wrap items-center gap-2">
           <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-600 text-white shadow-2xs">
-            {isEnglish ? `Step 0${module.id}` : `Adım 0${module.id}`}
+            {t("audit.stepLabel", undefined, { step: module.id })}
           </span>
           <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
             {module.subtitle}
           </span>
           <span className="flex items-center gap-1.5 text-xs text-slate-600 dark:text-slate-400 ml-auto font-semibold">
-            <Clock className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" /> {isEnglish ? `Estimated Reading: ${module.estimatedMinutes} Minutes` : `Tahmini Okuma: ${module.estimatedMinutes} Dakika`}
+            <Clock className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" /> {t("audit.estimatedReading", undefined, { minutes: module.estimatedMinutes })}
           </span>
         </div>
 
@@ -468,7 +466,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               <div className="text-xs sm:text-sm text-slate-700 dark:text-slate-200">
                 <span className="font-semibold text-slate-900 dark:text-slate-100">
                   {module.moduleBridge.prevTitle
-                    ? isEnglish ? `Previous Step (${module.moduleBridge.prevTitle}): ` : `Önceki Adım (${module.moduleBridge.prevTitle}): `
+                    ? t("audit.previousStepTitle", undefined, { title: module.moduleBridge.prevTitle })
                     : t("ModuleReader.previous_step_504")}
                 </span>
                 {module.moduleBridge.takeawayFromPrev}
@@ -705,7 +703,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
                             0{num}
                           </span>
                           <span className="font-bold text-slate-900 dark:text-slate-100 text-sm">
-                            {isEnglish ? nameTr.trim() : `${nameTr.trim()} (${nameEn.trim()})`}
+                            {isEnglish ? nameEn.trim() : `${nameTr.trim()} (${nameEn.trim()})`}
                           </span>
                           {isMaturity && (
                             <span className="px-2 py-0.5 rounded-md bg-amber-400/30 text-amber-900 dark:text-amber-200 text-[10px] font-black border border-amber-400/50">
@@ -819,7 +817,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
               <div className="p-4 rounded-2xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-100 dark:border-emerald-900/50 space-y-1.5">
                 <div className="flex items-center gap-2 text-xs font-bold text-emerald-900 dark:text-emerald-300">
                   <Trophy className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span>{isEnglish ? `Real-World Case Study: ${section.companyExample.company}` : `Gerçek Şirket Vakası: ${section.companyExample.company}`}</span>
+                  <span>{t("audit.realWorldCase", undefined, { company: section.companyExample.company })}</span>
                 </div>
                 <p className="text-xs sm:text-sm text-emerald-950 dark:text-emerald-200 leading-relaxed">
                   {section.companyExample.context}
@@ -1213,7 +1211,7 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-sm font-bold text-slate-700 dark:text-slate-200 shadow-xs transition-colors cursor-pointer min-h-[44px]"
           >
             <ArrowLeft className="w-4 h-4 shrink-0" />
-            <span>{isEnglish ? `Previous Step (0${prevModule.id})` : `Önceki Adım (0${prevModule.id})`}</span>
+            <span>{t("audit.previousStepNumber", undefined, { step: prevModule.id })}</span>
           </motion.button>
         ) : (
           <div />
@@ -1233,12 +1231,8 @@ export const ModuleReader: React.FC<ModuleReaderProps> = ({
             {!isNextModuleNormalLearning && <Eye className="w-4 h-4 shrink-0 text-slate-500 dark:text-slate-400" />}
             <span>
               {isNextModuleNormalLearning
-                ? isEnglish
-                  ? `Continue to Next Step (Step 0${nextModule.id})`
-                  : `Sonraki Adıma Geç (Adım 0${nextModule.id})`
-                : isEnglish
-                ? `Preview Step 0${nextModule.id}`
-                : `Adım 0${nextModule.id}'ü Önizle`}
+                ? t("audit.continueNext", undefined, { step: nextModule.id })
+                : t("audit.previewStep", undefined, { step: nextModule.id })}
             </span>
             <ArrowRight className="w-4 h-4 shrink-0" />
           </motion.button>

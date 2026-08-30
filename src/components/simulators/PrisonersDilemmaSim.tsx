@@ -4,11 +4,6 @@ import {
   Swords,
   RotateCcw,
   Trophy,
-  ShieldAlert,
-  Sparkles,
-  Award,
-  CheckCircle2,
-  TrendingUp,
   BarChart3,
   Calculator,
   ChevronDown,
@@ -39,8 +34,14 @@ interface RoundResult {
   botCum: number;
 }
 
+const STRATEGIES: Array<{ id: StrategyType; labelKey: string }> = [
+  { id: "tit-for-tat", labelKey: "PrisonersDilemmaSim.strategy_tit_for_tat" },
+  { id: "aggressive", labelKey: "PrisonersDilemmaSim.strategy_aggressive" },
+  { id: "cooperative", labelKey: "PrisonersDilemmaSim.strategy_cooperative" },
+];
+
 export const PrisonersDilemmaSim: React.FC = () => {
-  const { isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
+  const { t, formatCurrency, formatUsdFromMillions } = useLanguage();
   const [botStrategy, setBotStrategy] = useState<StrategyType>("tit-for-tat");
   const [history, setHistory] = useState<RoundResult[]>([]);
   const [currentRound, setCurrentRound] = useState<number>(1);
@@ -49,6 +50,9 @@ export const PrisonersDilemmaSim: React.FC = () => {
 
   const totalPlayerScore = history.reduce((sum, r) => sum + r.playerPayoff, 0);
   const totalBotScore = history.reduce((sum, r) => sum + r.botPayoff, 0);
+  const formatPrice = (value: number) => formatCurrency(value);
+  const formatPayoff = (value: number) => formatUsdFromMillions(value, 0);
+  const formatPayoffPair = (player: number, rival: number) => `${formatPayoff(player)} / ${formatPayoff(rival)}`;
 
   const getBotChoice = (strat: StrategyType, hist: RoundResult[]): 220 | 200 => {
     if (strat === "aggressive") return 200;
@@ -105,13 +109,11 @@ export const PrisonersDilemmaSim: React.FC = () => {
 
   // Recharts Line Data (Round 1 to 5)
   const chartData = [
-    { round: "Start", player: 0, bot: 0 },
+    { round: t("PrisonersDilemmaSim.start_label"), player: 0, bot: 0 },
     ...history.map((h) => ({
-      round: `R${h.round}`,
+      round: t("PrisonersDilemmaSim.round_label", undefined, { round: h.round }),
       player: h.playerCum,
       bot: h.botCum,
-      playerMove: `$${h.playerChoice}`,
-      botMove: `$${h.botChoice}`,
     })),
   ];
 
@@ -150,15 +152,11 @@ export const PrisonersDilemmaSim: React.FC = () => {
           {t("PrisonersDilemmaSim.opponent_ai_strategy_1139")}
         </span>
         <div className="flex flex-wrap gap-1.5">
-          {[
-            { id: "tit-for-tat", labelTr: "Kısasa Kısas (Tit-for-Tat)", labelEn: "Tit-for-Tat (Reciprocal)" },
-            { id: "aggressive", labelTr: "Daima Fiyat Kıran (Agresif)", labelEn: "Always Price Cut (Aggressive)" },
-            { id: "cooperative", labelTr: "Daima Barışçıl (İşbirlikçi)", labelEn: "Always Cooperate (Peaceful)" },
-          ].map((strat) => (
+          {STRATEGIES.map((strat) => (
             <button
               key={strat.id}
               onClick={() => {
-                setBotStrategy(strat.id as StrategyType);
+                setBotStrategy(strat.id);
                 handleReset();
               }}
               className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all cursor-pointer ${
@@ -167,7 +165,7 @@ export const PrisonersDilemmaSim: React.FC = () => {
                   : "bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700"
               }`}
             >
-              {isEnglish ? strat.labelEn : strat.labelTr}
+              {t(strat.labelKey)}
             </button>
           ))}
         </div>
@@ -180,10 +178,15 @@ export const PrisonersDilemmaSim: React.FC = () => {
           <div className="flex items-center justify-between">
             <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
               <Swords className="w-4 h-4 text-rose-600 dark:text-rose-400" />
-              {isEnglish ? `Season ${Math.min(currentRound, 5)} / 5 Action:` : `${Math.min(currentRound, 5)}. Sezon Hamleniz:`}
+              {t("PrisonersDilemmaSim.season_action", undefined, {
+                round: Math.min(currentRound, maxRounds),
+                total: maxRounds,
+              })}
             </h3>
             <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300">
-              {currentRound > maxRounds ? (t("PrisonersDilemmaSim.finished_1140")) : `${currentRound}. Tur`}
+              {currentRound > maxRounds
+                ? t("PrisonersDilemmaSim.finished_1140")
+                : t("PrisonersDilemmaSim.round_label", undefined, { round: currentRound })}
             </span>
           </div>
 
@@ -195,8 +198,10 @@ export const PrisonersDilemmaSim: React.FC = () => {
                 className="w-full p-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-left font-bold text-xs transition-all shadow-sm cursor-pointer space-y-1"
               >
                 <div className="flex justify-between items-center">
-                  <span>🕊️ {t("PrisonersDilemmaSim.maintain_high_price_1141")}</span>
-                  <span className="font-mono text-emerald-100 text-[11px]">+300M$ (İşbirliği)</span>
+                  <span>🕊️ {t("PrisonersDilemmaSim.maintain_high_price_1141", undefined, { highPrice: formatPrice(220) })}</span>
+                  <span className="font-mono text-emerald-100 text-[11px]">
+                    {t("PrisonersDilemmaSim.cooperation_payoff", undefined, { payoff: `+${formatPayoff(300)}` })}
+                  </span>
                 </div>
                 <p className="text-[11px] text-emerald-100 font-normal">
                   {t("PrisonersDilemmaSim.cooperative_strategy_1142")}
@@ -208,8 +213,10 @@ export const PrisonersDilemmaSim: React.FC = () => {
                 className="w-full p-3.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-left font-bold text-xs transition-all shadow-sm cursor-pointer space-y-1"
               >
                 <div className="flex justify-between items-center">
-                  <span>⚔️ {t("PrisonersDilemmaSim.slash_price_200_war_1143")}</span>
-                  <span className="font-mono text-rose-100 text-[11px]">+320M$ (Tek Taraflı)</span>
+                  <span>⚔️ {t("PrisonersDilemmaSim.slash_price_200_war_1143", undefined, { lowPrice: formatPrice(200) })}</span>
+                  <span className="font-mono text-rose-100 text-[11px]">
+                    {t("PrisonersDilemmaSim.unilateral_payoff", undefined, { payoff: `+${formatPayoff(320)}` })}
+                  </span>
                 </div>
                 <p className="text-[11px] text-rose-100 font-normal">
                   {t("PrisonersDilemmaSim.undercut_rival_to_gr_1144")}
@@ -239,27 +246,33 @@ export const PrisonersDilemmaSim: React.FC = () => {
             <div className="grid grid-cols-2 gap-1.5 text-center font-mono">
               <div className="p-2 rounded bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300">
                 <span className="block text-[9px] font-sans text-slate-400">
-                  {t("PrisonersDilemmaSim.both_220_coop_1148")}
+                  {t("PrisonersDilemmaSim.both_220_coop_1148", undefined, { highPrice: formatPrice(220) })}
                 </span>
-                300M$ / 300M$
+                {formatPayoffPair(300, 300)}
               </div>
               <div className="p-2 rounded bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300">
                 <span className="block text-[9px] font-sans text-slate-400">
-                  {t("PrisonersDilemmaSim.you_200_rival_220_1149")}
+                  {t("PrisonersDilemmaSim.you_200_rival_220_1149", undefined, {
+                    lowPrice: formatPrice(200),
+                    highPrice: formatPrice(220),
+                  })}
                 </span>
-                320M$ / 120M$
+                {formatPayoffPair(320, 120)}
               </div>
               <div className="p-2 rounded bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-800 dark:text-amber-300">
                 <span className="block text-[9px] font-sans text-slate-400">
-                  {t("PrisonersDilemmaSim.you_220_rival_200_1150")}
+                  {t("PrisonersDilemmaSim.you_220_rival_200_1150", undefined, {
+                    highPrice: formatPrice(220),
+                    lowPrice: formatPrice(200),
+                  })}
                 </span>
-                120M$ / 320M$
+                {formatPayoffPair(120, 320)}
               </div>
               <div className="p-2 rounded bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300">
                 <span className="block text-[9px] font-sans text-slate-400">
-                  {t("PrisonersDilemmaSim.both_200_nash_1151")}
+                  {t("PrisonersDilemmaSim.both_200_nash_1151", undefined, { lowPrice: formatPrice(200) })}
                 </span>
-                200M$ / 200M$
+                {formatPayoffPair(200, 200)}
               </div>
             </div>
           </div>
@@ -269,7 +282,10 @@ export const PrisonersDilemmaSim: React.FC = () => {
             <strong className="block font-bold text-amber-800 dark:text-amber-300 mb-1">
               💡 {t("PrisonersDilemmaSim.action_oriented_game_1152")}
             </strong>
-            {t("PrisonersDilemmaSim.click_slash_price_20_1153")}
+            {t("PrisonersDilemmaSim.click_slash_price_20_1153", undefined, {
+              lowPrice: formatPrice(200),
+              nashPayoff: formatPayoff(200),
+            })}
           </div>
         </div>
 
@@ -286,10 +302,10 @@ export const PrisonersDilemmaSim: React.FC = () => {
               </div>
               <div className="flex items-center gap-3 text-xs font-mono font-bold">
                 <span className="text-emerald-600">
-                  {t("PrisonersDilemmaSim.you_1155")}: ${totalPlayerScore}M
+                  {t("PrisonersDilemmaSim.you_1155")}: {formatPayoff(totalPlayerScore)}
                 </span>
                 <span className="text-rose-600">
-                  {t("PrisonersDilemmaSim.rival_1156")}: ${totalBotScore}M
+                  {t("PrisonersDilemmaSim.rival_1156")}: {formatPayoff(totalBotScore)}
                 </span>
               </div>
             </div>
@@ -299,12 +315,12 @@ export const PrisonersDilemmaSim: React.FC = () => {
                 <LineChart data={chartData} margin={{ top: 10, right: 20, left: -20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" opacity={0.15} />
                   <XAxis dataKey="round" tick={{ fontSize: 10, fill: "#94A3B8" }} />
-                  <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} unit="M" />
+                  <YAxis tick={{ fontSize: 10, fill: "#94A3B8" }} tickFormatter={(value) => formatPayoff(Number(value))} />
                   <Tooltip
                     content={
                       <CustomChartTooltip
                         valueFormatter={(val, name) => [
-                          `$${val}M`,
+                          formatPayoff(Number(val)),
                           name === "player"
                             ? t("PrisonersDilemmaSim.your_airline_1157")
                             : t("PrisonersDilemmaSim.rival_airline_b_1158"),
@@ -338,12 +354,16 @@ export const PrisonersDilemmaSim: React.FC = () => {
                 {history.map((r, i) => (
                   <div key={i} className="flex items-center justify-between p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 text-xs font-mono">
                     <span className="font-bold text-slate-700 dark:text-slate-300">
-                      R{r.round}: {isEnglish ? `You ($${r.playerChoice}) vs Rival ($${r.botChoice})` : `Sen ($${r.playerChoice}) vs Rakip ($${r.botChoice})`}
+                      {t("PrisonersDilemmaSim.history_round", undefined, {
+                        round: r.round,
+                        playerPrice: formatPrice(r.playerChoice),
+                        rivalPrice: formatPrice(r.botChoice),
+                      })}
                     </span>
                     <div className="flex gap-2">
-                      <span className="text-emerald-600 font-bold">+{r.playerPayoff}M$</span>
+                      <span className="text-emerald-600 font-bold">+{formatPayoff(r.playerPayoff)}</span>
                       <span className="text-slate-400">/</span>
-                      <span className="text-rose-600 font-bold">+{r.botPayoff}M$</span>
+                      <span className="text-rose-600 font-bold">+{formatPayoff(r.botPayoff)}</span>
                     </div>
                   </div>
                 ))}
@@ -393,11 +413,25 @@ export const PrisonersDilemmaSim: React.FC = () => {
                   <span>{t("PrisonersDilemmaSim.game_theory_pricing_1166")}</span>
                 </div>
                 <div className="font-mono text-xs sm:text-sm text-indigo-950 dark:text-indigo-100 font-bold bg-white/80 dark:bg-slate-900/80 p-3 rounded-lg border border-indigo-100 dark:border-indigo-900/80">
-                  <span>{t("PrisonersDilemmaSim.both_cooperate_220_2_1167")}</span>
+                  <span>{t("PrisonersDilemmaSim.both_cooperate_220_2_1167", undefined, {
+                    highPrice: formatPrice(220),
+                    cooperationPayoff: formatPayoff(100),
+                    totalProfit: formatPayoff(200),
+                  })}</span>
                   <br />
-                  <span>{t("PrisonersDilemmaSim.one_defects_200_vs_2_1168")}</span>
+                  <span>{t("PrisonersDilemmaSim.one_defects_200_vs_2_1168", undefined, {
+                    lowPrice: formatPrice(200),
+                    highPrice: formatPrice(220),
+                    defectorPayoff: formatPayoff(120),
+                    cooperatorPayoff: formatPayoff(40),
+                    totalProfit: formatPayoff(160),
+                  })}</span>
                   <br />
-                  <span>{t("PrisonersDilemmaSim.both_defect_200_200_1169")}</span>
+                  <span>{t("PrisonersDilemmaSim.both_defect_200_200_1169", undefined, {
+                    lowPrice: formatPrice(200),
+                    defectPayoff: formatPayoff(60),
+                    totalProfit: formatPayoff(120),
+                  })}</span>
                 </div>
               </div>
 

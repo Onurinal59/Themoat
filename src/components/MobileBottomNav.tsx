@@ -60,7 +60,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   if (activeModule) {
     return (
       <nav
-        aria-label="Mobile Module Navigation"
+        aria-label={t("audit.mobileModuleNav")}
         className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-t border-slate-200/80 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] px-3 pt-2 pb-safe"
       >
         <div className="flex items-center justify-between gap-2 max-w-md mx-auto pb-1">
@@ -95,7 +95,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
               <span>
                 {isNextModuleUnlocked
                   ? t("MobileBottomNav.next_step_493")
-                  : isEnglish ? `Preview Step 0${activeModule ? activeModule.id + 1 : ""}` : `Adım 0${activeModule ? activeModule.id + 1 : ""}'ü Önizle`}
+                  : t("audit.previewStep", undefined, { step: activeModule ? activeModule.id + 1 : "" })}
               </span>
               <ChevronRight className="w-4 h-4 shrink-0" />
             </button>
@@ -119,7 +119,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   // Standard Main App Bottom Navigation Bar
   return (
     <nav
-      aria-label="Mobile Primary Navigation"
+      aria-label={t("audit.mobilePrimaryNav")}
       className="fixed bottom-0 left-0 right-0 z-40 sm:hidden bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-t border-slate-200/80 dark:border-slate-800 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] px-1 pt-1.5 pb-safe"
     >
       <div className="flex items-center justify-around max-w-md mx-auto">

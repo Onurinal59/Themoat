@@ -241,7 +241,7 @@ export const CapFadeRateSim: React.FC = () => {
               step="0.5"
               value={wacc}
               aria-labelledby="cap-slider-wacc-label"
-              aria-valuetext={`WACC %${wacc}`}
+              aria-valuetext={`WACC ${formatPercentagePoints(wacc, 1)}`}
               onChange={(e) => setWacc(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-rose-500"
             />
@@ -274,7 +274,7 @@ export const CapFadeRateSim: React.FC = () => {
               value={fadeRate}
               aria-labelledby="cap-slider-fade-rate-label"
               aria-describedby="cap-slider-fade-rate-desc"
-              aria-valuetext={`Fade rate ${fadeRate}`}
+              aria-valuetext={`${t("CapFadeRateSim.fade_rate_decay_velo_790")}: ${fadeRate}`}
               onChange={(e) => setFadeRate(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-indigo-500"
             />
@@ -305,7 +305,7 @@ export const CapFadeRateSim: React.FC = () => {
               step="100"
               value={investedCapital}
               aria-labelledby="cap-slider-invested-capital-label"
-              aria-valuetext={`$${investedCapital} million`}
+              aria-valuetext={formatUsdFromMillions(investedCapital, 0)}
               onChange={(e) => setInvestedCapital(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-slate-600"
             />

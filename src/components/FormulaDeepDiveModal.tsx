@@ -233,7 +233,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                 )}
                 <button
                   onClick={onClose}
-                  aria-label={isEnglish ? "Close formula guide" : "Formül rehberini kapat"}
+                  aria-label={t("audit.formulaClose")}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-white text-xs font-semibold transition-colors cursor-pointer border border-slate-200 dark:border-transparent"
                 >
                   <ArrowLeft className="w-4 h-4" />
@@ -735,7 +735,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                         <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-white border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xs">
                           <div>
                             <div className="text-xs text-indigo-700 dark:text-indigo-300 font-bold uppercase tracking-wider">
-                              {isEnglish ? `Diagnosed Dickinson Stage (${dickCfo} , ${dickCfi} , ${dickCff})` : `Teşhis Edilen Dickinson Evresi (${dickCfo} , ${dickCfi} , ${dickCff})`}
+                              {t("audit.formulaDickinsonStage", undefined, { cfo: dickCfo, cfi: dickCfi, cff: dickCff })}
                             </div>
                             <div className={`text-xl sm:text-2xl font-black mt-0.5 ${diag.color}`}>
                               {diag.stage}
@@ -896,13 +896,14 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                           {t("FormulaDeepDiveModal.market_implied_compe_284")}
                         </div>
                         <div className="text-2xl sm:text-3xl font-black text-white mt-0.5">
-                          ~{impliedCapYears} {t("FormulaDeepDiveModal.years_285")} ({isEnglish ? `${futureSharePct}% of price relies on future growth` : `Fiyatın %${futureSharePct}'si Geleceğe Bağlı`})
+                          ~{impliedCapYears} {t("FormulaDeepDiveModal.years_285")} ({t("audit.futureGrowthShare", undefined, { share: futureSharePct })})
                         </div>
                       </div>
                       <p className="text-xs text-blue-200/90 max-w-sm leading-relaxed text-right sm:text-left">
-                        {isEnglish
-                          ? `Zero-Growth Value: \$${steadyStateVal.toFixed(1)}. To justify this stock price, the firm must sustain ROIC > WACC without conceding market share for a full ${impliedCapYears} years!`
-                          : `Sıfır Büyüme Değeri: ${steadyStateVal.toFixed(1)} TL. Bu fiyatı haklı çıkarmak için şirketin tam ${impliedCapYears} yıl boyunca rakiplere pazar kaptırmadan ROIC > WACC farkını koruması şarttır!`}
+                        {t("audit.zeroGrowthExplanation", undefined, {
+                          value: isEnglish ? `$${steadyStateVal.toFixed(1)}` : `${steadyStateVal.toFixed(1)} TL`,
+                          years: impliedCapYears,
+                        })}
                       </p>
                     </div>
                   </div>
@@ -959,7 +960,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                 <div className="flex items-center gap-2">
                   <Layers className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                   <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">
-                    {isEnglish ? `Step-by-Step Calculation Order (${currentGuide.steps.length} Steps)` : `Adım Adım Hesaplama Sırası (${currentGuide.steps.length} Adım)`}
+                    {t("audit.calculationOrder", undefined, { count: currentGuide.steps.length })}
                   </h3>
                 </div>
 
@@ -998,7 +999,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                 <div className="flex items-center gap-2">
                   <Building2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
                   <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-slate-100">
-                    {isEnglish ? `Real-World Case Study: ${currentGuide.realWorldExample.company}` : `Gerçek Dünya Vaka Analizi: ${currentGuide.realWorldExample.company}`}
+                    {t("audit.realWorldCase", undefined, { company: currentGuide.realWorldExample.company })}
                   </h3>
                 </div>
 

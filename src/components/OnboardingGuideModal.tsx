@@ -402,7 +402,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
             </div>
             <button
               onClick={onClose}
-              aria-label={isEnglish ? "Close platform tour" : "Platform turunu kapat"}
+              aria-label={t("audit.closeTour")}
               className="md:hidden p-2 rounded-full bg-slate-200/50 dark:bg-slate-800/50 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
             >
               <X className="w-5 h-5" />
@@ -447,7 +447,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
             {/* Desktop Close Button */}
             <button
               onClick={onClose}
-              aria-label={isEnglish ? "Close platform tour" : "Platform turunu kapat"}
+              aria-label={t("audit.closeTour")}
               className="hidden md:flex absolute top-6 right-6 p-2.5 rounded-full bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700/50 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-all z-50 shadow-sm"
             >
               <X className="w-5 h-5" />
@@ -472,7 +472,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
                             
                             <div>
                                 <div className="text-xs font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 mb-2">
-                                    {isEnglish ? `Stop ${currentStep.stepNumber} of 7` : `Durak ${currentStep.stepNumber} / 7`}
+                                    {t("audit.stopOf", undefined, { step: currentStep.stepNumber })}
                                 </div>
                                 <h1 className="text-3xl md:text-4xl font-black text-slate-900 dark:text-white tracking-tight leading-tight">
                                     {currentStep.title}
@@ -530,7 +530,7 @@ export const OnboardingGuideModal: React.FC<OnboardingGuideModalProps> = ({
                                 ? "bg-slate-100 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-400 dark:text-slate-700 cursor-not-allowed"
                                 : "bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-700 hover:border-slate-300 dark:hover:border-slate-600 cursor-pointer shadow-sm dark:shadow-lg"
                         }`}
-                        aria-label="Previous Step"
+                        aria-label={t("audit.previousStep")}
                     >
                         <ArrowLeft className="w-5 h-5" />
                     </button>

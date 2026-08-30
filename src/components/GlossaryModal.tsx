@@ -106,7 +106,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            aria-label={isEnglish ? "Close glossary" : "Sözlüğü kapat"}
+            aria-label={t("audit.glossaryClose")}
             className="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
@@ -119,7 +119,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
             <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
-              aria-label={isEnglish ? "Search glossary" : "Sözlükte ara"}
+              aria-label={t("audit.glossarySearch")}
               placeholder={t("GlossaryModal.search_terms_concept_399")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -225,7 +225,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
         {/* Footer */}
         <div className="p-4 bg-slate-50 dark:bg-slate-900/90 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs text-slate-600 dark:text-slate-400">
           <span>
-            {isEnglish ? `Total ${glossaryTerms.length} Strategic & Financial Terms` : `Toplam ${glossaryTerms.length} Stratejik & Finansal Kavram`}
+            {t("audit.glossaryTotal", undefined, { count: glossaryTerms.length })}
           </span>
           <button
             onClick={onClose}

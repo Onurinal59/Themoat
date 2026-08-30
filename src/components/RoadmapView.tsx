@@ -163,7 +163,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                         className="w-full sm:w-auto px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-sm sm:text-base flex items-center justify-center gap-2.5 shadow-lg shadow-indigo-600/30 transition-all min-h-[48px] active:scale-98 cursor-pointer"
                     >
                         <PlayCircle className="w-5 h-5 shrink-0" />
-                        <span>{isEnglish ? (nextUpIndex === 0 ? "Start Academy" : "Continue Academy") : (nextUpIndex === 0 ? "Akademiye Başla" : "Kaldığın Yerden Devam Et")}</span>
+                        <span>{nextUpIndex === 0 ? t("audit.startAcademy") : t("audit.continueAcademy")}</span>
                     </button>
                     {onNavigateTab && (
                         <button 
@@ -324,19 +324,23 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                       {t("RoadmapView.review_needed_709")}
                     </h3>
                     <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
-                      {isEnglish
-                        ? `${missedCardIds.length} Missed Concept${missedCardIds.length > 1 ? "s" : ""}`
-                        : `${missedCardIds.length} Kaçırılan Kavram`}
+                      {t("audit.missedConcepts", undefined, { count: missedCardIds.length, suffix: missedCardIds.length > 1 ? "s" : "" })}
                     </span>
                   </div>
                   <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
                     {hasDue
-                      ? isEnglish
-                        ? `${missedCardIds.length} missed concept${missedCardIds.length > 1 ? "s are" : " is"} ready to strengthen before your next quiz attempt (+ ${dueCards.length} concept${dueCards.length > 1 ? "s" : ""} due for spaced review).`
-                        : `Sıradaki test denemenizden önce pekiştirmeniz gereken ${missedCardIds.length} kaçırılan kavram hazır (+ ${dueCards.length} aralıklı tekrar bekleyen kart).`
-                      : isEnglish
-                      ? `${missedCardIds.length} missed concept${missedCardIds.length > 1 ? "s are" : " is"} ready to strengthen before your next quiz attempt.`
-                      : `Sıradaki test denemenizden önce pekiştirmeniz gereken ${missedCardIds.length} kaçırılan kavram hazır.`}
+                      ? t("audit.conceptsReady", undefined, {
+                          count: missedCardIds.length,
+                          suffix: missedCardIds.length > 1 ? "s" : "",
+                          verb: missedCardIds.length > 1 ? "are" : "is",
+                          due: dueCards.length,
+                          dueSuffix: dueCards.length > 1 ? "s" : "",
+                        })
+                      : t("audit.conceptsOnly", undefined, {
+                          count: missedCardIds.length,
+                          suffix: missedCardIds.length > 1 ? "s" : "",
+                          verb: missedCardIds.length > 1 ? "are" : "is",
+                        })}
                   </p>
                 </div>
               </div>
@@ -373,13 +377,15 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                     {t("RoadmapView.due_for_spaced_revie_711")}
                   </h3>
                   <span className="px-2 py-0.5 rounded-full text-xs font-bold bg-purple-100 dark:bg-purple-950/70 text-purple-800 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
-                    {isEnglish ? `${dueCards.length} Cards Ready` : `${dueCards.length} Kart Hazır`}
+                    {t("audit.cardsReady", undefined, { count: dueCards.length })}
                   </span>
                 </div>
                 <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
-                  {isEnglish
-                    ? `${dueCards.length} concept${dueCards.length > 1 ? "s are" : " is"} ready for a quick refresh.`
-                    : `${dueCards.length} zihinsel model hafızanızı tazelemek için hazır.`}
+                  {t("audit.conceptsRefresh", undefined, {
+                    count: dueCards.length,
+                    suffix: dueCards.length > 1 ? "s" : "",
+                    verb: dueCards.length > 1 ? "are" : "is",
+                  })}
                 </p>
               </div>
             </div>
@@ -476,7 +482,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                                 : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700"
                             }`}
                           >
-                            {isEnglish ? `Step 0${module.id}` : `Adım 0${module.id}`}
+                            {t("audit.stepLabel", undefined, { step: module.id })}
                           </span>
                           <span className="px-2 py-0.5 rounded text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700">
                             {module.subtitle}
@@ -487,7 +493,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                           {isCompleted ? (
                             <span className="px-2 py-0.5 rounded text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 flex items-center gap-1">
                               <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
-                              {isEnglish ? `Completed${quizScore !== undefined ? ` • ${quizScore}%` : ""}` : `Tamamlandı${quizScore !== undefined ? ` • %${quizScore}` : ""}`}
+                              {t("audit.completed", undefined, { score: quizScore !== undefined ? (isEnglish ? ` • ${quizScore}%` : ` • %${quizScore}`) : "" })}
                             </span>
                           ) : isNext ? (
                             <span className="px-2 py-0.5 rounded text-xs font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800 flex items-center gap-1">
@@ -537,7 +543,7 @@ export const RoadmapView: React.FC<RoadmapViewProps> = ({
                             {isCompleted
                               ? t("RoadmapView.review_masterclass_716")
                               : isNext
-                              ? isEnglish ? (idx === 0 ? "Start Masterclass" : "Continue Masterclass") : (idx === 0 ? "Dersi Başlat" : "Derse Devam Et")
+                              ? (idx === 0 ? t("audit.startMasterclass") : t("audit.continueMasterclass"))
                               : t("RoadmapView.preview_masterclass_717")}
                           </span>
                           <ArrowRight className="w-4 h-4 shrink-0 transition-transform group-hover:translate-x-1" />
