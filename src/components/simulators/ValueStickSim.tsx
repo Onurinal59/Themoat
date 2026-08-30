@@ -221,7 +221,7 @@ export const ValueStickSim: React.FC = () => {
               step={10}
               value={wtp}
               aria-labelledby="valuestick-slider-wtp-label"
-              aria-valuetext={`WTP {formatCurrency(wtp)}`}
+              aria-valuetext={`WTP ${formatCurrency(wtp)}`}
               onChange={(e) => setWtp(Number(e.target.value))}
               className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -265,7 +265,7 @@ export const ValueStickSim: React.FC = () => {
               step={10}
               value={price}
               aria-labelledby="valuestick-slider-price-label"
-              aria-valuetext={`Price {formatCurrency(price)}`}
+              aria-valuetext={`Price ${formatCurrency(price)}`}
               onChange={(e) => setPrice(Number(e.target.value))}
               className="w-full accent-emerald-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -309,7 +309,7 @@ export const ValueStickSim: React.FC = () => {
               step={10}
               value={cost}
               aria-labelledby="valuestick-slider-cost-label"
-              aria-valuetext={`Cost {formatCurrency(cost)}`}
+              aria-valuetext={`Cost ${formatCurrency(cost)}`}
               onChange={(e) => setCost(Number(e.target.value))}
               className="w-full accent-amber-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -353,7 +353,7 @@ export const ValueStickSim: React.FC = () => {
               step={10}
               value={wts}
               aria-labelledby="valuestick-slider-wts-label"
-              aria-valuetext={`WTS {formatCurrency(wts)}`}
+              aria-valuetext={`WTS ${formatCurrency(wts)}`}
               onChange={(e) => setWts(Number(e.target.value))}
               className="w-full accent-pink-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />

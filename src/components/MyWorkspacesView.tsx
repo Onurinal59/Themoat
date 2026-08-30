@@ -28,7 +28,7 @@ import {
   AlertCircle
 } from "lucide-react";
 import { CompanyAuditDossier } from "../types";
-import { calculateFinancialOutputs, computeMoatScore, MAUBOUSSIN_GUIDED_TEMPLATE, translateMoatDriver, translateMoatType, translateMoatWidth } from "../data/companyAuditData";
+import { calculateFinancialOutputs, computeMoatScore, translateMoatDriver, translateMoatType, translateMoatWidth } from "../data/companyAuditData";
 import { MAX_IMPORT_BYTES, validateImportedDossiers } from "../utils/dossierValidation";
 import { toLocalDateKey } from "../utils/date";
 
@@ -55,7 +55,8 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
   onResetToPresets,
   onOpenAuditStudio,
 }) => {
-  const { language, isEnglish, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
+  const { language, isEnglish, t, getMasterTemplate, formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
+  const masterTemplate = getMasterTemplate();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [filterType, setFilterType] = useState<"all" | "custom" | "presets" | "template" | "wide" | "valueCreating">("all");
@@ -80,20 +81,20 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
   };
 
   // Find if master template is present
-  const hasMasterTemplate = dossiers.some((d) => d.id === MAUBOUSSIN_GUIDED_TEMPLATE.id);
+  const hasMasterTemplate = dossiers.some((d) => d.id === masterTemplate.id);
 
   const handleOpenMasterTemplate = () => {
     if (!hasMasterTemplate) {
-      onImportDossiers([MAUBOUSSIN_GUIDED_TEMPLATE]);
+      onImportDossiers([masterTemplate]);
     }
-    onSelectDossier(MAUBOUSSIN_GUIDED_TEMPLATE.id, 1);
+    onSelectDossier(masterTemplate.id, 1);
     onOpenAuditStudio();
     showToast(t("MyWorkspacesView.mauboussin_measuring_617"));
   };
 
   const handleStartCustomFromTemplate = () => {
     onDuplicateDossier({
-      ...MAUBOUSSIN_GUIDED_TEMPLATE,
+      ...masterTemplate,
       companyName: t("MyWorkspacesView.my_new_audit_maubous_618"),
       ticker: "NEW-AUDIT",
       isCustom: true
@@ -131,8 +132,8 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
     if (!matchesSearch) return false;
 
     if (filterType === "custom") return dossier.isCustom === true;
-    if (filterType === "presets") return !dossier.isCustom && dossier.id !== MAUBOUSSIN_GUIDED_TEMPLATE.id;
-    if (filterType === "template") return dossier.id === MAUBOUSSIN_GUIDED_TEMPLATE.id || dossier.tags?.some(tag => tag.includes("Taslak") || tag.includes("Template"));
+    if (filterType === "presets") return !dossier.isCustom && dossier.id !== masterTemplate.id;
+    if (filterType === "template") return dossier.id === masterTemplate.id || dossier.tags?.some(tag => tag.includes("Taslak") || tag.includes("Template"));
     if (filterType === "wide") return isWideMoat;
     if (filterType === "valueCreating") return isValueCreating;
     return true;

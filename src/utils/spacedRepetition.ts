@@ -77,6 +77,39 @@ export function saveUserLearningState(state: UserLearningState): void {
 }
 
 /**
+ * Keep scheduling progress while taking the card copy from the active
+ * language dataset. Older versions stored the full card object, so using that
+ * object directly would make a language switch show stale Turkish text.
+ */
+export function mergeFlashcardProgress(
+  card: Flashcard,
+  saved?: Partial<Flashcard>
+): Flashcard {
+  if (!saved) return card;
+
+  const difficulty = saved.difficulty;
+  const hasValidDifficulty = difficulty === "kolay" || difficulty === "orta" || difficulty === "zor";
+
+  return {
+    ...card,
+    repetitions: Number.isFinite(saved.repetitions) ? Number(saved.repetitions) : card.repetitions,
+    intervalDays: Number.isFinite(saved.intervalDays) ? Number(saved.intervalDays) : card.intervalDays,
+    easeFactor: Number.isFinite(saved.easeFactor) ? Number(saved.easeFactor) : card.easeFactor,
+    nextReviewDate:
+      typeof saved.nextReviewDate === "string" && saved.nextReviewDate
+        ? saved.nextReviewDate
+        : card.nextReviewDate,
+    lastReviewedDate: saved.lastReviewedDate,
+    hasBeenReviewed:
+      typeof saved.hasBeenReviewed === "boolean"
+        ? saved.hasBeenReviewed
+        : Boolean(saved.repetitions && saved.repetitions > 0) || Boolean(saved.lastReviewedDate) || Boolean(card.hasBeenReviewed),
+    firstReviewedAt: saved.firstReviewedAt,
+    difficulty: hasValidDifficulty ? difficulty : card.difficulty,
+  };
+}
+
+/**
  * SuperMemo SM-2 Spaced Repetition Algorithm
  * Quality rating:
  * 1: Tekrar Et (Unuttum / Yanlış)
@@ -176,7 +209,7 @@ export function getDueFlashcards(
 ): Flashcard[] {
   const now = new Date().getTime();
   return baseFlashcards
-    .map((card) => userState.flashcardStates[card.id] || card)
+    .map((card) => mergeFlashcardProgress(card, userState.flashcardStates[card.id]))
     .filter((card) => {
       if (!card.hasBeenReviewed) return false;
       if (!card.nextReviewDate) return false;
@@ -192,6 +225,6 @@ export function getNewFlashcards(
   baseFlashcards: Flashcard[]
 ): Flashcard[] {
   return baseFlashcards
-    .map((card) => userState.flashcardStates[card.id] || card)
+    .map((card) => mergeFlashcardProgress(card, userState.flashcardStates[card.id]))
     .filter((card) => !card.hasBeenReviewed);
 }

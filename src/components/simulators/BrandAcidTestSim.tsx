@@ -393,7 +393,7 @@ export const BrandAcidTestSim: React.FC = () => {
                   </div>
                   <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                     <span className="text-slate-500 block font-bold mb-1">
-                      {t("BrandAcidTestSim.2_price_shock_priceh_779") + priceHikePercent + ")"}
+                      {t("BrandAcidTestSim.2_price_shock_priceh_779")} {priceHikePercent}%)
                     </span>
                     <p className="text-slate-700 dark:text-slate-300">
                       {isEnglish
