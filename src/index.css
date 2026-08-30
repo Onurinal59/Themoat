@@ -149,6 +149,15 @@ input[type="range"]:active::-webkit-slider-thumb {
   z-index: 2;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* Ambient Background Animations */
 @keyframes blob {
   0% { transform: translate(0px, 0px) scale(1); }

@@ -1,4 +1,6 @@
-import { calculateFinancialOutputs } from "./src/data/companyAuditData";
+import { calculateFinancialOutputs, computeMoatScore, INITIAL_PRESET_DOSSIERS } from "./src/data/companyAuditData";
+import { toLocalDateKey } from "./src/utils/date";
+import { validateImportedDossiers } from "./src/utils/dossierValidation";
 
 const testCases = [
   {
@@ -17,6 +19,7 @@ const testCases = [
       investedCapital: 1000,
       roicPercent: 16.0,
       spread: 6.0,
+      isRoicMeaningful: true,
       isCreatingValue: true,
     }
   },
@@ -34,9 +37,10 @@ const testCases = [
     expected: {
       nopat: 400,
       investedCapital: -500,
-      roicPercent: 999.9, // Capped
-      spread: 989.9,
-      isCreatingValue: true,
+      roicPercent: 0,
+      spread: 0,
+      isRoicMeaningful: false,
+      isCreatingValue: false,
     }
   },
   {
@@ -54,7 +58,8 @@ const testCases = [
       nopat: -500,
       investedCapital: -500,
       roicPercent: 0,
-      spread: -10,
+      spread: 0,
+      isRoicMeaningful: false,
       isCreatingValue: false,
     }
   }
@@ -72,6 +77,7 @@ for (const tc of testCases) {
   if (result.investedCapital !== tc.expected.investedCapital) { console.error(`[${tc.name}] Invested Capital mismatch: expected ${tc.expected.investedCapital}, got ${result.investedCapital}`); pass = false; }
   if (result.roicPercent !== tc.expected.roicPercent) { console.error(`[${tc.name}] ROIC mismatch: expected ${tc.expected.roicPercent}, got ${result.roicPercent}`); pass = false; }
   if (result.spread !== tc.expected.spread) { console.error(`[${tc.name}] Spread mismatch: expected ${tc.expected.spread}, got ${result.spread}`); pass = false; }
+  if (result.isRoicMeaningful !== tc.expected.isRoicMeaningful) { console.error(`[${tc.name}] isRoicMeaningful mismatch: expected ${tc.expected.isRoicMeaningful}, got ${result.isRoicMeaningful}`); pass = false; }
   if (result.isCreatingValue !== tc.expected.isCreatingValue) { console.error(`[${tc.name}] isCreatingValue mismatch: expected ${tc.expected.isCreatingValue}, got ${result.isCreatingValue}`); pass = false; }
 
   if (pass) {
@@ -79,6 +85,34 @@ for (const tc of testCases) {
   } else {
     failed++;
   }
+}
+
+const localDate = new Date(2026, 0, 2, 0, 30);
+if (toLocalDateKey(localDate) !== "2026-01-02") {
+  console.error("[Local date key] expected 2026-01-02");
+  failed++;
+} else {
+  console.log("✅ Local date key PASSED");
+}
+
+const nonMeaningfulDossier = structuredClone(INITIAL_PRESET_DOSSIERS[0]);
+nonMeaningfulDossier.financials.totalAssets = 100;
+nonMeaningfulDossier.financials.cashAndEquivalents = 100;
+nonMeaningfulDossier.financials.nonInterestCurrentLiabilities = 50;
+const nonMeaningfulScore = computeMoatScore(nonMeaningfulDossier);
+if (!nonMeaningfulScore.summaryTags.some((tag) => tag.includes("ROIC N/M"))) {
+  console.error("[Moat score] non-meaningful ROIC was not identified");
+  failed++;
+} else {
+  console.log("✅ Non-meaningful ROIC scoring PASSED");
+}
+
+const invalidImport = validateImportedDossiers({ companyName: "Incomplete" });
+if (!invalidImport.error) {
+  console.error("[Import validation] incomplete dossier was accepted");
+  failed++;
+} else {
+  console.log("✅ Import schema validation PASSED");
 }
 
 if (failed > 0) {

@@ -4,6 +4,7 @@ import { Search, X, BookOpen, Sparkles, Tag, HelpCircle } from "lucide-react";
 import { GlossaryTerm } from "../types";
 import { useLanguage } from "../context/LanguageContext";
 import { translateCategory } from "../data/companyAuditData";
+import { useAccessibleDialog } from "../hooks/useAccessibleDialog";
 
 interface GlossaryModalProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
 }) => {
   const { isEnglish, getGlossaryTerms, t , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const glossaryTerms = getGlossaryTerms();
+  const dialogRef = useAccessibleDialog(isOpen, onClose);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -67,6 +69,10 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
           {/* Backdrop */}
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="glossary-title"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -90,7 +96,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
               <BookOpen className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <div>
-              <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">
+              <h2 id="glossary-title" className="text-base sm:text-lg font-bold text-slate-900 dark:text-slate-100">
                 {t("GlossaryModal.finance_moat_termino_397")}
               </h2>
               <p className="text-xs text-slate-600 dark:text-slate-400 hidden sm:block">
@@ -100,6 +106,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
           </div>
           <button
             onClick={onClose}
+            aria-label={isEnglish ? "Close glossary" : "Sözlüğü kapat"}
             className="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
@@ -112,6 +119,7 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
             <Search className="w-4 h-4 text-slate-400 dark:text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
+              aria-label={isEnglish ? "Search glossary" : "Sözlükte ara"}
               placeholder={t("GlossaryModal.search_terms_concept_399")}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -232,4 +240,3 @@ export const GlossaryModal: React.FC<GlossaryModalProps> = ({
 </AnimatePresence>
   );
 };
-

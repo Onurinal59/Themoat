@@ -49,6 +49,8 @@ import { useLanguage } from "../context/LanguageContext";
 import { MyWorkspacesView } from "./MyWorkspacesView";
 import { MauboussinMethodologyCoach } from "./MauboussinMethodologyCoach";
 import { InvestmentCommitteeModal } from "./InvestmentCommitteeModal";
+import { validateImportedDossiers } from "../utils/dossierValidation";
+import { toLocalDateKey } from "../utils/date";
 
 interface CompanyAuditLabProps {
   onOpenAICoachWithPrompt?: (prompt: string) => void;
@@ -65,10 +67,8 @@ export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: Com
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          const valid = parsed.filter(item => item && item.id && item.companyName && item.financials);
-          if (valid.length > 0) return valid;
-        }
+        const result = validateImportedDossiers(parsed);
+        if (!result.error && result.dossiers.length > 0) return result.dossiers;
       } catch (e) {
         console.error("Dossiers parse error:", e);
       }
@@ -181,7 +181,7 @@ export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: Com
           ? {
               ...d,
               ...updated,
-              updatedAt: new Date().toISOString().split("T")[0]
+              updatedAt: toLocalDateKey()
             }
           : d
       )
@@ -208,8 +208,8 @@ export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: Com
       industry: t("CompanyAuditLab.specify_industry_14"),
       description: t("CompanyAuditLab.company_s_core_busin_15"),
       isCustom: true,
-      createdAt: new Date().toISOString().split("T")[0],
-      updatedAt: new Date().toISOString().split("T")[0],
+      createdAt: toLocalDateKey(),
+      updatedAt: toLocalDateKey(),
       lastStep: 1,
       financials: {
         revenue: 10000,
@@ -260,8 +260,8 @@ export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: Com
       id: newId,
       companyName: isEnglish ? `${dossier.companyName} (Copy)` : `${dossier.companyName} (Kopya)`,
       isCustom: true,
-      createdAt: new Date().toISOString().split("T")[0],
-      updatedAt: new Date().toISOString().split("T")[0],
+      createdAt: toLocalDateKey(),
+      updatedAt: toLocalDateKey(),
       lastStep: 1
     };
 
@@ -285,14 +285,9 @@ export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: Com
   const handleImportDossiers = (imported: CompanyAuditDossier[]) => {
     if (!imported || imported.length === 0) return;
     
-    // Validate required fields roughly before importing
-    const validImports = imported.filter(item => 
-      item && item.id && item.companyName && item.financials && 
-      typeof item.financials.revenue === 'number' &&
-      typeof item.financials.operatingIncome === 'number'
-    );
-    
-    if (validImports.length === 0) return;
+    const result = validateImportedDossiers(imported);
+    if (result.error) return;
+    const validImports = result.dossiers;
 
     const existingIds = new Set(dossiers.map((d) => d.id));
     const newUnique = validImports.filter((item) => !existingIds.has(item.id));
@@ -321,7 +316,7 @@ ${t("CompanyAuditLab.industry_18")}: ${currentDossier.industry}
 ${t("CompanyAuditLab.date_19")}: ${currentDossier.updatedAt}
 
 1. ${t("CompanyAuditLab.financial_x_ray_roic_20")}
-- ROIC: %${finCalc.roicPercent} (WACC: %${currentDossier.financials.wacc} | Spread: ${finCalc.spread >= 0 ? "+" : ""}%${finCalc.spread})
+- ROIC: ${finCalc.isRoicMeaningful ? `%${finCalc.roicPercent}` : "N/M"} (WACC: %${currentDossier.financials.wacc} | Spread: ${finCalc.isRoicMeaningful ? `${finCalc.spread >= 0 ? "+" : ""}%${finCalc.spread}` : "N/M"})
 - ${t("CompanyAuditLab.value_status_21")}: ${finCalc.isCreatingValue ? (t("CompanyAuditLab.creating_value_22")) : (t("CompanyAuditLab.destroying_value_23"))}
 - NOPAT: ${finCalc.nopat} M
 - ${t("CompanyAuditLab.invested_capital_24")}: ${finCalc.investedCapital} M
@@ -368,7 +363,7 @@ ${t("CompanyAuditLab.notes_34")}: ${currentDossier.notes || (t("CompanyAuditLab.
 
 Company: ${currentDossier.companyName} (${currentDossier.ticker})
 Industry: ${currentDossier.industry}
-ROIC: %${finCalc.roicPercent} (WACC: %${currentDossier.financials.wacc}, Spread: %${finCalc.spread})
+ROIC: ${finCalc.isRoicMeaningful ? `%${finCalc.roicPercent}` : "N/M"} (WACC: %${currentDossier.financials.wacc}, Spread: ${finCalc.isRoicMeaningful ? `%${finCalc.spread}` : "N/M"})
 NOPAT Margin: %${finCalc.nopatMarginPercent}, Capital Turnover: ${finCalc.capitalTurnover}x
 Moat Type: ${currentDossier.competitiveAdvantage.primaryType}
 Moat Drivers: ${currentDossier.competitiveAdvantage.subDrivers.join(", ")}
@@ -380,7 +375,7 @@ What are the critical moat risks and competitive longevity for this business?`
 
 ${isEnglish ? "Company" : "Şirket"}: ${currentDossier.companyName} (${currentDossier.ticker})
 ${isEnglish ? "Industry" : "Sektör"}: ${currentDossier.industry}
-ROIC: %${finCalc.roicPercent} (WACC: %${currentDossier.financials.wacc}, Fark: %${finCalc.spread})
+ROIC: ${finCalc.isRoicMeaningful ? `%${finCalc.roicPercent}` : "N/M"} (WACC: %${currentDossier.financials.wacc}, Fark: ${finCalc.isRoicMeaningful ? `%${finCalc.spread}` : "N/M"})
 NOPAT Marjı: %${finCalc.nopatMarginPercent}, Sermaye Devir Hızı: ${finCalc.capitalTurnover}x
 Hendek Türü: ${currentDossier.competitiveAdvantage.primaryType}
 Hendek Motorları: ${currentDossier.competitiveAdvantage.subDrivers.join(", ")}
@@ -1549,7 +1544,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     : "bg-rose-50 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800"
                 }`}
               >
-                {finCalc.isCreatingValue ? (t("CompanyAuditLab.creating_value_160")) : t("CompanyAuditLab.destroying_value_161")}
+                {!finCalc.isRoicMeaningful ? "ROIC N/M" : finCalc.isCreatingValue ? (t("CompanyAuditLab.creating_value_160")) : t("CompanyAuditLab.destroying_value_161")}
               </span>
             </div>
 
@@ -1563,12 +1558,12 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                     : "text-rose-600 dark:text-rose-400"
                 }`}
               >
-                %{finCalc.roicPercent}
+                {finCalc.isRoicMeaningful ? `%${finCalc.roicPercent}` : "N/M"}
               </div>
               <div className="text-xs text-slate-600 dark:text-slate-300 font-mono">
                 WACC: %{currentDossier.financials.wacc} | {t("CompanyAuditLab.spread_163")}:{" "}
                 <strong className={finCalc.spread >= 0 ? "text-emerald-600 dark:text-emerald-400" : "text-rose-600 dark:text-rose-400"}>
-                  {finCalc.spread > 0 ? `+${finCalc.spread}%` : `${finCalc.spread}%`}
+                  {finCalc.isRoicMeaningful ? (finCalc.spread > 0 ? `+${finCalc.spread}%` : `${finCalc.spread}%`) : "N/M"}
                 </strong>
               </div>
             </div>
@@ -1588,12 +1583,12 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
                   <div className="text-[10px] text-slate-500 dark:text-slate-400 font-sans">{t("CompanyAuditLab.capital_turnover_eff_166")}</div>
                   <div className="text-base font-bold text-slate-900 dark:text-slate-100 mt-0.5">
-                    {finCalc.capitalTurnover}x
+                    {finCalc.isRoicMeaningful ? `${finCalc.capitalTurnover}x` : "N/M"}
                   </div>
                 </div>
               </div>
               <p className="text-[11px] text-slate-500 dark:text-slate-400 italic">
-                ROIC = %{finCalc.nopatMarginPercent} × {finCalc.capitalTurnover}x = %{finCalc.roicPercent}
+                {finCalc.isRoicMeaningful ? `ROIC = %${finCalc.nopatMarginPercent} × ${finCalc.capitalTurnover}x = %${finCalc.roicPercent}` : (isEnglish ? "ROIC is not meaningful when invested capital is zero or negative." : "Yatırılan sermaye sıfır veya negatifken ROIC anlamlı değildir.")}
               </p>
             </div>
 

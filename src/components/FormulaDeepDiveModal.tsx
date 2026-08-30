@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { FormulaGuide } from "../types";
 import { useLanguage } from "../context/LanguageContext";
 import { MathFormula } from "./MathFormula";
+import { useAccessibleDialog } from "../hooks/useAccessibleDialog";
 import {
   Calculator,
   X,
@@ -39,6 +40,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
 }) => {
   const { getFormulaGuides, isEnglish, t , formatPercent, formatCurrency , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
   const formulaGuides = getFormulaGuides();
+  const dialogRef = useAccessibleDialog(isOpen, onClose);
   const [activeId, setActiveId] = useState<string>("wacc");
 
   const effectiveFormulaId = formulaId || initialFormulaId;
@@ -174,6 +176,10 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 overflow-y-auto">
           {/* Backdrop */}
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="formula-guide-title"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -205,7 +211,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                       {t("FormulaDeepDiveModal.step_by_step_formula_217")}
                     </span>
                   </div>
-                  <h2 className="text-base sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white mt-0.5">
+                  <h2 id="formula-guide-title" className="text-base sm:text-xl font-bold tracking-tight text-slate-900 dark:text-white mt-0.5">
                     {currentGuide.title}
                   </h2>
                 </div>
@@ -227,6 +233,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                 )}
                 <button
                   onClick={onClose}
+                  aria-label={isEnglish ? "Close formula guide" : "Formül rehberini kapat"}
                   className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-white/10 hover:bg-slate-200 dark:hover:bg-white/20 text-slate-700 dark:text-white text-xs font-semibold transition-colors cursor-pointer border border-slate-200 dark:border-transparent"
                 >
                   <ArrowLeft className="w-4 h-4" />

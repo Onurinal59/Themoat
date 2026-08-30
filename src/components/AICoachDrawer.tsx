@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "../context/LanguageContext";
 import { Sparkles, Send, X, Bot, User, Loader2, MessageSquare, Lightbulb, BookOpen } from "lucide-react";
+import { useAccessibleDialog } from "../hooks/useAccessibleDialog";
 
 interface Message {
   sender: "user" | "coach";
@@ -49,8 +50,10 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [requestError, setRequestError] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const lastInitialPromptRef = useRef<string | undefined>(undefined);
+  const dialogRef = useAccessibleDialog(isOpen, onClose);
 
   // Update initial message when language changes if only 1 message exists
   useEffect(() => {
@@ -83,6 +86,7 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
     setMessages(newMessages);
     setInput("");
     setIsLoading(true);
+    setRequestError(null);
 
     try {
       const res = await fetch("/api/ask-coach", {
@@ -95,27 +99,17 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
         }),
       });
 
-      const data = await res.json();
-      if (data.reply) {
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && typeof data.reply === "string") {
         setMessages((prev) => [...prev, { sender: "coach", text: data.reply }]);
       } else {
-        setMessages((prev) => [
-          ...prev,
-          {
-            sender: "coach",
-            text: t("AICoachDrawer.there_was_a_temporar_4"),
-          },
-        ]);
+        setRequestError(res.status === 429
+          ? (isEnglish ? "Too many questions were sent. Please wait a minute." : "Çok fazla soru gönderildi. Lütfen bir dakika bekle.")
+          : (data.error || t("AICoachDrawer.there_was_a_temporar_4")));
       }
     } catch (err) {
       console.error(err);
-      setMessages((prev) => [
-        ...prev,
-        {
-          sender: "coach",
-          text: t("AICoachDrawer.could_not_connect_to_5"),
-        },
-      ]);
+      setRequestError(t("AICoachDrawer.could_not_connect_to_5"));
     } finally {
       setIsLoading(false);
     }
@@ -129,6 +123,10 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
         <div className="fixed inset-0 z-50 overflow-hidden flex justify-end">
           {/* Backdrop */}
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="ai-coach-title"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -153,7 +151,7 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <h3 className="font-bold text-sm text-slate-900 dark:text-slate-100">
+                    <h3 id="ai-coach-title" className="font-bold text-sm text-slate-900 dark:text-slate-100">
                       {t("AICoachDrawer.socratic_ai_learning_6")}
                     </h3>
                     <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/50">
@@ -168,6 +166,7 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
 
               <button
                 onClick={onClose}
+                aria-label={isEnglish ? "Close AI Coach" : "AI Koçu kapat"}
                 className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
@@ -189,7 +188,7 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
             </div>
 
             {/* Chat Messages List */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/30 dark:bg-slate-950/50">
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/30 dark:bg-slate-950/50" aria-live="polite">
               {messages.map((m, i) => (
                 <motion.div
                   key={i}
@@ -241,6 +240,12 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
 
             {/* Input Form */}
             <div className="p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
+              <p className="mb-2 text-[10px] leading-relaxed text-slate-500 dark:text-slate-400">
+                {isEnglish
+                  ? "Questions are sent to Cloudflare Workers AI to generate answers. Do not share personal or confidential information."
+                  : "Sorular yanıt üretmek için Cloudflare Workers AI'a gönderilir. Kişisel veya gizli bilgi paylaşma."}
+              </p>
+              {requestError && <p role="alert" className="mb-2 text-xs text-rose-600 dark:text-rose-400">{requestError}</p>}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -250,6 +255,8 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
               >
                 <input
                   type="text"
+                  aria-label={isEnglish ? "Question for the AI Coach" : "AI Koça sorulacak soru"}
+                  maxLength={600}
                   placeholder={t("AICoachDrawer.ask_about_any_term_o_10")}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -272,4 +279,3 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
     </AnimatePresence>
   );
 };
-
