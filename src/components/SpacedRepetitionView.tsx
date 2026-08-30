@@ -187,7 +187,7 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
             </div>
             <div className="text-xs sm:text-sm leading-relaxed">
               <span className="font-extrabold text-purple-900 dark:text-purple-200">
-                {isEnglish ? `Targeted Concept Review for Step 0${targetedModuleId} — ` : `Adım 0${targetedModuleId} İçin Hedefli Kavram Tekrarı — `}
+                {t("audit.targetedReview", undefined, { step: targetedModuleId })}
               </span>
               <span className="text-purple-800 dark:text-purple-300">
                 {t("SpacedRepetitionView.study_the_flashcard_722")}
@@ -200,7 +200,7 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
             className="shrink-0 self-end sm:self-auto px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 cursor-pointer min-h-[36px] active:scale-98"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>{isEnglish ? `Return to Step 0${targetedModuleId} Quiz` : `Adım 0${targetedModuleId} Testine Dön`}</span>
+            <span>{t("audit.returnToQuiz", undefined, { step: targetedModuleId })}</span>
           </button>
         </motion.div>
       )}
@@ -291,7 +291,7 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
         <div className="space-y-6">
           <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 font-medium">
             <span>
-              {isEnglish ? `Card ${currentCardIndex + 1} / ${filteredCards.length}` : `Kart ${currentCardIndex + 1} / ${filteredCards.length}`}
+            {t("audit.cardProgress", undefined, { current: currentCardIndex + 1, total: filteredCards.length })}
             </span>
             <span className="font-mono">
               {isEnglish

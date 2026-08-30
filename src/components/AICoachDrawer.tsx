@@ -104,7 +104,7 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
         setMessages((prev) => [...prev, { sender: "coach", text: data.reply }]);
       } else {
         setRequestError(res.status === 429
-          ? (isEnglish ? "Too many questions were sent. Please wait a minute." : "Çok fazla soru gönderildi. Lütfen bir dakika bekle.")
+          ? t("audit.aiRateLimit")
           : (data.error || t("AICoachDrawer.there_was_a_temporar_4")));
       }
     } catch (err) {
@@ -166,7 +166,7 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
 
               <button
                 onClick={onClose}
-                aria-label={isEnglish ? "Close AI Coach" : "AI Koçu kapat"}
+                aria-label={t("audit.aiClose")}
                 className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
@@ -241,9 +241,7 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
             {/* Input Form */}
             <div className="p-4 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
               <p className="mb-2 text-[10px] leading-relaxed text-slate-500 dark:text-slate-400">
-                {isEnglish
-                  ? "Questions are sent to Cloudflare Workers AI to generate answers. Do not share personal or confidential information."
-                  : "Sorular yanıt üretmek için Cloudflare Workers AI'a gönderilir. Kişisel veya gizli bilgi paylaşma."}
+                {t("audit.aiPrivacy")}
               </p>
               {requestError && <p role="alert" className="mb-2 text-xs text-rose-600 dark:text-rose-400">{requestError}</p>}
               <form
@@ -255,7 +253,7 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
               >
                 <input
                   type="text"
-                  aria-label={isEnglish ? "Question for the AI Coach" : "AI Koça sorulacak soru"}
+                  aria-label={t("audit.aiQuestion")}
                   maxLength={600}
                   placeholder={t("AICoachDrawer.ask_about_any_term_o_10")}
                   value={input}
@@ -265,7 +263,7 @@ export const AICoachDrawer: React.FC<AICoachDrawerProps> = ({
                 />
                 <button
                   type="submit"
-                  aria-label="Send message"
+                  aria-label={t("audit.aiSend")}
                   disabled={!input.trim() || isLoading}
                   className="p-2.5 bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-100 dark:disabled:bg-slate-800 disabled:text-slate-400 dark:disabled:text-slate-600 text-white rounded-xl transition-all shadow-xs cursor-pointer"
                 >

@@ -166,7 +166,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
     link.download = `${dossier.ticker.replace(/[^a-zA-Z0-9]/g, "_")}_moat_analysis.json`;
     link.click();
     URL.revokeObjectURL(url);
-    showToast(isEnglish ? `"${dossier.companyName}" exported as JSON.` : `"${dossier.companyName}" JSON formatında indirildi.`);
+    showToast(t("audit.exported", undefined, { company: dossier.companyName }));
   };
 
   // Export all studies
@@ -179,7 +179,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
     link.download = `all_moat_studies_${toLocalDateKey()}.json`;
     link.click();
     URL.revokeObjectURL(url);
-    showToast(isEnglish ? `All ${dossiers.length} studies backed up to JSON.` : `Tüm ${dossiers.length} çalışma yedek dosyası olarak indirildi.`);
+    showToast(t("audit.backedUp", undefined, { count: dossiers.length }));
   };
 
   // Handle JSON file upload
@@ -188,7 +188,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
     if (!files || files.length === 0) return;
     const file = files[0];
     if (file.size > MAX_IMPORT_BYTES) {
-      showToast(isEnglish ? "Import file must be smaller than 1 MB." : "İçe aktarma dosyası 1 MB'den küçük olmalıdır.");
+      showToast(t("audit.importTooLarge"));
       e.target.value = "";
       return;
     }
@@ -203,7 +203,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
           return;
         }
         onImportDossiers(result.dossiers);
-        showToast(isEnglish ? `${result.dossiers.length} studies imported successfully!` : `${result.dossiers.length} adet analiz başarıyla içe aktarıldı!`);
+        showToast(t("audit.imported", undefined, { count: result.dossiers.length }));
       } catch (err) {
         console.error("Import error:", err);
         showToast(t("MyWorkspacesView.error_reading_file_p_622"));
@@ -229,7 +229,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
       {/* Hidden File Input for JSON import */}
       <input
         type="file"
-        aria-label={isEnglish ? "Import moat studies from JSON" : "Hendek çalışmalarını JSON dosyasından içe aktar"}
+        aria-label={t("audit.importAria")}
         ref={fileInputRef}
         onChange={handleFileUpload}
         accept=".json"
@@ -599,7 +599,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
                       {t("workspaces.currentStep", "Kaldığın Adım:")}
                     </span>
                     <span className="font-semibold text-slate-700 dark:text-slate-300">
-                      {stepTitles[currentStepNumber] || (isEnglish ? `Step ${currentStepNumber}` : `Adım ${currentStepNumber}`)}
+                      {stepTitles[currentStepNumber] || t("audit.stepLabel", undefined, { step: currentStepNumber })}
                     </span>
                   </div>
                 </div>
@@ -611,7 +611,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
                     <button
                       onClick={() => {
                         onDuplicateDossier(dossier);
-                        showToast(isEnglish ? `Duplicate of "${dossier.companyName}" created.` : `"${dossier.companyName}" çalışmasının kopyası oluşturuldu.`);
+                        showToast(t("audit.duplicateCreated", undefined, { company: dossier.companyName }));
                       }}
                       className="p-2 rounded-xl text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors cursor-pointer"
                       title={t("MyWorkspacesView.duplicate_this_audit_625")}
@@ -634,7 +634,7 @@ export const MyWorkspacesView: React.FC<MyWorkspacesViewProps> = ({
                         if (deleteConfirmId === dossier.id) {
                           onDeleteDossier(dossier.id);
                           setDeleteConfirmId(null);
-                          showToast(isEnglish ? `"${dossier.companyName}" deleted.` : `"${dossier.companyName}" silindi.`);
+                          showToast(t("audit.deleted", undefined, { company: dossier.companyName }));
                         } else {
                           setDeleteConfirmId(dossier.id);
                           setTimeout(() => setDeleteConfirmId(null), 4000);

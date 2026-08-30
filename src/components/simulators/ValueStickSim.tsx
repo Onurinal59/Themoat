@@ -179,7 +179,7 @@ export const ValueStickSim: React.FC = () => {
               {t("ValueStickSim.4_value_levers_1322")}
             </h3>
             <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
-              Total: {formatCurrency(totalValueCreated)}
+              {t("audit.total", undefined, { value: formatCurrency(totalValueCreated) })}
             </span>
           </div>
 
@@ -221,7 +221,7 @@ export const ValueStickSim: React.FC = () => {
               step={10}
               value={wtp}
               aria-labelledby="valuestick-slider-wtp-label"
-              aria-valuetext={`WTP ${formatCurrency(wtp)}`}
+              aria-valuetext={t("audit.valueStickWtp", undefined, { value: formatCurrency(wtp) })}
               onChange={(e) => setWtp(Number(e.target.value))}
               className="w-full accent-indigo-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -265,7 +265,7 @@ export const ValueStickSim: React.FC = () => {
               step={10}
               value={price}
               aria-labelledby="valuestick-slider-price-label"
-              aria-valuetext={`Price ${formatCurrency(price)}`}
+              aria-valuetext={t("audit.valueStickPrice", undefined, { value: formatCurrency(price) })}
               onChange={(e) => setPrice(Number(e.target.value))}
               className="w-full accent-emerald-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -309,7 +309,7 @@ export const ValueStickSim: React.FC = () => {
               step={10}
               value={cost}
               aria-labelledby="valuestick-slider-cost-label"
-              aria-valuetext={`Cost ${formatCurrency(cost)}`}
+              aria-valuetext={t("audit.valueStickCost", undefined, { value: formatCurrency(cost) })}
               onChange={(e) => setCost(Number(e.target.value))}
               className="w-full accent-amber-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -353,7 +353,7 @@ export const ValueStickSim: React.FC = () => {
               step={10}
               value={wts}
               aria-labelledby="valuestick-slider-wts-label"
-              aria-valuetext={`WTS ${formatCurrency(wts)}`}
+              aria-valuetext={t("audit.valueStickWts", undefined, { value: formatCurrency(wts) })}
               onChange={(e) => setWts(Number(e.target.value))}
               className="w-full accent-pink-600 cursor-pointer h-1.5 bg-slate-200 dark:bg-slate-700 rounded-lg"
             />
@@ -499,16 +499,35 @@ export const ValueStickSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
                 <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
                   <div className="font-bold">
-                    Total Value Created = WTP ({formatCurrency(wtp)}) - WTS ({formatCurrency(wts)}) = {formatCurrency(totalValueCreated)}
+                    {t("audit.valueTotal", undefined, {
+                      wtp: formatCurrency(wtp),
+                      wts: formatCurrency(wts),
+                      total: formatCurrency(totalValueCreated),
+                    })}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    1. Customer Delight (WTP - Price) = {formatCurrency(wtp)} - {formatCurrency(price)} = {formatCurrency(customerDelight)} ({formatPercentagePoints(customerShare, 1)})
+                    {t("audit.valueCustomer", undefined, {
+                      wtp: formatCurrency(wtp),
+                      price: formatCurrency(price),
+                      value: formatCurrency(customerDelight),
+                      share: formatPercentagePoints(customerShare, 1),
+                    })}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    2. Firm Profit (Price - Cost) = {formatCurrency(price)} - {formatCurrency(cost)} = {formatCurrency(firmProfit)} ({formatPercentagePoints(firmShare, 1)})
+                    {t("audit.valueFirm", undefined, {
+                      price: formatCurrency(price),
+                      cost: formatCurrency(cost),
+                      value: formatCurrency(firmProfit),
+                      share: formatPercentagePoints(firmShare, 1),
+                    })}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    3. Supplier Surplus (Cost - WTS) = {formatCurrency(cost)} - {formatCurrency(wts)} = {formatCurrency(supplierSurplus)} ({formatPercentagePoints(supplierShare, 1)})
+                    {t("audit.valueSupplier", undefined, {
+                      cost: formatCurrency(cost),
+                      wts: formatCurrency(wts),
+                      value: formatCurrency(supplierSurplus),
+                      share: formatPercentagePoints(supplierShare, 1),
+                    })}
                   </div>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">

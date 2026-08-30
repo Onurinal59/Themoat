@@ -253,7 +253,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   </span>
                 </div>
                 <span className="text-[11px] text-slate-500 dark:text-slate-400 hidden md:block -mt-0.5 font-medium truncate">
-                  Measuring the Moat & ROIC
+                  {t("audit.brandSubtitle")}
                 </span>
               </div>
             </button>
@@ -261,7 +261,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Center: Clean 4-Task Main Nav (Desktop) */}
             <nav
               id="desktop-primary-nav"
-              aria-label="Primary Navigation"
+              aria-label={t("audit.primaryNav")}
               className="hidden lg:flex items-center bg-slate-100/90 dark:bg-slate-900/90 p-1 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-2xs backdrop-blur-md"
             >
               {PRIMARY_NAV_ITEMS.map((item) => {
@@ -417,7 +417,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <div
                 id="user-learning-streak-badge"
                 className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-900 dark:text-amber-300 text-xs font-black shadow-2xs select-none min-h-[38px] shrink-0 whitespace-nowrap"
-                title={isEnglish ? `${userState.currentStreak || 0} day learning streak` : `${userState.currentStreak || 0} günlük aktif öğrenme serisi`}
+                title={t("audit.dayStreakTitle", undefined, { count: userState.currentStreak || 0 })}
               >
                 <Flame className={`w-4 h-4 text-amber-500 shrink-0 ${userState.currentStreak > 0 ? "fill-amber-500 animate-pulse" : "fill-none opacity-50"}`} />
                 <span>
@@ -425,7 +425,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     ? (t("Navbar.start_your_streak_648"))
                     : userState.currentStreak === 1
                     ? (t("Navbar.day_1_streak_649"))
-                    : (isEnglish ? `${userState.currentStreak}-day streak` : `${userState.currentStreak} günlük seri`)}
+                    : t("audit.dayStreak", undefined, { count: userState.currentStreak })}
                 </span>
               </div>
 
@@ -498,7 +498,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                             ? (t("Navbar.start_your_streak_655"))
                             : userState.currentStreak === 1
                             ? (t("Navbar.day_1_streak_656"))
-                            : (isEnglish ? `${userState.currentStreak}-day streak` : `${userState.currentStreak} günlük seri`)}
+                            : t("audit.dayStreak", undefined, { count: userState.currentStreak })}
                         </span>
                       </div>
 
@@ -661,7 +661,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 id="btn-mobile-menu-toggle"
                 onClick={() => setIsMobileDrawerOpen(!isMobileDrawerOpen)}
-                aria-label="Toggle Mobile Menu"
+                aria-label={t("audit.toggleMobileMenu")}
                 className="lg:hidden min-h-[44px] min-w-[44px] flex items-center justify-center p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-800 cursor-pointer shrink-0"
               >
                 {isMobileDrawerOpen ? (
@@ -686,7 +686,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="lg:hidden border-t border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl px-4 py-4 space-y-4"
             >
               {/* Primary Nav Links */}
-              <nav aria-label="Mobile Primary Navigation" className="space-y-1">
+              <nav aria-label={t("audit.mobilePrimaryNav")} className="space-y-1">
                 <div className="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500 px-2">
                   {t("Navbar.main_navigation_670")}
                 </div>

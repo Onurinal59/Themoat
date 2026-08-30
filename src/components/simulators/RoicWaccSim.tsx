@@ -251,7 +251,7 @@ export const RoicWaccSim: React.FC = () => {
                 {t("RoicWaccSim.core_levers_1285")}
               </h3>
             </div>
-            <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">{isEnglish ? "Live Sync" : "Canlı Eşzamanlama"}</span>
+            <span className="text-[11px] text-slate-500 dark:text-slate-400 font-mono">{t("audit.liveSync")}</span>
           </div>
 
           {/* Slider 1: Invested Capital */}
@@ -302,7 +302,7 @@ export const RoicWaccSim: React.FC = () => {
               value={investedCapital}
               aria-labelledby="roic-slider-invested-capital-label"
               aria-describedby="roic-slider-invested-capital-desc"
-              aria-valuetext={`$${investedCapital.toLocaleString()} million`}
+              aria-valuetext={formatUsdFromMillions(investedCapital, 0)}
               onChange={(e) => setInvestedCapital(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
             />
@@ -361,7 +361,7 @@ export const RoicWaccSim: React.FC = () => {
               value={nopat}
               aria-labelledby="roic-slider-nopat-label"
               aria-describedby="roic-slider-nopat-desc"
-              aria-valuetext={`$${nopat.toLocaleString()} million`}
+              aria-valuetext={formatUsdFromMillions(nopat, 0)}
               onChange={(e) => setNopat(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
             />
@@ -420,7 +420,7 @@ export const RoicWaccSim: React.FC = () => {
               value={wacc}
               aria-labelledby="roic-slider-wacc-label"
               aria-describedby="roic-slider-wacc-desc"
-              aria-valuetext={`${wacc.toFixed(1)} percent`}
+              aria-valuetext={formatPercentagePoints(wacc, 1)}
               onChange={(e) => setWacc(Number(e.target.value))}
               className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-indigo-600"
             />

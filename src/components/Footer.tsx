@@ -40,7 +40,7 @@ export const Footer: React.FC<FooterProps> = ({
             <div className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
               <span className="flex h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="font-semibold text-slate-900 dark:text-slate-100">
-                Measuring the Moat (Michael J. Mauboussin)
+                {t("audit.footerBrand")}
               </span>
               <span className="hidden md:inline text-slate-400 dark:text-slate-500">•</span>
               <span className="hidden md:inline text-slate-500 dark:text-slate-400">
@@ -116,7 +116,7 @@ export const Footer: React.FC<FooterProps> = ({
                   href="https://www.linkedin.com/in/onurınal"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Onur İnal LinkedIn Profile"
+                  aria-label={t("audit.linkedinAria")}
                   className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold bg-[#0A66C2] hover:bg-[#004182] text-white shadow-xs hover:shadow-md transition-all cursor-pointer group min-h-[44px]"
                 >
                   <Linkedin className="w-3.5 h-3.5 fill-current" />
@@ -259,4 +259,3 @@ export const Footer: React.FC<FooterProps> = ({
     </footer>
   );
 };
-

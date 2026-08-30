@@ -643,13 +643,21 @@ export const DickinsonLifecycleSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
                 <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
                   <div className="font-bold">
-                    Pattern: CFO [{operatingSign}] | CFI [{investingSign}] | CFF [{financingSign}] → {isEnglish ? currentStage.stage : currentStage.stageTr}
+                    {t("audit.dickinsonPattern", undefined, {
+                      cfo: operatingSign,
+                      cfi: investingSign,
+                      cff: financingSign,
+                      stage: isEnglish ? currentStage.stage : currentStage.stageTr,
+                    })}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    Empirical Sample: {currentStage.distributionShare}% of US Non-Financial Public Equities (Dickinson, The Accounting Review 2011)
+                    {t("audit.dickinsonEmpirical", undefined, { share: currentStage.distributionShare })}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
-                    Average Stage ROIC: %{currentStage.avgRoic.toFixed(1)} (Spread: {currentStage.roicSpread})
+                    {t("audit.dickinsonAverage", undefined, {
+                      roic: currentStage.avgRoic.toFixed(1),
+                      spread: currentStage.roicSpread,
+                    })}
                   </div>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-2 border-t border-indigo-200/50 dark:border-indigo-800/50">

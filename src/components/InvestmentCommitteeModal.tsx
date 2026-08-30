@@ -176,7 +176,7 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
 
               <button
                 onClick={onClose}
-                aria-label={isEnglish ? "Close investment committee" : "Yatırım komitesini kapat"}
+                aria-label={t("audit.closeCommittee")}
                 className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer border border-slate-200 dark:border-transparent"
               >
                 <X className="w-5 h-5" />
@@ -258,7 +258,7 @@ export const InvestmentCommitteeModal: React.FC<InvestmentCommitteeModalProps> =
               )}
               {evaluationError && <p role="alert" className="text-xs text-rose-600 dark:text-rose-400">{evaluationError}</p>}
               <p className="text-[10px] text-slate-500 dark:text-slate-400">
-                {isEnglish ? "Your defense text is sent to Cloudflare Workers AI for evaluation. Do not include confidential information." : "Savunma metniniz değerlendirme için Cloudflare Workers AI'a gönderilir. Gizli bilgi eklemeyin."}
+                {t("audit.committeePrivacy")}
               </p>
             </div>
 

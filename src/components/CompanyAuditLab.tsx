@@ -258,7 +258,7 @@ export function CompanyAuditLab({ onOpenAICoachWithPrompt, onOpenGlossary }: Com
     const cloned: CompanyAuditDossier = {
       ...dossier,
       id: newId,
-      companyName: isEnglish ? `${dossier.companyName} (Copy)` : `${dossier.companyName} (Kopya)`,
+      companyName: t("audit.companyCopy", undefined, { company: dossier.companyName }),
       isCustom: true,
       createdAt: toLocalDateKey(),
       updatedAt: toLocalDateKey(),
@@ -409,7 +409,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
             }`}
           >
             <FolderKanban className="w-4 h-4" />
-            <span>📁 {isEnglish ? `My Workspaces (${dossiers.length})` : `Çalışmalarım (${dossiers.length})`}</span>
+            <span>📁 {t("audit.myWorkspaces", undefined, { count: dossiers.length })}</span>
           </button>
 
           <button
@@ -432,9 +432,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
             <span className="font-mono text-[11px]">
               {saveFlash
                 ? (t("CompanyAuditLab.saving_37"))
-                : isEnglish
-                ? `Auto-saved: ${lastSavedTime}`
-                : `Otomatik kaydedildi: ${lastSavedTime}`}
+                : t("audit.autoSaved", undefined, { time: lastSavedTime })}
             </span>
           </div>
 
@@ -1522,7 +1520,7 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 >
                   <Trash2 className="w-3.5 h-3.5" /> {t("CompanyAuditLab.delete_this_study_158")}
                 </button>
-                <span className="text-[11px] text-slate-400">{isEnglish ? `Last Updated: ${currentDossier.updatedAt}` : `Son Güncelleme: ${currentDossier.updatedAt}`}</span>
+                <span className="text-[11px] text-slate-400">{t("audit.lastUpdated", undefined, { date: currentDossier.updatedAt })}</span>
               </div>
             </motion.div>
           )}
@@ -1588,7 +1586,13 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
                 </div>
               </div>
               <p className="text-[11px] text-slate-500 dark:text-slate-400 italic">
-                {finCalc.isRoicMeaningful ? `ROIC = %${finCalc.nopatMarginPercent} × ${finCalc.capitalTurnover}x = %${finCalc.roicPercent}` : (isEnglish ? "ROIC is not meaningful when invested capital is zero or negative." : "Yatırılan sermaye sıfır veya negatifken ROIC anlamlı değildir.")}
+                {finCalc.isRoicMeaningful
+                  ? t("audit.roicFormula", undefined, {
+                      margin: finCalc.nopatMarginPercent,
+                      turnover: finCalc.capitalTurnover,
+                      roic: finCalc.roicPercent,
+                    })
+                  : t("audit.roicMeaningless")}
               </p>
             </div>
 

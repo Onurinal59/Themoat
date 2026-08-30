@@ -10,7 +10,7 @@ interface TermBadgeProps {
 
 export const TermBadge: React.FC<TermBadgeProps> = ({ termId, label, onOpenFullGlossary }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const { isEnglish, getGlossaryTerms } = useLanguage();
+  const { getGlossaryTerms, t } = useLanguage();
   const termData = getGlossaryTerms().find((term) => term.id === termId);
 
   if (!termData) {
@@ -25,7 +25,7 @@ export const TermBadge: React.FC<TermBadgeProps> = ({ termId, label, onOpenFullG
           setIsOpen(!isOpen);
         }}
         className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 hover:text-indigo-900 dark:hover:text-indigo-100 border border-indigo-200 dark:border-indigo-800 text-xs font-semibold transition-all cursor-pointer"
-        title={isEnglish ? "Lifeline: See a plain-language explanation and analogy" : "Can Simidi: Sade Açıklama ve Analojiyi Gör"}
+        title={t("audit.infoTitle")}
       >
         <span>{label || termData.term}</span>
         <HelpCircle className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
@@ -39,13 +39,13 @@ export const TermBadge: React.FC<TermBadgeProps> = ({ termId, label, onOpenFullG
           <div className="flex items-start justify-between gap-2 pb-2 border-b border-slate-200 dark:border-slate-800">
             <div>
               <span className="text-[10px] uppercase font-bold text-indigo-700 dark:text-indigo-300 bg-indigo-50 dark:bg-indigo-950/60 px-2 py-0.5 rounded border border-indigo-100 dark:border-indigo-900/50">
-                {isEnglish ? "Zero-Knowledge Lifeline" : "Sıfır Bilgi Can Simidi"}
+                {t("audit.infoBadge")}
               </span>
               <div className="font-bold text-sm text-slate-900 dark:text-slate-100 mt-1">{termData.term}</div>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              aria-label={isEnglish ? "Close information card" : "Bilgi kartını kapat"}
+              aria-label={t("audit.infoClose")}
               className="text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
             >
               <X className="w-4 h-4" />
@@ -57,7 +57,7 @@ export const TermBadge: React.FC<TermBadgeProps> = ({ termId, label, onOpenFullG
           </div>
 
           <div className="mt-3 p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/50 text-[11px] text-amber-900 dark:text-amber-200 leading-relaxed">
-            <strong>{isEnglish ? "💡 Everyday example:" : "💡 Günlük Hayat Örneği:"}</strong> {termData.realWorldAnalogy}
+            <strong>{t("audit.everydayExample")}</strong> {termData.realWorldAnalogy}
           </div>
 
           {onOpenFullGlossary && (
@@ -68,7 +68,7 @@ export const TermBadge: React.FC<TermBadgeProps> = ({ termId, label, onOpenFullG
               }}
               className="mt-3 w-full py-1.5 px-3 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer border border-slate-200 dark:border-slate-700"
             >
-              <BookOpen className="w-3.5 h-3.5" /> {isEnglish ? "Explore in glossary" : "Sözlükte Detaylı İncele"}
+              <BookOpen className="w-3.5 h-3.5" /> {t("audit.exploreGlossary")}
             </button>
           )}
         </div>
