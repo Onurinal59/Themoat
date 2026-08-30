@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Flashcard, UserLearningState } from "../types";
-import { calculateSM2, saveUserLearningState, getDueFlashcards, getNewFlashcards } from "../utils/spacedRepetition";
+import { calculateSM2, saveUserLearningState, getDueFlashcards, getNewFlashcards, mergeFlashcardProgress } from "../utils/spacedRepetition";
 import {
   RotateCcw,
   Sparkles,
@@ -57,9 +57,9 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
   }, [initialFilter, targetedCardIds]);
 
   // Cards array based on userState or fallback
-  const cardsList = baseFlashcards.map((initCard) => {
-    return userState.flashcardStates[initCard.id] || initCard;
-  });
+  const cardsList = baseFlashcards.map((initCard) =>
+    mergeFlashcardProgress(initCard, userState.flashcardStates[initCard.id])
+  );
 
   const dueCards = getDueFlashcards(userState, baseFlashcards);
   const newCards = getNewFlashcards(userState, baseFlashcards);
@@ -441,4 +441,3 @@ export const SpacedRepetitionView: React.FC<SpacedRepetitionViewProps> = ({
     </motion.div>
   );
 };
-

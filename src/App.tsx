@@ -8,7 +8,6 @@ import {
   checkAndUpdateStreak,
 } from "./utils/spacedRepetition";
 import { Navbar, NavTab } from "./components/Navbar";
-import { INITIAL_PRESET_DOSSIERS } from "./data/companyAuditData";
 import { FloatingGuideWidget } from "./components/FloatingGuideWidget";
 import { Footer } from "./components/Footer";
 import { GlobalClickEffect } from "./components/GlobalClickEffect";
@@ -46,7 +45,7 @@ function readLocationState(): { tab: NavTab; moduleId: number | null; sim?: SimT
 }
 
 export default function App() {
-  const { t, formatPercent, formatCurrency , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears } = useLanguage();
+  const { t, formatPercent, formatCurrency , formatPercentagePoints, formatUsdFromMillions, formatUsdFromBillions, formatMultiplier, formatDurationYears, getInitialDossiers } = useLanguage();
   const { getModules, isEnglish } = useLanguage();
   const currentModules = getModules();
 
@@ -88,12 +87,45 @@ export default function App() {
       const saved = localStorage.getItem("moat_dossiers");
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const localizedPresets = new Map(getInitialDossiers().map((dossier) => [dossier.id, dossier]));
+          return parsed.map((dossier) => {
+            const localized = localizedPresets.get(dossier.id);
+            if (!localized || dossier.isCustom) return dossier;
+
+            return {
+              ...dossier,
+              companyName: localized.companyName,
+              industry: localized.industry,
+              description: localized.description,
+              notes:
+                dossier.notes === "" ||
+                dossier.notes === "Premier modern example of software-backed high switching costs combined with ecosystem network effects." ||
+                dossier.notes.includes("Michael Mauboussin")
+                  ? localized.notes
+                  : dossier.notes,
+              industryStructure: {
+                ...dossier.industryStructure,
+                profitPoolPosition: localized.industryStructure.profitPoolPosition,
+              },
+              competitiveAdvantage: {
+                ...dossier.competitiveAdvantage,
+                pricingPowerEvidence: localized.competitiveAdvantage.pricingPowerEvidence,
+                costAdvantageEvidence: localized.competitiveAdvantage.costAdvantageEvidence,
+              },
+              sustainability: {
+                ...dossier.sustainability,
+                keyVulnerability: localized.sustainability.keyVulnerability,
+              },
+              tags: localized.tags,
+            };
+          });
+        }
       }
     } catch (e) {
       // ignore
     }
-    return INITIAL_PRESET_DOSSIERS;
+    return getInitialDossiers();
   };
 
   const initialLocation = readLocationState();
@@ -331,7 +363,7 @@ export default function App() {
 
       {/* Main Content Area */}
       <main id="main-content" tabIndex={-1} className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 pt-4 sm:pt-8 pb-28 sm:pb-12 focus:outline-none">
-        <React.Suspense fallback={<div className="flex h-64 items-center justify-center text-slate-500 font-medium">Yükleniyor...</div>}>
+        <React.Suspense fallback={<div className="flex h-64 items-center justify-center text-slate-500 font-medium">{t("App.loading")}</div>}>
           <AnimatePresence mode="wait">
             {activeModule ? (
               <motion.div

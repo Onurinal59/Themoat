@@ -131,11 +131,11 @@ export const CashConversionSim: React.FC = () => {
               {t("CashConversionSim.step_5_interactive_t_818")}
             </span>
             <span className="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
-              {t("CashConversionSim.cash_conversion_cycl_819")}
+              {t("CashConversionSim.cash_conversion_cycl_819", undefined, { dio, dso, dpo })}
             </span>
           </div>
           <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 dark:text-slate-100 tracking-tight">
-            {t("CashConversionSim.cash_conversion_cycl_820")}
+            {t("CashConversionSim.cash_conversion_cycl_820", undefined, { dio, dso, dpo })}
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">
             {t("CashConversionSim.ccc_dio_days_invento_821")}
@@ -426,7 +426,7 @@ export const CashConversionSim: React.FC = () => {
               <div className="p-4 rounded-2xl bg-indigo-50/60 dark:bg-indigo-950/30 border border-indigo-100 dark:border-indigo-900/40 space-y-2">
                 <div className="font-mono text-xs text-indigo-900 dark:text-indigo-200 space-y-1">
                   <div className="font-bold">
-                    CCC = DIO ({dio} gün) + DSO ({dso} gün) - DPO ({dpo} gün) = {ccc} gün
+                    {t("CashConversionSim.calculationFormula", undefined, { dio, dso, dpo, ccc })}
                   </div>
                   <div className="text-slate-600 dark:text-slate-300">
                     {isNegative

@@ -541,8 +541,8 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                       </div>
                       <div className="text-xs text-emerald-200/90 max-w-sm leading-relaxed text-right sm:text-left">
                         {isEnglish
-                          ? `NOPAT = {formatUsdFromMillions(calculatedNopat)} | Invested Capital = {formatUsdFromMillions(totalInvestedCapital)}. The firm generates \$${calculatedRoic.toFixed(1)} pure cash return per $100 capital deployed.`
-                          : `NOPAT = {formatUsdFromMillions(calculatedNopat)} TL | Yatırılan Sermaye = ${totalInvestedCapital}M TL. Şirket bağladığı her 100 TL sermaye ile yılda ${calculatedRoic.toFixed(1)} TL saf nakit getiri üretmektedir.`}
+                          ? `NOPAT = ${formatUsdFromMillions(calculatedNopat)} | Invested Capital = ${formatUsdFromMillions(totalInvestedCapital)}. The firm generates $${calculatedRoic.toFixed(1)} pure cash return per $100 capital deployed.`
+                          : `NOPAT = ${formatUsdFromMillions(calculatedNopat)} TL | Yatırılan Sermaye = ${totalInvestedCapital}M TL. Şirket bağladığı her 100 TL sermaye ile yılda ${calculatedRoic.toFixed(1)} TL saf nakit getiri üretmektedir.`}
                       </div>
                     </div>
                   </div>
@@ -806,7 +806,7 @@ export const FormulaDeepDiveModal: React.FC<FormulaDeepDiveModalProps> = ({
                     <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-950 to-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
                       <div>
                         <div className="text-xs text-purple-300 font-bold uppercase tracking-wider">
-                          {t("FormulaDeepDiveModal.cash_conversion_cycl_272")}
+                          {t("FormulaDeepDiveModal.cash_conversion_cycl_272", undefined, { dio: cccDio, dso: cccDso, dpo: cccDpo })}
                         </div>
                         <div className={`text-2xl sm:text-3xl font-black mt-0.5 ${calculatedCcc < 0 ? "text-emerald-400" : "text-amber-300"}`}>
                           {calculatedCcc} {t("FormulaDeepDiveModal.days_273")} {calculatedCcc < 0 ? (t("FormulaDeepDiveModal.negative_supplier_f_274")) : (t("FormulaDeepDiveModal.positive_275"))}

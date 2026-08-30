@@ -188,7 +188,7 @@ export const SimulationsView: React.FC<SimulationsViewProps> = ({
           transition={{ duration: 0.2, ease: "easeOut" }}
           className="w-full"
         >
-        <React.Suspense fallback={<div className="h-64 flex items-center justify-center text-slate-500 font-medium">Yükleniyor...</div>}>
+        <React.Suspense fallback={<div className="h-64 flex items-center justify-center text-slate-500 font-medium">{t("App.loading")}</div>}>
           {activeSim === "roic-wacc" && <RoicWaccSim isEnglish={isEnglish} />}
           {activeSim === "cap-fade" && <CapFadeRateSim />}
           {activeSim === "reinvestment-runway" && <ReinvestmentRunwaySim />}

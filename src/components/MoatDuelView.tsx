@@ -290,7 +290,7 @@ ${
                 <span className="text-xs text-slate-400 font-normal">/100</span>
               </div>
               <span className="text-[10px] font-bold text-slate-500 uppercase">
-                {score1.diagnosedMoat}
+                {translateMoatWidth(score1.diagnosedMoat, isEnglish)}
               </span>
             </div>
           </div>
@@ -387,7 +387,7 @@ ${
                 <span className="text-xs text-slate-400 font-normal">/100</span>
               </div>
               <span className="text-[10px] font-bold text-slate-500 uppercase">
-                {score2.diagnosedMoat}
+                {translateMoatWidth(score2.diagnosedMoat, isEnglish)}
               </span>
             </div>
           </div>

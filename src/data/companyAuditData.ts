@@ -1,4 +1,5 @@
 import { CompanyAuditDossier, FinancialMetricInputs } from "../types";
+import { MAUBOUSSIN_GUIDED_TEMPLATE_EN } from "./companyAuditDataEn";
 
 export interface BalanceSheetGuideItem {
   id: string;
@@ -572,7 +573,7 @@ export const INITIAL_PRESET_DOSSIERS_TR: CompanyAuditDossier[] = [
 ];
 
 export const INITIAL_PRESET_DOSSIERS_EN: CompanyAuditDossier[] = [
-  MAUBOUSSIN_GUIDED_TEMPLATE,
+  MAUBOUSSIN_GUIDED_TEMPLATE_EN,
   {
     id: "bim-dossier",
     companyName: "BIM Stores (Hard-Discount)",

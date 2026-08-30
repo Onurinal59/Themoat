@@ -1664,11 +1664,11 @@ Bu şirketin hendek genişliği, sermaye tahsisi ve uzun vadeli rekabet riski ha
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                     <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/70">
-                      <strong className="text-indigo-600 dark:text-indigo-400 block mb-0.5">🇹🇷 KAP / BIST'te Nerede?</strong>
+                      <strong className="text-indigo-600 dark:text-indigo-400 block mb-0.5">🇹🇷 {t("CompanyAuditLab.kap_where")}</strong>
                       <span className="text-slate-600 dark:text-slate-300">{guide.whereToFindTr}</span>
                     </div>
                     <div className="p-2.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700/70">
-                      <strong className="text-indigo-600 dark:text-indigo-400 block mb-0.5">🇺🇸 SEC 10-K / US'te Nerede?</strong>
+                      <strong className="text-indigo-600 dark:text-indigo-400 block mb-0.5">🇺🇸 {t("CompanyAuditLab.sec_where")}</strong>
                       <span className="text-slate-600 dark:text-slate-300">{guide.whereToFindUs}</span>
                     </div>
                   </div>
