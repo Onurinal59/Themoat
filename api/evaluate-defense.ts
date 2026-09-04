@@ -1,5 +1,5 @@
-import { AiServiceError, runCloudflareAi } from "../lib/server/cloudflare-ai";
-import { enforceApiSecurity } from "../lib/server/request-security";
+import { AiServiceError, runCloudflareAi } from "../lib/server/cloudflare-ai.js";
+import { enforceApiSecurity } from "../lib/server/request-security.js";
 
 type Evaluation = { defenseScore: number; verdict: "approved" | "conditional" | "revise"; feedback: string; strengths: string[]; gaps: string[] };
 
