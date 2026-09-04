@@ -45,7 +45,7 @@ Write feedback, strengths and gaps in ${outputLanguage}. Never give buy/sell adv
     const raw = await runCloudflareAi([
       { role: "system", content: system },
       { role: "user", content: JSON.stringify({ company: company.slice(0, 120), financialSummary, moatDrivers, responses: cleanResponses }) },
-    ], { maxTokens: 700, temperature: 0.2 });
+    ], { maxTokens: 1_200, temperature: 0.2 });
     const evaluation = parseEvaluation(raw);
     if (!evaluation) return res.status(502).json({ error: "Committee evaluation returned an invalid format." });
     return res.status(200).json(evaluation);

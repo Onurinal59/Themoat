@@ -19,8 +19,23 @@ function stripReasoningTags(text: string): string {
     .trim();
 }
 
+export type ChatMessage = { role: "system" | "user"; content: string };
+
+/**
+ * Qwen3 spends its token budget on reasoning before it writes a single word of
+ * the answer, which truncates coach replies mid-sentence and leaves
+ * evaluate-defense with no JSON at all. "/no_think" is Qwen3's documented soft
+ * switch for turning that scratchpad off; stripReasoningTags stays as the
+ * belt-and-braces fallback for when the model ignores it.
+ */
+function withoutThinking(messages: ChatMessage[]): ChatMessage[] {
+  return messages.map((message) =>
+    message.role === "system" ? { ...message, content: `${message.content}\n/no_think` } : message,
+  );
+}
+
 export async function runCloudflareAi(
-  messages: Array<{ role: "system" | "user"; content: string }>,
+  messages: ChatMessage[],
   options: { maxTokens?: number; temperature?: number } = {},
 ): Promise<string> {
   const accountId = process.env.CLOUDFLARE_ACCOUNT_ID;
@@ -34,8 +49,8 @@ export async function runCloudflareAi(
       method: "POST",
       headers: { Authorization: `Bearer ${apiToken}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        messages,
-        max_tokens: options.maxTokens ?? 900,
+        messages: withoutThinking(messages),
+        max_tokens: options.maxTokens ?? 1_400,
         temperature: options.temperature ?? 0.35,
         top_p: 0.9,
       }),
