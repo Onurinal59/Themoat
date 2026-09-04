@@ -1,5 +1,5 @@
-import { AiServiceError, CLOUDFLARE_AI_MODEL, runCloudflareAi } from "../lib/server/cloudflare-ai";
-import { enforceApiSecurity } from "../lib/server/request-security";
+import { AiServiceError, CLOUDFLARE_AI_MODEL, runCloudflareAi } from "../lib/server/cloudflare-ai.js";
+import { enforceApiSecurity } from "../lib/server/request-security.js";
 
 const SYSTEM_PROMPT = `You are the Socratic AI Coach of Economic Moat Academy.
 Teach Michael Mauboussin and Dan Callahan's economic moat framework accurately and pedagogically.

@@ -6,6 +6,19 @@ export class AiServiceError extends Error {
   }
 }
 
+/**
+ * Qwen3 is a reasoning model: it can wrap its scratchpad in <think>...</think>
+ * (and may leave the block unclosed when the token budget runs out). None of
+ * that should reach the student, or the JSON parser in evaluate-defense.
+ */
+function stripReasoningTags(text: string): string {
+  return text
+    .replace(/<think>[\s\S]*?<\/think>/gi, "")
+    .replace(/<think>[\s\S]*$/i, "")
+    .replace(/<\/?think>/gi, "")
+    .trim();
+}
+
 export async function runCloudflareAi(
   messages: Array<{ role: "system" | "user"; content: string }>,
   options: { maxTokens?: number; temperature?: number } = {},
@@ -38,7 +51,9 @@ export async function runCloudflareAi(
     }
     const reply = data?.result?.response ?? data?.result?.choices?.[0]?.message?.content;
     if (typeof reply !== "string" || !reply.trim()) throw new AiServiceError("AI returned an empty response.", 502);
-    return reply.trim();
+    const cleaned = stripReasoningTags(reply);
+    if (!cleaned) throw new AiServiceError("AI returned an empty response.", 502);
+    return cleaned;
   } catch (error: any) {
     if (error instanceof AiServiceError) throw error;
     const timedOut = error?.name === "AbortError";
